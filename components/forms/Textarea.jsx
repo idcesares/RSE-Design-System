@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function Textarea({ label, placeholder, value, onChange, rows = 4, hint, error, maxLength, required, disabled, id }) {
   const [focused, setFocused] = React.useState(false);

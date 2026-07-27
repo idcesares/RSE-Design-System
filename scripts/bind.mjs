@@ -116,10 +116,31 @@ disagree, the repo wins.
 | Something inside a site that has its own styles | \`_ds/tokens/tokens-only.css\` (+ \`tokens/base-runtime.css\` if you use the components) |
 | Static HTML with components | the above, plus \`_ds/_ds_bundle.js\` → \`window.${brand.namespace}\` |
 | React | \`import { Button } from './_ds/index.js'\` — never from a component file directly |
+| Next.js (App Router) | the same import, plus the two rules below |
 | A poster, a social post, a PDF, anything not a browser | read \`_ds/brand.json\` |
 
 \`assets/\` must stay a sibling of \`tokens/\`: \`tokens/fonts.css\` reaches for \`../assets/fonts/\` and
 falls back silently to a system font if that layout breaks.
+
+**Next.js.** The components that use hooks carry their own \`'use client'\`, so importing them into
+a Server Component works. Two rules are yours: global CSS (\`_ds/styles.css\`) may only be imported
+from \`app/layout.tsx\` — Next rejects it anywhere else — and passing an event handler down, as in
+\`<Button onClick={handler}>\`, needs \`'use client'\` at the top of *your* component, because
+functions cannot cross the boundary. Avoid \`next/font\`: it fetches Montserrat from Google instead
+of the vendored file in \`_ds/assets/fonts/\` that \`tokens/fonts.css\` already declares.
+
+## Not a browser?
+
+\`brand.json\` is all you need — no CSS, no JavaScript, no npm. A complete worked example lives in
+the design system repo at \`docs/examples/social_post.py\`: a 1080×1080 social post rendered with
+the **Python standard library and nothing else**, embedding the font and wordmark as data URIs so
+the output SVG is self-contained.
+
+It does **not** travel with a bind — the repo's \`docs/\` never does — so copy it across from there
+if you want a starting point. Worth reading even if your target is not Python: it asks
+\`brand.json\` for the clearspace and minimum-size rules instead of hard-coding them, which is the
+pattern to copy. For print, read \`cmyk\` rather than \`hex\`; the two are not round-trips of each
+other.
 `;
 }
 

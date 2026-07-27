@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function DateField({ label, value, onChange, min, max, hint, error, required, disabled, id, deadline }) {
   const [focused, setFocused] = React.useState(false);

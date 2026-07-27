@@ -28,8 +28,16 @@ const manifest = JSON.parse(readFileSync(join(ROOT, '_ds_manifest.json'), 'utf8'
 const hasJsx = (src) =>
   src.split('\n').some((l) => /^\s*(return\s*\(|<[A-Z])/.test(l) && /<[A-Za-z][\w.]*[\s/>]/.test(l));
 
+// Components that use hooks carry a 'use client' directive so they work in a React Server
+// Components host (Next.js App Router). It must sit above the imports to count as a directive,
+// so it is stripped before the React import — the bundle runs the body inside an IIFE where a
+// bare `import` is a syntax error and the directive itself is meaningless.
 const toBundleForm = (src) =>
-  src.replace(/^import React from 'react';\n/, '').replace(/^export (function|const) /gm, '$1 ').trimEnd();
+  src
+    .replace(/^(['"])use client\1;?\r?\n/, '')
+    .replace(/^import React from 'react';\n/, '')
+    .replace(/^export (function|const) /gm, '$1 ')
+    .trimEnd();
 
 const stale = [];
 for (const c of manifest.components) {

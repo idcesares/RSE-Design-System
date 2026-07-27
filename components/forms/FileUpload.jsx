@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function FileUpload({ label, hint, accept, multiple = false, files = [], onFilesChange, error, maxSizeLabel }) {
   const [dragging, setDragging] = React.useState(false);

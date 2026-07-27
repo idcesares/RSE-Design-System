@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function Tabs({ tabs = [], activeId, onChange, label = 'Seções' }) {
   const refs = React.useRef({});

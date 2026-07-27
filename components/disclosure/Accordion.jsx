@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function Accordion({ items = [], allowMultiple = false, defaultOpen = [] }) {
   const [open, setOpen] = React.useState(() => new Set(defaultOpen));

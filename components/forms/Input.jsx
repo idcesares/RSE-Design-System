@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function Input({ label, placeholder, value, onChange, error, helpText, disabled, type = 'text' }) {
   const [focused, setFocused] = React.useState(false);

@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function Menu({ label, items = [], align = 'left', width = 260, trigger = 'button', open: openProp, onOpenChange }) {
   const [uncontrolled, setUncontrolled] = React.useState(false);
