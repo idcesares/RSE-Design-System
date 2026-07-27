@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Cartaz A3 — Rede Sesc de Educação</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  /* A3 portrait, 297 × 420 mm. For A4 change --page-w/--page-h to 210mm/297mm and
+     scale the type block by ~0.71. Print at 100% with background graphics on. */
+  :root{--page-w:297mm;--page-h:420mm;--margin:22mm}
+
+  html,body{background:var(--gray-200)}
+  .sheet{
+    width:var(--page-w);height:var(--page-h);margin:24px auto;box-sizing:border-box;
+    background:var(--color-cream);color:var(--color-ink);
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:var(--margin);box-shadow:var(--shadow-lg);overflow:hidden;position:relative;
+  }
+
+  /* Flat colour field — the brand has no gradients or textures. */
+  .band{background:var(--color-purple-dark);color:var(--color-white);
+        margin:0 calc(var(--margin) * -1);padding:14mm var(--margin)}
+
+  .eyebrow{font-size:5mm;font-weight:700;letter-spacing:var(--letter-spacing-eyebrow);
+           text-transform:uppercase;margin:0 0 6mm}
+  h1{font-size:26mm;line-height:1.02;letter-spacing:var(--letter-spacing-tight);
+     font-weight:var(--font-weight-black);margin:0;max-width:15ch}
+  .lead{font-size:7mm;line-height:1.5;max-width:38ch;margin:8mm 0 0;color:var(--gray-700)}
+  .meta{font-size:5mm;line-height:1.6;margin:0}
+  .meta strong{font-weight:var(--font-weight-extrabold)}
+  .logo{height:16mm;display:block}
+  .rule{height:1.2mm;background:var(--color-purple-dark);width:38mm;margin:10mm 0}
+
+  @page{size:A3 portrait;margin:0}
+  @media print{
+    html,body{background:var(--color-white)}
+    .sheet{margin:0;box-shadow:none;width:100%;height:100vh}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <header>
+    <img class="logo" src="../assets/logos/wordmark-purple.svg" alt="Rede Sesc de Educação">
+  </header>
+
+  <main>
+    <p class="eyebrow" style="color:var(--color-purple-dark)">Matrículas abertas</p>
+    <h1>Aprender para a vida acontecer</h1>
+    <div class="rule"></div>
+    <p class="lead">
+      Educação que acolhe, forma e transforma. Conheça os programas da Rede Sesc de Educação
+      na sua cidade.
+    </p>
+  </main>
+
+  <footer class="band">
+    <p class="meta">
+      <strong>Inscrições até 00/00</strong><br>
+      Unidade Exemplo · Rua Exemplo, 000 · (00) 0000-0000<br>
+      sesc.com.br/educacao
+    </p>
+  </footer>
+
+</div>
+
+<!--
+  Rules for print pieces:
+  · Flat colour only — cream field plus one purple band. No gradients, textures or photo bleeds.
+  · One uppercase element (the eyebrow); everything else sentence case.
+  · Poster type sizes are geometry (mm), not the screen --text-* scale.
+  · Logo: purple wordmark on cream, white wordmark on purple/ink. Never recolour or distort it.
+  · Every figure, address and date above is a placeholder — verify with Sesc before printing.
+-->
+
+</body>
+</html>

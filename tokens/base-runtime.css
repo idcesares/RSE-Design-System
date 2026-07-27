@@ -1,0 +1,27 @@
+/* Base — runtime half.
+   The minimum non-token CSS the components actually depend on. Every rule here is either
+   an accessibility guarantee or a hook a component references by name, so this file is
+   NOT optional: drop it and Spinner and Skeleton stop animating, Checkbox/Radio/Switch
+   lose their focus ring, and the focus-visible floor in AGENTS.md goes with them.
+
+   It deliberately contains no element selectors, so it is safe to load into a site that
+   already has its own base styles. The opinionated element styling lives next door in
+   base-reset.css. See docs/integration.md. */
+
+:root{color-scheme:light}
+
+/* Focus is always visible — AGENTS.md, accessibility floor. */
+:focus-visible{outline:var(--focus-ring-width) solid var(--focus-ring);outline-offset:var(--focus-ring-offset)}
+:focus:not(:focus-visible){outline:none}
+
+/* Native input behind a custom control (Checkbox, Radio, Switch): visually hidden but
+   still focusable and announced. Never use display:none here — it removes the control
+   from the tab order and from the accessibility tree. */
+.rede-control-input{position:absolute;width:1px;height:1px;opacity:0;margin:0;pointer-events:none}
+.rede-control-input:focus-visible+.rede-control-box{outline:var(--focus-ring-width) solid var(--focus-ring);outline-offset:var(--focus-ring-offset)}
+
+/* Referenced by Spinner and Skeleton. */
+@keyframes rede-spin{to{transform:rotate(360deg)}}
+@keyframes rede-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

@@ -1,0 +1,20 @@
+/* Base — reset half.
+   Opinionated global element styling: it restyles body, links, h1–h4, p and the selection
+   colour for the whole document. That is what makes a page built from starters/ or
+   templates/ look right with no work, and it is exactly what you do NOT want when adding
+   this system to a site that already has its own typography.
+
+   Loading this into an existing site will change the host's text and links. If that is not
+   what you want, load tokens/tokens-only.css + tokens/base-runtime.css instead of
+   styles.css and scope your own element styles. See docs/integration.md. */
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font-family-base);color:var(--text-body);background:var(--surface-page);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-wrap:pretty}
+a{color:var(--text-link);text-decoration:underline;text-underline-offset:2px}
+a:hover{color:var(--text-link-hover)}
+h1,h2,h3,h4{font-family:var(--font-family-base);color:var(--text-heading);margin:0;font-weight:var(--font-weight-extrabold);letter-spacing:var(--letter-spacing-tight);line-height:var(--line-height-heading);text-wrap:balance}
+p{margin:0;line-height:var(--line-height-body)}
+img,svg,video{max-width:100%}
+::selection{background:var(--color-purple-light);color:var(--color-ink)}
+@media print{body{background:#fff;color:#000}a{text-decoration:none;color:#000}}

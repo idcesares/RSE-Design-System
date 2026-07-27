@@ -1,0 +1,16 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+.env
+.env.*
+.vscode/
+.idea/
+
+# image-slot drop persistence, written next to the page that uses it
+.image-slots.state.json
+**/.image-slots.state.json
+
+# nothing here is built from source except _ds_bundle.js, which IS committed on
+# purpose: static pages load it directly and there is no build step in consumers.

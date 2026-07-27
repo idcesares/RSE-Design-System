@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Título da página — Rede Sesc de Educação</title>
+<link rel="icon" href="../assets/favicon.png">
+<link rel="stylesheet" href="../styles.css">
+<!-- React is required: components in _ds_bundle.js call React.createElement against the global.
+     Pinned with SRI, same versions the UI kit uses. In a real project, use your bundler
+     and import from index.js instead of these CDN tags. -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<!-- Every component, exposed on window.RedeSescDeEducaODesignSystem_2167ce -->
+<script src="../_ds_bundle.js"></script>
+<script src="../image-slot.js"></script>
+<style>
+  .container{max-width:var(--container-max);margin:0 auto;padding:0 var(--container-padding);box-sizing:border-box}
+  .section{padding:var(--section-y) 0}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script type="text/babel">
+const DS = window.RedeSescDeEducaODesignSystem_2167ce;
+const { Navbar, Card, Stat, Tag, Tabs, Accordion, Footer, Button, Icon, BrandMotif, PlatformEntry } = DS;
+
+// Anything the bundle failed to evaluate shows up here — check it while developing.
+if (DS.__errors?.length) console.error('design system load errors', DS.__errors);
+// Note: mount into #app, not #root — see starters/README.md.
+
+const NAV = [
+  { label: 'Programas', href: '#programas' },
+  { label: 'Unidades', href: '#unidades' },
+  { label: 'Matrículas', href: '#matriculas' },
+];
+
+const PROGRAMAS = [
+  { id: 'infantil', label: 'Educação Infantil', desc: 'Cuidar e educar juntos, com o brincar como método.', tag: 'green' },
+  { id: 'fundamental', label: 'Ensino Fundamental', desc: 'Base sólida em leitura, matemática e convivência.', tag: 'blue' },
+  { id: 'medio', label: 'Ensino Médio', desc: 'Formação integral com projeto de vida no centro.', tag: 'orange' },
+];
+
+function App() {
+  const [tab, setTab] = React.useState('infantil');
+  const atual = PROGRAMAS.find(p => p.id === tab);
+  return (
+    <React.Fragment>
+      <Navbar
+        logoSrc="../assets/logos/wordmark-purple.svg"
+        logoAlt="Rede Sesc de Educação"
+        links={NAV}
+        activeHref="#programas"
+        ctaLabel="Quero me inscrever"
+        ctaHref="#matriculas"
+      />
+
+      <main>
+        <section className="section">
+          <div className="container" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) auto', gap: 'var(--space-6)', alignItems: 'center' }}>
+            <div>
+            <p style={{ fontSize: 'var(--text-eyebrow)', fontWeight: 'var(--font-weight-bold)', letterSpacing: 'var(--letter-spacing-eyebrow)', textTransform: 'uppercase', color: 'var(--color-primary)', margin: 0 }}>
+              Rede Sesc de Educação
+            </p>
+            <h1 style={{ fontSize: 'var(--text-display-2)', maxWidth: '14ch', margin: 'var(--space-3) 0' }}>
+              Aprender para a vida acontecer
+            </h1>
+            <p style={{ fontSize: 'var(--text-body-lg)', color: 'var(--text-muted)', maxWidth: 'var(--container-prose)' }}>
+              Educação que acolhe, forma e transforma — em unidades por todo o Brasil.
+            </p>
+            <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-5)', flexWrap: 'wrap' }}>
+              <Button variant="primary" size="lg" icon={<Icon name="graduation-cap" size={22} />}>Quero me inscrever</Button>
+              <Button variant="ghost" size="lg" icon={<Icon name="arrow-right" size={22} />}>Conheça os programas</Button>
+            </div>
+            </div>
+            {/* Official motif: one construction per composition, in negative space. */}
+            <BrandMotif variant="interlock" size={220} />
+          </div>
+        </section>
+
+        {/* Figures are placeholders — verify against official Sesc data before publishing. */}
+        <section style={{ background: 'var(--color-primary)', padding: 'var(--section-y-sm) 0' }}>
+          <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 'var(--grid-gutter)' }}>
+            <Stat value="000" label="Unidades" accent="inverse" align="center" />
+            <Stat value="00 anos" label="De tradição" accent="inverse" align="center" />
+            <Stat value="000 mil" label="Estudantes" accent="inverse" align="center" />
+          </div>
+        </section>
+
+        <section className="section" id="programas">
+          <div className="container">
+            <Tabs
+              tabs={PROGRAMAS.map(p => ({ id: p.id, label: p.label, panelId: 'painel-programas' }))}
+              activeId={tab}
+              onChange={setTab}
+              label="Níveis de ensino"
+            />
+            <div id="painel-programas" role="tabpanel" aria-labelledby={'tab-' + tab} style={{ marginTop: 'var(--space-5)' }}>
+              <Card
+                tag={<Tag color={atual.tag}>{atual.label}</Tag>}
+                eyebrow="Programa"
+                title={atual.label}
+                description={atual.desc}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="matriculas">
+          <div className="container" style={{ maxWidth: 'var(--container-prose)' }}>
+            <h2 style={{ fontSize: 'var(--text-h2)', marginBottom: 'var(--space-5)' }}>Perguntas frequentes</h2>
+            <Accordion items={[
+              { title: 'Quem pode se inscrever?', content: 'Trabalhadores do comércio de bens, serviços e turismo, seus dependentes e a comunidade em geral, conforme as vagas de cada unidade.' },
+              { title: 'Quais documentos são necessários?', content: 'RG, CPF, comprovante de residência e, quando aplicável, a Credencial Sesc.' },
+            ]} />
+          </div>
+        </section>
+        {/* One click from here to the platform. Swap href for the real URL before shipping. */}
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <PlatformEntry
+              href="#"
+              logoSrc="../assets/logos/sabia-wordmark-cream.svg"
+              note="Acesso para estudantes, famílias e educadores da Rede."
+            />
+          </div>
+        </section>
+      </main>
+
+      <Footer
+        logoSrc="../assets/logos/wordmark-white.svg"
+        logoAlt="Rede Sesc de Educação"
+        tagline="Aprender para a vida acontecer."
+        columns={[{ title: 'Institucional', links: [{ label: 'Sobre a Rede', href: '#' }, { label: 'Unidades', href: '#unidades' }] }]}
+        note="Conteúdo de exemplo. Verifique todos os dados com o Sesc antes de publicar."
+      />
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+</script>
+</body>
+</html>

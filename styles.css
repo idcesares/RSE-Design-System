@@ -1,0 +1,8 @@
+/* The one stylesheet. Link this and a page looks like the Rede with no further work.
+   Order matters: tokens first, then the base layer that consumes them.
+
+   Adding this system to a site that already has its own base styles? Do not link this —
+   it restyles body, links and h1–h4. Link tokens/tokens-only.css (+ tokens/base-runtime.css
+   if you use the components) instead. See docs/integration.md. */
+@import url('tokens/tokens-only.css');
+@import url('tokens/base.css');

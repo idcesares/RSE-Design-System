@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Program detail page" description="Program/unit detail page: sticky header, hero with enrollment window, tabs of content, turmas table, FAQ accordion, unit info and CTA." -->
+<helmet><script src="./ds-base.js"></script></helmet>
+<div style="min-height:100vh;background:var(--surface-page);font-family:var(--font-family-base);color:var(--text-body)">
+<div style="background:var(--color-indigo);color:#fff;padding:10px 24px;text-align:center;font-size:14px;font-weight:600">Inscrições abertas para 2026 · consulte vagas na sua unidade</div>
+<header style="position:sticky;top:0;z-index:100;background:rgba(242,244,228,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-subtle)">
+<div style="max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:32px">
+<img src="../../assets/logos/wordmark-purple.svg" alt="Rede Sesc de Educação" style="height:44px;width:auto;object-fit:contain">
+<nav style="display:flex;align-items:center;gap:28px;font-size:15px;font-weight:600;color:var(--text-heading)">
+<a href="#programas" style="color:inherit;text-decoration:none">Programas</a>
+<a href="#turmas" style="color:inherit;text-decoration:none">Turmas</a>
+<a href="#duvidas" style="color:inherit;text-decoration:none">Dúvidas</a>
+<a href="#unidade" style="color:inherit;text-decoration:none">Unidade</a>
+</nav>
+<a href="#inscricao" style="display:inline-flex;align-items:center;min-height:44px;padding:12px 24px;border-radius:999px;background:var(--color-primary);color:#fff;font-size:15px;font-weight:600;text-decoration:none">Quero me inscrever</a>
+</div>
+</header>
+<section style="max-width:1200px;margin:0 auto;padding:64px 24px 48px;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<span style="background:#eef5e0;color:var(--color-green-dark);font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px">Ensino Médio</span>
+<span style="background:#eef5e0;color:var(--color-green-dark);font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px">Vagas abertas</span>
+</div>
+<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted)">Rede Sesc de Educação</p>
+<h1 style="margin:0;font-size:clamp(2.25rem,3.4vw,3.5rem);line-height:1.1;font-weight:800;letter-spacing:-0.02em;color:var(--text-heading)">Ensino Médio com projeto de vida no centro</h1>
+<p style="margin:0;font-size:19px;line-height:1.6;max-width:56ch">Três anos de formação integral que unem base acadêmica sólida, cultura, esporte e preparação para o mundo do trabalho — com acompanhamento individual de cada estudante.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+<a href="#inscricao" style="display:inline-flex;align-items:center;min-height:44px;padding:14px 28px;border-radius:999px;background:var(--color-primary);color:#fff;font-size:16px;font-weight:600;text-decoration:none">Quero me inscrever</a>
+<a href="#turmas" style="display:inline-flex;align-items:center;min-height:44px;padding:14px 28px;border-radius:999px;background:var(--surface-primary-tint);color:var(--color-primary);font-size:16px;font-weight:600;text-decoration:none">Ver turmas e turnos</a>
+</div>
+<div style="display:flex;align-items:center;gap:10px;background:#fdf3d8;color:var(--color-yellow-dark);border-radius:999px;padding:8px 16px;align-self:flex-start;font-size:13px;font-weight:700">Inscrições até 28/02/2026</div>
+</div>
+<div style="aspect-ratio:16/10;border-radius:32px;background:repeating-linear-gradient(135deg,var(--gray-200) 0 10px,var(--gray-100) 10px 20px);display:flex;align-items:flex-end;padding:20px">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;background:var(--surface-card);border-radius:8px;padding:6px 10px;color:var(--text-muted)">foto · estudantes em atividade · 16:10</span>
+</div>
+</section>
+<section style="max-width:1200px;margin:0 auto;padding:32px 24px 64px" id="programas">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;padding:40px;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:24px;box-shadow:var(--shadow-sm)">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:clamp(2rem,2.4vw,2.75rem);font-weight:900;line-height:1.08;letter-spacing:-0.02em;color:var(--color-primary)">3 anos</span><span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted)">Duração</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:clamp(2rem,2.4vw,2.75rem);font-weight:900;line-height:1.08;letter-spacing:-0.02em;color:var(--color-green-dark)">32</span><span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted)">Alunos por turma</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:clamp(2rem,2.4vw,2.75rem);font-weight:900;line-height:1.08;letter-spacing:-0.02em;color:var(--color-orange-dark)">7h30</span><span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted)">Carga diária</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:clamp(2rem,2.4vw,2.75rem);font-weight:900;line-height:1.08;letter-spacing:-0.02em;color:var(--color-blue-dark)">100%</span><span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted)">Com projeto de vida</span></div>
+</div>
+</section>
+<section style="max-width:1200px;margin:0 auto;padding:0 24px 64px;display:grid;grid-template-columns:1fr 1fr;gap:64px">
+<div style="display:flex;flex-direction:column;gap:20px">
+<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted)">O programa</p>
+<h2 style="margin:0;font-size:2rem;font-weight:800;letter-spacing:-0.02em;color:var(--text-heading)">O que o estudante vive aqui</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;max-width:66ch">A matriz combina as áreas do conhecimento da BNCC com trilhas eletivas, iniciação científica e vivências culturais e esportivas do Sesc. O acompanhamento é feito por um tutor que conhece cada estudante pelo nome.</p>
+<ul style="margin:8px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:12px;font-size:17px;line-height:1.6">
+<li>Trilhas eletivas escolhidas pelo próprio estudante a cada semestre.</li>
+<li>Projeto de vida com orientação individual e portfólio ao final do ciclo.</li>
+<li>Cultura e esporte integrados à grade, não como atividade extra.</li>
+<li>Preparação para o Enem e para a entrada no mundo do trabalho.</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-sm)">
+<h3 style="margin:0;font-size:1.25rem;font-weight:800;color:var(--text-heading)">Quem tem prioridade</h3>
+<p style="margin:0;font-size:16px;line-height:1.6">Trabalhadores do comércio de bens, serviços e turismo e seus dependentes, com condições diferenciadas. Vagas remanescentes ficam abertas à comunidade.</p>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-sm)">
+<h3 style="margin:0;font-size:1.25rem;font-weight:800;color:var(--text-heading)">Gratuidade</h3>
+<p style="margin:0;font-size:16px;line-height:1.6">Parte das vagas é destinada ao Programa de Comprometimento e Gratuidade, conforme o regulamento nacional do Sesc.</p>
+</div>
+</div>
+</section>
+<section id="turmas" style="max-width:1200px;margin:0 auto;padding:0 24px 64px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted)">Turmas 2026</p>
+<h2 style="margin:0;font-size:2rem;font-weight:800;letter-spacing:-0.02em;color:var(--text-heading)">Turnos e vagas por unidade</h2>
+</div>
+<x-import component-from-global-scope="RedeSescDeEducaODesignSystem_2167ce.FilterChips" label="Turno" options="{{ turnoOptions }}" value="{{ turnos }}" onChange="{{ setTurnos }}" hint-size="100%,80px"></x-import>
+<div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:24px;overflow:hidden;box-shadow:var(--shadow-sm)">
+<div style="overflow-x:auto">
+<table style="width:100%;border-collapse:collapse">
+<thead><tr>
+<th scope="col" style="text-align:left;padding:16px 20px;background:var(--surface-sunken);border-bottom:1px solid var(--border-subtle);font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--text-muted);white-space:nowrap">Unidade</th>
+<th scope="col" style="text-align:left;padding:16px 20px;background:var(--surface-sunken);border-bottom:1px solid var(--border-subtle);font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--text-muted);white-space:nowrap">Turno</th>
+<th scope="col" style="text-align:left;padding:16px 20px;background:var(--surface-sunken);border-bottom:1px solid var(--border-subtle);font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--text-muted);white-space:nowrap">Início</th>
+<th scope="col" style="text-align:right;padding:16px 20px;background:var(--surface-sunken);border-bottom:1px solid var(--border-subtle);font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--text-muted);white-space:nowrap">Status</th>
+</tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border-subtle)">
+<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--text-heading)">Unidade Centro</td>
+<td style="padding:16px 20px;font-size:16px">Manhã</td>
+<td style="padding:16px 20px;font-size:16px">02/02/2026</td>
+<td style="padding:16px 20px;text-align:right"><span style="background:#eef5e0;color:var(--color-green-dark);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px">Vagas abertas</span></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border-subtle);background:var(--gray-50)">
+<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--text-heading)">Unidade Norte</td>
+<td style="padding:16px 20px;font-size:16px">Manhã</td>
+<td style="padding:16px 20px;font-size:16px">02/02/2026</td>
+<td style="padding:16px 20px;text-align:right"><span style="background:#fdf3d8;color:var(--color-yellow-dark);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px">Últimas vagas</span></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border-subtle)">
+<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--text-heading)">Unidade Leste</td>
+<td style="padding:16px 20px;font-size:16px">Tarde</td>
+<td style="padding:16px 20px;font-size:16px">09/02/2026</td>
+<td style="padding:16px 20px;text-align:right"><span style="background:#eef5e0;color:var(--color-green-dark);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px">Vagas abertas</span></td>
+</tr>
+<tr>
+<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--text-heading)">Unidade Sul</td>
+<td style="padding:16px 20px;font-size:16px">Integral</td>
+<td style="padding:16px 20px;font-size:16px">09/02/2026</td>
+<td style="padding:16px 20px;text-align:right"><span style="background:#fbe8e8;color:var(--color-pink-dark);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px">Encerrado</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="duvidas" style="max-width:1200px;margin:0 auto;padding:0 24px 64px;display:grid;grid-template-columns:0.8fr 1.2fr;gap:64px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted)">Dúvidas frequentes</p>
+<h2 style="margin:0;font-size:2rem;font-weight:800;letter-spacing:-0.02em;color:var(--text-heading)">Antes de se inscrever</h2>
+<p style="margin:0;font-size:16px;line-height:1.6;color:var(--text-muted)">Não encontrou sua dúvida? Fale com a unidade — o contato está no fim da página.</p>
+</div>
+<x-import component-from-global-scope="RedeSescDeEducaODesignSystem_2167ce.Accordion" items="{{ faq }}" defaultOpen="{{ faqOpen }}" hint-size="100%,320px"></x-import>
+</section>
+<section id="unidade" style="background:var(--color-primary);padding:80px 24px">
+<div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:24px">
+<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.7)">Unidade Centro</p>
+<h2 style="margin:0;font-size:2.25rem;line-height:1.15;font-weight:800;letter-spacing:-0.02em;color:#fff">Venha conhecer a escola</h2>
+<p style="margin:0;font-size:18px;line-height:1.6;color:rgba(255,255,255,0.88);max-width:52ch">Visitas guiadas de terça a quinta, das 9h às 16h, com agendamento prévio. Traga o estudante — a decisão é dele também.</p>
+<div style="display:flex;flex-direction:column;gap:8px;font-size:16px;color:rgba(255,255,255,0.88)">
+<span>Rua a definir, 000 · Bairro · Cidade/UF</span>
+<span>(00) 0000-0000 · unidade@exemplo.sesc.br</span>
+</div>
+</div>
+<div id="inscricao" style="background:var(--surface-card);border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:20px;box-shadow:var(--shadow-lg)">
+<h3 style="margin:0;font-size:1.5rem;font-weight:800;color:var(--text-heading)">Comece sua inscrição</h3>
+<p style="margin:0;font-size:16px;line-height:1.6">Leva cerca de 10 minutos. Você pode salvar e continuar depois.</p>
+<x-import component-from-global-scope="RedeSescDeEducaODesignSystem_2167ce.Stepper" steps="{{ steps }}" current="{{ 1 }}" hint-size="100%,120px"></x-import>
+<a href="#" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:14px 28px;border-radius:999px;background:var(--color-primary);color:#fff;font-size:16px;font-weight:600;text-decoration:none">Continuar inscrição</a>
+<p style="margin:0;font-size:13px;color:var(--text-muted)">Ao continuar você concorda com o tratamento dos dados conforme a LGPD.</p>
+</div>
+</div>
+</section>
+<footer style="background:var(--color-ink);color:rgba(255,255,255,0.72);padding:56px 24px">
+<div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:48px;justify-content:space-between;align-items:flex-start">
+<img src="../../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação" style="height:52px;width:auto;object-fit:contain">
+<div style="display:flex;gap:56px;flex-wrap:wrap;font-size:15px">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:rgba(255,255,255,0.5)">Programas</span><a href="#" style="color:inherit;text-decoration:none">Educação Infantil</a><a href="#" style="color:inherit;text-decoration:none">Ensino Fundamental</a><a href="#" style="color:inherit;text-decoration:none">Ensino Médio</a></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:rgba(255,255,255,0.5)">A Rede</span><a href="#" style="color:inherit;text-decoration:none">Sobre nós</a><a href="#" style="color:inherit;text-decoration:none">Unidades</a><a href="#" style="color:inherit;text-decoration:none">Transparência</a></div>
+</div>
+<span style="font-size:14px;color:rgba(255,255,255,0.5);max-width:24ch">Aprender para a vida acontecer.</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { turnos: [] };
+  renderVals() {
+    return {
+      turnoOptions: [
+        { id: 'manha', label: 'Manhã', count: 2 },
+        { id: 'tarde', label: 'Tarde', count: 1 },
+        { id: 'integral', label: 'Integral', count: 1 }
+      ],
+      turnos: this.state.turnos,
+      setTurnos: (v) => this.setState({ turnos: v }),
+      steps: [{ label: 'Dados do aluno' }, { label: 'Documentos' }, { label: 'Revisão' }],
+      faqOpen: [0],
+      faq: [
+        { title: 'Quem pode se inscrever?', content: 'Trabalhadores do comércio de bens, serviços e turismo e seus dependentes têm prioridade e condições diferenciadas. As vagas remanescentes ficam abertas à comunidade em geral.' },
+        { title: 'Quais documentos preciso levar?', content: 'RG e CPF do aluno e do responsável, comprovante de residência, histórico escolar e, para a categoria trabalhador, a Credencial Sesc válida.' },
+        { title: 'Como funciona a seleção quando há mais candidatos que vagas?', content: 'A seleção segue os critérios publicados no edital de cada unidade, com prioridade para a categoria trabalhador e para o Programa de Comprometimento e Gratuidade.' },
+        { title: 'Existe transporte ou alimentação?', content: 'Varia por unidade. Confirme com a unidade escolhida antes de concluir a matrícula.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

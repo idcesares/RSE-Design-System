@@ -1,0 +1,9 @@
+/* Base — both halves, in order. Kept as a single entry point so everything that already
+   links tokens/base.css keeps working unchanged.
+
+   The split matters only when consuming this system from another project:
+     base-runtime.css  components depend on it — always load it
+     base-reset.css    restyles the host's body, links and headings — opt in
+   See docs/integration.md. */
+@import url('base-runtime.css');
+@import url('base-reset.css');

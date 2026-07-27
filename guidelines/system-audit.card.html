@@ -1,0 +1,67 @@
+<!-- @dsCard group="Guidelines" viewport="960x720" name="System audit & roadmap" subtitle="What is covered, what was just added, what is still missing" -->
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"></head>
+<body style="margin:0;padding:32px;background:var(--surface-page);font-family:var(--font-family-base);color:var(--text-body)">
+<style>h2{font-size:var(--text-h3);margin:0 0 4px}.eyebrow{font-size:var(--text-eyebrow);text-transform:uppercase;letter-spacing:var(--letter-spacing-eyebrow);font-weight:700;color:var(--text-muted);margin:0 0 14px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.item{background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow-sm)}.item p{font-size:var(--text-body-sm);color:var(--text-body);margin:6px 0 0}.chip{display:inline-block;font-size:var(--text-caption);font-weight:700;text-transform:uppercase;letter-spacing:var(--letter-spacing-eyebrow);padding:4px 10px;border-radius:var(--radius-pill)}.ok{background:var(--success-surface);color:var(--success)}.new{background:var(--surface-primary-tint);color:var(--color-primary)}.gap{background:var(--warning-surface);color:var(--warning)}.title{font-size:var(--text-body-md);font-weight:700;color:var(--text-heading);margin:10px 0 0}section{margin-bottom:32px}</style>
+<div style="max-width:900px">
+<p class="eyebrow">Rede Sesc de Educação · Design System</p>
+<h2 style="font-size:var(--text-h1)">Audit &amp; roadmap</h2>
+<p style="max-width:var(--container-prose);margin-top:10px">Where the system stands against a production-grade brand system: foundations, component coverage, accessibility, and the artefacts still needed to express the brand in full.</p>
+
+<section style="margin-top:32px">
+<p class="eyebrow">Solid</p>
+<div class="grid">
+<div class="item"><span class="chip ok">Foundations</span><p class="title">Colour, type, spacing, effects</p><p>266 token declarations across 8 files: the 20 official brand hexes, semantic aliases, accent tints, warm-neutral ramp, fluid type scale, 4px spacing, radii and shadows.</p></div>
+<div class="item"><span class="chip ok">Components</span><p class="title">36 primitives with types &amp; usage notes</p><p>Every component ships <code>.jsx</code> + <code>.d.ts</code> + a <code>.prompt.md</code> with brand-specific do/don't guidance.</p></div>
+<div class="item"><span class="chip ok">Voice</span><p class="title">Content fundamentals documented</p><p>Tone, person, casing, keyword bank and headline patterns in Portuguese — rare in a first-pass system and what keeps generated copy on-brand.</p></div>
+</div>
+</section>
+
+<section>
+<p class="eyebrow">Added in this pass</p>
+<div class="grid">
+<div class="item"><span class="chip new">Layout</span><p class="title">Layout &amp; z-index tokens</p><p>Breakpoints, container widths (incl. <code>--container-prose</code>), 12-col grid, section rhythm, a stacking scale and a 44px hit-target token — previously every page re-invented these.</p></div>
+<div class="item"><span class="chip new">A11y</span><p class="title">Global focus, selection, reduced motion, print</p><p><code>:focus-visible</code> now uses the ring token everywhere, <code>prefers-reduced-motion</code> is honoured system-wide, and a print reset was added.</p></div>
+<div class="item"><span class="chip new">Colour</span><p class="title">Semantic surfaces + data-viz sequence</p><p>Success/warning/danger/info tint surfaces, a 6-step chart sequence built from the "rede" accent families, state layers and an overlay scrim.</p></div>
+<div class="item"><span class="chip new">Components</span><p class="title">Accordion · DataTable · Stat · Stepper · Textarea · Skeleton</p><p>The six patterns an education network actually needs and could not build before: FAQ, turmas tables, impact figures, enrollment progress, long-answer fields and loading states.</p></div>
+</div>
+</section>
+
+<section>
+<p class="eyebrow">Closed in the completion pass</p>
+<div class="grid">
+<div class="item"><span class="chip new">Brand</span><p class="title">Cubo impossível + photography direction</p><p><code>BrandMotif</code> ships the motif as a geometric construction with placement rules, and an imagery card now defines crops, radii, scrim treatment, alt text and consent.</p></div>
+<div class="item"><span class="chip new">Templates</span><p class="title">Four starting points</p><p>Institutional deck (1920×1080, print/PPTX-ready), program detail page, printable A4 matrícula form, landing page — each loading the system through its own <code>ds-base.js</code>.</p></div>
+<div class="item"><span class="chip new">Components</span><p class="title">Menu · FilterChips · FileUpload · DateField</p><p>The navigation and enrollment gaps are closed: regional dropdowns, program filters, document upload and deadline-aware date fields.</p></div>
+<div class="item"><span class="chip new">Theming</span><p class="title">Dark + high contrast</p><p><code>[data-theme]</code> re-maps semantic tokens only; brand hexes are untouched and components needed no changes.</p></div>
+</div>
+</section>
+<section>
+<p class="eyebrow">Closed in the soundness pass</p>
+<div class="grid">
+<div class="item"><span class="chip new">Tokens</span><p class="title">Name collision fixed · accent tints added</p><p><code>--text-body</code> was both a colour and a font size, so one of the two silently broke in every theme. The size is now <code>--text-body-md</code>. New <code>--tint-*</code> / <code>--tint-*-ink</code> pairs replace the hard-coded chip colours that made <code>Badge</code>, <code>Alert</code> and <code>Tag</code> render light-on-light in dark mode.</p></div>
+<div class="item"><span class="chip new">A11y</span><p class="title">Keyboard contracts implemented</p><p><code>Checkbox</code>, <code>Radio</code> and <code>Switch</code> were unreachable by keyboard (<code>display:none</code> on the native input). <code>Tabs</code> now implements the ARIA tablist pattern, <code>Modal</code> traps and restores focus and closes on Escape, <code>Tooltip</code> opens on focus, <code>ProgressBar</code> exposes its value.</p></div>
+<div class="item"><span class="chip new">Tooling</span><p class="title">index.js · checks · generated docs</p><p>The public entry point the lint rules always assumed now exists. <code>npm run check</code> verifies file completeness, bundle freshness, token collisions, undefined <code>var()</code> and a11y regressions; <code>npm run sync</code> keeps <code>_ds_bundle.js</code>, the manifest and the docs true to source.</p></div>
+<div class="item"><span class="chip new">Docs</span><p class="title">AGENTS.md · recipes · starters</p><p>One working guide for anyone generating from this system, plus recipes, an authoring checklist, a QA checklist, and blank page / React / A3 poster starters.</p></div>
+</div>
+</section>
+<section>
+<p class="eyebrow">Closed with the official artwork</p>
+<div class="grid">
+<div class="item"><span class="chip new">Marca</span><p class="title">Vetores oficiais no sistema</p><p>Lockups da Rede e da Sab.IA em SVG, com <code>viewBox</code> ajustado e fundo transparente. As folhas de cores oficiais ficam em <code>assets/logos/source/</code>. Os PNGs rasterizados foram substituídos em todas as páginas, cards e templates.</p></div>
+<div class="item"><span class="chip new">Cor</span><p class="title">Paleta corrigida pelos vetores</p><p>Todos os hexes da marca vinham de amostragem do PDF rasterizado e estavam errados por 1–2 por canal. Agora medidos na arte oficial — inclusive o preto da marca <code>#1d1d1b</code> e a sub-marca Sab.IA.</p></div>
+<div class="item"><span class="chip new">Marca</span><p class="title">Cubo impossível oficial</p><p><code>BrandMotif</code> deixou de ser placeholder: seis construções oficiais (cubo, entrelaçado, atravessado, moldura, corrente, vazado) mais quatro padrões de cubos em sangria.</p></div>
+<div class="item"><span class="chip new">Ícones</span><p class="title">Lucide (ISC) adotado</p><p>97 glifos versionados no repositório, na mesma especificação que o sistema já exigia — 24×24, traço 2px, <code>currentColor</code>. <code>Icon.jsx</code> passou a ser gerado.</p></div>
+<div class="item"><span class="chip new">Plataforma</span><p class="title">Ponte para a Sab.IA</p><p>Componente <code>PlatformEntry</code>, documentação da plataforma e a distinção Sab.IA × TOTVS que nunca pode ser errada.</p></div>
+</div>
+</section>
+<section>
+<p class="eyebrow">Still needs you — not solvable in code</p>
+<div class="grid">
+<div class="item"><span class="chip gap">Assets</span><p class="title">Real photography</p><p>Every layout still uses labelled placeholders. The imagery card is the brief; the shots themselves need commissioning, with image release for minors.</p></div>
+<div class="item"><span class="chip gap">Cor</span><p class="title">Pantone &amp; CMYK</p><p>A paleta é só RGB. Sem os equivalentes de impressão, nenhuma peça impressa pode ter cor gerenciada.</p></div>
+<div class="item"><span class="chip gap">Plataforma</span><p class="title">URL da Sab.IA</p><p><code>PlatformEntry</code> aponta para <code>#</code> até o Sesc fornecer o endereço de produção.</p></div>
+<div class="item"><span class="chip gap">Content</span><p class="title">Verified figures</p><p>All numbers, unit names and testimonials in templates are marked examples. They must be replaced with official Sesc data before any external use.</p></div>
+</div>
+</section>
+</div>
+</body></html>

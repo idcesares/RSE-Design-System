@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Showcase — Design system da Rede Sesc de Educação</title>
+<meta name="description" content="O sistema de design da Rede Sesc de Educação em execução: marca, cores, tipografia, 36 componentes, temas e o que ele já entrega pronto.">
+<link rel="icon" href="../assets/favicon.png">
+
+<!-- One stylesheet: it imports every token file in the right order. -->
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="showcase.css">
+
+<!-- React runs the real components. Vendored under assets/, shared with ui_kits/site, so both
+     open offline and neither reaches for a CDN. -->
+<script src="../assets/vendor/react.production.min.js"></script>
+<script src="../assets/vendor/react-dom.production.min.js"></script>
+
+<!-- Every component, on window.RedeSescDeEducaODesignSystem_2167ce -->
+<script src="../_ds_bundle.js"></script>
+<script src="../image-slot.js"></script>
+
+<!-- Generated from brand.json + _ds_manifest.json by scripts/build-showcase.mjs -->
+<script src="showcase-data.js"></script>
+</head>
+<body>
+
+<a class="sc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="sc-topbar">
+  <div class="sc-topbar-inner">
+    <div class="sc-brand">
+      <img class="on-light" src="../assets/logos/wordmark-purple.svg" alt="Rede Sesc de Educação">
+      <img class="on-dark" src="../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação">
+      <span class="sc-brand-label">Design system</span>
+    </div>
+    <div class="sc-topbar-spacer"></div>
+    <div class="sc-themes" role="group" aria-label="Tema da página">
+      <button type="button" data-theme-set="light" aria-pressed="true">Claro</button>
+      <button type="button" data-theme-set="dark" aria-pressed="false">Escuro</button>
+      <button type="button" data-theme-set="contrast" aria-pressed="false">Alto contraste</button>
+    </div>
+    <span class="sc-version" id="sc-version"></span>
+  </div>
+</header>
+
+<nav class="sc-index-mobile" aria-label="Seções (compacto)">
+  <ol id="sc-index-mobile-list"></ol>
+</nav>
+
+<div class="sc-shell">
+
+  <nav class="sc-index" aria-label="Seções">
+    <p class="sc-index-title">Neste documento</p>
+    <ol id="sc-index-list"></ol>
+  </nav>
+
+  <main class="sc-main" id="conteudo">
+
+    <!-- ── Abertura ──────────────────────────────────────────────────────── -->
+    <section class="sc-section" id="capa" data-index-label="Abertura">
+      <div class="sc-hero">
+        <div>
+          <p class="sc-eyebrow">Rede Sesc de Educação</p>
+          <span class="sc-slogan" id="sc-slogan"></span>
+          <h1>Uma rede nacional que se parece com uma instituição só</h1>
+          <p class="sc-lead" style="margin-bottom:var(--space-5)">
+            Este documento é o sistema de design da Rede em funcionamento. Os botões abaixo são os
+            botões reais; as cores vêm dos tokens; os números foram contados no próprio repositório.
+            Nada aqui é uma imagem de como o sistema ficaria — é o sistema rodando.
+          </p>
+          <div class="sc-callout">
+            <strong>Experimente:</strong> troque o tema no topo da página. Claro, escuro e alto
+            contraste. A página inteira acompanha — cada componente, cada superfície, cada texto —
+            sem nenhum código novo. É essa camada que faz a Rede parecer uma instituição só, em
+            qualquer canal.
+          </div>
+        </div>
+        <div class="sc-hero-motif" id="mount-hero-motif"></div>
+      </div>
+
+      <div class="sc-numbers" id="mount-numbers"></div>
+      <p class="sc-hint" style="margin-top:var(--space-4)">
+        Todos os números desta faixa são lidos do repositório quando a página carrega. Se um
+        componente for criado amanhã, o número muda sozinho.
+      </p>
+    </section>
+
+    <!-- ── Por que um sistema ────────────────────────────────────────────── -->
+    <section class="sc-section" id="argumento" data-index-label="Por que um sistema">
+      <p class="sc-eyebrow">O argumento</p>
+      <h2>A diferença entre fazer peças e ter um sistema</h2>
+      <p class="sc-lead">
+        À esquerda, uma página feita do zero, como se faz quando cada peça começa em branco. À
+        direita, a mesma informação montada com o sistema. O conteúdo é idêntico. O que muda é tudo
+        o que a Rede comunica sem dizer: cuidado, consistência e credibilidade.
+      </p>
+
+      <div class="sc-compare" id="mount-compare"></div>
+
+      <div class="sc-grid sc-grid-3" style="margin-top:var(--space-7)">
+        <div class="sc-panel">
+          <p class="sc-eyebrow">Velocidade</p>
+          <p style="margin:0;font-size:var(--text-body-sm);line-height:var(--line-height-body);color:var(--text-body)">
+            Uma página nova não começa em branco: começa em um dos quatro modelos prontos. O trabalho
+            passa a ser escolher e escrever, não redesenhar o que já existe.
+          </p>
+        </div>
+        <div class="sc-panel">
+          <p class="sc-eyebrow">Consistência</p>
+          <p style="margin:0;font-size:var(--text-body-sm);line-height:var(--line-height-body);color:var(--text-body)">
+            Ninguém digita uma cor à mão. Toda cor, tamanho de texto e espaçamento vem de um token
+            nomeado — e uma verificação automática recusa o que sair da regra.
+          </p>
+        </div>
+        <div class="sc-panel">
+          <p class="sc-eyebrow">Alcance</p>
+          <p style="margin:0;font-size:var(--text-body-sm);line-height:var(--line-height-body);color:var(--text-body)">
+            O mesmo sistema serve site, apresentação, formulário impresso e peça gráfica. As 21 cores
+            oficiais já vêm com CMYK, então o que sai na gráfica é o que se vê na tela.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── A marca ───────────────────────────────────────────────────────── -->
+    <section class="sc-section" id="marca" data-index-label="A marca">
+      <p class="sc-eyebrow">Fundamentos</p>
+      <h2>O selo, o motivo e as regras que os protegem</h2>
+      <p class="sc-lead">
+        O selo tem três versões e uma geometria fixa. O sistema carrega essas regras junto com os
+        arquivos, para que ninguém precise lembrar delas de cor.
+      </p>
+
+      <p class="sc-sub">As três versões</p>
+      <div class="sc-grid sc-grid-3">
+        <div class="sc-logo-cell">
+          <img src="../assets/logos/badge-solid.svg" alt="Selo principal da Rede Sesc de Educação" style="height:104px">
+          <span class="cap"><b>Principal</b>badge-solid.svg — como carimbo em superfícies claras</span>
+        </div>
+        <div class="sc-logo-cell">
+          <img src="../assets/logos/badge-outline.svg" alt="Selo secundário da Rede Sesc de Educação, em contorno" style="height:104px">
+          <span class="cap"><b>Secundária</b>badge-outline.svg — onde o sólido pesaria demais</span>
+        </div>
+        <div class="sc-logo-cell on-purple">
+          <img src="../assets/logos/wordmark-white.svg" alt="Assinatura simplificada da Rede Sesc de Educação" style="height:44px">
+          <span class="cap"><b>Simplificada</b>wordmark — abaixo do tamanho mínimo</span>
+        </div>
+      </div>
+
+      <p class="sc-sub">Área de respiro e tamanho mínimo</p>
+      <div class="sc-grid sc-grid-2">
+        <div class="sc-panel" style="display:flex;flex-direction:column;gap:var(--space-4);align-items:flex-start">
+          <span class="sc-clearspace">
+            <img src="../assets/logos/wordmark-purple.svg" alt="Assinatura da Rede com a área de respiro demarcada">
+          </span>
+          <p style="margin:0;font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body)">
+            <b>X em todos os lados</b> — X é a altura da haste do E. Mais que X é sempre preferível.
+            Nada entra nessa faixa: nem texto, nem imagem, nem a assinatura do Sesc, que fica a
+            distância e nunca é travada junto ao selo.
+          </p>
+        </div>
+        <div class="sc-panel">
+          <p style="margin:0 0 var(--space-4);font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body)">
+            <b>Tamanho mínimo:</b> 45 mm de largura no impresso, 150 px no digital. Abaixo disso, o
+            selo dá lugar à versão simplificada.
+          </p>
+          <p style="margin:0 0 var(--space-3);font-size:var(--text-caption);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-eyebrow);text-transform:uppercase;color:var(--text-muted)">
+            Nunca
+          </p>
+          <ul class="sc-never" id="mount-logo-never"></ul>
+        </div>
+      </div>
+
+      <p class="sc-sub">O cubo impossível</p>
+      <p class="sc-hint">
+        O motivo é obra, não enfeite: a geometria nunca é redesenhada, girada ou distorcida, e não
+        muda com o tema — troque o tema no topo e as construções seguem iguais. A cor, essa sim,
+        alterna entre as famílias da paleta. O material oficial traz verde, azul e rosa; as outras
+        três são derivadas da paleta publicada no manual, e não amostradas da arte. O que a
+        alternância preserva é a ordem de luz e sombra entre as faces — é ela que faz o cubo
+        impossível se sustentar. Uma construção por composição.
+      </p>
+      <div id="mount-motifs"></div>
+
+      <p class="sc-sub">Padrões de fundo</p>
+      <p class="sc-hint">Quatro campos de cubos para uso em sangria — impresso e peças sociais.</p>
+      <div class="sc-grid sc-grid-4" id="mount-patterns"></div>
+    </section>
+
+    <!-- ── Cores ─────────────────────────────────────────────────────────── -->
+    <section class="sc-section" id="cores" data-index-label="Cores">
+      <p class="sc-eyebrow">Fundamentos</p>
+      <h2>Vinte e uma cores oficiais, com CMYK publicado</h2>
+      <p class="sc-lead">
+        Estes valores vêm do manual da marca, não de uma amostragem dos arquivos de arte. Clique em
+        qualquer cor para copiar o hexadecimal. O CMYK ao lado é o que vai para a gráfica.
+      </p>
+
+      <div id="mount-palette"></div>
+
+      <p class="sc-sub">A camada semântica</p>
+      <p class="sc-hint">
+        Nenhuma página usa a cor da marca diretamente: usa um papel — superfície da página, superfície
+        do cartão, texto de título, borda sutil. É essa indireção que permite trocar o tema. A tabela
+        abaixo mostra o valor que o navegador está resolvendo <b>neste exato momento</b>; troque o
+        tema no topo e ela se recalcula.
+      </p>
+      <div class="sc-panel" style="padding:0;overflow-x:auto">
+        <table class="sc-table" id="mount-semantic"></table>
+      </div>
+    </section>
+
+    <!-- ── Tipografia ────────────────────────────────────────────────────── -->
+    <section class="sc-section" id="tipografia" data-index-label="Tipografia">
+      <p class="sc-eyebrow">Fundamentos</p>
+      <h2>Montserrat, do 400 ao 900</h2>
+      <p class="sc-lead">
+        Uma família só, em uma escala fechada. Títulos em Extrabold com entrelinha justa; corpo em
+        Regular com entrelinha generosa. O texto abaixo está sendo renderizado na fonte real, nos
+        tamanhos reais.
+      </p>
+
+      <div class="sc-panel" id="mount-type"></div>
+
+      <p class="sc-sub">Pesos</p>
+      <div class="sc-panel" id="mount-weights"></div>
+
+      <div class="sc-callout" style="margin-top:var(--space-6)">
+        <strong>A única caixa alta do sistema</strong> é o eyebrow — aquele rótulo curto acima do
+        título, em Bold com entreletra aberta. Títulos e corpo são sempre em caixa de sentença.
+        Isso mantém a leitura próxima em vez de institucional-distante.
+      </div>
+    </section>
+
+    <!-- ── Espaço e forma ────────────────────────────────────────────────── -->
+    <section class="sc-section" id="espaco" data-index-label="Espaço e forma">
+      <p class="sc-eyebrow">Fundamentos</p>
+      <h2>Espaçamento, cantos e profundidade</h2>
+      <p class="sc-lead">
+        Uma escala de 4 px na base, cantos generosos e três sombras. O ritmo largo entre blocos é
+        deliberado: comunica uma instituição sem pressa, não um produto disputando cliques.
+      </p>
+
+      <div class="sc-grid sc-grid-2">
+        <div class="sc-panel">
+          <p class="sc-sub" style="margin-top:0">Escala de espaçamento</p>
+          <div id="mount-space"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--grid-gutter)">
+          <div class="sc-panel">
+            <p class="sc-sub" style="margin-top:0">Cantos</p>
+            <div class="sc-grid sc-grid-4" id="mount-radius"></div>
+          </div>
+          <div class="sc-panel">
+            <p class="sc-sub" style="margin-top:0">Sombras</p>
+            <div class="sc-grid sc-grid-3" id="mount-shadow"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="sc-sub">Ícones</p>
+      <p class="sc-hint" id="sc-icons-hint"></p>
+      <div class="sc-panel" id="mount-icons"></div>
+    </section>
+
+    <!-- ── Componentes ───────────────────────────────────────────────────── -->
+    <section class="sc-section" id="componentes" data-index-label="Componentes">
+      <p class="sc-eyebrow">A biblioteca</p>
+      <h2>Trinta e seis componentes, funcionando de verdade</h2>
+      <p class="sc-lead">
+        Não são capturas de tela. Cada peça abaixo é o componente real, carregado do mesmo arquivo
+        que as páginas da Rede usam. Abra as abas, marque as caixas, arraste o interruptor, navegue
+        pelo teclado. É assim que ele vai se comportar em produção.
+      </p>
+
+      <div class="sc-gallery-controls" id="mount-gallery-controls"></div>
+      <div id="mount-gallery"></div>
+    </section>
+
+    <!-- ── Temas ─────────────────────────────────────────────────────────── -->
+    <section class="sc-section" id="temas" data-index-label="Temas">
+      <p class="sc-eyebrow">A prova</p>
+      <h2>O mesmo componente, nos três temas, ao mesmo tempo</h2>
+      <p class="sc-lead">
+        Os três painéis abaixo estão lado a lado na mesma página, cada um em um tema. Não há três
+        versões do componente: há um componente e três mapeamentos da camada semântica. Os valores
+        da marca nunca mudam — só o papel que cada um cumpre.
+      </p>
+      <div class="sc-grid sc-grid-3" id="mount-themes"></div>
+      <div class="sc-callout" style="margin-top:var(--space-6)">
+        <strong>Por que isso importa para a Rede:</strong> alto contraste não é um enfeite técnico.
+        É o que permite que um estudante com baixa visão use a mesma página que todo mundo, sem uma
+        versão à parte, sem pedir ajuda.
+      </div>
+    </section>
+
+    <!-- ── Acessibilidade ────────────────────────────────────────────────── -->
+    <section class="sc-section" id="acessibilidade" data-index-label="Acessibilidade">
+      <p class="sc-eyebrow">O piso</p>
+      <h2>Contraste medido agora, nesta página</h2>
+      <p class="sc-lead">
+        A tabela abaixo não é uma declaração de intenções. Ela lê as cores que o navegador está
+        aplicando neste momento, calcula a razão de contraste pela fórmula da WCAG e mostra o
+        resultado — inclusive quando o resultado é ruim. Troque o tema no topo e cada linha se
+        recalcula.
+      </p>
+
+      <div class="sc-panel" style="padding:0;overflow-x:auto">
+        <table class="sc-table" id="mount-contrast"></table>
+      </div>
+
+      <div class="sc-callout" style="margin-top:var(--space-5)">
+        <strong>Esta tabela já corrigiu o sistema três vezes.</strong>
+        Quando ela foi ligada pela primeira vez, três linhas estavam vermelhas: o cinza de texto
+        secundário a 3,56:1 sobre a página, a nota do rodapé a 3,53:1, e a borda dos campos de
+        formulário a 1,61:1 — abaixo do que o próprio sistema exige, e ninguém sabia, porque os
+        números nunca tinham sido calculados. As três foram corrigidas com tons que já existiam na
+        escala, sem inventar cor nova. É a diferença entre declarar acessibilidade e medi-la: o que
+        não se mede volta a acontecer, e esta tabela volta a acusar no dia em que voltar.
+      </div>
+
+      <div class="sc-grid sc-grid-2" style="margin-top:var(--space-6)">
+        <div class="sc-panel">
+          <p class="sc-sub" style="margin-top:0">O que mais está garantido</p>
+          <ul class="sc-list">
+            <li><b>Foco sempre visível.</b> Navegue esta página inteira com Tab: nenhum elemento
+              some ao receber o foco.</li>
+            <li><b>Tudo pelo teclado.</b> As abas andam com as setas, os menus e diálogos fecham com
+              Esc, e o diálogo devolve o foco a quem o abriu.</li>
+            <li><b>Alvo de toque de 44 px.</b> O mínimo para quem usa o celular em movimento.</li>
+            <li><b>Movimento contido.</b> Quem pediu menos animação no sistema operacional recebe
+              menos animação aqui — automaticamente.</li>
+            <li><b>Texto alternativo em pt-BR</b> em toda imagem que carrega informação.</li>
+          </ul>
+        </div>
+        <div class="sc-panel">
+          <p class="sc-sub" style="margin-top:0">Teste você mesmo</p>
+          <p style="font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body);margin:0 0 var(--space-4)">
+            Clique no campo abaixo e pressione Tab várias vezes. O anel de foco acompanha cada
+            parada, inclusive dentro do grupo de abas, onde as setas do teclado assumem.
+          </p>
+          <div id="mount-a11y-demo"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── O que já vem pronto ───────────────────────────────────────────── -->
+    <section class="sc-section" id="artefatos" data-index-label="O que já vem pronto">
+      <p class="sc-eyebrow">Entregáveis</p>
+      <h2>Quatro peças completas, prontas para copiar</h2>
+      <p class="sc-lead">
+        Estes não são exemplos ilustrativos: são arquivos do repositório, rodando dentro desta
+        página agora. Passe o cursor sobre qualquer um e abra em tamanho real.
+      </p>
+      <div class="sc-grid sc-grid-2" id="mount-artefacts"></div>
+
+      <div class="sc-callout is-warn" style="margin-top:var(--space-7)">
+        <strong>Sobre o conteúdo destas peças:</strong> os números, endereços, prazos e depoimentos
+        são exemplos de preenchimento, não dados do Sesc. As fotografias são espaços reservados com
+        a descrição da imagem necessária. Tudo isso precisa ser verificado e substituído antes de
+        qualquer publicação.
+      </div>
+    </section>
+
+    <!-- ── Como usar ─────────────────────────────────────────────────────── -->
+    <section class="sc-section" id="como-usar" data-index-label="Como usar">
+      <p class="sc-eyebrow">Adoção</p>
+      <h2>Três formas de consumir, conforme quem está do outro lado</h2>
+      <p class="sc-lead">
+        O sistema não obriga ninguém a adotar uma tecnologia. Ele se entrega em três formatos, e o
+        terceiro nem precisa de navegador.
+      </p>
+
+      <div class="sc-grid sc-grid-3">
+        <div class="sc-panel">
+          <p class="sc-eyebrow">1. Página estática</p>
+          <p style="font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body);margin:0 0 var(--space-4)">
+            Para apresentações, peças e protótipos entregues como arquivo. Sem instalação, sem
+            compilação. É o que esta página faz.
+          </p>
+          <!-- Quotes are entities so the repo's asset-reference check reads this as
+               sample text rather than a real link to resolve. -->
+          <pre class="sc-code">&lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+&lt;script src=&quot;_ds_bundle.js&quot;&gt;&lt;/script&gt;</pre>
+        </div>
+        <div class="sc-panel">
+          <p class="sc-eyebrow">2. Projeto React</p>
+          <p style="font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body);margin:0 0 var(--space-4)">
+            Para código de produção. Uma única porta de entrada, para que um componente possa ser
+            reescrito por dentro sem quebrar quem o usa.
+          </p>
+          <pre class="sc-code">import { Button, Card, Stat }
+  from './index.js';</pre>
+        </div>
+        <div class="sc-panel">
+          <p class="sc-eyebrow">3. Fora do navegador</p>
+          <p style="font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body);margin:0 0 var(--space-4)">
+            Para geradores em Python, fluxos de impressão, ferramentas de design. Um único arquivo
+            descreve a marca inteira em formato de dados.
+          </p>
+          <pre class="sc-code">brand = json.load(open('brand.json'))
+brand['palette'][0]['cmyk']</pre>
+        </div>
+      </div>
+
+      <div class="sc-callout" style="margin-top:var(--space-6)">
+        <strong>Para levar o sistema a outro projeto:</strong> um comando copia uma cópia
+        autocontida e carimbada, junto com as regras que viajam com ela. A mesma verificação que roda
+        aqui roda lá, e avisa quando a cópia ficar velha.
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="sc-footer">
+  <div class="sc-footer-inner">
+    <img src="../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação">
+    <p id="sc-footer-slogan"></p>
+    <p class="note">
+      Documento gerado a partir do repositório do design system. Os componentes, cores e números
+      desta página são lidos dos arquivos-fonte; o conteúdo de exemplo dentro das peças não é dado
+      oficial do Sesc e precisa de verificação antes de qualquer publicação.
+    </p>
+  </div>
+</footer>
+
+<div class="sc-toast-host" id="sc-toast-host" aria-live="polite" aria-atomic="false"></div>
+
+<script src="showcase.js"></script>
+</body>
+</html>

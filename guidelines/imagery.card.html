@@ -1,0 +1,56 @@
+<!-- @dsCard group="Brand" viewport="960x640" name="Photography & imagery" subtitle="Treatment rules, crops, radii, captions, placeholders" -->
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"></head>
+<body style="margin:0;padding:32px;background:var(--surface-page);font-family:var(--font-family-base);color:var(--text-body)">
+<style>.eyebrow{font-size:var(--text-eyebrow);text-transform:uppercase;letter-spacing:var(--letter-spacing-eyebrow);font-weight:700;color:var(--text-muted);margin:0 0 12px}
+.ph{background:repeating-linear-gradient(135deg,var(--gray-200) 0 8px,var(--gray-100) 8px 16px);border-radius:var(--radius-lg);display:flex;align-items:flex-end;padding:14px}
+.ph span{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;background:var(--surface-card);border-radius:var(--radius-sm);padding:4px 8px;color:var(--text-muted)}
+.rule{display:flex;gap:10px;font-size:var(--text-body-sm);line-height:var(--line-height-body)}
+.yes,.no{font-weight:800;flex:none;width:18px}.yes{color:var(--success)}.no{color:var(--danger)}
+.cap{font-size:var(--text-caption);color:var(--text-muted);margin:8px 0 0}</style>
+<div style="max-width:900px;display:flex;flex-direction:column;gap:32px">
+<div>
+<p class="eyebrow">Crops &amp; radii</p>
+<div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;align-items:end">
+<div><div class="ph" style="aspect-ratio:16/9;border-radius:var(--radius-xl)"><span>hero · 16:9 · radius xl</span></div><p class="cap">Hero and feature bands.</p></div>
+<div><div class="ph" style="aspect-ratio:16/10"><span>card · 16:10 · lg</span></div><p class="cap">Program and unit cards.</p></div>
+<div><div class="ph" style="aspect-ratio:1/1;border-radius:var(--radius-pill)"><span>retrato · 1:1</span></div><p class="cap">Depoimentos, educadores.</p></div>
+</div>
+</div>
+<div>
+<p class="eyebrow">Direction</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div class="rule"><span class="yes">✓</span><span>Documentary, in-situ: real classrooms, real students, natural light.</span></div>
+<div class="rule"><span class="yes">✓</span><span>Warm tones that sit next to the cream page; skin tones true and unfiltered.</span></div>
+<div class="rule"><span class="yes">✓</span><span>The student is the protagonist — action and attention, not posed rows.</span></div>
+<div class="rule"><span class="yes">✓</span><span>Visible plurality: ages, regions, abilities, body types, skin tones.</span></div>
+<div class="rule"><span class="yes">✓</span><span>Room in the frame for a headline when the image is full-bleed.</span></div>
+<div class="rule"><span class="yes">✓</span><span>Enquadramento aberto ou de cima — a cena inteira, uniforme Sesc visível.</span></div>
+<div class="rule"><span class="yes">✓</span><span>Direção confirmada pelas seis pranchas fotográficas do manual (docs/brand-manual.md).</span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div class="rule"><span class="no">✕</span><span>Stock-looking staged shots, thumbs-up, empty smiling-at-camera groups.</span></div>
+<div class="rule"><span class="no">✕</span><span>Heavy filters, duotones, purple washes, gradient overlays on photos.</span></div>
+<div class="rule"><span class="no">✕</span><span>Text baked into the image; captions and headlines stay in HTML.</span></div>
+<div class="rule"><span class="no">✕</span><span>AI-generated or illustrated people anywhere in the system.</span></div>
+<div class="rule"><span class="no">✕</span><span>Photos as section backgrounds behind body copy.</span></div>
+</div>
+</div>
+</div>
+<div>
+<p class="eyebrow">Legibility over photography</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div style="position:relative;border-radius:var(--radius-xl);overflow:hidden"><div class="ph" style="aspect-ratio:16/9;border-radius:0;height:100%"><span>full-bleed photo</span></div>
+<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(43,42,61,.72) 0%,rgba(43,42,61,.25) 70%,rgba(43,42,61,0) 100%);display:flex;align-items:flex-end;padding:20px"><p style="color:#fff;font-size:var(--text-h3);font-weight:800;margin:0;max-width:60%;line-height:var(--line-height-heading)">Aprender para a vida acontecer</p></div></div>
+<div style="display:flex;flex-direction:column;justify-content:center;gap:10px">
+<p style="font-size:var(--text-body-sm);line-height:var(--line-height-body);margin:0">When text must sit on a photo, use a single-direction ink scrim (<code>--color-ink</code> at 70%→0%), never a purple tint and never a blur. Minimum 4.5:1 on the darkest part of the text.</p>
+<p style="font-size:var(--text-body-sm);line-height:var(--line-height-body);margin:0;color:var(--text-muted)">Every photo needs alt text describing what is happening, not "foto de aluno". Credit and consent (including image release for minors) are a requirement, not a nicety.</p>
+</div>
+</div>
+</div>
+<div>
+<p class="eyebrow">Until real photos exist</p>
+<p style="font-size:var(--text-body-sm);line-height:var(--line-height-body);margin:0;max-width:var(--container-prose)">Use the striped placeholder shown here (or <code>&lt;image-slot&gt;</code> in prototypes) with a monospace label naming the shot — <code>sala de aula · fundamental II</code>. Never substitute stock or generated imagery to "finish" a layout; an honest placeholder is a brief for the photographer.</p>
+</div>
+</div>
+</body></html>

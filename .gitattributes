@@ -1,0 +1,23 @@
+# Line endings are normalized to LF in the repository AND in the working tree,
+# so the checkout is byte-identical on Windows, macOS and Linux. This overrides
+# each machine's core.autocrlf, which on Windows defaults to true and would
+# otherwise rewrite every text file on checkout and produce whole-file diffs.
+* text=auto eol=lf
+
+# Binary. Never line-ending-converted, never diffed as text.
+*.png       binary
+*.pdf       binary
+*.woff2     binary
+.thumbnail  binary
+
+# Explicitly text, in case content auto-detection ever guesses wrong.
+*.svg       text
+*.html      text
+*.css       text
+*.js        text
+*.mjs       text
+*.jsx       text
+*.ts        text
+*.json      text
+*.md        text
+*.py        text

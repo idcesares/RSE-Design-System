@@ -1,0 +1,153 @@
+:root{
+/* ── Official brand palette ────────────────────────────────────────────────
+   Source of truth: the brand manual (Manual da Rede Sesc de Educação, Sesc DN
+   2026), p.59 "CORES" — see docs/brand-manual.md for the full table with the
+   published CMYK for print. Eight colours; six of them carry a three-tone
+   monochromatic ramp (light / base / dark). Cream and indigo are flat.
+
+   Do not adjust these, do not re-map them per theme, and DO NOT re-sample them
+   from the artwork files. The vendor's own vectors in assets/logos/source/ and
+   uploads/REDE_SESC_selo_COR.pdf sit 1-3 points below these values (e.g. the
+   selo PDF draws the purple as #6b62c2 where the manual publishes #6c62c4).
+   The manual is the newer and stated authority, and it is what governs RGB /
+   digital media. Sampling the artwork is what put this system off-spec once
+   already. For print, use the CMYK in docs/brand-manual.md, not a conversion
+   of these hexes. */
+--color-cream:#f2f4e4;      /* C7  M2  Y14 K0 */
+--color-indigo:#4c549e;     /* C82 M76 Y4  K0 */
+--color-pink-light:#f78f94; /* C0  M55 Y28 K0 */
+--color-pink:#e27879;       /* C8  M65 Y43 K0 */
+--color-pink-dark:#cc646a;  /* C17 M73 Y50 K1 */
+--color-orange-light:#fc9b59;/* C0  M47 Y71 K0 */
+--color-orange:#e17f38;     /* C9  M60 Y90 K0 */
+--color-orange-dark:#c6621e;/* C17 M71 Y100 K5 */
+--color-green-light:#a3d864;/* C40 M0  Y79 K0 */
+--color-green:#85b73d;      /* C54 M7  Y100 K0 */
+--color-green-dark:#658e1e; /* C65 M25 Y100 K8 */
+--color-blue-light:#92c4e6; /* C40 M11 Y2  K0 */
+--color-blue:#76b3dd;       /* C51 M16 Y2  K0 */
+--color-blue-dark:#4f85b2;  /* C72 M41 Y13 K0 */
+--color-purple-light:#ad98ea;/* C34 M41 Y0 K0 */
+--color-purple:#8e82d8;     /* C47 M51 Y0  K0 */
+--color-purple-dark:#6c62c4;/* C67 M68 Y0  K0 */
+--color-yellow-light:#ffd67b;/* C0  M16 Y61 K0 */
+--color-yellow:#f4bf2a;     /* C4  M25 Y96 K0 */
+--color-yellow-dark:#d39f2b;/* C19 M38 Y100 K0 */
+/* Official black of the marks. Use for logo ink and one-colour print. */
+--color-brand-black:#1d1d1b;
+--color-ink:#2b2a3d;/* derived: UI text ink, warmer than the mark black */
+--color-white:#ffffff;
+/* ── Plataforma Sesc Sab.IA (sub-brand) ────────────────────────────────────
+   The adaptive-learning platform of the Rede. Manual p.90 gives the platform
+   exactly three colours, all of them unchanged Rede palette values — the
+   sub-brand adds no colour of its own. Use these only on Sab.IA surfaces and
+   on entry points that lead to the platform.
+   NOTE: the platform's own chrome (header, footer, login plane) is BLUE, not
+   purple — see docs/sabia-platform.md before styling platform surfaces. */
+--sabia-purple:var(--color-purple-dark);
+--sabia-blue:var(--color-blue);
+--sabia-orange:var(--color-orange);
+/* Not in the manual: a system tone, kept because Sab.IA surfaces need a page
+   background and the manual supplies none. Flag it as ours, not the brand's. */
+--sabia-cream:#eef0da;/* derived */
+--gray-50:#faf9f7;
+--gray-100:#f2f1ec;
+--gray-200:#e4e2d9;
+--gray-300:#cfccc0;
+--gray-400:#a8a496;
+--gray-500:#84806f;
+--gray-600:#615d4f;
+--gray-700:#454235;
+--gray-800:#302e26;
+--gray-900:#1e1c17;
+--color-primary:var(--color-purple-dark);
+--color-primary-hover:#5e56ab;
+--color-primary-active:#504a92;
+--color-secondary:var(--color-indigo);
+--color-accent-coral:var(--color-pink);
+--color-accent-orange:var(--color-orange);
+--color-accent-green:var(--color-green);
+--color-accent-blue:var(--color-blue);
+--color-accent-yellow:var(--color-yellow);
+--surface-page:var(--color-cream);
+--surface-card:var(--color-white);
+--surface-sunken:var(--gray-100);
+--surface-inverse:var(--color-ink);
+--surface-primary-tint:#edecf8;
+--surface-primary-tint-hover:#e4e3f4;
+/* Sticky header / any chrome that sits over scrolling page content. */
+--surface-page-translucent:rgba(242,244,228,0.92);
+/* Three borders, and the difference is a rule, not a taste:
+   subtle / default are decoration — hairlines between rows, around a specimen, under a
+   section. They may sit below 3:1.
+   strong is the resting boundary of an interactive control — field, checkbox, radio, chip,
+   ghost button, menu trigger, step marker. Those controls fill with --surface-card, the same
+   colour as the surface behind them, so the border is the only thing identifying the control
+   and WCAG 1.4.11 requires 3:1. --border-default (gray-300) gave 1.61:1; gray-500 gives 3.96:1.
+   Never move a control's border back to --border-default. */
+--border-subtle:var(--gray-200);
+--border-default:var(--gray-300);
+--border-strong:var(--gray-500);
+/* Hairline on the fixed ink surface (footer), which stays ink in every theme. */
+--border-on-ink:#3a3830;
+--text-heading:var(--color-ink);
+/* Body text colour. The matching *size* token is --text-body-md (tokens/typography.css). */
+--text-body:var(--gray-700);
+/* gray-600, not gray-500: at gray-500 this cleared only 3.56:1 on the cream page and
+   3.96:1 on a white card, under the 4.5:1 floor this system sets for body text — and
+   --text-muted carries real body copy (card descriptions, lead paragraphs). The dark
+   and contrast themes override it separately and were already above the floor. */
+--text-muted:var(--gray-600);
+--text-inverse:var(--color-white);
+--text-on-primary:var(--color-white);
+--text-link:var(--color-purple-dark);
+--text-link-hover:var(--color-indigo);
+--focus-ring:var(--color-blue-dark);
+--success:var(--color-green-dark);
+--warning:var(--color-yellow-dark);
+--danger:var(--color-pink-dark);
+--info:var(--color-blue-dark);
+--success-surface:#eef5e0;
+--warning-surface:#fdf3d8;
+--danger-surface:#fbe8e8;
+--info-surface:#e6f1f9;
+/* Accent chip tints — the pale backing behind a Tag in each of the 6 accent
+   families. Paired with the matching --color-<hue>-dark as foreground.
+   Themed in tokens/themes.css: never hard-code these values in a component. */
+--tint-pink:#fce9ea;
+--tint-orange:#fdeee0;
+--tint-green:#eaf3dd;
+--tint-blue:#e8f2f9;
+--tint-purple:#edecf8;
+--tint-yellow:#fdf3d8;
+/* Text/icon colour to use on the matching tint. */
+--tint-pink-ink:var(--color-pink-dark);
+--tint-orange-ink:var(--color-orange-dark);
+--tint-green-ink:var(--color-green-dark);
+--tint-blue-ink:var(--color-blue-dark);
+--tint-purple-ink:var(--color-purple-dark);
+--tint-yellow-ink:var(--color-yellow-dark);
+/* ── Cubo impossível face shading ──────────────────────────────────────────
+   The official isometric cube artwork (assets/motifs/cubes-official.svg) shades
+   each cube with three tones per hue: top face, left face, right face. Only
+   these three hue families exist in the supplied artwork — do not invent the
+   others; ask for the missing constructions instead. */
+--cube-blue-top:#8ec1e3;
+--cube-blue-left:#76b0da;
+--cube-blue-right:#5082af;
+--cube-green-top:#a1c766;
+--cube-green-left:#80b43d;
+--cube-green-right:#658c2e;
+--cube-pink-top:#ed8c92;
+--cube-pink-left:#e0787a;
+--cube-pink-right:#b6575c;
+--data-1:var(--color-purple-dark);
+--data-2:var(--color-blue);
+--data-3:var(--color-green);
+--data-4:var(--color-yellow);
+--data-5:var(--color-orange);
+--data-6:var(--color-pink);
+--state-hover-layer:rgba(43,42,61,0.05);
+--state-press-layer:rgba(43,42,61,0.10);
+--overlay-scrim:rgba(43,42,61,0.55);
+}

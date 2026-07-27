@@ -1,0 +1,34 @@
+<!-- @dsCard group="Components" viewport="880x680" name="FilterChips, FileUpload & DateField" subtitle="Program search filters and enrollment paperwork fields" -->
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script><script src="../../_ds_bundle.js"></script></head>
+<body style="margin:0;padding:32px;background:var(--surface-page)">
+<div id="root"></div>
+<script type="text/babel">
+const { FilterChips, FileUpload, DateField } = window.RedeSescDeEducaODesignSystem_2167ce;
+function App(){
+  const [niveis, setNiveis] = React.useState(['medio']);
+  const [turnos, setTurnos] = React.useState([]);
+  const [files, setFiles] = React.useState([{name:'rg-frente.jpg',size:184320},{name:'comprovante-residencia.pdf',size:96256}]);
+  return <div style={{display:'flex',flexDirection:'column',gap:'var(--space-7)',maxWidth:760,fontFamily:'var(--font-family-base)'}}>
+    <div style={{display:'flex',flexDirection:'column',gap:'var(--space-5)'}}>
+      <FilterChips label="Nível de ensino" value={niveis} onChange={setNiveis} options={[
+        {id:'infantil',label:'Educação Infantil',count:12},
+        {id:'fundamental',label:'Ensino Fundamental',count:28},
+        {id:'medio',label:'Ensino Médio',count:19},
+        {id:'profissional',label:'Formação Profissional',count:34}
+      ]} />
+      <FilterChips label="Turno" value={turnos} onChange={setTurnos} options={[
+        {id:'manha',label:'Manhã'},{id:'tarde',label:'Tarde'},{id:'noite',label:'Noite'},{id:'integral',label:'Integral'}
+      ]} />
+    </div>
+    <div style={{background:'var(--surface-card)',border:'1px solid var(--border-subtle)',borderRadius:'var(--radius-lg)',padding:'var(--space-6)',display:'flex',flexDirection:'column',gap:'var(--space-5)'}}>
+      <FileUpload label="Documentos do aluno" accept=".pdf,.jpg,.png" maxSizeLabel="até 5 MB por arquivo" multiple files={files} onFilesChange={setFiles} hint="Envie frente e verso do RG e o comprovante de residência." />
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:'var(--space-5)'}}>
+        <DateField label="Data de nascimento do aluno" required max="2020-12-31" hint="dd/mm/aaaa" />
+        <DateField label="Início desejado" min="2026-01-05" deadline="Inscrições até 28/02" />
+      </div>
+    </div>
+  </div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body></html>

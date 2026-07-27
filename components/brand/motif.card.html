@@ -1,0 +1,47 @@
+<!-- @dsCard group="Brand" viewport="980x560" name="Cubo impossível motif" subtitle="The six official constructions of the brand's central visual idea" -->
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script><script src="../../_ds_bundle.js"></script></head>
+<body style="margin:0;padding:32px;background:var(--surface-page)">
+<div id="root"></div>
+<script type="text/babel">
+const { BrandMotif } = window.RedeSescDeEducaODesignSystem_2167ce;
+const VARIANTS = [
+  ['cube', 'Cubo sólido'],
+  ['interlock', 'Cubos entrelaçados'],
+  ['bar', 'Cubo atravessado'],
+  ['frame', 'Moldura aberta'],
+  ['chain', 'Corrente em zigue-zague'],
+  ['hollow', 'Cubo vazado'],
+];
+const label = {
+  fontSize: 'var(--text-caption)', textTransform: 'uppercase',
+  letterSpacing: 'var(--letter-spacing-eyebrow)', fontWeight: 700, color: 'var(--text-muted)',
+};
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <div style={{fontFamily:'var(--font-family-base)',display:'flex',flexDirection:'column',gap:'var(--space-6)'}}>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(6,1fr)',gap:'var(--space-4)'}}>
+      {VARIANTS.map(([variant, name]) => (
+        <div key={variant} style={{background:'var(--surface-card)',border:'1px solid var(--border-subtle)',borderRadius:'var(--radius-lg)',padding:'var(--space-4)',display:'flex',flexDirection:'column',gap:'var(--space-3)',alignItems:'center'}}>
+          <BrandMotif variant={variant} size={104} />
+          <span style={{...label, textAlign:'center'}}>{name}</span>
+          <code style={{fontSize:'var(--text-caption)',color:'var(--color-primary)'}}>{variant}</code>
+        </div>
+      ))}
+    </div>
+    <div style={{display:'flex',gap:'var(--space-6)',alignItems:'flex-start',flexWrap:'wrap'}}>
+      <div style={{background:'var(--color-primary)',borderRadius:'var(--radius-lg)',padding:'var(--space-6)',display:'flex',gap:'var(--space-5)',alignItems:'center',flex:'1 1 320px'}}>
+        <BrandMotif variant="interlock" size={132} opacity={0.9} />
+        <div>
+          <p style={{fontSize:'var(--text-h4)',fontWeight:'var(--font-weight-extrabold)',color:'var(--text-on-primary)',margin:0}}>Sobre faixa roxa</p>
+          <p style={{fontSize:'var(--text-body-sm)',color:'rgba(255,255,255,0.85)',margin:'var(--space-2) 0 0',lineHeight:'var(--line-height-body)'}}>As cores pertencem à arte oficial e não mudam por tema — trate o motivo como o logotipo.</p>
+        </div>
+      </div>
+      <div style={{flex:'1 1 300px',maxWidth:420,display:'flex',flexDirection:'column',gap:'var(--space-3)'}}>
+        <p style={{...label, margin:0}}>Arte oficial</p>
+        <p style={{fontSize:'var(--text-body-sm)',lineHeight:'var(--line-height-body)',margin:0}}>O cubo impossível é a ideia visual central da marca — <strong>alcance, expansão, flexibilidade e pensamento lateral</strong>. As seis construções vêm do arquivo vetorial oficial fornecido pelo Sesc.</p>
+        <p style={{fontSize:'var(--text-body-sm)',lineHeight:'var(--line-height-body)',margin:0,color:'var(--text-muted)'}}>Uma construção por composição, em espaço negativo, ocupando no máximo 25% do quadro. Nunca redesenhe, recolora, gire ou anime. Para um campo de cubos em sangria, use os padrões oficiais em <code>assets/patterns/</code>.</p>
+      </div>
+    </div>
+  </div>
+);
+</script>
+</body></html>
