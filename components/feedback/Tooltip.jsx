@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function Tooltip({ label, children }) {
   const [show, setShow] = React.useState(false);

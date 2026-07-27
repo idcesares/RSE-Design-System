@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function Button({ variant = 'primary', size = 'md', icon, disabled, children, onClick, type = 'button' }) {
   const sizes = {

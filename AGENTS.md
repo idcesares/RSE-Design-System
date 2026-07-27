@@ -167,7 +167,7 @@ self-contained `_ds/` folder and the rules that travel with it.
    new location. That single line is the only wiring.
 3. Compose from existing components before writing new markup. Check
    [docs/components.md](docs/components.md) first — the set is deliberately complete for this
-   use case (35 components), so a "missing" component is usually an existing one with a prop you
+   use case (36 components), so a "missing" component is usually an existing one with a prop you
    haven't read yet.
 4. Structure: page background is cream (`--surface-page`), content sits on white cards
    (`--surface-card`). At most **two** background colours per composition — cream, plus brand
@@ -219,6 +219,11 @@ Rules:
   rejects JSX. This is what lets static pages load components with no build step.
 - A **new** component must also be registered in `_ds_manifest.json` under `components` (name +
   sourcePath) and exported from `index.js`. `npm run check` fails until both are true.
+- **Calls a hook? Line 1 is `'use client';`**, above the React import. `index.js` is a flat barrel,
+  so a React Server Components host (Next.js App Router) pulls every component into the server
+  graph on any import from it, and a hook without the directive fails *their* build. `npm run check`
+  fails without it. The directive never reaches `_ds_bundle.js` — `sync-bundle` strips it, so
+  static pages are unaffected.
 - Props are strings, arrays and plain objects wherever possible — templates mount components
   through `<x-import>` with HTML attributes, so exotic prop shapes don't survive the trip.
 - Don't add a component that duplicates an existing one with a prop. Check

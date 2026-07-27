@@ -65,6 +65,7 @@ node _ds/check.mjs
 | …and you want this system's components too | + `_ds/tokens/base-runtime.css` | Focus ring and two keyframes only |
 | Static HTML with real components | + `_ds/_ds_bundle.js` | — |
 | React | `import { Button } from './_ds/index.js'` | — |
+| Next.js (App Router) | the same, but global CSS only in `app/layout.tsx` — [recipe](#recipe-nextjs-app-router) | — |
 | A social post, poster, PDF, deck — anything not a browser | `_ds/brand.json` | — |
 
 `tokens/base.css` is now just `base-runtime.css` + `base-reset.css`. Everything that already
@@ -136,6 +137,63 @@ Three things to know:
    transform is required beyond that. `react >= 18` is a peer, not bundled.
 3. **`assets/` must be served.** Copy `_ds/assets/` into your public directory, or point your
    bundler at it. See the next section for why the layout matters.
+
+## Recipe: Next.js (App Router)
+
+Next works, with two rules that are specific to it. Both come from the App Router treating every
+file as a Server Component until told otherwise.
+
+**1. Global CSS goes in `app/layout.tsx` and nowhere else.** Next rejects a global stylesheet
+imported from any other file.
+
+```tsx
+// app/layout.tsx
+import './_ds/styles.css';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="pt-BR">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+Inside a site that already has base styles, import `./_ds/tokens/tokens-only.css` instead — plus
+`./_ds/tokens/base-runtime.css` if you use the components, or Spinner, Skeleton and the
+Checkbox/Radio/Switch focus behaviour break silently.
+
+**2. Import components in a Client Component.** The 14 components that use hooks each carry a
+`'use client'` directive, so they cross the boundary on their own:
+
+```tsx
+// app/page.tsx — a Server Component; this is fine
+import { Card, Stat, Button } from './_ds/index.js';
+```
+
+Server-render whatever you can, and mark your *own* component `'use client'` only when it holds
+state or passes an event handler down:
+
+```tsx
+'use client';
+import { Tabs } from './_ds/index.js';
+
+export function ProgramTabs({ tabs }) {
+  const [active, setActive] = React.useState(tabs[0].id);
+  return <Tabs tabs={tabs} activeId={active} onChange={setActive} />;
+}
+```
+
+An event handler is the usual trap: `<Button onClick={...}>` from a Server Component fails, because
+functions cannot cross the boundary — not a design-system problem, but this is where you will hit it.
+
+**Fonts and assets.** `tokens/fonts.css` reaches for `../assets/fonts/Montserrat-Variable.woff2`,
+a path relative to the CSS file. Keep `_ds/assets/` a sibling of `_ds/tokens/` and the bundler
+resolves and emits it. Do not reach for `next/font` — it would fetch Montserrat from Google rather
+than using the vendored file, and the `@font-face` block in `fonts.css` already declares the
+variable weights this system needs.
+
+`.jsx` resolves out of the box; the sources contain no JSX, so no transform is involved.
 
 ## Recipe: anything that is not a browser
 

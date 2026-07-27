@@ -147,10 +147,22 @@ for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith
   if (/zIndex: *\d/.test(text)) warn(`${f}: hard-coded zIndex — use the --z-* scale from tokens/layout.css`);
 }
 
+// ─── 8b. Hook-using components carry 'use client' ───────────────────────────
+// index.js is a flat barrel, so a React Server Components host (Next.js App Router) pulls
+// every component into the server graph on any import from it. A component that calls a hook
+// without the directive fails the consumer's build, not ours — hence the guard here.
+for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith('.jsx'))) {
+  const text = read(f);
+  if (!/\buse(State|Effect|LayoutEffect|Ref|Callback|Memo|Id|Reducer|Context)\s*\(/.test(text)) continue;
+  if (!/^['"]use client['"];/.test(text)) {
+    err(`${f}: calls a React hook but has no 'use client' — breaks in a Next.js App Router server component. Add it as line 1, above the import.`);
+  }
+}
+
 // ─── 9. Manifest paths and referenced assets exist ──────────────────────────
-for (const group of ['cards', 'templates']) {
+for (const group of ['cards', 'templates', 'startingPoints']) {
   for (const entry of manifest[group] ?? []) {
-    const p = typeof entry === 'string' ? entry : entry.path ?? entry.entry ?? entry.file;
+    const p = typeof entry === 'string' ? entry : entry.path ?? entry.entry ?? entry.file ?? entry.entryPath;
     if (p && !existsSync(join(ROOT, p))) err(`_ds_manifest.json ${group}: ${p} does not exist`);
   }
 }

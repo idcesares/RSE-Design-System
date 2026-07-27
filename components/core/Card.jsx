@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function Card({ image, eyebrow, title, description, tag, footer, href }) {
   const [isHover, setHover] = React.useState(false);

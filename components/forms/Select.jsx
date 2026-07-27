@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function Select({ label, options = [], value, onChange, placeholder, disabled }) {
   const [focused, setFocused] = React.useState(false);

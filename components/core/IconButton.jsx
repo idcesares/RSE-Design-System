@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 export function IconButton({ icon, ariaLabel, 'aria-label': ariaLabelAttr, variant = 'ghost', size = 'md', disabled, onClick }) {
   const label = ariaLabel || ariaLabelAttr;

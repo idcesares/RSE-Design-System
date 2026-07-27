@@ -2,7 +2,7 @@
   "name": "rede-sesc-educacao-design-system",
   "version": "1.4.0",
   "private": true,
-  "description": "Design system for the Rede Sesc de Educação — tokens, 35 React components, templates and brand guidance for generating sites, pages and print artwork.",
+  "description": "Design system for the Rede Sesc de Educação — tokens, 36 React components, templates and brand guidance for generating sites, pages and print artwork.",
   "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
