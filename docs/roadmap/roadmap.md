@@ -8,10 +8,23 @@ a script can verify, and whether it can start now or waits on a decision.
 
 | | |
 | --- | --- |
-| Decisions approved | **D1, D2, D3** (October 2026). D4, D5, D6 pending. |
-| Done | **P0.1** CI · **P0.2** doc contradictions · **P0.3** scope freeze · **P1.1** accessible inks · **P1.2** audit gate + ratchet |
-| Blocked | **P1.3** on D5 (namespace rename) · **P1.4** on D4 (registry and licence) |
-| Next unblocked | **P2.4** glyph icons → `Icon`; **P2.1** CSS contract (D1 approved) |
+| Decisions approved | **D1–D6** (October 2026). D5 without legacy aliases: nothing consumed 1.x, so 2.0.0 is a clean break. |
+| Done | **Phase 0** (P0.1–P0.3) · **Phase 1** (P1.1–P1.4) · D6 removals — released as **2.0.0** |
+| Next | **P2.4** glyph icons → `Icon` (small, start here) · **P2.1** CSS contract · **P2.5** visual + axe tests |
+
+How phase 1 landed differently from the plan below, on purpose:
+
+- **One package, not four.** `@idcesares/rse-design-system` with subpath exports (`/styles.css`,
+  `/tokens`, `/brand.json`, `/bundle`, `/assets/*`). Splitting into `brand`/`tokens`/`css`/`react`
+  waits until `@rede-sesc/css` has something in it (P2.1); until then four packages would be one
+  package in four boxes. The scope is the GitHub owner because GitHub Packages requires it; moving
+  to an organisation scope is a rename at release time.
+- **A static kit, not a CDN.** The repository is private, so no public CDN can serve it. Each
+  release attaches `rse-<version>.zip`, to be hosted at a versioned path on a Sesc server.
+- **No Tailwind preset or Figma export yet.** The DTCG source is readable by Style Dictionary and
+  Tokens Studio directly; a preset gets built when a consumer needs one.
+- **No changesets.** The repo has zero dependencies and keeps it that way: the release workflow
+  requires a `## <version>` section in `CHANGELOG.md` and a tag that matches `package.json`.
 
 Progress is tracked with numbers, not adjectives:
 
@@ -122,8 +135,8 @@ what the work packages assume.
 | D1 | Adopt CSS-first components as the contract; React becomes a wrapper (2.0.0, breaking). | **Yes.** It is the only route to CMSs and the portal. | DS lead | P2 |
 | D2 | Add a derived **ink** step per hue (darker than `-dark`, same hue) for text on tints and status text. Values start from the existing contrast-theme inks. | **Yes.** Marked *derived*, like the grays; brand artwork keeps using the 20 official values only. | DS lead + DN comunicação | P1.1 |
 | D3 | Allow **ink-on-colour fields** (light/mid accent backgrounds with `--rse-color-ink` text) in pages, not only in print. Optionally assign hue families to segments for wayfinding. | **Yes to fields** (5–10:1, the most legible pairs the palette has). Segment-to-hue mapping only if DN wants it — it is a brand semantic, not ours to invent. | DN comunicação | P3.3 |
-| D4 | Publish to a registry: GitHub Packages (private) + a versioned static CDN path for CMSs. License the code for internal Sesc reuse. | **Yes.** | DS lead + Sesc TI | P1.4 |
-| D5 | Rename the token namespace to `--rse-*` and the bundle global to `RSE`, with aliases for 2.x. | **Yes.** | DS lead | P1.3 |
+| D4 | Publish to a registry: GitHub Packages (private) + a versioned static CDN path for CMSs. License the code for internal Sesc reuse. | **Approved.** Done as package + static kit; LICENSE drafted, pending Sesc legal review. | DS lead + Sesc TI | P1.4 |
+| D5 | Rename the token namespace to `--rse-*` and the bundle global to `RSE`, with aliases for 2.x. | **Approved, without aliases** (no consumer yet). Done in 2.0.0. | DS lead | P1.3 |
 | D6 | Remove `ui_kits/site/` and the raster logos (see assessment, "What to remove"). The oxlint config stays: it carries tool metadata (`x-omelette`), and P1.2 already moved enforcement out of it. | **Yes.** | DS lead | P3.4 |
 
 ---

@@ -2,8 +2,8 @@
 // Import components from here — never from a component file directly, so a component
 // can be re-pathed or re-implemented without touching consuming code.
 //
-// Static HTML pages do not use this file: they load `_ds_bundle.js`, which exposes the
-// same components on window.RedeSescDeEducaODesignSystem_2167ce. See AGENTS.md.
+// Static HTML pages do not use this file: they load `dist/rse.js`, which exposes the
+// same components on window.RSE. See AGENTS.md.
 
 // Core
 export { Avatar } from './components/core/Avatar.jsx';

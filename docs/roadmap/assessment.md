@@ -1,5 +1,10 @@
 # Design system assessment — October 2026
 
+> **Snapshot of 1.4.0.** Token names, file paths and numbers below are as they were when the
+> assessment was made (e.g. `--danger`, `tokens/colors.css`, `_ds_bundle.js`). 2.0.0 renamed and
+> restructured most of them — see [roadmap.md](roadmap.md) for status and `docs/tokens.md` for
+> current names. The findings themselves are the record of why.
+
 **Scope.** Everything in this repo at `1.4.0`: tokens, 36 components, 4 templates, the UI kit,
 starters, scripts, docs and the agent layer (`AGENTS.md`, `SKILL.md`, `brand.json`).
 **Question.** Can this system carry a visual restructuring of the *whole* Rede ecosystem — the

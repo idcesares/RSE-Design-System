@@ -1,0 +1,89 @@
+{
+  "rse": {
+    "radius": {
+      "sm": {
+        "$value": "8px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "14px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "xl": {
+        "$value": "32px",
+        "$type": "dimension"
+      },
+      "pill": {
+        "$value": "999px",
+        "$type": "dimension"
+      }
+    },
+    "shadow": {
+      "sm": {
+        "$value": "0 1px 2px rgba(43,42,61,0.08)",
+        "$type": "shadow",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "0 1px 2px rgba(0,0,0,0.45)",
+              "contrast": "none"
+            }
+          }
+        }
+      },
+      "md": {
+        "$value": "0 8px 24px rgba(43,42,61,0.10)",
+        "$type": "shadow",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "0 8px 24px rgba(0,0,0,0.5)",
+              "contrast": "none"
+            }
+          }
+        }
+      },
+      "lg": {
+        "$value": "0 20px 48px rgba(43,42,61,0.14)",
+        "$type": "shadow",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "0 20px 48px rgba(0,0,0,0.6)",
+              "contrast": "none"
+            }
+          }
+        }
+      }
+    },
+    "ease": {
+      "standard": {
+        "$value": "cubic-bezier(.4,0,.2,1)",
+        "$type": "cubicBezier"
+      },
+      "out": {
+        "$value": "cubic-bezier(0,0,.2,1)",
+        "$type": "cubicBezier"
+      }
+    },
+    "duration": {
+      "fast": {
+        "$value": "150ms",
+        "$type": "duration"
+      },
+      "base": {
+        "$value": "220ms",
+        "$type": "duration"
+      },
+      "slow": {
+        "$value": "360ms",
+        "$type": "duration"
+      }
+    }
+  },
+  "$description": "Tier 2 — radius, elevation, motion."
+}

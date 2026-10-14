@@ -1,17 +1,17 @@
 # Starters
 
 Blank starting points. Copy one, rename it, replace the content. They are wired to the design
-system by relative path (`../styles.css`, `../_ds_bundle.js`) — if you move a copy elsewhere,
+system by relative path (`../styles.css`, `../dist/rse.js`) — if you move a copy elsewhere,
 update those paths.
 
-Moving one into another project? Don't hand-copy the pieces — run `npm run bind <that project>`
-from the repo root and point the paths at the `_ds/` folder it creates. See
+Moving one into another project? Use the copy of `starters/` inside the static kit
+(`npm run pack`, or the zip on each GitHub Release) — its paths already resolve. See
 [../docs/integration.md](../docs/integration.md).
 
 | File | What it is | Use when |
 | --- | --- | --- |
 | `page.html` | Static page, tokens only, **no JavaScript at all** | Mocks, artifacts, anything you hand over as a single file. Opens offline. |
-| `page-react.html` | Same page built from real components (React UMD + `_ds_bundle.js`) | Prototypes that need real component behaviour — tabs, accordions, dialogs. |
+| `page-react.html` | Same page built from real components (React UMD + `dist/rse.js`) | Prototypes that need real component behaviour — tabs, accordions, dialogs. |
 | `poster.html` | A3 print piece with `@page` rules | Posters, flyers, printed notices. |
 
 For a full page with sections already composed, start from `templates/` instead — see

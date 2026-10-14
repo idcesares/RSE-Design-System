@@ -1,0 +1,24 @@
+Rede Sesc de Educação — Design System
+Copyright (c) 2026 Serviço Social do Comércio (Sesc). All rights reserved.
+
+PERMITTED USE
+Use, copying and modification of this design system are permitted only to build, maintain or
+communicate products, sites, platforms, documents and materials of the Sesc system (Departamento
+Nacional and Departamentos Regionais) and of suppliers working for it under contract.
+
+BRAND
+The Rede Sesc de Educação selo, the Plataforma Sesc Sab.IA lockups, the cubo impossível artwork,
+the patterns and the palette are Sesc brand assets. Their use is governed by the Manual da Rede
+Sesc de Educação (Sesc DN, 2026) and by docs/brand-manual.md, whatever this licence permits for
+the code.
+
+THIRD-PARTY COMPONENTS (their own licences apply)
+- Montserrat (assets/fonts/): SIL Open Font License 1.1.
+- Lucide icons (assets/icons/lucide/): ISC License — see assets/icons/lucide/LICENSE.
+- React (assets/vendor/): MIT License.
+
+NO WARRANTY
+Provided "as is", without warranty of any kind.
+
+-- This text was drafted with the design system; have Sesc's legal team confirm it before
+   distribution outside the Sesc system.

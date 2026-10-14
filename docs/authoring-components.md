@@ -21,8 +21,8 @@ export function Name({ tone = 'primary', children }) {
 
 Hard rules:
 
-- **`React.createElement`, never JSX.** `scripts/sync-bundle.mjs` copies this file into
-  `_ds_bundle.js` verbatim so static pages can load it with no build step; JSX is rejected.
+- **`React.createElement`, never JSX.** `scripts/build-bundle.mjs` copies this file into
+  `dist/rse.js` verbatim so static pages can load it with no build step; JSX is rejected.
 - **One default export shape**: `export function Name`. The name must match the filename.
 - **Tokens only** for colour, type, radius, shadow, motion, z-index. Layout geometry (a 20px
   checkbox box, a 16:10 media ratio) may be literal.
@@ -33,7 +33,7 @@ Hard rules:
   purely presentational open/close (`Menu`, `Accordion`) which support both.
 - **Accessibility is part of the component, not the page**: roles, `aria-*`, keyboard handling and
   focus management live here. See the floor in [../AGENTS.md](../AGENTS.md#accessibility-floor).
-  A native input behind custom chrome uses `className="rede-control-input"` — never `display:none`.
+  A native input behind custom chrome uses `className="rse-control-input"` — never `display:none`.
 
 ## 2. Write the types
 
@@ -62,12 +62,12 @@ uphold (e.g. "always pass `label`").
 ## 4. Add it to a specimen card
 
 Each group has one or more `*.card.html` specimens rendered in the design system browser. Add your
-component to the relevant card, or create a new one and register it in `_ds_manifest.json` under
+component to the relevant card, or create a new one and register it in `rse.manifest.json` under
 `cards` with `path`, `group`, `name`, `subtitle` and `viewport`.
 
 ## 5. Register it
 
-- `_ds_manifest.json` → `components`: `{ "name": "Name", "sourcePath": "components/<group>/Name.jsx" }`
+- `rse.manifest.json` → `components`: `{ "name": "Name", "sourcePath": "components/<group>/Name.jsx" }`
 - `index.js` → `export { Name } from './components/<group>/Name.jsx';`
 - `index.d.ts` → the matching type re-export.
 - If it renders text on a new surface, add the pair to `scripts/contrast-pairs.mjs` — the audit
@@ -76,7 +76,7 @@ component to the relevant card, or create a new one and register it in `_ds_mani
 ## 6. Sync and check
 
 ```bash
-npm run sync    # mirror into _ds_bundle.js, refresh manifest tokens, regenerate docs
+npm run sync    # mirror into dist/rse.js, refresh manifest tokens, regenerate docs
 npm run check   # must pass
 ```
 

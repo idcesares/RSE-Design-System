@@ -1,19 +1,19 @@
 import React from 'react';
 export function Tag({ color = 'purple', children, onRemove }) {
   const colors = {
-    pink: { bg: 'var(--tint-pink)', fg: 'var(--tint-pink-ink)' },
-    orange: { bg: 'var(--tint-orange)', fg: 'var(--tint-orange-ink)' },
-    green: { bg: 'var(--tint-green)', fg: 'var(--tint-green-ink)' },
-    blue: { bg: 'var(--tint-blue)', fg: 'var(--tint-blue-ink)' },
-    purple: { bg: 'var(--tint-purple)', fg: 'var(--tint-purple-ink)' },
-    yellow: { bg: 'var(--tint-yellow)', fg: 'var(--tint-yellow-ink)' }
+    pink: { bg: 'var(--rse-color-tint-pink)', fg: 'var(--rse-color-tint-pink-ink)' },
+    orange: { bg: 'var(--rse-color-tint-orange)', fg: 'var(--rse-color-tint-orange-ink)' },
+    green: { bg: 'var(--rse-color-tint-green)', fg: 'var(--rse-color-tint-green-ink)' },
+    blue: { bg: 'var(--rse-color-tint-blue)', fg: 'var(--rse-color-tint-blue-ink)' },
+    purple: { bg: 'var(--rse-color-tint-purple)', fg: 'var(--rse-color-tint-purple-ink)' },
+    yellow: { bg: 'var(--rse-color-tint-yellow)', fg: 'var(--rse-color-tint-yellow-ink)' }
   };
   const c = colors[color];
   return React.createElement('span', {
     style: {
       display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px',
-      borderRadius: 'var(--radius-sm)', fontSize: 'var(--text-body-sm)',
-      fontWeight: 'var(--font-weight-medium)', fontFamily: 'var(--font-family-base)',
+      borderRadius: 'var(--rse-radius-sm)', fontSize: 'var(--rse-font-size-body-sm)',
+      fontWeight: 'var(--rse-font-weight-medium)', fontFamily: 'var(--rse-font-family)',
       background: c.bg, color: c.fg
     }
   }, children, onRemove ? React.createElement('button', {

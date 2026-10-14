@@ -1,19 +1,19 @@
 <!-- @dsCard group="Brand" viewport="960x640" name="Photography & imagery" subtitle="Treatment rules, crops, radii, captions, placeholders" -->
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"></head>
-<body style="margin:0;padding:32px;background:var(--surface-page);font-family:var(--font-family-base);color:var(--text-body)">
-<style>.eyebrow{font-size:var(--text-eyebrow);text-transform:uppercase;letter-spacing:var(--letter-spacing-eyebrow);font-weight:700;color:var(--text-muted);margin:0 0 12px}
-.ph{background:repeating-linear-gradient(135deg,var(--gray-200) 0 8px,var(--gray-100) 8px 16px);border-radius:var(--radius-lg);display:flex;align-items:flex-end;padding:14px}
-.ph span{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;background:var(--surface-card);border-radius:var(--radius-sm);padding:4px 8px;color:var(--text-muted)}
-.rule{display:flex;gap:10px;font-size:var(--text-body-sm);line-height:var(--line-height-body)}
-.yes,.no{font-weight:800;flex:none;width:18px}.yes{color:var(--success-text)}.no{color:var(--danger-text)}
-.cap{font-size:var(--text-caption);color:var(--text-muted);margin:8px 0 0}</style>
+<body style="margin:0;padding:32px;background:var(--rse-color-surface-page);font-family:var(--rse-font-family);color:var(--rse-color-text-body)">
+<style>.eyebrow{font-size:var(--rse-font-size-eyebrow);text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);font-weight:700;color:var(--rse-color-text-muted);margin:0 0 12px}
+.ph{background:repeating-linear-gradient(135deg,var(--rse-brand-gray-200) 0 8px,var(--rse-brand-gray-100) 8px 16px);border-radius:var(--rse-radius-lg);display:flex;align-items:flex-end;padding:14px}
+.ph span{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;background:var(--rse-color-surface-card);border-radius:var(--rse-radius-sm);padding:4px 8px;color:var(--rse-color-text-muted)}
+.rule{display:flex;gap:10px;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body)}
+.yes,.no{font-weight:800;flex:none;width:18px}.yes{color:var(--rse-color-success-text)}.no{color:var(--rse-color-danger-text)}
+.cap{font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted);margin:8px 0 0}</style>
 <div style="max-width:900px;display:flex;flex-direction:column;gap:32px">
 <div>
 <p class="eyebrow">Crops &amp; radii</p>
 <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;align-items:end">
-<div><div class="ph" style="aspect-ratio:16/9;border-radius:var(--radius-xl)"><span>hero · 16:9 · radius xl</span></div><p class="cap">Hero and feature bands.</p></div>
+<div><div class="ph" style="aspect-ratio:16/9;border-radius:var(--rse-radius-xl)"><span>hero · 16:9 · radius xl</span></div><p class="cap">Hero and feature bands.</p></div>
 <div><div class="ph" style="aspect-ratio:16/10"><span>card · 16:10 · lg</span></div><p class="cap">Program and unit cards.</p></div>
-<div><div class="ph" style="aspect-ratio:1/1;border-radius:var(--radius-pill)"><span>retrato · 1:1</span></div><p class="cap">Depoimentos, educadores.</p></div>
+<div><div class="ph" style="aspect-ratio:1/1;border-radius:var(--rse-radius-pill)"><span>retrato · 1:1</span></div><p class="cap">Depoimentos, educadores.</p></div>
 </div>
 </div>
 <div>
@@ -40,17 +40,17 @@
 <div>
 <p class="eyebrow">Legibility over photography</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-<div style="position:relative;border-radius:var(--radius-xl);overflow:hidden"><div class="ph" style="aspect-ratio:16/9;border-radius:0;height:100%"><span>full-bleed photo</span></div>
-<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(43,42,61,.72) 0%,rgba(43,42,61,.25) 70%,rgba(43,42,61,0) 100%);display:flex;align-items:flex-end;padding:20px"><p style="color:#fff;font-size:var(--text-h3);font-weight:800;margin:0;max-width:60%;line-height:var(--line-height-heading)">Aprender para a vida acontecer</p></div></div>
+<div style="position:relative;border-radius:var(--rse-radius-xl);overflow:hidden"><div class="ph" style="aspect-ratio:16/9;border-radius:0;height:100%"><span>full-bleed photo</span></div>
+<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(43,42,61,.72) 0%,rgba(43,42,61,.25) 70%,rgba(43,42,61,0) 100%);display:flex;align-items:flex-end;padding:20px"><p style="color:#fff;font-size:var(--rse-font-size-h3);font-weight:800;margin:0;max-width:60%;line-height:var(--rse-line-height-heading)">Aprender para a vida acontecer</p></div></div>
 <div style="display:flex;flex-direction:column;justify-content:center;gap:10px">
-<p style="font-size:var(--text-body-sm);line-height:var(--line-height-body);margin:0">When text must sit on a photo, use a single-direction ink scrim (<code>--color-ink</code> at 70%→0%), never a purple tint and never a blur. Minimum 4.5:1 on the darkest part of the text.</p>
-<p style="font-size:var(--text-body-sm);line-height:var(--line-height-body);margin:0;color:var(--text-muted)">Every photo needs alt text describing what is happening, not "foto de aluno". Credit and consent (including image release for minors) are a requirement, not a nicety.</p>
+<p style="font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);margin:0">When text must sit on a photo, use a single-direction ink scrim (<code>--rse-brand-ink</code> at 70%→0%), never a purple tint and never a blur. Minimum 4.5:1 on the darkest part of the text.</p>
+<p style="font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);margin:0;color:var(--rse-color-text-muted)">Every photo needs alt text describing what is happening, not "foto de aluno". Credit and consent (including image release for minors) are a requirement, not a nicety.</p>
 </div>
 </div>
 </div>
 <div>
 <p class="eyebrow">Until real photos exist</p>
-<p style="font-size:var(--text-body-sm);line-height:var(--line-height-body);margin:0;max-width:var(--container-prose)">Use the striped placeholder shown here (or <code>&lt;image-slot&gt;</code> in prototypes) with a monospace label naming the shot — <code>sala de aula · fundamental II</code>. Never substitute stock or generated imagery to "finish" a layout; an honest placeholder is a brief for the photographer.</p>
+<p style="font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);margin:0;max-width:var(--rse-container-prose)">Use the striped placeholder shown here (or <code>&lt;image-slot&gt;</code> in prototypes) with a monospace label naming the shot — <code>sala de aula · fundamental II</code>. Never substitute stock or generated imagery to "finish" a layout; an honest placeholder is a brief for the photographer.</p>
 </div>
 </div>
 </body></html>

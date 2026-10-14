@@ -11,19 +11,19 @@ npm run check
 
 - [ ] Passes with 0 errors.
 - [ ] No raw hex, `font-family`, radius, shadow or duration outside `tokens/`.
-- [ ] `_ds_bundle.js` in sync (`npm run sync` after any component edit).
+- [ ] `dist/rse.js` in sync (`npm run sync` after any component edit).
 - [ ] Generated docs regenerated, not hand-edited.
 
 ## Brand
 
-- [ ] Page background is cream (`--surface-page`), content on white cards. At most two background
+- [ ] Page background is cream (`--rse-color-surface-page`), content on white cards. At most two background
       colours in the composition — cream plus one purple band.
 - [ ] Accent hues appear only in tags, chips, dots and data — never as a section background.
 - [ ] Headings Extrabold with tight tracking; exactly one uppercase style in play (the eyebrow).
-- [ ] Radii follow the system: pill for buttons/badges/tags, `--radius-md` for fields,
-      `--radius-lg/xl` for cards and media. No square corners in UI chrome.
+- [ ] Radii follow the system: pill for buttons/badges/tags, `--rse-radius-md` for fields,
+      `--rse-radius-lg/xl` for cards and media. No square corners in UI chrome.
 - [ ] Logo unmodified, correct lockup for the background, clearspace respected.
-- [ ] Motion is limited to hover/press state changes at `--duration-fast/base`. No scroll-triggered
+- [ ] Motion is limited to hover/press state changes at `--rse-duration-fast/base`. No scroll-triggered
       animation, no bounce.
 
 ## Content
@@ -54,7 +54,7 @@ npm run check
 
 ## Themes and responsiveness
 
-- [ ] Renders correctly with `data-theme="dark"` and `data-theme="contrast"` on `<html>`.
+- [ ] Renders correctly with `data-rse-theme="dark"` and `data-rse-theme="contrast"` on `<html>`.
 - [ ] Reflows at 375px, 834px and 1440px without horizontal scroll.
 - [ ] Wide content (tables, deck stages) scrolls inside its own container, not the page body.
 - [ ] `prefers-reduced-motion` still calms everything — no animation added outside the token system.

@@ -1,0 +1,634 @@
+{
+  "rse": {
+    "color": {
+      "sabia-purple": {
+        "$value": "{rse.brand.purple-dark}",
+        "$type": "color",
+        "$description": "Plataforma Sesc Sab.IA palette (manual p.90): three unchanged Rede values, no colour of its own. Use only on Sab.IA surfaces and entry points. The platform chrome is BLUE, not purple — see docs/sabia-platform.md."
+      },
+      "sabia-blue": {
+        "$value": "{rse.brand.blue}",
+        "$type": "color"
+      },
+      "sabia-orange": {
+        "$value": "{rse.brand.orange}",
+        "$type": "color"
+      },
+      "sabia-on-blue": {
+        "$value": "{rse.brand.ink}",
+        "$type": "color",
+        "$description": "Text on the blue platform chrome. White on --rse-color-sabia-blue is 2.27:1; ink is 6.17:1."
+      },
+      "sabia-surface": {
+        "$value": "#eef0da",
+        "$type": "color",
+        "$description": "Not in the manual: a system page tone for Sab.IA surfaces, which the manual does not supply.",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "primary": {
+        "$value": "{rse.brand.purple-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.purple}",
+              "contrast": "#4a3fa8"
+            }
+          }
+        }
+      },
+      "primary-hover": {
+        "$value": "#5e56ab",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.purple-light}",
+              "contrast": "#3a3186"
+            }
+          }
+        }
+      },
+      "primary-active": {
+        "$value": "#504a92",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.purple-dark}",
+              "contrast": "#2c2566"
+            }
+          }
+        }
+      },
+      "surface-page": {
+        "$value": "{rse.brand.cream}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#1b1a26",
+              "contrast": "#ffffff"
+            }
+          }
+        }
+      },
+      "surface-card": {
+        "$value": "{rse.brand.white}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#24232f",
+              "contrast": "#ffffff"
+            }
+          }
+        }
+      },
+      "surface-sunken": {
+        "$value": "{rse.brand.gray-100}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#2e2d3b",
+              "contrast": "#f2f1ec"
+            }
+          }
+        }
+      },
+      "surface-inverse": {
+        "$value": "{rse.brand.ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.cream}"
+            }
+          }
+        }
+      },
+      "surface-primary-tint": {
+        "$value": "#edecf8",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#2f2b4d",
+              "contrast": "#e6e3fa"
+            }
+          }
+        }
+      },
+      "surface-primary-tint-hover": {
+        "$value": "#e4e3f4",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#3a3563",
+              "contrast": "#d7d2f5"
+            }
+          }
+        }
+      },
+      "text-on-primary-tint": {
+        "$value": "{rse.color.primary-hover}",
+        "$type": "color",
+        "$description": "Text and icons on --rse-color-surface-primary-tint (secondary button, menu hover, avatar initials).\n--rse-color-primary itself is 4.29:1 there; the hover purple is 5.29:1.",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.purple-light}",
+              "contrast": "#3a3186"
+            }
+          }
+        }
+      },
+      "surface-page-translucent": {
+        "$value": "rgba(242,244,228,0.92)",
+        "$type": "color",
+        "$description": "Sticky header / any chrome that sits over scrolling page content.",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "rgba(27,26,38,0.92)",
+              "contrast": "#ffffff"
+            }
+          }
+        }
+      },
+      "border-subtle": {
+        "$value": "{rse.brand.gray-200}",
+        "$type": "color",
+        "$description": "Three borders, and the difference is a rule, not a taste:\nsubtle / default are decoration — hairlines between rows, around a specimen, under a\nsection. They may sit below 3:1.\nstrong is the resting boundary of an interactive control — field, checkbox, radio, chip,\nghost button, menu trigger, step marker. Those controls fill with --rse-color-surface-card, the same\ncolour as the surface behind them, so the border is the only thing identifying the control\nand WCAG 1.4.11 requires 3:1. --rse-color-border-default (gray-300) gave 1.61:1; gray-500 gives 3.96:1.\nNever move a control's border back to --rse-color-border-default.",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#34323f",
+              "contrast": "#5b5866"
+            }
+          }
+        }
+      },
+      "border-default": {
+        "$value": "{rse.brand.gray-300}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#474553",
+              "contrast": "#2b2a3d"
+            }
+          }
+        }
+      },
+      "border-strong": {
+        "$value": "{rse.brand.gray-500}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#7a7890",
+              "contrast": "#000000"
+            },
+            "modeNotes": {
+              "dark": "border-strong carries the resting boundary of every control, so it must clear 3:1 on each surface a control can sit on. #6b697a reached only 2.89:1 on the card and 2.53:1 on the sunken surface; #7a7890 is the lightest value that clears all three (card 3.62, page 4.02, sunken 3.16)."
+            }
+          }
+        }
+      },
+      "border-on-ink": {
+        "$value": "#3a3830",
+        "$type": "color",
+        "$description": "Hairline on the fixed ink surface (footer), which stays ink in every theme."
+      },
+      "text-heading": {
+        "$value": "{rse.brand.ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#f4f3ee",
+              "contrast": "#000000"
+            }
+          }
+        }
+      },
+      "text-body": {
+        "$value": "{rse.brand.gray-700}",
+        "$type": "color",
+        "$description": "Body text colour.",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#cfcdc6",
+              "contrast": "#1a1926"
+            }
+          }
+        }
+      },
+      "text-muted": {
+        "$value": "{rse.brand.gray-600}",
+        "$type": "color",
+        "$description": "gray-600, not gray-500: at gray-500 this cleared only 3.56:1 on the cream page and\n3.96:1 on a white card, under the 4.5:1 floor this system sets for body text — and\n--rse-color-text-muted carries real body copy (card descriptions, lead paragraphs). The dark\nand contrast themes override it separately and were already above the floor.",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#9b998f",
+              "contrast": "#3d3b4a"
+            }
+          }
+        }
+      },
+      "text-inverse": {
+        "$value": "{rse.brand.white}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.ink}"
+            }
+          }
+        }
+      },
+      "text-on-primary": {
+        "$value": "{rse.brand.white}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#171622"
+            }
+          }
+        }
+      },
+      "text-link": {
+        "$value": "{rse.brand.purple-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.purple-light}",
+              "contrast": "#3a3186"
+            }
+          }
+        }
+      },
+      "text-link-hover": {
+        "$value": "{rse.brand.indigo}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#c8b9ff",
+              "contrast": "#2c2566"
+            }
+          }
+        }
+      },
+      "focus-ring": {
+        "$value": "{rse.brand.blue-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.blue-light}",
+              "contrast": "#000000"
+            }
+          }
+        }
+      },
+      "success": {
+        "$value": "{rse.brand.green-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.green-light}",
+              "contrast": "#3f6100"
+            }
+          }
+        }
+      },
+      "warning": {
+        "$value": "{rse.brand.yellow-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.yellow-light}",
+              "contrast": "#7a5200"
+            }
+          }
+        }
+      },
+      "danger": {
+        "$value": "{rse.brand.pink-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.pink-light}",
+              "contrast": "#a3232b"
+            }
+          }
+        }
+      },
+      "info": {
+        "$value": "{rse.brand.blue-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.blue-light}",
+              "contrast": "#1d5c86"
+            }
+          }
+        }
+      },
+      "success-text": {
+        "$value": "{rse.brand.green-ink}",
+        "$type": "color",
+        "$description": "Status colours come in three roles. The bare name (--rse-color-success) is the INDICATOR: dots,\nborders, icons, progress fills, held to 3:1 non-text contrast. Text uses the -text role,\nwhich clears 4.5:1 on the matching -surface and on white. Never set text in the bare name:\n--rse-color-warning as text is 2.17:1.",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.green-light}",
+              "contrast": "#3f6100"
+            }
+          }
+        }
+      },
+      "warning-text": {
+        "$value": "{rse.brand.yellow-ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.yellow-light}",
+              "contrast": "#7a5200"
+            }
+          }
+        }
+      },
+      "danger-text": {
+        "$value": "{rse.brand.pink-ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.pink-light}",
+              "contrast": "#a3232b"
+            }
+          }
+        }
+      },
+      "info-text": {
+        "$value": "{rse.brand.blue-ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.blue-light}",
+              "contrast": "#1d5c86"
+            }
+          }
+        }
+      },
+      "success-surface": {
+        "$value": "#eef5e0",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#25301c"
+            }
+          }
+        }
+      },
+      "warning-surface": {
+        "$value": "#fdf3d8",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#332a12"
+            }
+          }
+        }
+      },
+      "danger-surface": {
+        "$value": "#fbe8e8",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#361f21"
+            }
+          }
+        }
+      },
+      "info-surface": {
+        "$value": "#e6f1f9",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#1c2a33"
+            }
+          }
+        }
+      },
+      "tint-pink": {
+        "$value": "#fce9ea",
+        "$type": "color",
+        "$description": "Accent chip tints — the pale backing behind a Tag in each of the six accent families. Paired with the matching tint-*-ink as foreground. Themed: never hard-code these values in a component.",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#3a2226",
+              "contrast": "#f2f1ec"
+            },
+            "modeNotes": {
+              "contrast": "High contrast drops chip hue on purpose: a pale tint behind mid-accent text never\nclears 4.5:1. Chips read as neutral pills here and are told apart by their label."
+            }
+          }
+        }
+      },
+      "tint-orange": {
+        "$value": "#fdeee0",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#3a2a1c",
+              "contrast": "#f2f1ec"
+            }
+          }
+        }
+      },
+      "tint-green": {
+        "$value": "#eaf3dd",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#24301b",
+              "contrast": "#f2f1ec"
+            }
+          }
+        }
+      },
+      "tint-blue": {
+        "$value": "#e8f2f9",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#1d2b34",
+              "contrast": "#f2f1ec"
+            }
+          }
+        }
+      },
+      "tint-purple": {
+        "$value": "#edecf8",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#2c2850",
+              "contrast": "#f2f1ec"
+            }
+          }
+        }
+      },
+      "tint-yellow": {
+        "$value": "#fdf3d8",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "#352c14",
+              "contrast": "#f2f1ec"
+            }
+          }
+        }
+      },
+      "tint-pink-ink": {
+        "$value": "{rse.brand.pink-ink}",
+        "$type": "color",
+        "$description": "Text/icon colour to use on the matching tint.",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.pink-light}",
+              "contrast": "#8a1f26"
+            }
+          }
+        }
+      },
+      "tint-orange-ink": {
+        "$value": "{rse.brand.orange-ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.orange-light}",
+              "contrast": "#7a3d00"
+            }
+          }
+        }
+      },
+      "tint-green-ink": {
+        "$value": "{rse.brand.green-ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.green-light}",
+              "contrast": "#3f6100"
+            }
+          }
+        }
+      },
+      "tint-blue-ink": {
+        "$value": "{rse.brand.blue-ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.blue-light}",
+              "contrast": "#1d5c86"
+            }
+          }
+        }
+      },
+      "tint-purple-ink": {
+        "$value": "{rse.brand.purple-ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.purple-light}",
+              "contrast": "#3a3186"
+            }
+          }
+        }
+      },
+      "tint-yellow-ink": {
+        "$value": "{rse.brand.yellow-ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.yellow-light}",
+              "contrast": "#6b4700"
+            }
+          }
+        }
+      },
+      "data-1": {
+        "$value": "{rse.brand.purple-dark}",
+        "$type": "color"
+      },
+      "data-2": {
+        "$value": "{rse.brand.blue}",
+        "$type": "color"
+      },
+      "data-3": {
+        "$value": "{rse.brand.green}",
+        "$type": "color"
+      },
+      "data-4": {
+        "$value": "{rse.brand.yellow}",
+        "$type": "color"
+      },
+      "data-5": {
+        "$value": "{rse.brand.orange}",
+        "$type": "color"
+      },
+      "data-6": {
+        "$value": "{rse.brand.pink}",
+        "$type": "color"
+      },
+      "scrim": {
+        "$value": "rgba(43,42,61,0.55)",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "rgba(12,11,18,0.68)"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$description": "Tier 2 — system colour roles. Components, patterns and pages read these. Every role may re-map per theme (light is the default, dark and contrast in $extensions.rse.modes)."
+}

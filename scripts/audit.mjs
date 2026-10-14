@@ -90,13 +90,13 @@ const components = walk('components')
       jsHover: /setHover\(|onMouseEnter/.test(src),
       randomId: /Math\.random/.test(src),
       passesRest: /\.\.\.(?:rest|props|other)\b/.test(src),
-      acceptsClassName: /\bclassName\b(?!:\s*'rede-control)/.test(src.replace(/className:\s*'rede-control-(?:input|box)'/g, '')),
+      acceptsClassName: /\bclassName\b(?!:\s*'rse-control)/.test(src.replace(/className:\s*'rse-control-(?:input|box)'/g, '')),
       responsive: /matchMedia|@media|container-type/.test(src),
     };
   });
 
 // ─── 3. Templates and kits: do they hold the system's own rules? ────────────
-const pages = [...walk('templates'), ...walk('ui_kits')]
+const pages = walk('templates')
   .filter((f) => /\.(dc\.html|html|js)$/.test(f) && !/(support|ds-base|deck-stage|doc-page)\.js$/.test(f))
   .map((f) => {
     const src = read(f);
@@ -110,7 +110,7 @@ const pages = [...walk('templates'), ...walk('ui_kits')]
   });
 
 // ─── 4. Documentation consistency: do the docs agree with the manifest? ─────
-const manifest = JSON.parse(read('_ds_manifest.json'));
+const manifest = JSON.parse(read('rse.manifest.json'));
 const truth = manifest.components.length;
 const docClaims = [];
 for (const f of ['readme.md', 'AGENTS.md', 'SKILL.md', 'package.json', 'docs/integration.md', 'docs/recipes.md']) {

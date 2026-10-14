@@ -2,7 +2,7 @@
 import React from 'react';
 export function Tooltip({ label, children }) {
   const [show, setShow] = React.useState(false);
-  const id = React.useMemo(() => 'rede-tip-' + Math.random().toString(36).slice(2, 8), []);
+  const id = React.useMemo(() => 'rse-tip-' + Math.random().toString(36).slice(2, 8), []);
   React.useEffect(() => {
     if (!show) return;
     const onKey = (e) => { if (e.key === 'Escape') setShow(false); };
@@ -22,9 +22,9 @@ export function Tooltip({ label, children }) {
       id, role: 'tooltip',
       style: {
         position: 'absolute', bottom: 'calc(100% + 8px)', left: '50%', transform: 'translateX(-50%)',
-        background: 'var(--surface-inverse)', color: 'var(--text-inverse)', padding: '6px 12px',
-        borderRadius: 'var(--radius-sm)', fontSize: 'var(--text-caption)', whiteSpace: 'nowrap',
-        fontFamily: 'var(--font-family-base)', boxShadow: 'var(--shadow-md)', zIndex: 'var(--z-tooltip)'
+        background: 'var(--rse-color-surface-inverse)', color: 'var(--rse-color-text-inverse)', padding: '6px 12px',
+        borderRadius: 'var(--rse-radius-sm)', fontSize: 'var(--rse-font-size-caption)', whiteSpace: 'nowrap',
+        fontFamily: 'var(--rse-font-family)', boxShadow: 'var(--rse-shadow-md)', zIndex: 'var(--rse-z-tooltip)'
       }
     }, label) : null
   );

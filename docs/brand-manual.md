@@ -23,26 +23,26 @@ comparison against the **Pantone Formula Guide** — it does not publish Pantone
 
 | Token | Hex | RGB | CMYK |
 | --- | --- | --- | --- |
-| `--color-cream` | `#f2f4e4` | 242 244 228 | C7 M2 Y14 K0 |
-| `--color-indigo` | `#4c549e` | 76 84 158 | C82 M76 Y4 K0 |
-| `--color-green-light` | `#a3d864` | 163 216 100 | C40 M0 Y79 K0 |
-| `--color-green` | `#85b73d` | 133 183 61 | C54 M7 Y100 K0 |
-| `--color-green-dark` | `#658e1e` | 101 142 30 | C65 M25 Y100 K8 |
-| `--color-yellow-light` | `#ffd67b` | 255 214 123 | C0 M16 Y61 K0 |
-| `--color-yellow` | `#f4bf2a` | 244 191 42 | C4 M25 Y96 K0 |
-| `--color-yellow-dark` | `#d39f2b` | 211 159 43 | C19 M38 Y100 K0 |
-| `--color-orange-light` | `#fc9b59` | 252 155 89 | C0 M47 Y71 K0 |
-| `--color-orange` | `#e17f38` | 255 127 56 | C9 M60 Y90 K0 |
-| `--color-orange-dark` | `#c6621e` | 198 98 30 | C17 M71 Y100 K5 |
-| `--color-purple-light` | `#ad98ea` | 173 152 234 | C34 M41 Y0 K0 |
-| `--color-purple` | `#8e82d8` | 142 130 216 | C47 M51 Y0 K0 |
-| `--color-purple-dark` | `#6c62c4` | 108 98 196 | C67 M68 Y0 K0 |
-| `--color-pink-light` | `#f78f94` | 247 143 148 | C0 M55 Y28 K0 |
-| `--color-pink` | `#e27879` | 226 120 121 | C8 M65 Y43 K0 |
-| `--color-pink-dark` | `#cc646a` | 204 100 106 | C17 M73 Y50 K1 |
-| `--color-blue-light` | `#92c4e6` | 146 196 230 | C40 M11 Y2 K0 |
-| `--color-blue` | `#76b3dd` | 118 179 221 | C51 M16 Y2 K0 |
-| `--color-blue-dark` | `#4f85b2` | 79 133 178 | C72 M41 Y13 K0 |
+| `--rse-brand-cream` | `#f2f4e4` | 242 244 228 | C7 M2 Y14 K0 |
+| `--rse-brand-indigo` | `#4c549e` | 76 84 158 | C82 M76 Y4 K0 |
+| `--rse-brand-green-light` | `#a3d864` | 163 216 100 | C40 M0 Y79 K0 |
+| `--rse-brand-green` | `#85b73d` | 133 183 61 | C54 M7 Y100 K0 |
+| `--rse-brand-green-dark` | `#658e1e` | 101 142 30 | C65 M25 Y100 K8 |
+| `--rse-brand-yellow-light` | `#ffd67b` | 255 214 123 | C0 M16 Y61 K0 |
+| `--rse-brand-yellow` | `#f4bf2a` | 244 191 42 | C4 M25 Y96 K0 |
+| `--rse-brand-yellow-dark` | `#d39f2b` | 211 159 43 | C19 M38 Y100 K0 |
+| `--rse-brand-orange-light` | `#fc9b59` | 252 155 89 | C0 M47 Y71 K0 |
+| `--rse-brand-orange` | `#e17f38` | 255 127 56 | C9 M60 Y90 K0 |
+| `--rse-brand-orange-dark` | `#c6621e` | 198 98 30 | C17 M71 Y100 K5 |
+| `--rse-brand-purple-light` | `#ad98ea` | 173 152 234 | C34 M41 Y0 K0 |
+| `--rse-brand-purple` | `#8e82d8` | 142 130 216 | C47 M51 Y0 K0 |
+| `--rse-brand-purple-dark` | `#6c62c4` | 108 98 196 | C67 M68 Y0 K0 |
+| `--rse-brand-pink-light` | `#f78f94` | 247 143 148 | C0 M55 Y28 K0 |
+| `--rse-brand-pink` | `#e27879` | 226 120 121 | C8 M65 Y43 K0 |
+| `--rse-brand-pink-dark` | `#cc646a` | 204 100 106 | C17 M73 Y50 K1 |
+| `--rse-brand-blue-light` | `#92c4e6` | 146 196 230 | C40 M11 Y2 K0 |
+| `--rse-brand-blue` | `#76b3dd` | 118 179 221 | C51 M16 Y2 K0 |
+| `--rse-brand-blue-dark` | `#4f85b2` | 79 133 178 | C72 M41 Y13 K0 |
 
 Notes:
 
@@ -173,8 +173,8 @@ Sesc's differentiators; balance the three codes.
 - **Palette** (`p.90 / pdf 93`) — "inspired by the colours of the Rede Sesc de Educação", **three
   colours only**, all of them exact Rede palette values:
   `#76b3dd` (blue) · `#6c62c4` (purple) · `#e17f38` (orange).
-  There is **no separate Sab.IA cream** in the manual — `--sabia-cream` `#eef0da` in
-  `tokens/colors.css` is a system invention and should be treated as such.
+  There is **no separate Sab.IA cream** in the manual — `--rse-color-sabia-surface` `#eef0da` in
+  `tokens/src/color.tokens.json` (`--rse-color-sabia-surface`) is a system invention and should be treated as such.
 - **Product UI** (`pdf 94–96`) — real screens are published, so this is no longer unknown territory:
   - *Login* — flat blue plane carrying a full-bleed outlined cube field; title "Plataforma de
     Aprendizagem da Rede Sesc de Educação" reversed on it; white card with Sab.IA lockup endorsed

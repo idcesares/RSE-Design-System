@@ -1,8 +1,67 @@
 # Changelog
 
-## Unreleased — assessment and roadmap
+## 2.0.0 — 2026-10-14 — one source, one name, one package
 
-### Roadmap phase 0 and 1 (decisions D1–D3 approved)
+Breaking, by design: nothing consumed 1.x, so there are no aliases. Every token, the theme
+attribute, the bundle global and several file paths changed. Decisions D1–D6 in
+`docs/roadmap/roadmap.md`.
+
+### Tokens: a DTCG source, tiers, and names that say what they are
+
+- **Source of truth is `tokens/src/*.tokens.json`** (W3C DTCG). `scripts/build-tokens.mjs`
+  generates `tokens/tokens.css`, `dist/tokens.json` (every token resolved per theme),
+  `dist/tokens.js` + `.d.ts`, and the manifest entries. The six hand-written token CSS files and
+  `sync-tokens.mjs` are gone.
+- **`--rse-<category>-<role>` everywhere.** Tier 1 `--rse-brand-*` is the palette (official 20 with
+  CMYK, plus the derived inks, ink, grays); tier 2 `--rse-color-*` holds every role components read
+  (`--rse-color-text-body`, `--rse-color-danger-text`, `--rse-color-tint-pink-ink`…); scales are
+  `--rse-font-size-*`, `--rse-space-*`, `--rse-radius-*`, `--rse-shadow-*`, `--rse-duration-*`, etc.
+  The colour/size collision that rule 2 used to police cannot happen any more.
+- **Themes are `data-rse-theme="dark" | "contrast" | "auto"`.** `auto` follows
+  `prefers-color-scheme`. A theme block re-declares every alias that reaches a themed token, so a
+  themed section nested inside a light page now gets the right values (before, `--a: var(--b)`
+  kept its `:root` value).
+- **Removed:** the sampled `--cube-*` values (the rule forbids sampling artwork), unused
+  `--color-accent-*` / `--color-secondary` aliases, `--shadow-inset`, `--grid-columns`,
+  `--letter-spacing-normal`, `--line-height-loose`, `--state-*-layer`, and `--container-max`
+  (merged into `--rse-container-xl`). Breakpoints left the CSS (it cannot read `var()` inside
+  `@media`) and live in `dist/tokens.json` / `brand.json` → `scales.breakpoints`.
+- **Fluid:** H1–H3 and display sizes scale with `rem + vw` (so they also scale with zoom);
+  `--rse-container-padding` is 16px on a phone and 24px from ~600px.
+
+### Package and release
+
+- Published as **`@idcesares/rse-design-system`** on GitHub Packages, with subpath exports
+  (`/styles.css`, `/tokens-only.css`, `/tokens`, `/tokens.json`, `/brand.json`, `/bundle`,
+  `/assets/*`). `LICENSE` (Sesc internal use; to be confirmed by Sesc legal) and `RULES.md` (the
+  short rules for consuming projects) ship inside it.
+- **Static kit** for sites that cannot `npm install`: `npm run pack` → `dist/static/rse-<version>/`,
+  attached as a zip to each GitHub Release.
+- `.github/workflows/release.yml`: on a `v*` tag matching `package.json` and a CHANGELOG section,
+  runs `check`, publishes, and creates the release.
+
+### Bundle
+
+- `_ds_bundle.js` → **`dist/rse.js`**, on **`window.RSE`**. `scripts/build-bundle.mjs` regenerates
+  it whole from the manifest each time (it used to be patched in place and still carried the ui kit
+  and a second copy of `image-slot.js`). `_ds_manifest.json` → `rse.manifest.json`.
+
+### Removed (D6)
+
+`ui_kits/site/` (a second, older landing page), the five superseded raster logos,
+`_adherence.oxlintrc.json`, `scripts/bind.mjs` (replaced by the package and the static kit) and
+`scripts/sync-bundle.mjs`. CSS class hooks are `rse-control-input` / `rse-control-box`; keyframes
+`rse-spin` / `rse-shimmer`.
+
+### Docs
+
+`readme.md` is the brand brief only (the history of passes is here, below). Known gaps live in one
+place, `docs/known-gaps.md`. `docs/integration.md` is rewritten around the package and the kit.
+`docs/tokens.md` shows every token's value in all three themes. Several specimens and the showcase
+used status *indicator* colours for text; they now use the `-text` roles.
+
+
+### Before 2.0 in this cycle: roadmap phase 0 and P1.1–P1.2 (decisions D1–D3)
 
 **Every rendered colour pair now meets its floor — 0 of 108 fail across the three themes (was 18
 of 63 in the earlier set).** The fix is in the tokens, not the brand: the official `-dark` tones sit
@@ -54,7 +113,7 @@ said only green/pink/blue — the SVGs are blue, green, orange, pink), the motif
 `brand-manual.md` and the "placeholder" wording in `AGENTS.md` now agree with rule 10, and a stale
 note about `/* derived */` markers is gone.
 
-## Previous — the showcase, and what it found
+## 1.5.0 (unreleased) — the showcase, and what it found
 
 ### `showcase/index.html` — the system presented as one page
 

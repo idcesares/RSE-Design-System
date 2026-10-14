@@ -10,120 +10,120 @@
 <!-- @template name="Enrollment form (print)" description="Two-page printable A4 matrícula form: student and guardian data, document checklist, terms and signatures." -->
 <helmet><style>doc-page:not(:defined){visibility:hidden}</style><script src="./ds-base.js"></script><script src="./doc-page.js"></script></helmet>
 <doc-page size="a4">
-<section class="page" style="padding:14mm 16mm;display:flex;flex-direction:column;gap:7mm;font-family:var(--font-family-base);color:var(--color-ink);background:#fff">
-<header style="display:flex;align-items:flex-start;justify-content:space-between;gap:12mm;border-bottom:2px solid var(--color-primary);padding-bottom:5mm">
+<section class="page" style="padding:14mm 16mm;display:flex;flex-direction:column;gap:7mm;font-family:var(--rse-font-family);color:var(--rse-brand-ink);background:#fff">
+<header style="display:flex;align-items:flex-start;justify-content:space-between;gap:12mm;border-bottom:2px solid var(--rse-color-primary);padding-bottom:5mm">
 <div style="display:flex;flex-direction:column;gap:2mm">
-<p style="margin:0;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-primary)">Rede Sesc de Educação</p>
-<h1 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em;color:var(--color-ink)">Ficha de matrícula 2026</h1>
-<p style="margin:0;font-size:14px;color:var(--gray-600)">Preencha com letra legível, em caneta azul ou preta. Página 1 de 2.</p>
+<p style="margin:0;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-primary)">Rede Sesc de Educação</p>
+<h1 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em;color:var(--rse-brand-ink)">Ficha de matrícula 2026</h1>
+<p style="margin:0;font-size:14px;color:var(--rse-brand-gray-600)">Preencha com letra legível, em caneta azul ou preta. Página 1 de 2.</p>
 </div>
 <img src="../../assets/logos/wordmark-purple.svg" alt="Rede Sesc de Educação" style="height:16mm;width:auto;object-fit:contain">
 </header>
 <div style="display:flex;gap:6mm;flex-wrap:wrap">
-<div style="flex:1.3;min-width:48mm;border:1px solid var(--gray-300);border-radius:3mm;padding:4mm;display:flex;flex-direction:column;gap:2mm">
-<span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--gray-500)">Unidade</span>
-<span style="height:6mm;border-bottom:1px solid var(--gray-300)"></span>
+<div style="flex:1.3;min-width:48mm;border:1px solid var(--rse-brand-gray-300);border-radius:3mm;padding:4mm;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-brand-gray-500)">Unidade</span>
+<span style="height:6mm;border-bottom:1px solid var(--rse-brand-gray-300)"></span>
 </div>
-<div style="flex:1.2;min-width:44mm;border:1px solid var(--gray-300);border-radius:3mm;padding:4mm;display:flex;flex-direction:column;gap:2mm">
-<span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--gray-500)">Programa / etapa</span>
-<span style="height:6mm;border-bottom:1px solid var(--gray-300)"></span>
+<div style="flex:1.2;min-width:44mm;border:1px solid var(--rse-brand-gray-300);border-radius:3mm;padding:4mm;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-brand-gray-500)">Programa / etapa</span>
+<span style="height:6mm;border-bottom:1px solid var(--rse-brand-gray-300)"></span>
 </div>
-<div style="flex:0.8;min-width:32mm;border:1px solid var(--gray-300);border-radius:3mm;padding:4mm;display:flex;flex-direction:column;gap:2mm">
-<span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--gray-500)">Turno</span>
-<span style="height:6mm;border-bottom:1px solid var(--gray-300)"></span>
-</div>
-</div>
-<div style="display:flex;flex-direction:column;gap:4mm">
-<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--color-primary)">1. Dados do estudante</h2>
-<div style="display:flex;flex-direction:column;gap:5mm">
-<div style="display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Nome completo</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="display:flex;gap:6mm">
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Data de nascimento</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">CPF</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">RG / órgão emissor</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-</div>
-<div style="display:flex;gap:6mm">
-<div style="flex:2;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Endereço</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Cidade / UF</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="width:30mm;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">CEP</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-</div>
-<div style="display:flex;gap:6mm">
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Escola de origem</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Ano/série concluído</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-</div>
+<div style="flex:0.8;min-width:32mm;border:1px solid var(--rse-brand-gray-300);border-radius:3mm;padding:4mm;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-brand-gray-500)">Turno</span>
+<span style="height:6mm;border-bottom:1px solid var(--rse-brand-gray-300)"></span>
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:4mm">
-<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--color-primary)">2. Responsável legal</h2>
+<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--rse-color-primary)">1. Dados do estudante</h2>
+<div style="display:flex;flex-direction:column;gap:5mm">
+<div style="display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Nome completo</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="display:flex;gap:6mm">
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Data de nascimento</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">CPF</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">RG / órgão emissor</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+</div>
+<div style="display:flex;gap:6mm">
+<div style="flex:2;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Endereço</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Cidade / UF</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="width:30mm;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">CEP</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+</div>
+<div style="display:flex;gap:6mm">
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Escola de origem</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Ano/série concluído</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:4mm">
+<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--rse-color-primary)">2. Responsável legal</h2>
 <div style="display:flex;flex-direction:column;gap:5mm">
 <div style="display:flex;gap:6mm">
-<div style="flex:2;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Nome completo</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Parentesco</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
+<div style="flex:2;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Nome completo</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Parentesco</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
 </div>
 <div style="display:flex;gap:6mm">
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">CPF</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Telefone</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="flex:1.4;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">E-mail</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">CPF</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Telefone</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="flex:1.4;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">E-mail</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
 </div>
 </div>
 </div>
-<div style="display:flex;flex-direction:column;gap:3mm;background:var(--surface-primary-tint);border-radius:4mm;padding:5mm">
-<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--color-primary)">3. Categoria</h2>
+<div style="display:flex;flex-direction:column;gap:3mm;background:var(--rse-color-surface-primary-tint);border-radius:4mm;padding:5mm">
+<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--rse-color-primary)">3. Categoria</h2>
 <div style="display:flex;gap:8mm;flex-wrap:wrap;font-size:15px">
-<span style="display:flex;align-items:center;gap:2.5mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--color-primary);border-radius:1mm;background:#fff"></span>Trabalhador do comércio de bens, serviços e turismo</span>
-<span style="display:flex;align-items:center;gap:2.5mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--color-primary);border-radius:1mm;background:#fff"></span>Dependente de trabalhador</span>
-<span style="display:flex;align-items:center;gap:2.5mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--color-primary);border-radius:1mm;background:#fff"></span>Comunidade</span>
+<span style="display:flex;align-items:center;gap:2.5mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-color-primary);border-radius:1mm;background:#fff"></span>Trabalhador do comércio de bens, serviços e turismo</span>
+<span style="display:flex;align-items:center;gap:2.5mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-color-primary);border-radius:1mm;background:#fff"></span>Dependente de trabalhador</span>
+<span style="display:flex;align-items:center;gap:2.5mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-color-primary);border-radius:1mm;background:#fff"></span>Comunidade</span>
 </div>
 <div style="display:flex;gap:6mm;margin-top:1mm">
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Nº da Credencial Sesc (se houver)</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--gray-600)">Empresa / CNPJ</span><span style="height:7mm;border-bottom:1px solid var(--gray-400)"></span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Nº da Credencial Sesc (se houver)</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1.5mm"><span style="font-size:13px;font-weight:600;color:var(--rse-brand-gray-600)">Empresa / CNPJ</span><span style="height:7mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span></div>
 </div>
 </div>
-<footer style="margin-top:auto;border-top:1px solid var(--gray-300);padding-top:3mm;display:flex;justify-content:space-between;font-size:12px;color:var(--gray-500)">
+<footer style="margin-top:auto;border-top:1px solid var(--rse-brand-gray-300);padding-top:3mm;display:flex;justify-content:space-between;font-size:12px;color:var(--rse-brand-gray-500)">
 <span>Rede Sesc de Educação · Aprender para a vida acontecer</span>
 <span>Página 1 de 2</span>
 </footer>
 </section>
-<section class="page" style="padding:14mm 16mm;display:flex;flex-direction:column;gap:7mm;font-family:var(--font-family-base);color:var(--color-ink);background:#fff">
-<header style="display:flex;align-items:flex-end;justify-content:space-between;gap:12mm;border-bottom:2px solid var(--color-primary);padding-bottom:4mm">
-<h1 style="margin:0;font-size:20px;font-weight:800;letter-spacing:-0.02em;color:var(--color-ink)">Ficha de matrícula 2026 — documentos e termos</h1>
-<span style="font-size:13px;color:var(--gray-500)">Página 2 de 2</span>
+<section class="page" style="padding:14mm 16mm;display:flex;flex-direction:column;gap:7mm;font-family:var(--rse-font-family);color:var(--rse-brand-ink);background:#fff">
+<header style="display:flex;align-items:flex-end;justify-content:space-between;gap:12mm;border-bottom:2px solid var(--rse-color-primary);padding-bottom:4mm">
+<h1 style="margin:0;font-size:20px;font-weight:800;letter-spacing:-0.02em;color:var(--rse-brand-ink)">Ficha de matrícula 2026 — documentos e termos</h1>
+<span style="font-size:13px;color:var(--rse-brand-gray-500)">Página 2 de 2</span>
 </header>
 <div style="display:flex;flex-direction:column;gap:4mm">
-<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--color-primary)">4. Documentos entregues</h2>
-<p style="margin:0;font-size:14px;color:var(--gray-600)">A unidade confere e assinala. Traga original e cópia de cada documento.</p>
+<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--rse-color-primary)">4. Documentos entregues</h2>
+<p style="margin:0;font-size:14px;color:var(--rse-brand-gray-600)">A unidade confere e assinala. Traga original e cópia de cada documento.</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:3mm 8mm;font-size:15px">
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>RG do estudante</span>
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>RG do responsável</span>
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>CPF do estudante</span>
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>CPF do responsável</span>
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>Certidão de nascimento</span>
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>Comprovante de residência</span>
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>Histórico escolar</span>
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>Carteira de vacinação</span>
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>Credencial Sesc válida</span>
-<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>Foto 3x4 recente</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>RG do estudante</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>RG do responsável</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>CPF do estudante</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>CPF do responsável</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>Certidão de nascimento</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>Comprovante de residência</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>Histórico escolar</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>Carteira de vacinação</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>Credencial Sesc válida</span>
+<span style="display:flex;align-items:center;gap:3mm"><span style="width:5mm;height:5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>Foto 3x4 recente</span>
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:4mm">
-<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--color-primary)">5. Informações de saúde e acessibilidade</h2>
-<p style="margin:0;font-size:14px;color:var(--gray-600)">Descreva condições, medicações de uso contínuo, alergias ou apoios necessários. Esta informação orienta o acolhimento e é tratada com confidencialidade.</p>
-<span style="height:9mm;border-bottom:1px solid var(--gray-400)"></span>
-<span style="height:9mm;border-bottom:1px solid var(--gray-400)"></span>
-<span style="height:9mm;border-bottom:1px solid var(--gray-400)"></span>
+<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--rse-color-primary)">5. Informações de saúde e acessibilidade</h2>
+<p style="margin:0;font-size:14px;color:var(--rse-brand-gray-600)">Descreva condições, medicações de uso contínuo, alergias ou apoios necessários. Esta informação orienta o acolhimento e é tratada com confidencialidade.</p>
+<span style="height:9mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span>
+<span style="height:9mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span>
+<span style="height:9mm;border-bottom:1px solid var(--rse-brand-gray-400)"></span>
 </div>
-<div style="display:flex;flex-direction:column;gap:3mm;border:1px solid var(--gray-300);border-radius:4mm;padding:5mm">
-<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--color-primary)">6. Termos</h2>
-<span style="display:flex;align-items:flex-start;gap:3mm;font-size:14px;line-height:1.5"><span style="width:5mm;height:5mm;flex:none;margin-top:0.5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>Declaro que as informações prestadas são verdadeiras e estou ciente do regimento escolar da unidade.</span>
-<span style="display:flex;align-items:flex-start;gap:3mm;font-size:14px;line-height:1.5"><span style="width:5mm;height:5mm;flex:none;margin-top:0.5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>Autorizo o tratamento dos dados pessoais para fins de matrícula e acompanhamento pedagógico, conforme a LGPD (Lei 13.709/2018).</span>
-<span style="display:flex;align-items:flex-start;gap:3mm;font-size:14px;line-height:1.5"><span style="width:5mm;height:5mm;flex:none;margin-top:0.5mm;border:1.5px solid var(--gray-400);border-radius:1mm"></span>Autorizo o uso de imagem do estudante em materiais institucionais da Rede Sesc de Educação (opcional, pode ser revogado a qualquer momento).</span>
+<div style="display:flex;flex-direction:column;gap:3mm;border:1px solid var(--rse-brand-gray-300);border-radius:4mm;padding:5mm">
+<h2 style="margin:0;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--rse-color-primary)">6. Termos</h2>
+<span style="display:flex;align-items:flex-start;gap:3mm;font-size:14px;line-height:1.5"><span style="width:5mm;height:5mm;flex:none;margin-top:0.5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>Declaro que as informações prestadas são verdadeiras e estou ciente do regimento escolar da unidade.</span>
+<span style="display:flex;align-items:flex-start;gap:3mm;font-size:14px;line-height:1.5"><span style="width:5mm;height:5mm;flex:none;margin-top:0.5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>Autorizo o tratamento dos dados pessoais para fins de matrícula e acompanhamento pedagógico, conforme a LGPD (Lei 13.709/2018).</span>
+<span style="display:flex;align-items:flex-start;gap:3mm;font-size:14px;line-height:1.5"><span style="width:5mm;height:5mm;flex:none;margin-top:0.5mm;border:1.5px solid var(--rse-brand-gray-400);border-radius:1mm"></span>Autorizo o uso de imagem do estudante em materiais institucionais da Rede Sesc de Educação (opcional, pode ser revogado a qualquer momento).</span>
 </div>
 <div style="display:flex;gap:10mm;margin-top:2mm">
-<div style="flex:1;display:flex;flex-direction:column;gap:2mm"><span style="height:10mm;border-bottom:1px solid var(--color-ink)"></span><span style="font-size:13px;color:var(--gray-600)">Assinatura do responsável legal</span></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:2mm"><span style="height:10mm;border-bottom:1px solid var(--color-ink)"></span><span style="font-size:13px;color:var(--gray-600)">Assinatura e matrícula do atendente Sesc</span></div>
-<div style="width:40mm;display:flex;flex-direction:column;gap:2mm"><span style="height:10mm;border-bottom:1px solid var(--color-ink)"></span><span style="font-size:13px;color:var(--gray-600)">Data</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:2mm"><span style="height:10mm;border-bottom:1px solid var(--rse-brand-ink)"></span><span style="font-size:13px;color:var(--rse-brand-gray-600)">Assinatura do responsável legal</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:2mm"><span style="height:10mm;border-bottom:1px solid var(--rse-brand-ink)"></span><span style="font-size:13px;color:var(--rse-brand-gray-600)">Assinatura e matrícula do atendente Sesc</span></div>
+<div style="width:40mm;display:flex;flex-direction:column;gap:2mm"><span style="height:10mm;border-bottom:1px solid var(--rse-brand-ink)"></span><span style="font-size:13px;color:var(--rse-brand-gray-600)">Data</span></div>
 </div>
-<footer style="margin-top:auto;border-top:1px solid var(--gray-300);padding-top:3mm;display:flex;justify-content:space-between;font-size:12px;color:var(--gray-500)">
+<footer style="margin-top:auto;border-top:1px solid var(--rse-brand-gray-300);padding-top:3mm;display:flex;justify-content:space-between;font-size:12px;color:var(--rse-brand-gray-500)">
 <span>Uso interno · protocolo nº ____________________</span>
 <span>Rede Sesc de Educação</span>
 </footer>

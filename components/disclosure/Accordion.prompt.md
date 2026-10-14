@@ -11,4 +11,4 @@ FAQ / progressive-disclosure list. Use for enrollment questions, program require
 
 - Single-open by default (`allowMultiple` for checklists where comparison matters).
 - Titles are sentence case, question-shaped, never uppercase.
-- Body copy caps at `--container-prose`; do not nest cards or forms inside.
+- Body copy caps at `--rse-container-prose`; do not nest cards or forms inside.

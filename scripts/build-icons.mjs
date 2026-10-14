@@ -121,5 +121,5 @@ for (const [rel, content] of Object.entries(targets)) {
   console.log(`wrote ${rel}`);
 }
 if (!stale) console.log(`icons up to date (${icons.length} glyphs, Lucide v${version})`);
-else if (!checkOnly) console.log(`${icons.length} glyphs from Lucide v${version} — run "npm run sync" to mirror into _ds_bundle.js`);
+else if (!checkOnly) console.log(`${icons.length} glyphs from Lucide v${version} — run "npm run sync" to mirror into dist/rse.js`);
 process.exit(checkOnly && stale ? 1 : process.exitCode ?? 0);

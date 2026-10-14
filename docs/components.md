@@ -5,8 +5,8 @@
 `.prompt.md` (when to use it, with an example) side by side — read the `.prompt.md` before
 using a component for the first time.
 
-In React, import from `index.js`. In a static page, load `_ds_bundle.js` and read components
-off `window.RedeSescDeEducaODesignSystem_2167ce`. See [../AGENTS.md](../AGENTS.md).
+In React, import from `index.js`. In a static page, load `dist/rse.js` and read components
+off `window.RSE`. See [../AGENTS.md](../AGENTS.md).
 
 ## Core
 

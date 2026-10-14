@@ -9,31 +9,31 @@
      scale the type block by ~0.71. Print at 100% with background graphics on. */
   :root{--page-w:297mm;--page-h:420mm;--margin:22mm}
 
-  html,body{background:var(--gray-200)}
+  html,body{background:var(--rse-brand-gray-200)}
   .sheet{
     width:var(--page-w);height:var(--page-h);margin:24px auto;box-sizing:border-box;
-    background:var(--color-cream);color:var(--color-ink);
+    background:var(--rse-brand-cream);color:var(--rse-brand-ink);
     display:flex;flex-direction:column;justify-content:space-between;
-    padding:var(--margin);box-shadow:var(--shadow-lg);overflow:hidden;position:relative;
+    padding:var(--margin);box-shadow:var(--rse-shadow-lg);overflow:hidden;position:relative;
   }
 
   /* Flat colour field — the brand has no gradients or textures. */
-  .band{background:var(--color-purple-dark);color:var(--color-white);
+  .band{background:var(--rse-brand-purple-dark);color:var(--rse-brand-white);
         margin:0 calc(var(--margin) * -1);padding:14mm var(--margin)}
 
-  .eyebrow{font-size:5mm;font-weight:700;letter-spacing:var(--letter-spacing-eyebrow);
+  .eyebrow{font-size:5mm;font-weight:700;letter-spacing:var(--rse-letter-spacing-eyebrow);
            text-transform:uppercase;margin:0 0 6mm}
-  h1{font-size:26mm;line-height:1.02;letter-spacing:var(--letter-spacing-tight);
-     font-weight:var(--font-weight-black);margin:0;max-width:15ch}
-  .lead{font-size:7mm;line-height:1.5;max-width:38ch;margin:8mm 0 0;color:var(--gray-700)}
+  h1{font-size:26mm;line-height:1.02;letter-spacing:var(--rse-letter-spacing-tight);
+     font-weight:var(--rse-font-weight-black);margin:0;max-width:15ch}
+  .lead{font-size:7mm;line-height:1.5;max-width:38ch;margin:8mm 0 0;color:var(--rse-brand-gray-700)}
   .meta{font-size:5mm;line-height:1.6;margin:0}
-  .meta strong{font-weight:var(--font-weight-extrabold)}
+  .meta strong{font-weight:var(--rse-font-weight-extrabold)}
   .logo{height:16mm;display:block}
-  .rule{height:1.2mm;background:var(--color-purple-dark);width:38mm;margin:10mm 0}
+  .rule{height:1.2mm;background:var(--rse-brand-purple-dark);width:38mm;margin:10mm 0}
 
   @page{size:A3 portrait;margin:0}
   @media print{
-    html,body{background:var(--color-white)}
+    html,body{background:var(--rse-brand-white)}
     .sheet{margin:0;box-shadow:none;width:100%;height:100vh}
     *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
@@ -48,7 +48,7 @@
   </header>
 
   <main>
-    <p class="eyebrow" style="color:var(--color-purple-dark)">Matrículas abertas</p>
+    <p class="eyebrow" style="color:var(--rse-brand-purple-dark)">Matrículas abertas</p>
     <h1>Aprender para a vida acontecer</h1>
     <div class="rule"></div>
     <p class="lead">
@@ -71,7 +71,7 @@
   Rules for print pieces:
   · Flat colour only — cream field plus one purple band. No gradients, textures or photo bleeds.
   · One uppercase element (the eyebrow); everything else sentence case.
-  · Poster type sizes are geometry (mm), not the screen --text-* scale.
+  · Poster type sizes are geometry (mm), not the screen --rse-font-size-* scale.
   · Logo: purple wordmark on cream, white wordmark on purple/ink. Never recolour or distort it.
   · Every figure, address and date above is a placeholder — verify with Sesc before printing.
 -->

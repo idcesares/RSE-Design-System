@@ -1,0 +1,477 @@
+{
+  "rse": {
+    "brand": {
+      "cream": {
+        "$value": "#f2f4e4",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 7,
+              "m": 2,
+              "y": 14,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "indigo": {
+        "$value": "#4c549e",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 82,
+              "m": 76,
+              "y": 4,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "pink-light": {
+        "$value": "#f78f94",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 0,
+              "m": 55,
+              "y": 28,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "pink": {
+        "$value": "#e27879",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 8,
+              "m": 65,
+              "y": 43,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "pink-dark": {
+        "$value": "#cc646a",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 17,
+              "m": 73,
+              "y": 50,
+              "k": 1
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "orange-light": {
+        "$value": "#fc9b59",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 0,
+              "m": 47,
+              "y": 71,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "orange": {
+        "$value": "#e17f38",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 9,
+              "m": 60,
+              "y": 90,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "orange-dark": {
+        "$value": "#c6621e",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 17,
+              "m": 71,
+              "y": 100,
+              "k": 5
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "green-light": {
+        "$value": "#a3d864",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 40,
+              "m": 0,
+              "y": 79,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "green": {
+        "$value": "#85b73d",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 54,
+              "m": 7,
+              "y": 100,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "green-dark": {
+        "$value": "#658e1e",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 65,
+              "m": 25,
+              "y": 100,
+              "k": 8
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "blue-light": {
+        "$value": "#92c4e6",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 40,
+              "m": 11,
+              "y": 2,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "blue": {
+        "$value": "#76b3dd",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 51,
+              "m": 16,
+              "y": 2,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "blue-dark": {
+        "$value": "#4f85b2",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 72,
+              "m": 41,
+              "y": 13,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "purple-light": {
+        "$value": "#ad98ea",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 34,
+              "m": 41,
+              "y": 0,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "purple": {
+        "$value": "#8e82d8",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 47,
+              "m": 51,
+              "y": 0,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "purple-dark": {
+        "$value": "#6c62c4",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 67,
+              "m": 68,
+              "y": 0,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "yellow-light": {
+        "$value": "#ffd67b",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 0,
+              "m": 16,
+              "y": 61,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "yellow": {
+        "$value": "#f4bf2a",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 4,
+              "m": 25,
+              "y": 96,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "yellow-dark": {
+        "$value": "#d39f2b",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "cmyk": {
+              "c": 19,
+              "m": 38,
+              "y": 100,
+              "k": 0
+            },
+            "source": "manual p.59"
+          }
+        }
+      },
+      "pink-ink": {
+        "$value": "#8a1f26",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        },
+        "$description": "Derived text steps, one per accent hue (decision D2). The official -dark tones reach only 3.4–4.1:1 against both white and ink, so none can carry small text. Text only — fills, artwork, selo and motif use the official values."
+      },
+      "orange-ink": {
+        "$value": "#7a3d00",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "green-ink": {
+        "$value": "#3f6100",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "blue-ink": {
+        "$value": "#1d5c86",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "purple-ink": {
+        "$value": "#3a3186",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "yellow-ink": {
+        "$value": "#6b4700",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "black": {
+        "$value": "#1d1d1b",
+        "$type": "color",
+        "$description": "Official black of the marks. Logo ink and one-colour print."
+      },
+      "ink": {
+        "$value": "#2b2a3d",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        },
+        "$description": "UI text ink, warmer than the mark black. Carries text on every light and mid accent (4.8–10:1)."
+      },
+      "white": {
+        "$value": "#ffffff",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": false
+          }
+        }
+      },
+      "gray-50": {
+        "$value": "#faf9f7",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        },
+        "$description": "System neutrals, warm to sit with cream. Not in the manual."
+      },
+      "gray-100": {
+        "$value": "#f2f1ec",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "gray-200": {
+        "$value": "#e4e2d9",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "gray-300": {
+        "$value": "#cfccc0",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "gray-400": {
+        "$value": "#a8a496",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "gray-500": {
+        "$value": "#84806f",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "gray-600": {
+        "$value": "#615d4f",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "gray-700": {
+        "$value": "#454235",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "gray-800": {
+        "$value": "#302e26",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      },
+      "gray-900": {
+        "$value": "#1e1c17",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "derived": true
+          }
+        }
+      }
+    }
+  },
+  "$description": "Tier 1 — brand. The manual's palette (manual p.59, with CMYK) plus clearly marked derived steps. Never re-mapped per theme. Never re-sampled from artwork: the supplied vectors sit 1–3 points below the manual, and the manual wins. Read by tier 2 and by brand artwork only — components read rse.color.*."
+}

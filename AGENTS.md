@@ -30,14 +30,16 @@ These hold for every output, in every mode. They are what makes generated work l
 and not like a generic template.
 
 1. **Tokens only.** Never write a raw hex colour, font stack, radius, shadow or duration into a
-   component or page. Use `var(--token)`. The full list is [docs/tokens.md](docs/tokens.md).
+   component or page. Use `var(--rse-…)`: `--rse-color-*` for colour roles and the scales
+   (`--rse-space-*`, `--rse-font-size-*`, `--rse-radius-*`…). `--rse-brand-*` is the palette — for
+   brand artwork and the token source only. The full list is [docs/tokens.md](docs/tokens.md).
    Spacing may use literal px only when it is layout geometry that has no token (e.g. a 16:10
    media box); colour, type, radius, shadow and motion never may.
-2. **One name, one meaning.** `--text-body` is the body text *colour*. The body text *size* is
-   `--text-body-md`. Never define a token name twice with different meanings — `npm run check`
-   fails on it.
-3. **Montserrat only**, weights 400–900. Headings Extrabold (800) with `--letter-spacing-tight`.
-   Eyebrows Bold (700), uppercase, `--letter-spacing-eyebrow` — the *only* uppercase in the system.
+2. **The name says the category.** `--rse-<category>-<role>`: `--rse-color-text-body` is a colour,
+   `--rse-font-size-body-md` a size. Everything is prefixed `--rse-` (and themes use
+   `data-rse-theme`) so the system never collides with a host site's CSS.
+3. **Montserrat only**, weights 400–900. Headings Extrabold (800) with `--rse-letter-spacing-tight`.
+   Eyebrows Bold (700), uppercase, `--rse-letter-spacing-eyebrow` — the *only* uppercase in the system.
    The manual authorises all Montserrat weights including Thin/ExtraLight/Light; this system
    deliberately stops at 400 because below it Montserrat misses the contrast floor at body sizes.
 4. **Two languages, one rule each.** Everything a person reads is **pt-BR**: page copy, labels,
@@ -83,76 +85,72 @@ and not like a generic template.
 ## Repo map
 
 ```
-readme.md                 Brand brief, voice, visual foundations, open caveats. Read this first.
+AGENTS.md                 You are here: rules, routing, recipes, definition of done.
+RULES.md                  The short rules that ship inside the package, for consuming projects.
+readme.md                 Brand brief, voice, visual foundations. Read it once.
 SKILL.md                  Claude Skill entry point (this system as a portable skill).
-AGENTS.md                 You are here.
-index.js / index.d.ts     Public import surface for React consumers.
-brand.json                GENERATED. The language-agnostic contract: palette with CMYK, resolved
-                          tokens, scales, assets by role, machine-readable rules. What a Python or
-                          print consumer reads. See docs/integration.md.
-styles.css                Imports every token file, in order. The one stylesheet to link.
-tokens/*.css              Colours, type, spacing, layout, effects, themes, base reset.
-tokens/tokens-only.css    Custom properties and @font-face only, no element selectors. Link this
-                          instead of styles.css inside a site that has its own base styles.
-                          tokens/base.css = base-runtime.css (required) + base-reset.css (opt-in).
-components/<group>/       36 components: Name.jsx + Name.d.ts + Name.prompt.md (+ *.card.html specimens).
-                          Icon.jsx and BrandMotif.jsx are GENERATED — edit their sources, not them.
-guidelines/*.card.html    Rendered specimens: colour, type, spacing, motion, imagery, theming, a11y, audit.
-templates/                Four ready-made starting points (deck, program page, enrollment form, landing page).
-starters/                 Blank, dependency-free HTML starting points for pages and print artwork.
-ui_kits/site/             3-screen marketing site recreation. Sources are React.createElement like
-                          everything else; the page loads vendored React + _ds_bundle.js and
-                          nothing from a network. No JSX, no Babel — see its index.html comment.
-showcase/index.html       The system presented as one self-contained page — for leadership and
-                          newcomers. Live components, measured contrast, the artefacts running in
-                          frames. GENERATED data in showcase/showcase-data.js. See its README.
-docs/brand-manual.md      What the official brand manual actually specifies. Settle brand questions here.
-docs/integration.md       How to put this system into a project that is not this repo.
-docs/examples/            Worked consumers. social_post.py renders a post from brand.json alone.
-docs/                     Generated component + token reference, recipes, authoring guide, QA checklist.
-scripts/                  check-ds, build-icons, build-motifs, sync-bundle, sync-tokens, build-brand,
-                          gen-docs, build-showcase, bind.
-_ds_bundle.js             Browser build of every component. What static pages actually execute.
-_ds_manifest.json         Machine index of components, cards, templates, tokens, themes, fonts.
-_adherence.oxlintrc.json  Prop metadata for external design tooling. Enforces nothing; the rules are
-                          enforced by scripts/check-ds.mjs and scripts/audit.mjs.
+tokens/src/*.tokens.json  THE token source (W3C DTCG). Edit tokens here and nowhere else.
+tokens/tokens.css         GENERATED. Every custom property; light on :root, then the
+                          data-rse-theme dark / contrast / auto blocks.
+tokens/fonts.css          Montserrat @font-face.
+tokens/base-runtime.css   What components need (focus ring, control hiding, keyframes). Required.
+tokens/base-reset.css     Opinionated element styles (body, links, headings). Opt-in.
+tokens/tokens-only.css    fonts + tokens, nothing else: for a site with its own base styles.
+styles.css                Everything above. The one stylesheet for a page that should look like the Rede.
+dist/                     GENERATED. rse.js (every component on window.RSE), tokens.json (resolved
+                          per theme), tokens.js + tokens.d.ts (typed module).
+brand.json                GENERATED. The brand contract for non-browser consumers: palette with
+                          CMYK, tokens per theme, scales, assets by role, machine-readable rules.
+index.js / index.d.ts     React entry. Import components from here, never from a component file.
+components/<group>/       36 components: Name.jsx + Name.d.ts + Name.prompt.md (+ *.card.html).
+                          Icon.jsx and BrandMotif.jsx are GENERATED — edit their sources.
+templates/                Four starting points (deck, program page, enrollment form, landing page).
+starters/                 Blank, dependency-free starting points: page, React page, A3 poster.
+guidelines/*.card.html    Specimens: colour, type, spacing, motion, imagery, theming, a11y, audit.
+showcase/index.html       The system as one page, for leadership and newcomers. Opens offline.
+docs/brand-manual.md      What the official manual specifies. Settle brand questions here.
+docs/integration.md       How a project that is not this repo uses the system.
+docs/known-gaps.md        Open caveats to say out loud.
+docs/roadmap/             The assessment and the plan; read before improving the system itself.
+docs/                     Generated component + token references, recipes, authoring, QA checklist.
+scripts/                  build-tokens, build-icons, build-motifs, build-bundle, build-brand, gen-docs,
+                          build-showcase, check-ds, audit (+ contrast-pairs), pack-static.
+rse.manifest.json         Machine index: components, cards, templates, tokens, themes, fonts.
 assets/logos/             Official vector lockups (Rede + Sab.IA); originals in source/. Read its README.
 assets/motifs/            Official cubo impossível artwork and its six constructions.
 assets/patterns/          Four full-bleed cube pattern backgrounds.
 assets/icons/lucide/      Vendored Lucide set (ISC) that Icon.jsx is generated from.
-assets/                   Fonts, favicon, OG image, and the superseded raster logos.
+assets/vendor/            React 18 UMD, so static pages run offline.
 uploads/                  Original source material (selo PDFs, reference screenshots). Read-only.
 ```
 
 ## The three consumption modes
 
 **Static HTML (decks, mocks, artwork, anything you hand the user as a file).** Link `styles.css`,
-load `_ds_bundle.js`, and read components off the global namespace
-`window.RedeSescDeEducaODesignSystem_2167ce`. No build step, no npm install. This is the default
-for artifacts. Start from [starters/](starters/).
+load React 18 UMD from `assets/vendor/` and then `dist/rse.js`, and read components off
+`window.RSE`. No build step. This is the default for artifacts. Start from [starters/](starters/).
 
-**React project (production code).** Import from `index.js`:
+**React project (production code).** Install `@idcesares/rse-design-system` and import from the
+package root:
 
 ```jsx
-import { Button, Card, Stat, Tabs } from './index.js';
+import { Button, Card, Stat, Tabs } from '@idcesares/rse-design-system';
+import '@idcesares/rse-design-system/styles.css';
 ```
 
-Never import a component file directly — `npm run check` forbids it, so that a
-component can be re-pathed or re-implemented without breaking consumers.
+Never import a component file directly — `npm run check` forbids it inside this repo, so that a
+component can be re-implemented (roadmap P2) without breaking consumers.
 
-**Anything that is not a browser** (a Python generator, a print pipeline, a design tool, another
-language entirely). Read [`brand.json`](brand.json): every colour resolved to a literal hex with
-its CMYK, the type and spacing scales, every logo, motif, pattern and icon indexed by role, and
-the brand rules in machine-readable form. It is generated from `tokens/*.css` and
-`docs/brand-manual.md` — a summary of them, never a second spec. Worked example:
-[docs/examples/social_post.py](docs/examples/social_post.py), a 1080×1080 social post rendered
-with the Python standard library and nothing else.
+**Anything that is not a browser** (a Python generator, a print pipeline, a design tool). Read
+[`brand.json`](brand.json) for the brand (palette with CMYK, rules, assets by role) or
+`dist/tokens.json` for every token resolved per theme. Both are generated. Worked example:
+[docs/examples/social_post.py](docs/examples/social_post.py), a 1080×1080 social post rendered with
+the Python standard library and nothing else.
 
-To put any of these into a project that is not this repo, see
-[docs/integration.md](docs/integration.md) — `npm run bind ../their-project` copies a stamped,
-self-contained `_ds/` folder and the rules that travel with it.
+Putting the system into another project — npm, the static kit for CMSs, Python: see
+[docs/integration.md](docs/integration.md).
 
-> `_ds_bundle.js` is a **mirror of the component sources, not a second implementation**. Editing a
+> `dist/rse.js` is a **copy of the component sources, not a second implementation**. Editing a
 > `.jsx` without running `npm run sync` means every static page keeps running the old code.
 > `npm run check` catches this.
 
@@ -171,14 +169,14 @@ self-contained `_ds/` folder and the rules that travel with it.
    [docs/components.md](docs/components.md) first — the set is deliberately complete for this
    use case (36 components), so a "missing" component is usually an existing one with a prop you
    haven't read yet.
-4. Structure: page background is cream (`--surface-page`), content sits on white cards
-   (`--surface-card`). A feature or CTA **band** may be brand purple or indigo with white text, or
-   any light or mid accent with **ink** text (`--color-ink`, 4.8–10:1) — that is how the rede's six
+4. Structure: page background is cream (`--rse-color-surface-page`), content sits on white cards
+   (`--rse-color-surface-card`). A feature or CTA **band** may be brand purple or indigo with white text, or
+   any light or mid accent with **ink** text (`--rse-brand-ink`, 4.8–10:1) — that is how the rede's six
    hues reach a page (decision D3). Never white text on an accent (2.3–3.3:1), never a `-dark`
-   accent or mid `--color-purple` as a band (they fail with both white and ink), no gradients, one
+   accent or mid `--rse-brand-purple` as a band (they fail with both white and ink), no gradients, one
    band colour per section.
-5. Rhythm: `--section-y` (96px) between major blocks, `--container-max` (1200px) for page width,
-   `--container-prose` (66ch) for anything text-heavy.
+5. Rhythm: `--rse-section-y-md` (96px) between major blocks, `--rse-container-xl` (1200px) for page width,
+   `--rse-container-prose` (66ch) for anything text-heavy.
 6. Copy: short declarative sentences, second person ("você"), verbs of transformation (acolhe,
    forma, transforma). The slogan is **"Aprender para a vida acontecer"**. Full voice guidance is
    in [readme.md](readme.md#content-fundamentals).
@@ -195,7 +193,7 @@ the components.
 - Any static page: `starters/page.html`.
 
 Artwork rules on top of the non-negotiables: flat colour fields only — no gradients, no textures,
-no drop shadows beyond `--shadow-sm/md/lg`, no photographic full-bleeds until real photography
+no drop shadows beyond `--rse-shadow-sm/md/lg`, no photographic full-bleeds until real photography
 exists. `BrandMotif` renders the official *cubo impossível* constructions (rule 10): one
 construction per composition; if you use the purple, orange or yellow `hue`, tell the user those
 are derived, not supplied.
@@ -214,20 +212,20 @@ components/<group>/*.card.html     specimen card (one per group, add your compon
 Then:
 
 ```bash
-npm run sync     # mirrors sources into _ds_bundle.js, refreshes tokens + generated docs
+npm run sync     # rebuilds tokens, dist/rse.js, brand.json and the generated docs
 npm run check    # must pass
 ```
 
 Rules:
 
-- **`React.createElement` form, not JSX.** The bundle is a copy, not a compile; `sync-bundle`
+- **`React.createElement` form, not JSX.** The bundle is a copy, not a compile; `build-bundle`
   rejects JSX. This is what lets static pages load components with no build step.
-- A **new** component must also be registered in `_ds_manifest.json` under `components` (name +
+- A **new** component must also be registered in `rse.manifest.json` under `components` (name +
   sourcePath) and exported from `index.js`. `npm run check` fails until both are true.
 - **Calls a hook? Line 1 is `'use client';`**, above the React import. `index.js` is a flat barrel,
   so a React Server Components host (Next.js App Router) pulls every component into the server
   graph on any import from it, and a hook without the directive fails *their* build. `npm run check`
-  fails without it. The directive never reaches `_ds_bundle.js` — `sync-bundle` strips it, so
+  fails without it. The directive never reaches `dist/rse.js` — `build-bundle` strips it, so
   static pages are unaffected.
 - Props are strings, arrays and plain objects wherever possible — templates mount components
   through `<x-import>` with HTML attributes, so exotic prop shapes don't survive the trip.
@@ -241,12 +239,14 @@ Full checklist: [docs/authoring-components.md](docs/authoring-components.md).
 
 ## Changing tokens
 
-1. Edit the right file in `tokens/` (`colors`, `typography`, `spacing`, `layout`, `effects`,
-   `themes`, `base`).
-2. If the token is semantic (a surface, text, border or tint role), add its `[data-theme="dark"]`
-   and `[data-theme="contrast"]` counterparts in `tokens/themes.css`. **Brand hex values never
-   change per theme** — only the semantic layer re-maps.
-3. `npm run sync` to register it in the manifest and regenerate `docs/tokens.md`.
+1. Edit `tokens/src/*.tokens.json` — `brand` (tier 1, the palette), `color` (tier 2 roles),
+   `typography`, `layout`, `effects`. The CSS name is the path: `rse.color.text-body` →
+   `--rse-color-text-body`. An alias is `"{rse.brand.purple-dark}"`.
+2. A role that differs per theme carries `$extensions.rse.modes.dark` / `.contrast`. **Brand values
+   never change per theme** — only tier 2 re-maps. Aliases are followed for you: a token that points
+   at a themed token is re-declared in each theme block automatically.
+3. Text on a new surface? Add the pair to `scripts/contrast-pairs.mjs`.
+4. `npm run sync`, then `npm run check`.
 
 A component that reads a raw hex instead of a token is invisible to theming — that is exactly how
 this system's chips ended up light-on-light in dark mode before the tint tokens existed.
@@ -260,20 +260,20 @@ students, families and Sesc staff across the whole country.
 
 - **Contrast** ≥ 4.5:1 for body text, ≥ 3:1 for large text and UI borders. `npm run check` measures
   every pair listed in `scripts/contrast-pairs.mjs` in all three themes and fails below the floor.
-  Pale accent tints (`--tint-*`) carry their paired `--tint-*-ink` foreground. Status colours have
-  three roles: `--danger-surface` (background), `--danger-text` (words), `--danger` (dots, borders,
-  icons only). Text on `--surface-primary-tint` is `--text-on-primary-tint`. The official `-dark`
+  Pale accent tints (`--rse-color-tint-*`) carry their paired `--rse-color-tint-*-ink` foreground. Status colours have
+  three roles: `--rse-color-danger-surface` (background), `--rse-color-danger-text` (words), `--rse-color-danger` (dots, borders,
+  icons only). Text on `--rse-color-surface-primary-tint` is `--rse-color-text-on-primary-tint`. The official `-dark`
   tones never carry small text — they sit at 3.4–4.1:1 against white *and* ink.
-- **Focus is always visible.** The global `:focus-visible` ring is in `tokens/base.css`. Never set
+- **Focus is always visible.** The global `:focus-visible` ring is in `tokens/base-runtime.css`. Never set
   `outline: none` without an equally visible replacement.
 - **Native control, hidden visually — never `display:none`.** A native input styled behind custom
-  chrome uses `className="rede-control-input"` (see `tokens/base.css`); `display:none` removes it
+  chrome uses `className="rse-control-input"` (see `tokens/base-runtime.css`); `display:none` removes it
   from the tab order and the accessibility tree. `npm run check` fails on this.
 - **Keyboard**: everything interactive reachable with Tab, operable with Enter/Space. Tabs move
   with arrow keys, menus and dialogs close with Escape, dialogs trap focus and return it to the
   trigger.
-- **Hit targets** ≥ `--hit-target-min` (44px) on touch surfaces.
-- **Motion** stays inside `--duration-fast/base/slow` with standard easing. `prefers-reduced-motion`
+- **Hit targets** ≥ `--rse-hit-target-min` (44px) on touch surfaces.
+- **Motion** stays inside `--rse-duration-fast/base/slow` with standard easing. `prefers-reduced-motion`
   is already honoured globally — don't reintroduce animation that ignores it.
 - **Images** carry real `alt` text in pt-BR, or `alt=""` when decorative. `<image-slot>` placeholders
   describe the shot needed.
@@ -282,20 +282,23 @@ students, families and Sesc staff across the whole country.
 ## Commands
 
 ```bash
-npm run check    # integrity: files, manifest, bundle + brand.json freshness, token collisions, a11y
+npm run check    # integrity, generated-file freshness, contrast gate, debt ratchet — must pass
+npm run sync     # after editing tokens, components, icons or motifs — regenerates everything
 npm run audit    # quality scorecard: contrast of rendered pairs, component/page debt, doc drift
 npm run audit -- --update-baseline   # after lowering a debt count, lock it in (same PR)
-npm run sync     # after editing components, tokens, icons or motifs — regenerates everything
 npm run icons    # rebuild Icon.jsx after vendoring a new Lucide SVG
-npm run docs     # regenerate docs/components.md and docs/tokens.md only
-npm run bind ../their-project              # copy the system into a consuming project
-npm run bind ../their-project -- --check   # is their bound copy current?
+npm run motifs   # rebuild BrandMotif.jsx from assets/motifs/cubes-official.svg
+npm run pack     # build the static kit dist/static/rse-<version>/ (CMS and offline use)
 ```
 
-`docs/components.md`, `docs/tokens.md` and `brand.json` are **generated**. Edit the `.d.ts`,
-`tokens/*.css` and `docs/brand-manual.md` they come from, never the output. `build-brand.mjs`
-cross-checks the palette hex and CMYK in `tokens/colors.css` against the manual's published table
-and warns on any drift — that guard is the reason known gap 9 cannot happen twice.
+Generated, never edited by hand: `tokens/tokens.css`, `dist/*`, `brand.json`, `docs/components.md`,
+`docs/tokens.md`, `showcase/showcase-data.js`, `Icon.jsx`, `BrandMotif.jsx`. `build-brand.mjs`
+cross-checks the palette hex and CMYK in `tokens/src/brand.tokens.json` against the manual's
+published table and warns on any drift — the guard against re-sampling colour from artwork.
+
+**Releasing.** Bump `version` in `package.json`, add a `## <version>` section to `CHANGELOG.md`,
+then tag `v<version>` and push the tag. `.github/workflows/release.yml` checks, publishes to GitHub
+Packages and attaches the static kit to a GitHub Release. Breaking a token or prop name is a major.
 
 ## Definition of done
 
@@ -304,46 +307,12 @@ and warns on any drift — that guard is the reason known gap 9 cannot happen tw
 - [ ] No raw hex, font stack, radius, shadow or duration outside `tokens/`.
 - [ ] Copy is pt-BR, sentence case, no emoji, no invented Sesc figures.
 - [ ] Keyboard path walked end to end; focus visible at every stop.
-- [ ] Looks right in `[data-theme="dark"]` and `[data-theme="contrast"]`, not just light.
+- [ ] Looks right with `data-rse-theme="dark"` and `"contrast"`, not just light, and at 360 px wide.
 - [ ] Placeholder content (imagery, figures, addresses) is flagged to the user, not left to pass as real.
 
-## Known gaps — say these out loud when they matter
+## Known gaps
 
-These are open caveats in the source material, not bugs to fix silently. The brand manual has since
-been supplied and is extracted in [docs/brand-manual.md](docs/brand-manual.md) — check there before
-repeating any of these to a user.
-
-1. **No photography is available to this repo** — every image is still an `<image-slot>` placeholder
-   with a shot brief. The manual *does* contain six full-bleed documentary plates, so a photographic
-   direction now exists (see `docs/brand-manual.md`): real classrooms, natural light, candid, wide
-   or overhead, students in Sesc uniform, visibly plural and inclusive, no filters or gradients.
-   Follow that direction in shot briefs. The plates themselves are photographs of identifiable
-   children with unknown usage rights — do not extract them into this repo, and never generate
-   synthetic imagery in their place.
-2. **Print colour is solved** — the manual publishes CMYK for all 20 palette values
-   (`docs/brand-manual.md`). Pantone numbers are still absent; the manual defers to Formula Guide
-   comparison, so ask before committing to a spot-colour job.
-3. **The Sab.IA platform URL is unknown** — `PlatformEntry` links to `#` until Sesc supplies it.
-   Everything else about the platform is now specified — see [docs/sabia-platform.md](docs/sabia-platform.md).
-4. **Sesc supplied the motif in three hue families only** (green, blue, pink). Purple, orange and
-   yellow are now reached by `BrandMotif`'s `hue` prop, which restates a construction using the
-   manual's published palette — the design owner authorised this rather than waiting for new
-   artwork. Say so when it matters: those three are *derived*, not supplied, and official artwork
-   should still replace them if Sesc produces it. The full-bleed **patterns** are a different set
-   and come in four hues: blue, green, orange, pink.
-5. **The manual covers brand, not layout** — it specifies the selo, palette, typeface, motif, voice
-   and digital presence. It contains **no** column grid, margins, baseline, type scale, icon set,
-   component specs, accessibility floor or dark mode. Everything in this repo at that level is
-   original system work; say so when it matters.
-6. **Icons are Lucide, not an official Sesc set** — the manual has no iconography at all. If a set
-   exists, swap the vendored SVGs and re-run `npm run icons`; no page changes needed.
-7. **The only real Sesc product surface available is Sab.IA** — its login, header and footer are
-   published in the manual and documented in `docs/sabia-platform.md`. The rest of the components
-   and the UI kit remain original standard patterns sized to the brand, not a recreation.
-8. **favicon.png / og-image.png are still composited from the old rasters** — regenerate them from
-   the vectors before launch.
-9. **Never re-sample colour from the artwork files.** The supplied vectors and
-   `uploads/REDE_SESC_selo_COR.pdf` sit 1–3 points below the manual's published hex. The manual
-   wins. This drift is what put the palette off-spec once already.
-
-Full list with context: [readme.md](readme.md#caveats--asks).
+Open caveats in the source material — not bugs to fix silently, but things to say out loud when
+they matter (photography, Pantone, the Sab.IA URL, derived motif hues, layout being system work,
+icons, favicon rasters, never re-sampling colour). The list lives in one place:
+[docs/known-gaps.md](docs/known-gaps.md).

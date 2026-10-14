@@ -1,0 +1,205 @@
+{
+  "rse": {
+    "space": {
+      "1": {
+        "$value": "4px",
+        "$type": "dimension"
+      },
+      "2": {
+        "$value": "8px",
+        "$type": "dimension"
+      },
+      "3": {
+        "$value": "12px",
+        "$type": "dimension"
+      },
+      "4": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "5": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "6": {
+        "$value": "32px",
+        "$type": "dimension"
+      },
+      "7": {
+        "$value": "48px",
+        "$type": "dimension"
+      },
+      "8": {
+        "$value": "64px",
+        "$type": "dimension"
+      },
+      "9": {
+        "$value": "96px",
+        "$type": "dimension"
+      },
+      "10": {
+        "$value": "128px",
+        "$type": "dimension"
+      }
+    },
+    "container": {
+      "xl": {
+        "$value": "1200px",
+        "$type": "dimension"
+      },
+      "padding": {
+        "$value": "clamp(1rem, 4vw, 1.5rem)",
+        "$type": "dimension",
+        "$description": "Page side gutter: 16px on a phone, 24px from ~600px up."
+      },
+      "sm": {
+        "$value": "640px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "880px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "1120px",
+        "$type": "dimension"
+      },
+      "prose": {
+        "$value": "66ch",
+        "$type": "dimension"
+      }
+    },
+    "grid": {
+      "gutter": {
+        "$value": "24px",
+        "$type": "dimension"
+      }
+    },
+    "section-y": {
+      "sm": {
+        "$value": "48px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "96px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "128px",
+        "$type": "dimension"
+      }
+    },
+    "header": {
+      "height": {
+        "$value": "72px",
+        "$type": "dimension"
+      }
+    },
+    "z": {
+      "base": {
+        "$value": "0",
+        "$type": "number"
+      },
+      "raised": {
+        "$value": "10",
+        "$type": "number"
+      },
+      "sticky": {
+        "$value": "100",
+        "$type": "number"
+      },
+      "dropdown": {
+        "$value": "200",
+        "$type": "number"
+      },
+      "overlay": {
+        "$value": "300",
+        "$type": "number"
+      },
+      "modal": {
+        "$value": "400",
+        "$type": "number"
+      },
+      "toast": {
+        "$value": "500",
+        "$type": "number"
+      },
+      "tooltip": {
+        "$value": "600",
+        "$type": "number"
+      }
+    },
+    "focus-ring": {
+      "width": {
+        "$value": "3px",
+        "$type": "dimension",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "contrast": "4px"
+            }
+          }
+        }
+      },
+      "offset": {
+        "$value": "2px",
+        "$type": "dimension"
+      }
+    },
+    "hit-target": {
+      "min": {
+        "$value": "44px",
+        "$type": "dimension"
+      }
+    },
+    "breakpoint": {
+      "xs": {
+        "$value": "480px",
+        "$type": "dimension",
+        "$extensions": {
+          "rse": {
+            "css": false
+          }
+        },
+        "$description": "Not emitted as custom properties: CSS cannot read var() inside @media. Use the literal in media queries, or read it from dist/tokens.json / dist/tokens.js. Prefer container queries for components."
+      },
+      "sm": {
+        "$value": "640px",
+        "$type": "dimension",
+        "$extensions": {
+          "rse": {
+            "css": false
+          }
+        }
+      },
+      "md": {
+        "$value": "834px",
+        "$type": "dimension",
+        "$extensions": {
+          "rse": {
+            "css": false
+          }
+        }
+      },
+      "lg": {
+        "$value": "1120px",
+        "$type": "dimension",
+        "$extensions": {
+          "rse": {
+            "css": false
+          }
+        }
+      },
+      "xl": {
+        "$value": "1440px",
+        "$type": "dimension",
+        "$extensions": {
+          "rse": {
+            "css": false
+          }
+        }
+      }
+    }
+  },
+  "$description": "Tier 2 — spacing, layout, stacking. 4px base."
+}
