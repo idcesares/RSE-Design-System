@@ -52,7 +52,7 @@ const walk = (dir, out = []) => {
   }
   return out;
 };
-const pages = [...walk('guidelines'), ...walk('components'), ...walk('templates'), ...walk('starters'), 'showcase/index.html']
+const pages = [...walk('templates'), ...walk('starters'), 'showcase/index.html']
   .filter((f) => f.endsWith('.html') && (!only || f.includes(only)));
 
 // Print and slide artefacts are fixed-size canvases (A4, A3, 1920×1080), not responsive pages.
@@ -120,7 +120,8 @@ for (const [page, r] of Object.entries(results)) {
 console.log(`\n${pages.length} pages · ${totalAxe} axe violation nodes · ${overflowing} page(s) overflow at 360px`);
 
 if (update) {
-  const next = { ...baseline };
+  // A full run replaces the baseline, so pages that no longer exist drop out; --only merges.
+  const next = only ? { ...baseline } : {};
   for (const [page, r] of Object.entries(results)) next[page] = { axe: r.axe, overflow: r.overflow, rules: r.rules };
   writeFileSync(BASELINE, JSON.stringify(next, null, 2) + '\n');
   console.log(`${relative(ROOT, BASELINE)} updated`);

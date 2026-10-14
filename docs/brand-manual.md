@@ -218,7 +218,7 @@ Sesc for the licensed photo library.
 Checked and absent — these remain open asks, and inference in this system stays flagged as inference:
 
 1. **A photo library or written imagery rules** — the direction above is read off six plates, not
-   stated. Crops, radii, scrim and alt-text rules in `guidelines/imagery.card.html` are ours.
+   stated. Crops, radii, scrim and alt-text rules in [guidelines.md](guidelines.md#imagery) are ours.
 2. **Pantone numbers** — CMYK yes, Pantone no; the manual defers to Formula Guide comparison.
 3. **Layout grid** — no column grid, margin or baseline specification for print or web.
 4. **Iconography** — no icon set, no icon style rules. Lucide remains a system choice.

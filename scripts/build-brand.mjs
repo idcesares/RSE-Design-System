@@ -323,7 +323,7 @@ const brand = {
     tokensOnlyNote: 'Custom properties and @font-face only — no element selectors. Use this when adding the system to a site that already has its own base styles.',
     tokensJson: 'dist/tokens.json',
     tokensModule: 'dist/tokens.js',
-    themes: { attribute: 'data-rse-theme', values: ['dark', 'contrast', 'auto'], default: 'light (no attribute)' },
+    themes: { attribute: 'data-rse-theme', values: ['light', 'dark', 'contrast', 'auto'], default: 'light (no attribute; set "light" to nest it inside another theme)' },
     bundle: 'dist/rse.js',
     bundleGlobal: manifest.namespace,
     reactEntry: 'index.js',

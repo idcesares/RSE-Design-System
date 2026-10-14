@@ -15,7 +15,7 @@ reasoning and the brand manual extract live in the design system repository (`AG
 - Components exist twice with one look: React (`import { Button } from '@idcesares/rse-design-system'`)
   and plain HTML classes (`<button class="rse-button rse-button--secondary">`). Use the classes in
   a CMS or portal; each component's `.prompt.md` shows the markup.
-- Themes: set `data-rse-theme="dark" | "contrast" | "auto"` on `<html>` or on any section.
+- Themes: set `data-rse-theme="dark" | "contrast" | "auto"` on `<html>` or on any section; `"light"` brings the default back inside another theme.
 
 ## Non-negotiables
 

@@ -1,7 +1,7 @@
 # Adding or changing a component
 
 The set is deliberately complete for this brand's use case (36 components). Before adding one,
-check [components.md](components.md) and `guidelines/system-audit.card.html` — most "missing"
+check [components.md](components.md) and the component gallery in `showcase/index.html` — most "missing"
 components are an existing one with a prop you haven't read.
 
 Add a component when a pattern appears on **three or more** surfaces and cannot be expressed by
@@ -72,11 +72,12 @@ with when to reach for it in this brand's context (enrollment, programmes, units
 realistic **pt-BR** example, then note variants and any accessibility contract the caller must
 uphold (e.g. "always pass `label`").
 
-## 4. Add it to a specimen card
+## 4. Give it a demo in the showcase
 
-Each group has one or more `*.card.html` specimens rendered in the design system browser. Add your
-component to the relevant card, or create a new one and register it in `rse.manifest.json` under
-`cards` with `path`, `group`, `name`, `subtitle` and `viewport`.
+The showcase gallery lists every component in the manifest on its own. Add a demo for yours to
+`showcase/demos.js` (a `render()` returning realistic pt-BR content, and `block: true` if it needs
+the full card width) and a one-line pt-BR gloss to `GLOSS` in the same file. Components on the CSS
+contract get the "HTML" tab automatically: it prints the markup the demo just rendered.
 
 ## 5. Register it
 

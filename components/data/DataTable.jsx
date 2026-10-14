@@ -7,7 +7,10 @@ export function DataTable({ columns = [], rows = [], caption, zebra = true, comp
       background: 'var(--rse-color-surface-card)', border: '1px solid var(--rse-color-border-subtle)', borderRadius: 'var(--rse-radius-lg)',
       overflow: 'hidden', boxShadow: 'var(--rse-shadow-sm)'
     }
-  }, React.createElement('div', { style: { overflowX: 'auto' } },
+  }, React.createElement('div', {
+    // The scroller takes focus so a keyboard user can scroll a table wider than a phone.
+    style: { overflowX: 'auto' }, tabIndex: 0, role: 'region', 'aria-label': caption || 'Tabela'
+  },
     React.createElement('table', { style: { width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--rse-font-family)' } },
       caption ? React.createElement('caption', {
         style: {
@@ -31,7 +34,7 @@ export function DataTable({ columns = [], rows = [], caption, zebra = true, comp
       React.createElement('tbody', null, rows.length ? rows.map((r, i) =>
         React.createElement('tr', {
           key: i,
-          style: { background: zebra && i % 2 ? 'var(--rse-brand-gray-50)' : 'transparent', borderBottom: i === rows.length - 1 ? 'none' : '1px solid var(--rse-color-border-subtle)' }
+          style: { background: zebra && i % 2 ? 'var(--rse-color-surface-page)' : 'transparent', borderBottom: i === rows.length - 1 ? 'none' : '1px solid var(--rse-color-border-subtle)' }
         }, columns.map((c, j) =>
           React.createElement('td', {
             key: c.key,

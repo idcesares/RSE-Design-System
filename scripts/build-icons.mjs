@@ -24,7 +24,9 @@ const ATTR = {
   'stroke-width': 'strokeWidth', 'stroke-linecap': 'strokeLinecap', 'stroke-linejoin': 'strokeLinejoin',
   'fill-rule': 'fillRule', 'clip-rule': 'clipRule', 'stroke-dasharray': 'strokeDasharray',
 };
-const DROP = new Set(['class', 'xmlns', 'stroke', 'fill', 'width', 'height', 'viewBox']);
+// Only the child elements are read (the <svg> root is rebuilt by Icon), so width/height here are a
+// <rect>'s own geometry and must survive — dropping them once blanked pause, video, credit-card.
+const DROP = new Set(['class', 'xmlns', 'stroke', 'fill']);
 
 const files = readdirSync(SRC).filter((f) => f.endsWith('.svg')).sort();
 const icons = [];
@@ -38,6 +40,7 @@ for (const file of files) {
       if (DROP.has(a[1])) continue;
       attrs[ATTR[a[1]] ?? a[1]] = a[2];
     }
+    if (el[1] === 'rect' && !(attrs.width && attrs.height)) { console.error(`${file}: <rect> without width/height`); process.exitCode = 1; }
     parts.push([el[1], attrs]);
   }
   if (!parts.length) { console.error(`${file}: no drawable elements found`); process.exitCode = 1; continue; }

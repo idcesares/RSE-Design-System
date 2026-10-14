@@ -66,7 +66,7 @@ and not like a generic template.
    lettering, never a gradient, never outlined lettering. Clearspace is **X on all sides**, X being
    the height of the stem of the E; minimum size 45 mm print / 150 px digital. Never lock it up with
    the Sesc signature — they sit at a distance. Details:
-   `guidelines/brand-clearspace.card.html`, `assets/logos/README.md`.
+   `docs/brand-manual.md`, `assets/logos/README.md`.
 10. **The motif is artwork. Its geometry is untouchable; its hue is not.** `BrandMotif` renders the
    official *cubo impossível* constructions — never redraw, rotate, stretch or distort one, and it
    never re-maps per theme. It **does** take a `hue`, authorised by the design owner: the supplied
@@ -104,20 +104,20 @@ dist/                     GENERATED. rse.js (every component on window.RSE), tok
 brand.json                GENERATED. The brand contract for non-browser consumers: palette with
                           CMYK, tokens per theme, scales, assets by role, machine-readable rules.
 index.js / index.d.ts     React entry. Import components from here, never from a component file.
-components/<group>/       36 components: Name.jsx + Name.d.ts + Name.prompt.md (+ *.card.html).
+components/<group>/       36 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
                           Icon.jsx and BrandMotif.jsx are GENERATED — edit their sources.
 templates/                Four starting points (deck, program page, enrollment form, landing page).
 starters/                 Blank, dependency-free starting points: page, React page, A3 poster.
-guidelines/*.card.html    Specimens: colour, type, spacing, motion, imagery, theming, a11y, audit.
 showcase/index.html       The system as one page, for leadership and newcomers. Opens offline.
 docs/brand-manual.md      What the official manual specifies. Settle brand questions here.
+docs/guidelines.md        The system's own rules for imagery, motion, theming and accessibility.
 docs/integration.md       How a project that is not this repo uses the system.
 docs/known-gaps.md        Open caveats to say out loud.
 docs/roadmap/             The assessment and the plan; read before improving the system itself.
 docs/                     Generated component + token references, recipes, authoring, QA checklist.
 scripts/                  build-tokens, build-icons, build-motifs, build-bundle, build-brand, gen-docs,
                           build-showcase, check-ds, audit (+ contrast-pairs), pack-static.
-rse.manifest.json         Machine index: components, cards, templates, tokens, themes, fonts.
+rse.manifest.json         Machine index: components, the showcase card, templates, tokens, themes, fonts.
 assets/logos/             Official vector lockups (Rede + Sab.IA); originals in source/. Read its README.
 assets/motifs/            Official cubo impossível artwork and its six constructions.
 assets/patterns/          Four full-bleed cube pattern backgrounds.
@@ -210,7 +210,7 @@ components/<group>/Name.css        the CSS contract: .rse-name, BEM elements, --
 components/<group>/Name.jsx        React wrapper that renders the contract (createElement form, no JSX)
 components/<group>/Name.d.ts       props + one-line doc comment
 components/<group>/Name.prompt.md  when to use it, a pt-BR example, and the plain-HTML markup
-components/<group>/*.card.html     specimen card (one per group, add your component to it)
+showcase/demos.js                  a demo for the showcase gallery (step 4 of docs/authoring-components.md)
 ```
 
 **The CSS contract is the component; React is a convenience.** A CMS, the enrollment portal or a
@@ -242,7 +242,7 @@ Rules:
 - **New components start on the contract** (a `.css` file first). The scope freeze of roadmap P0.3
   ended with P2.1; still check for an existing component with a prop before adding one.
 - Don't add a component that duplicates an existing one with a prop. Check
-  [docs/components.md](docs/components.md) and `guidelines/system-audit.card.html` first.
+  [docs/components.md](docs/components.md) and the gallery in `showcase/index.html` first.
 
 Full checklist: [docs/authoring-components.md](docs/authoring-components.md).
 
@@ -286,7 +286,7 @@ students, families and Sesc staff across the whole country.
   is already honoured globally — don't reintroduce animation that ignores it.
 - **Images** carry real `alt` text in pt-BR, or `alt=""` when decorative. `<image-slot>` placeholders
   describe the shot needed.
-- Reference card: `guidelines/accessibility.card.html`.
+- Full rules: [docs/guidelines.md](docs/guidelines.md#accessibility).
 
 ## Commands
 

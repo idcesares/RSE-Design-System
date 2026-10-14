@@ -118,11 +118,11 @@ Every release attaches `rse-<version>.zip` to its GitHub Release (`npm run pack`
 folder locally). Unzip it to a **versioned** path on a server you control and link it:
 
 ```html
-<link rel="stylesheet" href="/rse/2.0.0/styles.css">
+<link rel="stylesheet" href="/rse/2.1.0/styles.css">
 <!-- inside a site with its own typography, instead: -->
-<link rel="stylesheet" href="/rse/2.0.0/tokens/tokens-only.css">
-<link rel="stylesheet" href="/rse/2.0.0/tokens/base-runtime.css">
-<link rel="stylesheet" href="/rse/2.0.0/dist/components.css">
+<link rel="stylesheet" href="/rse/2.1.0/tokens/tokens-only.css">
+<link rel="stylesheet" href="/rse/2.1.0/tokens/base-runtime.css">
+<link rel="stylesheet" href="/rse/2.1.0/dist/components.css">
 ```
 
 Components that are on the CSS contract need no JavaScript at all — write the classes:
@@ -142,9 +142,9 @@ and `dist/components.css`. The rest still need React (below) until roadmap P2 mo
 Then use `var(--rse-…)` in your own theme CSS. Components in an unbuilt page:
 
 ```html
-<script src="/rse/2.0.0/assets/vendor/react.production.min.js"></script>
-<script src="/rse/2.0.0/assets/vendor/react-dom.production.min.js"></script>
-<script src="/rse/2.0.0/dist/rse.js"></script>
+<script src="/rse/2.1.0/assets/vendor/react.production.min.js"></script>
+<script src="/rse/2.1.0/assets/vendor/react-dom.production.min.js"></script>
+<script src="/rse/2.1.0/dist/rse.js"></script>
 <script>const { Button, Card } = window.RSE;</script>
 ```
 
@@ -152,7 +152,7 @@ The version in the path is the point: a page links one version until someone mov
 release never changes a page that did not ask for it. The kit also carries `starters/`.
 
 Themes work the same everywhere: `data-rse-theme="dark" | "contrast" | "auto"` on `<html>` or on any
-section; no attribute means light.
+section; no attribute means light, and `"light"` brings it back inside a section that set another theme.
 
 ## Recipe: anything that is not a browser
 

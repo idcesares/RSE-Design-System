@@ -2,7 +2,7 @@
 
 Official vector artwork. **Never redraw, rotate, stretch, distort or add effects to these marks**,
 and never recolour them outside the sanctioned combinations below.
-Clearspace and misuse rules: `guidelines/brand-clearspace.card.html`. Full spec, with manual page
+Clearspace and misuse rules: [docs/brand-manual.md](../../docs/brand-manual.md), shown working in the showcase (`showcase/index.html#selo`). Full spec, with manual page
 references: [docs/brand-manual.md](../../docs/brand-manual.md).
 
 ## The three sanctioned versions
