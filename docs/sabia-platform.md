@@ -61,6 +61,10 @@ surfaces need a page background and the manual supplies none. Treat it as ours, 
 Rede's primary, but every published Sab.IA surface — login plane, header bar, footer bar — is
 `--sabia-blue`. Purple stays an accent on platform surfaces.
 
+**Text on the blue chrome is ink, not white.** White on `--sabia-blue` is 2.27:1; use
+`--sabia-on-blue` (`--color-ink`, 6.17:1). The manual's screens show white titles on the login plane —
+this system departs from that on purpose, for the same reason as every accent band (decision D3).
+
 Everything else — Montserrat, the spacing scale, radii, motion, the accessibility floor — is
 unchanged.
 

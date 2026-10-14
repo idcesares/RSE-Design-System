@@ -57,7 +57,7 @@ function MenuItem({ item, onSelect }) {
       display: 'flex', alignItems: 'center', gap: 10, width: '100%', textAlign: 'left',
       padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: 'none', textDecoration: 'none',
       background: hover ? 'var(--surface-primary-tint)' : 'transparent',
-      color: hover ? 'var(--color-primary)' : 'var(--text-body)',
+      color: hover ? 'var(--text-on-primary-tint)' : 'var(--text-body)',
       fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-family-base)',
       fontWeight: 'var(--font-weight-medium)', cursor: 'pointer',
       transition: 'background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard)'

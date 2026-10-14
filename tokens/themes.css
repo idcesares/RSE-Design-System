@@ -6,6 +6,7 @@
 --surface-primary-tint:#2f2b4d;
 --surface-primary-tint-hover:#3a3563;
 --surface-page-translucent:rgba(27,26,38,0.92);
+--text-on-primary-tint:var(--color-purple-light);
 --tint-pink:#3a2226;
 --tint-orange:#3a2a1c;
 --tint-green:#24301b;
@@ -40,6 +41,10 @@
 --warning:var(--color-yellow-light);
 --danger:var(--color-pink-light);
 --info:var(--color-blue-light);
+--success-text:var(--color-green-light);
+--warning-text:var(--color-yellow-light);
+--danger-text:var(--color-pink-light);
+--info-text:var(--color-blue-light);
 --success-surface:#25301c;
 --warning-surface:#332a12;
 --danger-surface:#361f21;
@@ -59,6 +64,7 @@ color-scheme:dark;
 --surface-primary-tint:#e6e3fa;
 --surface-primary-tint-hover:#d7d2f5;
 --surface-page-translucent:#ffffff;
+--text-on-primary-tint:#3a3186;
 /* High contrast drops chip hue on purpose: a pale tint behind mid-accent text never
    clears 4.5:1. Chips read as neutral pills here and are told apart by their label. */
 --tint-pink:#f2f1ec;
@@ -90,6 +96,10 @@ color-scheme:dark;
 --warning:#7a5200;
 --danger:#a3232b;
 --info:#1d5c86;
+--success-text:#3f6100;
+--warning-text:#7a5200;
+--danger-text:#a3232b;
+--info-text:#1d5c86;
 --shadow-sm:none;
 --shadow-md:none;
 --shadow-lg:none;

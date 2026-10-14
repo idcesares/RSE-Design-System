@@ -4,6 +4,15 @@ This is the action plan for [assessment.md](assessment.md). It is written to be 
 and by agents alike: every work package has a goal, the concrete change, an acceptance test that
 a script can verify, and whether it can start now or waits on a decision.
 
+## Status
+
+| | |
+| --- | --- |
+| Decisions approved | **D1, D2, D3** (October 2026). D4, D5, D6 pending. |
+| Done | **P0.1** CI · **P0.2** doc contradictions · **P0.3** scope freeze · **P1.1** accessible inks · **P1.2** audit gate + ratchet |
+| Blocked | **P1.3** on D5 (namespace rename) · **P1.4** on D4 (registry and licence) |
+| Next unblocked | **P2.4** glyph icons → `Icon`; **P2.1** CSS contract (D1 approved) |
+
 Progress is tracked with numbers, not adjectives:
 
 ```bash
@@ -115,7 +124,7 @@ what the work packages assume.
 | D3 | Allow **ink-on-colour fields** (light/mid accent backgrounds with `--rse-color-ink` text) in pages, not only in print. Optionally assign hue families to segments for wayfinding. | **Yes to fields** (5–10:1, the most legible pairs the palette has). Segment-to-hue mapping only if DN wants it — it is a brand semantic, not ours to invent. | DN comunicação | P3.3 |
 | D4 | Publish to a registry: GitHub Packages (private) + a versioned static CDN path for CMSs. License the code for internal Sesc reuse. | **Yes.** | DS lead + Sesc TI | P1.4 |
 | D5 | Rename the token namespace to `--rse-*` and the bundle global to `RSE`, with aliases for 2.x. | **Yes.** | DS lead | P1.3 |
-| D6 | Remove `ui_kits/site/`, the raster logos and the oxlint config (see assessment, "What to remove"). | **Yes.** | DS lead | P3.4 |
+| D6 | Remove `ui_kits/site/` and the raster logos (see assessment, "What to remove"). The oxlint config stays: it carries tool metadata (`x-omelette`), and P1.2 already moved enforcement out of it. | **Yes.** | DS lead | P3.4 |
 
 ---
 
@@ -137,7 +146,7 @@ review. Phases overlap; the arrows are real dependencies.
 | WP | Change | Acceptance | Size | Needs |
 | --- | --- | --- | :-: | :-: |
 | **P1.1** Accessible inks | Add `--color-<hue>-ink` for the six hues (start: `#8a1f26 #7a3d00 #3f6100 #1d5c86 #3a3186 #6b4700`). Point `--tint-*-ink` at them in light theme. Split status roles into `--success-text` (ink), `--success` (indicator: dots, borders, icons — 3:1 non-text). Secondary button label → `--color-primary-hover`. Sab.IA chrome text → ink. Drop `yellow` from `Stat` accents. | `npm run audit -- --strict` exits 0 in all three themes. Showcase contrast table includes every pair in `scripts/audit.mjs`. | M | D2 |
-| **P1.2** Make the floor a gate | Add `audit --strict` to `npm run check`. Replace `_adherence.oxlintrc.json` with checks inside `check-ds`: no raw colour/px/glyph in `components/`, `templates/`. Ratchet: the counts in `audit` may only go down (baseline stored in `scripts/audit-baseline.json`). | A PR that adds a raw colour or a failing pair fails CI. | M | P0.1 |
+| **P1.2** Make the floor a gate | Add `audit --strict` to `npm run check`. Move enforcement out of `_adherence.oxlintrc.json` (nothing ran it) into `check-ds` (direct component imports) and the audit ratchet (raw colour/px/glyph in `components/`, `templates/`): the counts may only go down, baseline in `scripts/audit-baseline.json`. The oxlint file stays as prop metadata for external design tooling. | A PR that adds a raw colour or a failing pair fails CI. | M | P0.1 |
 | **P1.3** Token source and tiers | Move the source of truth to DTCG JSON (`tokens/src/*.tokens.json`) with the three tiers; generate today's CSS files, `brand.json`, a TS module, a Tailwind preset and a Figma-variables JSON from it. Rename to `--rse-*`; generate `legacy-aliases.css`. Remove duplicates (F6). Breakpoints as `@custom-media` + JSON. Add `prefers-color-scheme` opt-in (`[data-theme="auto"]`). Fluid type and container padding with `clamp(rem + vw)`. | `git diff` of resolved values in `brand.json` is empty except the intended changes. Every 1.x token name still resolves. | L | D5 |
 | **P1.4** Release pipeline | Workspaces: `packages/{brand,tokens,css,react}`. Changesets for SemVer + changelog. Publish to GitHub Packages and a versioned CDN path (`/rse/<version>/rse.css`). `bind` reads from the built packages. | `npm i @rede-sesc/tokens` works in a scratch project; a CDN URL serves a pinned version. | M | D4 |
 

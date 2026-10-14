@@ -16,7 +16,7 @@ export function Input({ label, placeholder, value, onChange, error, helpText, di
         transition: 'border var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard)'
       }
     }),
-    error ? React.createElement('span', { style: { fontSize: 'var(--text-caption)', color: 'var(--danger)' } }, error)
+    error ? React.createElement('span', { style: { fontSize: 'var(--text-caption)', color: 'var(--danger-text)' } }, error)
       : helpText ? React.createElement('span', { style: { fontSize: 'var(--text-caption)', color: 'var(--text-muted)' } }, helpText) : null
   );
 }

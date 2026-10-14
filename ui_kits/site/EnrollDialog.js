@@ -35,7 +35,7 @@ function EnrollDialog({ open, onClose }) {
         React.createElement("p", { style: { color: "var(--text-muted)", fontSize: "var(--text-body-sm)" } }, "Você receberá um e-mail de confirmação em breve."),
         React.createElement("button", {
           onClick: onClose,
-          style: { marginTop: 20, padding: "12px 24px", borderRadius: "var(--radius-pill)", background: "var(--surface-primary-tint)", color: "var(--color-primary)", border: "none", fontWeight: 600, cursor: "pointer" }
+          style: { marginTop: 20, padding: "12px 24px", borderRadius: "var(--radius-pill)", background: "var(--surface-primary-tint)", color: "var(--text-on-primary-tint)", border: "none", fontWeight: 600, cursor: "pointer" }
         }, "Fechar")
       )
     )

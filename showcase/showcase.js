@@ -461,23 +461,13 @@
       }))
     );
 
-  /* Each row is a pair the system actually puts on screen, with the WCAG floor that
-     applies to it: 4.5:1 for text, 3:1 for the boundary that identifies a control
-     (1.4.11 Non-text Contrast — the resting border of Input is --border-default). */
-  const CONTRAST_PAIRS = [
-    ['--text-body', '--surface-page', 'Texto corrido sobre a página', 4.5],
-    ['--text-body', '--surface-card', 'Texto corrido sobre o cartão', 4.5],
-    ['--text-heading', '--surface-page', 'Título sobre a página', 4.5],
-    ['--text-muted', '--surface-page', 'Texto secundário sobre a página', 4.5],
-    ['--text-muted', '--surface-card', 'Texto secundário sobre o cartão', 4.5],
-    ['--text-on-primary', '--color-primary', 'Texto dentro do botão primário', 4.5],
-    ['--color-primary', '--surface-page', 'Link e ação sobre a página', 4.5],
-    ['--border-strong', '--surface-card', 'Borda do campo de formulário', 3],
-    ['--border-strong', '--surface-page', 'Borda do campo sobre a página', 3],
-  ];
+  /* Every pair the system puts on screen, with its WCAG floor. Generated from
+     scripts/contrast-pairs.mjs — the same list `npm run audit` gates on, so the table
+     cannot quietly test only the pairs that pass. */
+  const CONTRAST_PAIRS = D.contrastPairs;
 
   const ContrastTable = () => {
-    const rows = CONTRAST_PAIRS.map(([fg, bg, label, floor]) => {
+    const rows = CONTRAST_PAIRS.map(({ fg, bg, label, floor }) => {
       const front = resolveColor(fg);
       const back = resolveColor(bg);
       const ratio = contrastRatio(front, back);

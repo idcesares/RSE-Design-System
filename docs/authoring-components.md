@@ -70,7 +70,8 @@ component to the relevant card, or create a new one and register it in `_ds_mani
 - `_ds_manifest.json` → `components`: `{ "name": "Name", "sourcePath": "components/<group>/Name.jsx" }`
 - `index.js` → `export { Name } from './components/<group>/Name.jsx';`
 - `index.d.ts` → the matching type re-export.
-- `_adherence.oxlintrc.json` → the prop allow-list entry, if you want the lint rules to cover it.
+- If it renders text on a new surface, add the pair to `scripts/contrast-pairs.mjs` — the audit
+  gate and the showcase both read it.
 
 ## 6. Sync and check
 

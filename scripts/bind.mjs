@@ -98,11 +98,13 @@ machine-readable form. Anything that can parse JSON can consume the brand from i
 7. **The selo is fixed geometry.** Clearspace X on all sides (X = height of the stem of the E),
    minimum 45 mm print / 150 px digital, below that switch to the wordmark. Never rotate, stretch,
    distort, add effects to or redraw it. Palette colours only, never a gradient.
-8. **The motif is artwork, not decoration.** One construction per composition, never recoloured.
+8. **The motif is artwork, not decoration.** One construction per composition; change its hue only
+   through \`BrandMotif\`'s \`hue\` prop, never by editing the SVG.
 9. **Accessibility is part of done.** Contrast ≥ 4.5:1 body / ≥ 3:1 large text and UI borders,
    focus always visible, hit targets ≥ ${brand.rules.accessibility.hitTargetMin}, keyboard path complete.
-10. **At most two background colours per composition** — cream (\`${p('--color-cream')}\`) plus one
-    brand-purple (\`${p('--color-purple-dark')}\`) band. Accent hues live in tags and chips only.
+10. **Bands carry the right ink.** Cream (\`${p('--color-cream')}\`) page, white cards. A band is
+    brand purple (\`${p('--color-purple-dark')}\`) or indigo with white text, or a light or mid accent
+    with ink (\`${p('--color-ink')}\`) text. Never white on an accent, never a \`-dark\` accent as a band.
 
 The full reasoning, the component reference and the brand manual extract live in the design system
 repo, not here. \`brand.json\` → \`rules\` carries the machine-checkable summary; where the two ever

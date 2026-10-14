@@ -114,7 +114,8 @@ scripts/                  check-ds, build-icons, build-motifs, sync-bundle, sync
                           gen-docs, build-showcase, bind.
 _ds_bundle.js             Browser build of every component. What static pages actually execute.
 _ds_manifest.json         Machine index of components, cards, templates, tokens, themes, fonts.
-_adherence.oxlintrc.json  Lint rules encoding the token/import/prop constraints above.
+_adherence.oxlintrc.json  Prop metadata for external design tooling. Enforces nothing; the rules are
+                          enforced by scripts/check-ds.mjs and scripts/audit.mjs.
 assets/logos/             Official vector lockups (Rede + Sab.IA); originals in source/. Read its README.
 assets/motifs/            Official cubo impossível artwork and its six constructions.
 assets/patterns/          Four full-bleed cube pattern backgrounds.
@@ -136,7 +137,7 @@ for artifacts. Start from [starters/](starters/).
 import { Button, Card, Stat, Tabs } from './index.js';
 ```
 
-Never import a component file directly — `_adherence.oxlintrc.json` forbids it, so that a
+Never import a component file directly — `npm run check` forbids it, so that a
 component can be re-pathed or re-implemented without breaking consumers.
 
 **Anything that is not a browser** (a Python generator, a print pipeline, a design tool, another
@@ -171,9 +172,11 @@ self-contained `_ds/` folder and the rules that travel with it.
    use case (36 components), so a "missing" component is usually an existing one with a prop you
    haven't read yet.
 4. Structure: page background is cream (`--surface-page`), content sits on white cards
-   (`--surface-card`). At most **two** background colours per composition — cream, plus brand
-   purple for one feature/CTA band. Accent hues live in tags, chips and dots only, never as a
-   full-bleed section background.
+   (`--surface-card`). A feature or CTA **band** may be brand purple or indigo with white text, or
+   any light or mid accent with **ink** text (`--color-ink`, 4.8–10:1) — that is how the rede's six
+   hues reach a page (decision D3). Never white text on an accent (2.3–3.3:1), never a `-dark`
+   accent or mid `--color-purple` as a band (they fail with both white and ink), no gradients, one
+   band colour per section.
 5. Rhythm: `--section-y` (96px) between major blocks, `--container-max` (1200px) for page width,
    `--container-prose` (66ch) for anything text-heavy.
 6. Copy: short declarative sentences, second person ("você"), verbs of transformation (acolhe,
@@ -228,6 +231,9 @@ Rules:
   static pages are unaffected.
 - Props are strings, arrays and plain objects wherever possible — templates mount components
   through `<x-import>` with HTML attributes, so exotic prop shapes don't survive the trip.
+- **Scope freeze (roadmap P0.3).** No new components until the CSS-first contract (roadmap P2.1)
+  lands — the current implementation is being replaced, so a new one would be written twice. Bug
+  and accessibility fixes are welcome. Need a pattern? Compose it in a template, or open an issue.
 - Don't add a component that duplicates an existing one with a prop. Check
   [docs/components.md](docs/components.md) and `guidelines/system-audit.card.html` first.
 
@@ -252,9 +258,12 @@ this system's chips ended up light-on-light in dark mode before the tint tokens 
 Every generated surface must clear this. It is not optional polish; the audience includes
 students, families and Sesc staff across the whole country.
 
-- **Contrast** ≥ 4.5:1 for body text, ≥ 3:1 for large text and UI borders. Pale accent tints
-  (`--tint-*`) carry their paired `--tint-*-ink` foreground — never mix a tint with an arbitrary
-  accent colour.
+- **Contrast** ≥ 4.5:1 for body text, ≥ 3:1 for large text and UI borders. `npm run check` measures
+  every pair listed in `scripts/contrast-pairs.mjs` in all three themes and fails below the floor.
+  Pale accent tints (`--tint-*`) carry their paired `--tint-*-ink` foreground. Status colours have
+  three roles: `--danger-surface` (background), `--danger-text` (words), `--danger` (dots, borders,
+  icons only). Text on `--surface-primary-tint` is `--text-on-primary-tint`. The official `-dark`
+  tones never carry small text — they sit at 3.4–4.1:1 against white *and* ink.
 - **Focus is always visible.** The global `:focus-visible` ring is in `tokens/base.css`. Never set
   `outline: none` without an equally visible replacement.
 - **Native control, hidden visually — never `display:none`.** A native input styled behind custom
@@ -275,6 +284,7 @@ students, families and Sesc staff across the whole country.
 ```bash
 npm run check    # integrity: files, manifest, bundle + brand.json freshness, token collisions, a11y
 npm run audit    # quality scorecard: contrast of rendered pairs, component/page debt, doc drift
+npm run audit -- --update-baseline   # after lowering a debt count, lock it in (same PR)
 npm run sync     # after editing components, tokens, icons or motifs — regenerates everything
 npm run icons    # rebuild Icon.jsx after vendoring a new Lucide SVG
 npm run docs     # regenerate docs/components.md and docs/tokens.md only
@@ -289,7 +299,8 @@ and warns on any drift — that guard is the reason known gap 9 cannot happen tw
 
 ## Definition of done
 
-- [ ] `npm run check` passes.
+- [ ] `npm run check` passes — it includes the contrast gate and the debt ratchet (`npm run audit`).
+- [ ] Lowered a debt count? `npm run audit -- --update-baseline` in the same change.
 - [ ] No raw hex, font stack, radius, shadow or duration outside `tokens/`.
 - [ ] Copy is pt-BR, sentence case, no emoji, no invented Sesc figures.
 - [ ] Keyboard path walked end to end; focus visible at every stop.

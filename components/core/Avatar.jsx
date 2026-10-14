@@ -10,7 +10,7 @@ export function Avatar({ src, alt, initials, size = 'md', status }) {
       : React.createElement('span', {
         style: {
           width: dim, height: dim, borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          background: 'var(--surface-primary-tint)', color: 'var(--color-primary)', fontFamily: 'var(--font-family-base)',
+          background: 'var(--surface-primary-tint)', color: 'var(--text-on-primary-tint)', fontFamily: 'var(--font-family-base)',
           fontWeight: 'var(--font-weight-semibold)', fontSize: fontSizes[size], letterSpacing: '0.02em'
         }
       }, (initials || '?').slice(0, 2).toUpperCase()),

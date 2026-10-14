@@ -294,7 +294,7 @@ const rules = {
   colour: {
     paletteOnly: true,
     maxBackgroundColoursPerComposition: 2,
-    backgrounds: 'Cream page surface, plus at most one brand-purple feature or CTA band. Accent hues live in tags, chips and dots — never a full-bleed section background.',
+    backgrounds: 'Cream page surface, white cards. A feature or CTA band is brand purple or indigo with white text, or a light or mid accent with ink (--color-ink) text. Never white text on an accent, never a -dark accent or mid purple as a band, no gradients, one band colour per section.',
     gradients: false,
     resampleFromArtwork: false,
   },

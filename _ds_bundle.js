@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"RedeSescDeEducaODesignSystem_2167ce","components":[{"name":"BrandMotif","sourcePath":"components/brand/BrandMotif.jsx"},{"name":"Avatar","sourcePath":"components/core/Avatar.jsx"},{"name":"Badge","sourcePath":"components/core/Badge.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Card","sourcePath":"components/core/Card.jsx"},{"name":"Divider","sourcePath":"components/core/Divider.jsx"},{"name":"Icon","sourcePath":"components/core/Icon.jsx"},{"name":"IconButton","sourcePath":"components/core/IconButton.jsx"},{"name":"Tag","sourcePath":"components/core/Tag.jsx"},{"name":"DataTable","sourcePath":"components/data/DataTable.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Accordion","sourcePath":"components/disclosure/Accordion.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Tooltip","sourcePath":"components/feedback/Tooltip.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"DateField","sourcePath":"components/forms/DateField.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"FilterChips","sourcePath":"components/forms/FilterChips.jsx"},{"name":"Input","sourcePath":"components/forms/Input.jsx"},{"name":"Radio","sourcePath":"components/forms/Radio.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Stepper","sourcePath":"components/forms/Stepper.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Footer","sourcePath":"components/navigation/Footer.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Modal","sourcePath":"components/overlay/Modal.jsx"}],"sourceHashes":{"components/brand/BrandMotif.jsx":"4d969f11c960","components/core/Avatar.jsx":"178977be4407","components/core/Badge.jsx":"18b41d79242c","components/core/Button.jsx":"c723bace480e","components/core/Card.jsx":"a46b461e77ed","components/core/Divider.jsx":"5e9eada64301","components/core/Icon.jsx":"4ef072d6fd71","components/core/IconButton.jsx":"94d646c6121e","components/core/Tag.jsx":"5f1259fc17da","components/data/DataTable.jsx":"601e12ada1fa","components/data/Stat.jsx":"631421a4c6c0","components/disclosure/Accordion.jsx":"ce8af84912f5","components/feedback/Alert.jsx":"c3ef4d5147f1","components/feedback/ProgressBar.jsx":"c2848dc4fb47","components/feedback/Skeleton.jsx":"17fe4c5b8eac","components/feedback/Spinner.jsx":"e05197e4110f","components/feedback/Toast.jsx":"44ad802f79f6","components/feedback/Tooltip.jsx":"557fe1e9d1fd","components/forms/Checkbox.jsx":"e8da310ac670","components/forms/DateField.jsx":"2a7049282571","components/forms/FileUpload.jsx":"57cb77e9290d","components/forms/FilterChips.jsx":"b26f02c2bf32","components/forms/Input.jsx":"4e7e6f994931","components/forms/Radio.jsx":"defee8863c6e","components/forms/Select.jsx":"fedff2df2226","components/forms/Stepper.jsx":"56feeea577eb","components/forms/Switch.jsx":"40f8351127e4","components/forms/Textarea.jsx":"57266f82e71b","components/navigation/Breadcrumb.jsx":"f2377c8a669f","components/navigation/Footer.jsx":"2b324878f428","components/navigation/Menu.jsx":"cf9aa490469a","components/navigation/Navbar.jsx":"0be6327eaf05","components/navigation/Pagination.jsx":"0968eddff776","components/navigation/Tabs.jsx":"a1d4dcd1a3c7","components/overlay/Modal.jsx":"47c9adb282b3","image-slot.js":"0394ad34f685","ui_kits/site/EnrollDialog.js":"4c89c9f83331","ui_kits/site/SiteFooter.js":"562a8cceeea4","ui_kits/site/SiteHeader.js":"53f77f904890","ui_kits/site/app.js":"eb47c2e53e26","components/brand/PlatformEntry.jsx":"166ec2b64386"},"inlinedExternals":[],"unexposedExports":[{"name":"iconNames","sourcePath":"components/core/Icon.jsx"}]} */
+/* @ds-bundle: {"format":4,"namespace":"RedeSescDeEducaODesignSystem_2167ce","components":[{"name":"BrandMotif","sourcePath":"components/brand/BrandMotif.jsx"},{"name":"Avatar","sourcePath":"components/core/Avatar.jsx"},{"name":"Badge","sourcePath":"components/core/Badge.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Card","sourcePath":"components/core/Card.jsx"},{"name":"Divider","sourcePath":"components/core/Divider.jsx"},{"name":"Icon","sourcePath":"components/core/Icon.jsx"},{"name":"IconButton","sourcePath":"components/core/IconButton.jsx"},{"name":"Tag","sourcePath":"components/core/Tag.jsx"},{"name":"DataTable","sourcePath":"components/data/DataTable.jsx"},{"name":"Stat","sourcePath":"components/data/Stat.jsx"},{"name":"Accordion","sourcePath":"components/disclosure/Accordion.jsx"},{"name":"Alert","sourcePath":"components/feedback/Alert.jsx"},{"name":"ProgressBar","sourcePath":"components/feedback/ProgressBar.jsx"},{"name":"Skeleton","sourcePath":"components/feedback/Skeleton.jsx"},{"name":"Spinner","sourcePath":"components/feedback/Spinner.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Tooltip","sourcePath":"components/feedback/Tooltip.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"DateField","sourcePath":"components/forms/DateField.jsx"},{"name":"FileUpload","sourcePath":"components/forms/FileUpload.jsx"},{"name":"FilterChips","sourcePath":"components/forms/FilterChips.jsx"},{"name":"Input","sourcePath":"components/forms/Input.jsx"},{"name":"Radio","sourcePath":"components/forms/Radio.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Stepper","sourcePath":"components/forms/Stepper.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"Textarea","sourcePath":"components/forms/Textarea.jsx"},{"name":"Breadcrumb","sourcePath":"components/navigation/Breadcrumb.jsx"},{"name":"Footer","sourcePath":"components/navigation/Footer.jsx"},{"name":"Menu","sourcePath":"components/navigation/Menu.jsx"},{"name":"Navbar","sourcePath":"components/navigation/Navbar.jsx"},{"name":"Pagination","sourcePath":"components/navigation/Pagination.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"},{"name":"Modal","sourcePath":"components/overlay/Modal.jsx"}],"sourceHashes":{"components/brand/BrandMotif.jsx":"4d969f11c960","components/core/Avatar.jsx":"79bfd663de22","components/core/Badge.jsx":"83c6bf39c57a","components/core/Button.jsx":"5b159b480d70","components/core/Card.jsx":"a46b461e77ed","components/core/Divider.jsx":"5e9eada64301","components/core/Icon.jsx":"4ef072d6fd71","components/core/IconButton.jsx":"94d646c6121e","components/core/Tag.jsx":"5f1259fc17da","components/data/DataTable.jsx":"601e12ada1fa","components/data/Stat.jsx":"010739e3e5ae","components/disclosure/Accordion.jsx":"ce8af84912f5","components/feedback/Alert.jsx":"8536bbe16ba3","components/feedback/ProgressBar.jsx":"c2848dc4fb47","components/feedback/Skeleton.jsx":"17fe4c5b8eac","components/feedback/Spinner.jsx":"e05197e4110f","components/feedback/Toast.jsx":"44ad802f79f6","components/feedback/Tooltip.jsx":"557fe1e9d1fd","components/forms/Checkbox.jsx":"e8da310ac670","components/forms/DateField.jsx":"cfe1f3d4a09f","components/forms/FileUpload.jsx":"b0fbc1cced83","components/forms/FilterChips.jsx":"b26f02c2bf32","components/forms/Input.jsx":"410669ae6ef6","components/forms/Radio.jsx":"defee8863c6e","components/forms/Select.jsx":"fedff2df2226","components/forms/Stepper.jsx":"56feeea577eb","components/forms/Switch.jsx":"40f8351127e4","components/forms/Textarea.jsx":"db0ce472e60d","components/navigation/Breadcrumb.jsx":"f2377c8a669f","components/navigation/Footer.jsx":"2b324878f428","components/navigation/Menu.jsx":"3734670eb1f0","components/navigation/Navbar.jsx":"0be6327eaf05","components/navigation/Pagination.jsx":"0968eddff776","components/navigation/Tabs.jsx":"a1d4dcd1a3c7","components/overlay/Modal.jsx":"47c9adb282b3","image-slot.js":"0394ad34f685","ui_kits/site/EnrollDialog.js":"381c2e6795b9","ui_kits/site/SiteFooter.js":"562a8cceeea4","ui_kits/site/SiteHeader.js":"53f77f904890","ui_kits/site/app.js":"eb47c2e53e26","components/brand/PlatformEntry.jsx":"166ec2b64386"},"inlinedExternals":[],"unexposedExports":[{"name":"iconNames","sourcePath":"components/core/Icon.jsx"}]} */
 
 (() => {
 
@@ -91,7 +91,7 @@ function Avatar({ src, alt, initials, size = 'md', status }) {
       : React.createElement('span', {
         style: {
           width: dim, height: dim, borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          background: 'var(--surface-primary-tint)', color: 'var(--color-primary)', fontFamily: 'var(--font-family-base)',
+          background: 'var(--surface-primary-tint)', color: 'var(--text-on-primary-tint)', fontFamily: 'var(--font-family-base)',
           fontWeight: 'var(--font-weight-semibold)', fontSize: fontSizes[size], letterSpacing: '0.02em'
         }
       }, (initials || '?').slice(0, 2).toUpperCase()),
@@ -110,12 +110,12 @@ Object.assign(__ds_scope, { Avatar });
 try { (() => {
 function Badge({ tone = 'neutral', children }) {
   const tones = {
-    success: { bg: 'var(--success-surface)', fg: 'var(--success)' },
-    warning: { bg: 'var(--warning-surface)', fg: 'var(--warning)' },
-    danger: { bg: 'var(--danger-surface)', fg: 'var(--danger)' },
-    info: { bg: 'var(--info-surface)', fg: 'var(--info)' },
-    neutral: { bg: 'var(--gray-100)', fg: 'var(--text-body)' },
-    primary: { bg: 'var(--surface-primary-tint)', fg: 'var(--color-primary)' }
+    success: { bg: 'var(--success-surface)', fg: 'var(--success-text)', dot: 'var(--success)' },
+    warning: { bg: 'var(--warning-surface)', fg: 'var(--warning-text)', dot: 'var(--warning-text)' },
+    danger: { bg: 'var(--danger-surface)', fg: 'var(--danger-text)', dot: 'var(--danger)' },
+    info: { bg: 'var(--info-surface)', fg: 'var(--info-text)', dot: 'var(--info)' },
+    neutral: { bg: 'var(--gray-100)', fg: 'var(--text-body)', dot: 'var(--text-body)' },
+    primary: { bg: 'var(--surface-primary-tint)', fg: 'var(--text-on-primary-tint)', dot: 'var(--color-primary)' }
   };
   const t = tones[tone];
   return React.createElement('span', {
@@ -125,7 +125,7 @@ function Badge({ tone = 'neutral', children }) {
       fontWeight: 'var(--font-weight-semibold)', fontFamily: 'var(--font-family-base)',
       letterSpacing: '0.02em', background: t.bg, color: t.fg
     }
-  }, React.createElement('span', { style: { width: 6, height: 6, borderRadius: '50%', background: t.fg } }), children);
+  }, React.createElement('span', { style: { width: 6, height: 6, borderRadius: '50%', background: t.dot } }), children);
 }
 Object.assign(__ds_scope, { Badge });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Badge.jsx", error: String((e && e.message) || e) }); }
@@ -140,7 +140,7 @@ function Button({ variant = 'primary', size = 'md', icon, disabled, children, on
   };
   const variants = {
     primary: { background: 'var(--color-primary)', color: 'var(--text-on-primary)', border: '1px solid transparent' },
-    secondary: { background: 'var(--surface-primary-tint)', color: 'var(--color-primary)', border: '1px solid transparent' },
+    secondary: { background: 'var(--surface-primary-tint)', color: 'var(--text-on-primary-tint)', border: '1px solid transparent' },
     ghost: { background: 'transparent', color: 'var(--color-primary)', border: '1.5px solid var(--border-strong)' }
   };
   const hover = {
@@ -455,7 +455,7 @@ function Stat({ value, label, description, accent = 'primary', align = 'left', s
   const accents = {
     primary: 'var(--color-primary)', indigo: 'var(--color-indigo)', pink: 'var(--color-pink-dark)',
     orange: 'var(--color-orange-dark)', green: 'var(--color-green-dark)', blue: 'var(--color-blue-dark)',
-    yellow: 'var(--color-yellow-dark)', inverse: 'var(--text-inverse)'
+    yellow: 'var(--tint-yellow-ink)', inverse: 'var(--text-inverse)'
   };
   const valueSize = size === 'lg' ? 'var(--text-display-2)' : size === 'sm' ? 'var(--text-h2)' : 'var(--text-h1)';
   return React.createElement('div', {
@@ -547,10 +547,10 @@ Object.assign(__ds_scope, { Accordion });
 try { (() => {
 function Alert({ tone = 'info', title, message, onDismiss }) {
   const tones = {
-    success: { bg: 'var(--success-surface)', border: 'var(--success)', fg: 'var(--success)' },
-    warning: { bg: 'var(--warning-surface)', border: 'var(--warning)', fg: 'var(--warning)' },
-    danger: { bg: 'var(--danger-surface)', border: 'var(--danger)', fg: 'var(--danger)' },
-    info: { bg: 'var(--info-surface)', border: 'var(--info)', fg: 'var(--info)' }
+    success: { bg: 'var(--success-surface)', border: 'var(--success)', fg: 'var(--success-text)' },
+    warning: { bg: 'var(--warning-surface)', border: 'var(--warning)', fg: 'var(--warning-text)' },
+    danger: { bg: 'var(--danger-surface)', border: 'var(--danger)', fg: 'var(--danger-text)' },
+    info: { bg: 'var(--info-surface)', border: 'var(--info)', fg: 'var(--info-text)' }
   };
   const t = tones[tone];
   return React.createElement('div', {
@@ -738,7 +738,7 @@ function DateField({ label, value, onChange, min, max, hint, error, required, di
     label ? React.createElement('label', {
       htmlFor: inputId,
       style: { fontSize: 'var(--text-body-sm)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--text-heading)' }
-    }, label, required ? React.createElement('span', { style: { color: 'var(--danger)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
+    }, label, required ? React.createElement('span', { style: { color: 'var(--danger-text)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
     React.createElement('input', {
       id: inputId, type: 'date', value, onChange, min, max, required, disabled,
       'aria-invalid': error ? 'true' : undefined,
@@ -755,12 +755,12 @@ function DateField({ label, value, onChange, min, max, hint, error, required, di
     deadline ? React.createElement('span', {
       style: {
         display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: 6,
-        background: 'var(--warning-surface)', color: 'var(--warning)', borderRadius: 'var(--radius-pill)',
+        background: 'var(--warning-surface)', color: 'var(--warning-text)', borderRadius: 'var(--radius-pill)',
         padding: '4px 12px', fontSize: 'var(--text-caption)', fontWeight: 'var(--font-weight-bold)'
       }
     }, deadline) : null,
     (hint || error) ? React.createElement('span', {
-      style: { fontSize: 'var(--text-caption)', color: error ? 'var(--danger)' : 'var(--text-muted)' }
+      style: { fontSize: 'var(--text-caption)', color: error ? 'var(--danger-text)' : 'var(--text-muted)' }
     }, error || hint) : null
   );
 }
@@ -823,7 +823,7 @@ function FileUpload({ label, hint, accept, multiple = false, files = [], onFiles
       ))
     ) : null,
     (hint || error) ? React.createElement('span', {
-      style: { fontSize: 'var(--text-caption)', color: error ? 'var(--danger)' : 'var(--text-muted)' }
+      style: { fontSize: 'var(--text-caption)', color: error ? 'var(--danger-text)' : 'var(--text-muted)' }
     }, error || hint) : null
   );
 }
@@ -897,7 +897,7 @@ function Input({ label, placeholder, value, onChange, error, helpText, disabled,
         transition: 'border var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard)'
       }
     }),
-    error ? React.createElement('span', { style: { fontSize: 'var(--text-caption)', color: 'var(--danger)' } }, error)
+    error ? React.createElement('span', { style: { fontSize: 'var(--text-caption)', color: 'var(--danger-text)' } }, error)
       : helpText ? React.createElement('span', { style: { fontSize: 'var(--text-caption)', color: 'var(--text-muted)' } }, helpText) : null
   );
 }
@@ -1043,7 +1043,7 @@ function Textarea({ label, placeholder, value, onChange, rows = 4, hint, error, 
     label ? React.createElement('label', {
       htmlFor: inputId,
       style: { fontSize: 'var(--text-body-sm)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--text-heading)' }
-    }, label, required ? React.createElement('span', { style: { color: 'var(--danger)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
+    }, label, required ? React.createElement('span', { style: { color: 'var(--danger-text)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
     React.createElement('textarea', {
       id: inputId, rows, placeholder, value, onChange, disabled, maxLength, required,
       'aria-invalid': error ? 'true' : undefined,
@@ -1060,7 +1060,7 @@ function Textarea({ label, placeholder, value, onChange, rows = 4, hint, error, 
     (hint || error || maxLength) ? React.createElement('div', {
       style: { display: 'flex', justifyContent: 'space-between', gap: 'var(--space-4)', fontSize: 'var(--text-caption)' }
     },
-      React.createElement('span', { style: { color: error ? 'var(--danger)' : 'var(--text-muted)' } }, error || hint || ''),
+      React.createElement('span', { style: { color: error ? 'var(--danger-text)' : 'var(--text-muted)' } }, error || hint || ''),
       maxLength ? React.createElement('span', { style: { color: 'var(--text-muted)', flex: 'none' } }, count + '/' + maxLength) : null
     ) : null
   );
@@ -1169,7 +1169,7 @@ function MenuItem({ item, onSelect }) {
       display: 'flex', alignItems: 'center', gap: 10, width: '100%', textAlign: 'left',
       padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: 'none', textDecoration: 'none',
       background: hover ? 'var(--surface-primary-tint)' : 'transparent',
-      color: hover ? 'var(--color-primary)' : 'var(--text-body)',
+      color: hover ? 'var(--text-on-primary-tint)' : 'var(--text-body)',
       fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-family-base)',
       fontWeight: 'var(--font-weight-medium)', cursor: 'pointer',
       transition: 'background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard)'

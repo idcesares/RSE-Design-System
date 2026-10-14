@@ -14,6 +14,7 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CONTRAST_PAIRS } from './contrast-pairs.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'showcase', 'showcase-data.js');
@@ -109,6 +110,7 @@ const data = {
   assets: brand.assets,
   rules: brand.rules,
   templates: brand.templates,
+  contrastPairs: CONTRAST_PAIRS.map(({ label, fg, bg, floor }) => ({ label, fg, bg, floor })),
   counts: {
     components: components.length,
     tokens: Object.keys(brand.tokens).length,

@@ -1796,6 +1796,30 @@ window.SHOWCASE_DATA = {
       "value": "#d39f2b",
       "kind": "color"
     },
+    "--color-pink-ink": {
+      "value": "#8a1f26",
+      "kind": "color"
+    },
+    "--color-orange-ink": {
+      "value": "#7a3d00",
+      "kind": "color"
+    },
+    "--color-green-ink": {
+      "value": "#3f6100",
+      "kind": "color"
+    },
+    "--color-blue-ink": {
+      "value": "#1d5c86",
+      "kind": "color"
+    },
+    "--color-purple-ink": {
+      "value": "#3a3186",
+      "kind": "color"
+    },
+    "--color-yellow-ink": {
+      "value": "#6b4700",
+      "kind": "color"
+    },
     "--color-brand-black": {
       "value": "#1d1d1b",
       "kind": "color"
@@ -1822,6 +1846,11 @@ window.SHOWCASE_DATA = {
       "value": "#e17f38",
       "kind": "color",
       "raw": "var(--color-orange)"
+    },
+    "--sabia-on-blue": {
+      "value": "#2b2a3d",
+      "kind": "color",
+      "raw": "var(--color-ink)"
     },
     "--sabia-cream": {
       "value": "#eef0da",
@@ -1938,6 +1967,11 @@ window.SHOWCASE_DATA = {
       "value": "#e4e3f4",
       "kind": "color"
     },
+    "--text-on-primary-tint": {
+      "value": "#5e56ab",
+      "kind": "color",
+      "raw": "var(--color-primary-hover)"
+    },
     "--surface-page-translucent": {
       "value": "rgba(242,244,228,0.92)",
       "kind": "color"
@@ -2021,6 +2055,26 @@ window.SHOWCASE_DATA = {
       "kind": "color",
       "raw": "var(--color-blue-dark)"
     },
+    "--success-text": {
+      "value": "#3f6100",
+      "kind": "color",
+      "raw": "var(--color-green-ink)"
+    },
+    "--warning-text": {
+      "value": "#6b4700",
+      "kind": "color",
+      "raw": "var(--color-yellow-ink)"
+    },
+    "--danger-text": {
+      "value": "#8a1f26",
+      "kind": "color",
+      "raw": "var(--color-pink-ink)"
+    },
+    "--info-text": {
+      "value": "#1d5c86",
+      "kind": "color",
+      "raw": "var(--color-blue-ink)"
+    },
     "--success-surface": {
       "value": "#eef5e0",
       "kind": "color"
@@ -2062,34 +2116,34 @@ window.SHOWCASE_DATA = {
       "kind": "color"
     },
     "--tint-pink-ink": {
-      "value": "#cc646a",
+      "value": "#8a1f26",
       "kind": "color",
-      "raw": "var(--color-pink-dark)"
+      "raw": "var(--color-pink-ink)"
     },
     "--tint-orange-ink": {
-      "value": "#c6621e",
+      "value": "#7a3d00",
       "kind": "color",
-      "raw": "var(--color-orange-dark)"
+      "raw": "var(--color-orange-ink)"
     },
     "--tint-green-ink": {
-      "value": "#658e1e",
+      "value": "#3f6100",
       "kind": "color",
-      "raw": "var(--color-green-dark)"
+      "raw": "var(--color-green-ink)"
     },
     "--tint-blue-ink": {
-      "value": "#4f85b2",
+      "value": "#1d5c86",
       "kind": "color",
-      "raw": "var(--color-blue-dark)"
+      "raw": "var(--color-blue-ink)"
     },
     "--tint-purple-ink": {
-      "value": "#6c62c4",
+      "value": "#3a3186",
       "kind": "color",
-      "raw": "var(--color-purple-dark)"
+      "raw": "var(--color-purple-ink)"
     },
     "--tint-yellow-ink": {
-      "value": "#d39f2b",
+      "value": "#6b4700",
       "kind": "color",
-      "raw": "var(--color-yellow-dark)"
+      "raw": "var(--color-yellow-ink)"
     },
     "--cube-blue-top": {
       "value": "#8ec1e3",
@@ -2586,6 +2640,10 @@ window.SHOWCASE_DATA = {
         "--surface-page-translucent": {
           "value": "rgba(27,26,38,0.92)"
         },
+        "--text-on-primary-tint": {
+          "value": "#ad98ea",
+          "raw": "var(--color-purple-light)"
+        },
         "--tint-pink": {
           "value": "#3a2226"
         },
@@ -2692,6 +2750,22 @@ window.SHOWCASE_DATA = {
           "value": "#92c4e6",
           "raw": "var(--color-blue-light)"
         },
+        "--success-text": {
+          "value": "#a3d864",
+          "raw": "var(--color-green-light)"
+        },
+        "--warning-text": {
+          "value": "#ffd67b",
+          "raw": "var(--color-yellow-light)"
+        },
+        "--danger-text": {
+          "value": "#f78f94",
+          "raw": "var(--color-pink-light)"
+        },
+        "--info-text": {
+          "value": "#92c4e6",
+          "raw": "var(--color-blue-light)"
+        },
         "--success-surface": {
           "value": "#25301c"
         },
@@ -2745,6 +2819,9 @@ window.SHOWCASE_DATA = {
         },
         "--surface-page-translucent": {
           "value": "#ffffff"
+        },
+        "--text-on-primary-tint": {
+          "value": "#3a3186"
         },
         "--tint-pink": {
           "value": "#f2f1ec"
@@ -2831,6 +2908,18 @@ window.SHOWCASE_DATA = {
           "value": "#a3232b"
         },
         "--info": {
+          "value": "#1d5c86"
+        },
+        "--success-text": {
+          "value": "#3f6100"
+        },
+        "--warning-text": {
+          "value": "#7a5200"
+        },
+        "--danger-text": {
+          "value": "#a3232b"
+        },
+        "--info-text": {
           "value": "#1d5c86"
         },
         "--shadow-sm": {
@@ -3100,7 +3189,7 @@ window.SHOWCASE_DATA = {
     "colour": {
       "paletteOnly": true,
       "maxBackgroundColoursPerComposition": 2,
-      "backgrounds": "Cream page surface, plus at most one brand-purple feature or CTA band. Accent hues live in tags, chips and dots — never a full-bleed section background.",
+      "backgrounds": "Cream page surface, white cards. A feature or CTA band is brand purple or indigo with white text, or a light or mid accent with ink (--color-ink) text. Never white text on an accent, never a -dark accent or mid purple as a band, no gradients, one band colour per section.",
       "gradients": false,
       "resampleFromArtwork": false
     },
@@ -3240,9 +3329,227 @@ window.SHOWCASE_DATA = {
       }
     }
   ],
+  "contrastPairs": [
+    {
+      "label": "Texto corrido sobre a página",
+      "fg": "--text-body",
+      "bg": "--surface-page",
+      "floor": 4.5
+    },
+    {
+      "label": "Texto corrido sobre o cartão",
+      "fg": "--text-body",
+      "bg": "--surface-card",
+      "floor": 4.5
+    },
+    {
+      "label": "Título sobre a página",
+      "fg": "--text-heading",
+      "bg": "--surface-page",
+      "floor": 4.5
+    },
+    {
+      "label": "Texto secundário sobre a página",
+      "fg": "--text-muted",
+      "bg": "--surface-page",
+      "floor": 4.5
+    },
+    {
+      "label": "Texto secundário sobre o cartão",
+      "fg": "--text-muted",
+      "bg": "--surface-card",
+      "floor": 4.5
+    },
+    {
+      "label": "Texto dentro do botão primário",
+      "fg": "--text-on-primary",
+      "bg": "--color-primary",
+      "floor": 4.5
+    },
+    {
+      "label": "Botão secundário, item de menu, avatar",
+      "fg": "--text-on-primary-tint",
+      "bg": "--surface-primary-tint",
+      "floor": 4.5
+    },
+    {
+      "label": "Link sobre a página",
+      "fg": "--text-link",
+      "bg": "--surface-page",
+      "floor": 4.5
+    },
+    {
+      "label": "Mensagem de erro do campo",
+      "fg": "--danger-text",
+      "bg": "--surface-card",
+      "floor": 4.5
+    },
+    {
+      "label": "Status: sucesso",
+      "fg": "--success-text",
+      "bg": "--success-surface",
+      "floor": 4.5
+    },
+    {
+      "label": "Status: atenção",
+      "fg": "--warning-text",
+      "bg": "--warning-surface",
+      "floor": 4.5
+    },
+    {
+      "label": "Status: erro",
+      "fg": "--danger-text",
+      "bg": "--danger-surface",
+      "floor": 4.5
+    },
+    {
+      "label": "Status: informação",
+      "fg": "--info-text",
+      "bg": "--info-surface",
+      "floor": 4.5
+    },
+    {
+      "label": "Etiqueta rosa",
+      "fg": "--tint-pink-ink",
+      "bg": "--tint-pink",
+      "floor": 4.5
+    },
+    {
+      "label": "Etiqueta laranja",
+      "fg": "--tint-orange-ink",
+      "bg": "--tint-orange",
+      "floor": 4.5
+    },
+    {
+      "label": "Etiqueta verde",
+      "fg": "--tint-green-ink",
+      "bg": "--tint-green",
+      "floor": 4.5
+    },
+    {
+      "label": "Etiqueta azul",
+      "fg": "--tint-blue-ink",
+      "bg": "--tint-blue",
+      "floor": 4.5
+    },
+    {
+      "label": "Etiqueta roxa",
+      "fg": "--tint-purple-ink",
+      "bg": "--tint-purple",
+      "floor": 4.5
+    },
+    {
+      "label": "Etiqueta amarela",
+      "fg": "--tint-yellow-ink",
+      "bg": "--tint-yellow",
+      "floor": 4.5
+    },
+    {
+      "label": "Número de destaque amarelo",
+      "fg": "--tint-yellow-ink",
+      "bg": "--surface-page",
+      "floor": 3
+    },
+    {
+      "label": "Anel de foco sobre a página",
+      "fg": "--focus-ring",
+      "bg": "--surface-page",
+      "floor": 3
+    },
+    {
+      "label": "Anel de foco sobre o cartão",
+      "fg": "--focus-ring",
+      "bg": "--surface-card",
+      "floor": 3
+    },
+    {
+      "label": "Borda do campo de formulário",
+      "fg": "--border-strong",
+      "bg": "--surface-card",
+      "floor": 3
+    },
+    {
+      "label": "Borda do campo sobre a página",
+      "fg": "--border-strong",
+      "bg": "--surface-page",
+      "floor": 3
+    },
+    {
+      "label": "Faixa rosa clara com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-pink-light",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa rosa média com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-pink",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa laranja clara com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-orange-light",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa laranja média com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-orange",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa amarela clara com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-yellow-light",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa amarela média com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-yellow",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa verde clara com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-green-light",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa verde média com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-green",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa azul clara com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-blue-light",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa azul média com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-blue",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa roxa clara com texto ink",
+      "fg": "--color-ink",
+      "bg": "--color-purple-light",
+      "floor": 4.5
+    },
+    {
+      "label": "Texto sobre o azul da Sab.IA",
+      "fg": "--sabia-on-blue",
+      "bg": "--sabia-blue",
+      "floor": 4.5
+    }
+  ],
   "counts": {
     "components": 36,
-    "tokens": 181,
+    "tokens": 193,
     "palette": 21,
     "themes": 3,
     "templates": 4,

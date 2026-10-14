@@ -102,9 +102,9 @@ pieces. The published examples place the selo in one corner and the Sesc lockup
 of the piece — never adjacent, never locked up together.
 
 Those examples also show the selo reversed in white/outline over **full-bleed accent colour fields**
-(pink, purple). For print and social artwork this is sanctioned. **[system departs]** The
-two-background-colour rule in AGENTS.md applies to *pages*, where full-bleed accent bands are still
-avoided for accessibility reasons.
+(pink, purple). For print and social artwork this is sanctioned, and since decision D3 pages may use
+accent bands too — with **ink** text, not the white the manual's pieces show. **[system departs]**
+White on a light or mid accent is 1.4–3.3:1; ink is 4.8–10:1. See `AGENTS.md` → Building a page.
 
 ## Graphic elements — the cubo impossível
 

@@ -9,7 +9,7 @@ export function Textarea({ label, placeholder, value, onChange, rows = 4, hint, 
     label ? React.createElement('label', {
       htmlFor: inputId,
       style: { fontSize: 'var(--text-body-sm)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--text-heading)' }
-    }, label, required ? React.createElement('span', { style: { color: 'var(--danger)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
+    }, label, required ? React.createElement('span', { style: { color: 'var(--danger-text)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
     React.createElement('textarea', {
       id: inputId, rows, placeholder, value, onChange, disabled, maxLength, required,
       'aria-invalid': error ? 'true' : undefined,
@@ -26,7 +26,7 @@ export function Textarea({ label, placeholder, value, onChange, rows = 4, hint, 
     (hint || error || maxLength) ? React.createElement('div', {
       style: { display: 'flex', justifyContent: 'space-between', gap: 'var(--space-4)', fontSize: 'var(--text-caption)' }
     },
-      React.createElement('span', { style: { color: error ? 'var(--danger)' : 'var(--text-muted)' } }, error || hint || ''),
+      React.createElement('span', { style: { color: error ? 'var(--danger-text)' : 'var(--text-muted)' } }, error || hint || ''),
       maxLength ? React.createElement('span', { style: { color: 'var(--text-muted)', flex: 'none' } }, count + '/' + maxLength) : null
     ) : null
   );

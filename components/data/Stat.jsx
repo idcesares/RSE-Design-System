@@ -3,7 +3,7 @@ export function Stat({ value, label, description, accent = 'primary', align = 'l
   const accents = {
     primary: 'var(--color-primary)', indigo: 'var(--color-indigo)', pink: 'var(--color-pink-dark)',
     orange: 'var(--color-orange-dark)', green: 'var(--color-green-dark)', blue: 'var(--color-blue-dark)',
-    yellow: 'var(--color-yellow-dark)', inverse: 'var(--text-inverse)'
+    yellow: 'var(--tint-yellow-ink)', inverse: 'var(--text-inverse)'
   };
   const valueSize = size === 'lg' ? 'var(--text-display-2)' : size === 'sm' ? 'var(--text-h2)' : 'var(--text-h1)';
   return React.createElement('div', {

@@ -54,7 +54,7 @@ export function FileUpload({ label, hint, accept, multiple = false, files = [], 
       ))
     ) : null,
     (hint || error) ? React.createElement('span', {
-      style: { fontSize: 'var(--text-caption)', color: error ? 'var(--danger)' : 'var(--text-muted)' }
+      style: { fontSize: 'var(--text-caption)', color: error ? 'var(--danger-text)' : 'var(--text-muted)' }
     }, error || hint) : null
   );
 }

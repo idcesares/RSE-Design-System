@@ -8,7 +8,7 @@ export function DateField({ label, value, onChange, min, max, hint, error, requi
     label ? React.createElement('label', {
       htmlFor: inputId,
       style: { fontSize: 'var(--text-body-sm)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--text-heading)' }
-    }, label, required ? React.createElement('span', { style: { color: 'var(--danger)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
+    }, label, required ? React.createElement('span', { style: { color: 'var(--danger-text)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
     React.createElement('input', {
       id: inputId, type: 'date', value, onChange, min, max, required, disabled,
       'aria-invalid': error ? 'true' : undefined,
@@ -25,12 +25,12 @@ export function DateField({ label, value, onChange, min, max, hint, error, requi
     deadline ? React.createElement('span', {
       style: {
         display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: 6,
-        background: 'var(--warning-surface)', color: 'var(--warning)', borderRadius: 'var(--radius-pill)',
+        background: 'var(--warning-surface)', color: 'var(--warning-text)', borderRadius: 'var(--radius-pill)',
         padding: '4px 12px', fontSize: 'var(--text-caption)', fontWeight: 'var(--font-weight-bold)'
       }
     }, deadline) : null,
     (hint || error) ? React.createElement('span', {
-      style: { fontSize: 'var(--text-caption)', color: error ? 'var(--danger)' : 'var(--text-muted)' }
+      style: { fontSize: 'var(--text-caption)', color: error ? 'var(--danger-text)' : 'var(--text-muted)' }
     }, error || hint) : null
   );
 }

@@ -33,6 +33,19 @@
 --color-yellow-light:#ffd67b;/* C0  M16 Y61 K0 */
 --color-yellow:#f4bf2a;     /* C4  M25 Y96 K0 */
 --color-yellow-dark:#d39f2b;/* C19 M38 Y100 K0 */
+/* ── Accessible inks (derived) ────────────────────────────────────────────
+   NOT in the manual. One deep step per accent hue, darker than its -dark, for
+   text: on the pale tints, on status surfaces and on white. The official
+   -dark tones sit at 3.4-4.1:1 against both white and ink, so none of them can
+   carry small text (docs/roadmap/assessment.md, F2). These clear 6.2:1 or more
+   on their tint and 7.1:1 or more on white. Approved as decision D2.
+   Text only: fills, artwork, the selo and the motif keep the 20 official values. */
+--color-pink-ink:#8a1f26;   /* derived */
+--color-orange-ink:#7a3d00; /* derived */
+--color-green-ink:#3f6100;  /* derived */
+--color-blue-ink:#1d5c86;   /* derived */
+--color-purple-ink:#3a3186; /* derived */
+--color-yellow-ink:#6b4700; /* derived */
 /* Official black of the marks. Use for logo ink and one-colour print. */
 --color-brand-black:#1d1d1b;
 --color-ink:#2b2a3d;/* derived: UI text ink, warmer than the mark black */
@@ -47,6 +60,8 @@
 --sabia-purple:var(--color-purple-dark);
 --sabia-blue:var(--color-blue);
 --sabia-orange:var(--color-orange);
+/* Text on the blue platform chrome. White on --sabia-blue is 2.27:1; ink is 6.17:1. */
+--sabia-on-blue:var(--color-ink);
 /* Not in the manual: a system tone, kept because Sab.IA surfaces need a page
    background and the manual supplies none. Flag it as ours, not the brand's. */
 --sabia-cream:#eef0da;/* derived */
@@ -75,6 +90,9 @@
 --surface-inverse:var(--color-ink);
 --surface-primary-tint:#edecf8;
 --surface-primary-tint-hover:#e4e3f4;
+/* Text and icons on --surface-primary-tint (secondary button, menu hover, avatar initials).
+   --color-primary itself is 4.29:1 there; the hover purple is 5.29:1. */
+--text-on-primary-tint:var(--color-primary-hover);
 /* Sticky header / any chrome that sits over scrolling page content. */
 --surface-page-translucent:rgba(242,244,228,0.92);
 /* Three borders, and the difference is a rule, not a taste:
@@ -107,12 +125,20 @@
 --warning:var(--color-yellow-dark);
 --danger:var(--color-pink-dark);
 --info:var(--color-blue-dark);
+/* Status colours come in three roles. The bare name (--success) is the INDICATOR: dots,
+   borders, icons, progress fills, held to 3:1 non-text contrast. Text uses the -text role,
+   which clears 4.5:1 on the matching -surface and on white. Never set text in the bare name:
+   --warning as text is 2.17:1. */
+--success-text:var(--color-green-ink);
+--warning-text:var(--color-yellow-ink);
+--danger-text:var(--color-pink-ink);
+--info-text:var(--color-blue-ink);
 --success-surface:#eef5e0;
 --warning-surface:#fdf3d8;
 --danger-surface:#fbe8e8;
 --info-surface:#e6f1f9;
 /* Accent chip tints — the pale backing behind a Tag in each of the 6 accent
-   families. Paired with the matching --color-<hue>-dark as foreground.
+   families. Paired with the matching --color-<hue>-ink as foreground.
    Themed in tokens/themes.css: never hard-code these values in a component. */
 --tint-pink:#fce9ea;
 --tint-orange:#fdeee0;
@@ -121,12 +147,12 @@
 --tint-purple:#edecf8;
 --tint-yellow:#fdf3d8;
 /* Text/icon colour to use on the matching tint. */
---tint-pink-ink:var(--color-pink-dark);
---tint-orange-ink:var(--color-orange-dark);
---tint-green-ink:var(--color-green-dark);
---tint-blue-ink:var(--color-blue-dark);
---tint-purple-ink:var(--color-purple-dark);
---tint-yellow-ink:var(--color-yellow-dark);
+--tint-pink-ink:var(--color-pink-ink);
+--tint-orange-ink:var(--color-orange-ink);
+--tint-green-ink:var(--color-green-ink);
+--tint-blue-ink:var(--color-blue-ink);
+--tint-purple-ink:var(--color-purple-ink);
+--tint-yellow-ink:var(--color-yellow-ink);
 /* ── Cubo impossível face shading ──────────────────────────────────────────
    The official isometric cube artwork (assets/motifs/cubes-official.svg) shades
    each cube with three tones per hue: top face, left face, right face. Only

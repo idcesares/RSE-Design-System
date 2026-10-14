@@ -8,7 +8,7 @@ export function Button({ variant = 'primary', size = 'md', icon, disabled, child
   };
   const variants = {
     primary: { background: 'var(--color-primary)', color: 'var(--text-on-primary)', border: '1px solid transparent' },
-    secondary: { background: 'var(--surface-primary-tint)', color: 'var(--color-primary)', border: '1px solid transparent' },
+    secondary: { background: 'var(--surface-primary-tint)', color: 'var(--text-on-primary-tint)', border: '1px solid transparent' },
     ghost: { background: 'transparent', color: 'var(--color-primary)', border: '1.5px solid var(--border-strong)' }
   };
   const hover = {

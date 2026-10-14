@@ -130,8 +130,8 @@ import './_ds/styles.css';
 
 Three things to know:
 
-1. **Import from `index.js`, never from a component file.** `_adherence.oxlintrc.json` forbids the
-   direct path so components can be re-pathed without breaking consumers.
+1. **Import from `index.js`, never from a component file.** `npm run check` (check-ds) forbids the
+   direct path inside this repo so components can be re-pathed without breaking consumers.
 2. **The `.jsx` files contain no JSX** — they are `React.createElement` calls, which is what lets
    the same sources run unbuilt in a browser. Any bundler that resolves `.jsx` handles them; no
    transform is required beyond that. `react >= 18` is a peer, not bundled.

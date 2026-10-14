@@ -138,6 +138,16 @@ for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith
   }
 }
 
+// ─── 7b. Consumers import from index.js, never from a component file ───────
+// So a component can be re-pathed or re-implemented (roadmap P2) without breaking anyone.
+// This used to live in _adherence.oxlintrc.json, which nothing ran.
+for (const f of allFiles.filter((f) => /^(ui_kits|templates|starters|showcase|docs\/examples)\//.test(f) && /\.(m?js|jsx|html)$/.test(f))) {
+  if (f === 'showcase/showcase-data.js') continue;
+  for (const m of read(f).matchAll(/(?:from|import)\s*\(?\s*['"]([^'"]*components\/[a-z]+\/[A-Za-z]+(?:\.jsx?)?)['"]/g)) {
+    err(`${f}: imports ${m[1]} directly — import from index.js`);
+  }
+}
+
 // ─── 8. A11y guards for the patterns we have already had to fix ─────────────
 for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith('.jsx'))) {
   const text = read(f);

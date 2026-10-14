@@ -2,6 +2,35 @@
 
 ## Unreleased — assessment and roadmap
 
+### Roadmap phase 0 and 1 (decisions D1–D3 approved)
+
+**Every rendered colour pair now meets its floor — 0 of 108 fail across the three themes (was 18
+of 63 in the earlier set).** The fix is in the tokens, not the brand: the official `-dark` tones sit
+at 3.4–4.1:1 against both white and ink, so nothing small can be written in them.
+
+- **Derived inks (D2).** `--color-{pink,orange,green,blue,purple,yellow}-ink`, one deep step per
+  hue, marked *derived*. Light-theme `--tint-*-ink` now point at them: every Tag clears 6.2:1.
+- **Status colours split into roles.** `--success-text` / `--warning-text` / `--danger-text` /
+  `--info-text` for words; the bare `--success`… stay as indicators (dots, borders, icons). Badge,
+  Alert, the error and required markers of Input, Textarea, DateField and FileUpload, and the
+  DateField deadline chip use the text role. Field errors went from 3.75:1 to 9.1:1.
+- **`--text-on-primary-tint`** for text on the pale purple: secondary Button, Menu hover, Avatar
+  initials, Badge `primary`, the ui kit and program page links (4.29 → 5.29:1).
+- **`--sabia-on-blue`**: Sab.IA chrome text is ink (6.17:1), not white (2.27:1).
+- **`Stat accent="yellow"`** renders the themed yellow ink; no official yellow reaches 3:1 on cream.
+- **Accent bands (D3).** Pages may use a light or mid accent band with ink text; the rule changed
+  in `AGENTS.md`, `readme.md`, `brand-manual.md`, `brand.json` rules and the rules `bind` ships.
+- **The gate.** `npm run check` now ends with `audit --strict`: any failing pair, any pair naming a
+  missing token, or any debt count above `scripts/audit-baseline.json` fails it. Pairs live in
+  `scripts/contrast-pairs.mjs`, which the showcase's contrast table now reads too — it can no
+  longer test only the pairs that pass.
+- **Direct component imports** are now an error in `check-ds`; `_adherence.oxlintrc.json`, which
+  nothing ran, is documented as tool metadata. `lint:adherence` (whose config no longer parsed) is gone.
+- **CI.** `.github/workflows/ci.yml` runs `npm run check` on every PR and keeps the audit JSON.
+- **Scope freeze** on new components until the CSS contract lands (`AGENTS.md`).
+- Specimens: the semantic colour card shows the three roles instead of white text on status
+  colours (which failed); the accent card shows the inks.
+
 ### `docs/roadmap/` — where the system stands, and the plan to make it the ecosystem's foundation
 
 [`assessment.md`](docs/roadmap/assessment.md) scores the system on ten dimensions with measured

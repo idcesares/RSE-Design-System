@@ -1,10 +1,10 @@
 import React from 'react';
 export function Alert({ tone = 'info', title, message, onDismiss }) {
   const tones = {
-    success: { bg: 'var(--success-surface)', border: 'var(--success)', fg: 'var(--success)' },
-    warning: { bg: 'var(--warning-surface)', border: 'var(--warning)', fg: 'var(--warning)' },
-    danger: { bg: 'var(--danger-surface)', border: 'var(--danger)', fg: 'var(--danger)' },
-    info: { bg: 'var(--info-surface)', border: 'var(--info)', fg: 'var(--info)' }
+    success: { bg: 'var(--success-surface)', border: 'var(--success)', fg: 'var(--success-text)' },
+    warning: { bg: 'var(--warning-surface)', border: 'var(--warning)', fg: 'var(--warning-text)' },
+    danger: { bg: 'var(--danger-surface)', border: 'var(--danger)', fg: 'var(--danger-text)' },
+    info: { bg: 'var(--info-surface)', border: 'var(--info)', fg: 'var(--info-text)' }
   };
   const t = tones[tone];
   return React.createElement('div', {

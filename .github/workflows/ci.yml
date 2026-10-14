@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # No dependencies to install: every script is plain Node.
+      # `check` covers integrity, generated-file freshness, the contrast gate and the debt ratchet.
+      - run: npm run check
+      # The full scorecard, kept per run so the roadmap's numbers have a history.
+      - if: always()
+        run: node scripts/audit.mjs --json > audit.json
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit
+          path: audit.json
