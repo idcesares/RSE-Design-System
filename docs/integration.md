@@ -152,7 +152,7 @@ The version in the path is the point: a page links one version until someone mov
 release never changes a page that did not ask for it. The kit also carries `starters/`.
 
 Themes work the same everywhere: `data-rse-theme="dark" | "contrast" | "auto"` on `<html>` or on any
-section; no attribute means light.
+section; no attribute means light, and `"light"` brings it back inside a section that set another theme.
 
 ## Recipe: anything that is not a browser
 

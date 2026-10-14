@@ -1,35 +1,29 @@
 /* ─────────────────────────────────────────────────────────────────────────────
-   showcase.js — renders the showcase document.
+   showcase.js — renders showcase/index.html.
 
-   Everything visible here is read from the system itself:
-     · components come from dist/rse.js (the same file the templates execute)
-     · palette, scales and counts come from showcase-data.js (generated)
-     · semantic colours and contrast ratios are measured from the live DOM, so
-       they re-derive whenever the theme changes instead of being transcribed.
+   Nothing here is transcribed: components come from dist/rse.js, palette and scales
+   from brand.json, tokens per theme from dist/tokens.json, quality from the same
+   baselines CI gates on (all folded into showcase-data.js by build-showcase.mjs), and
+   every contrast ratio is measured from the colours the browser is painting right now.
 
-   React.createElement form, no JSX — same reason the bundle uses it: this file
-   runs in the browser with no build step.
+   React.createElement form, no JSX — the page runs with no build step.
    ───────────────────────────────────────────────────────────────────────────── */
 (() => {
   'use strict';
 
   const DS = window.RSE;
   const D = window.SHOWCASE_DATA;
-  const h = React.createElement;
-  const F = React.Fragment;
-
-  if (!DS || !D) {
-    document.body.insertAdjacentHTML(
-      'afterbegin',
-      '<p style="padding:24px;font-family:sans-serif">Não foi possível carregar o design system. ' +
-        'Abra esta página a partir da pasta <code>showcase/</code> do repositório, com a pasta ' +
-        '<code>assets/</code> e o arquivo <code>dist/rse.js</code> ao lado.</p>'
-    );
+  if (!DS || !D || !window.React) {
+    document.body.insertAdjacentHTML('afterbegin',
+      '<p style="padding:24px;font-family:sans-serif">Não foi possível carregar o design system. Abra esta página a partir da pasta <code>showcase/</code>, com <code>assets/</code> e <code>dist/</code> ao lado.</p>');
     return;
   }
-  if (DS.__errors && DS.__errors.length) console.error('design system load errors', DS.__errors);
+  const h = React.createElement;
+  const F = React.Fragment;
+  const { GLOSS, DEMOS } = window.SC_DEMOS(DS);
+  const icon = (name, size) => h(DS.Icon, { name, size: size || 20 });
 
-  /* ── Small helpers ───────────────────────────────────────────────────────── */
+  /* ── Helpers ──────────────────────────────────────────────────────────────── */
 
   const roots = new Map();
   const mount = (id, element) => {
@@ -40,7 +34,6 @@
     root.render(element);
   };
 
-  /** Resolve a token to a concrete rgb() by letting the browser compute it. */
   const resolveColor = (token, host) => {
     const probe = document.createElement('span');
     probe.style.cssText = 'position:absolute;opacity:0;pointer-events:none';
@@ -50,161 +43,147 @@
     probe.remove();
     return value;
   };
-
-  const rgbToArray = (value) => {
+  const toRgb = (value) => {
+    if (value.startsWith('#')) {
+      const x = value.slice(1);
+      return [0, 2, 4].map((i) => parseInt(x.slice(i, i + 2), 16));
+    }
     const m = value.match(/-?[\d.]+/g);
     return m ? m.slice(0, 3).map(Number) : [0, 0, 0];
   };
-
-  const toHex = (value) =>
-    '#' + rgbToArray(value).map((n) => Math.round(n).toString(16).padStart(2, '0')).join('');
-
-  /** WCAG 2.1 relative luminance and contrast ratio. */
+  const toHex = (value) => '#' + toRgb(value).map((n) => Math.round(n).toString(16).padStart(2, '0')).join('');
   const luminance = (rgb) => {
-    const [r, g, b] = rgb.map((c) => {
-      const s = c / 255;
-      return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
-    });
+    const [r, g, b] = rgb.map((c) => { const s = c / 255; return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4); });
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
   };
-  const contrastRatio = (a, b) => {
-    const la = luminance(rgbToArray(a));
-    const lb = luminance(rgbToArray(b));
+  const ratio = (a, b) => {
+    const la = luminance(toRgb(a)); const lb = luminance(toRgb(b));
     return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
   };
+  const fmt = (n) => Number(n).toLocaleString('pt-BR');
+  const fmtRatio = (r) => r.toFixed(2).replace('.', ',') + ':1';
 
-  const fmt = (n) => n.toLocaleString('pt-BR');
+  const INK = D.tokens['--rse-brand-ink'].value;
+  const WHITE = D.tokens['--rse-brand-white'].value;
+  const HUE_PT = { purple: 'Roxo', pink: 'Rosa', orange: 'Laranja', yellow: 'Amarelo', green: 'Verde', blue: 'Azul', indigo: 'Índigo', cream: 'Creme', black: 'Preto' };
+  const TONE_PT = { light: 'claro', base: 'médio', dark: 'escuro', ink: 'tinta' };
 
-  /* ── Copy feedback, using the system's own Toast ─────────────────────────── */
+  /* ── Copy with feedback through the system's own Toast ───────────────────── */
 
-  const toastHost = document.getElementById('sc-toast-host');
-  const toastRoot = ReactDOM.createRoot(toastHost);
+  const toastRoot = ReactDOM.createRoot(document.getElementById('sc-toast-host'));
   let toastTimer = null;
-
   const showToast = (title, message) => {
     const close = () => toastRoot.render(null);
     toastRoot.render(h(DS.Toast, { tone: 'success', title, message, onClose: close }));
     clearTimeout(toastTimer);
     toastTimer = setTimeout(close, 2600);
   };
-
   const copy = (text, label) => {
     const done = () => showToast('Copiado', `${label} está na área de transferência.`);
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
-    } else {
-      fallbackCopy(text, done);
-    }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+    else fallbackCopy(text, done);
   };
   const fallbackCopy = (text, done) => {
-    // file:// pages are not a secure context, so the async clipboard API is unavailable.
     const field = document.createElement('textarea');
-    field.value = text;
-    field.setAttribute('readonly', '');
-    field.style.cssText = 'position:fixed;top:-1000px';
-    document.body.appendChild(field);
-    field.select();
+    field.value = text; field.setAttribute('readonly', ''); field.style.cssText = 'position:fixed;top:-1000px';
+    document.body.appendChild(field); field.select();
     try { document.execCommand('copy'); done(); } catch (e) { /* nothing else to try */ }
     field.remove();
   };
 
-  /* ── Theme switch ────────────────────────────────────────────────────────── */
+  /* ── Chrome: theme, chapter spy, text that comes from data ───────────────── */
 
-  const themeButtons = Array.from(document.querySelectorAll('[data-rse-theme-set]'));
+  const themeButtons = Array.from(document.querySelectorAll('[data-theme-set]'));
   const setTheme = (name) => {
     if (name === 'light') document.documentElement.removeAttribute('data-rse-theme');
     else document.documentElement.setAttribute('data-rse-theme', name);
     themeButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeSet === name)));
-    // Anything measured from the DOM has to be measured again.
     requestAnimationFrame(renderMeasured);
   };
   themeButtons.forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.themeSet)));
 
-  /* ── Section index + scroll spy ──────────────────────────────────────────── */
-
-  const sections = Array.from(document.querySelectorAll('.sc-section[data-index-label]'));
-
-  const buildIndex = (listId) => {
-    const list = document.getElementById(listId);
-    if (!list) return;
-    list.innerHTML = '';
-    for (const section of sections) {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = `#${section.id}`;
-      a.textContent = section.dataset.indexLabel;
-      a.dataset.spy = section.id;
-      li.appendChild(a);
-      list.appendChild(li);
-    }
+  const chapterIds = ['marca', 'fundamentos', 'componentes', 'aplicacoes', 'uso'];
+  const chapterEls = chapterIds.map((id) => document.getElementById(id));
+  const spyLinks = Array.from(document.querySelectorAll('[data-spy]'));
+  let spyQueued = false;
+  const spy = () => {
+    spyQueued = false;
+    let current = null;
+    chapterEls.forEach((el, i) => { if (el && el.getBoundingClientRect().top < 140) current = chapterIds[i]; });
+    spyLinks.forEach((a) => { if (a.dataset.spy === current) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
   };
-  buildIndex('sc-index-list');
-  buildIndex('sc-index-mobile-list');
+  window.addEventListener('scroll', () => { if (!spyQueued) { spyQueued = true; requestAnimationFrame(spy); } }, { passive: true });
+  spy();
 
-  const spyLinks = () => Array.from(document.querySelectorAll('[data-spy]'));
-  const spy = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        for (const link of spyLinks()) {
-          const active = link.dataset.spy === entry.target.id;
-          if (active) link.setAttribute('aria-current', 'true');
-          else link.removeAttribute('aria-current');
-        }
-      }
-    },
-    { rootMargin: '-20% 0px -70% 0px' }
-  );
-  sections.forEach((s) => spy.observe(s));
-
-  /* ── Header chrome ───────────────────────────────────────────────────────── */
-
-  document.getElementById('sc-version').textContent = `versão ${D.version}`;
-  document.getElementById('sc-slogan').textContent = D.slogan;
+  document.getElementById('sc-version').textContent = `Design system ${D.version}`;
   document.getElementById('sc-footer-slogan').textContent = D.slogan + '.';
-  document.getElementById('sc-icons-hint').textContent =
-    `${D.counts.icons} ícones de linha em uma grade de 24 px e traço de 2 px, herdando a cor do ` +
-    'texto. Todo glifo do sistema vem daqui — nunca um emoji, nunca um desenho avulso.';
+  document.getElementById('sc-footer-version').textContent = `${D.package}@${D.version}`;
+  document.getElementById('sc-icons-lede').textContent =
+    `${D.counts.icons} ícones de linha, grade de 24 px, traço de 2 px, herdando a cor do texto. Todo glifo do sistema vem daqui — nunca um emoji, nunca um desenho avulso. Busque e clique para copiar o nome.`;
+  document.getElementById('sc-components-lede').textContent =
+    `${D.counts.components} componentes, todos funcionando nesta página. ${D.contractComponents.length} deles já seguem o contrato CSS: funcionam com HTML puro, sem JavaScript, em qualquer site, CMS ou portal — e a aba "HTML" mostra exatamente a marcação que produzem.`;
 
-  /* ── Abertura: motif + counted figures ───────────────────────────────────── */
+  /* ── Capa ─────────────────────────────────────────────────────────────────── */
 
-  mount('mount-hero-motif', h(DS.BrandMotif, { variant: 'interlock', size: 260 }));
-
-  const FIGURES = [
-    { n: D.counts.components, l: 'componentes' },
-    { n: D.counts.tokens, l: 'tokens' },
-    { n: D.counts.palette, l: 'cores oficiais' },
-    { n: D.counts.themes, l: 'temas' },
-    { n: D.counts.templates, l: 'peças prontas' },
-    { n: D.counts.cards, l: 'espécimes' },
+  const MOSAIC = [
+    ['purple', 'interlock'], ['green', 'cube'], ['blue', 'hollow'],
+    ['pink', 'frame'], ['orange', 'bar'], ['yellow', 'chain'],
   ];
-  mount(
-    'mount-numbers',
-    h(F, null, FIGURES.map((f, i) =>
-      h('div', { key: i },
-        h('div', { className: 'n' }, fmt(f.n)),
-        h('div', { className: 'l' }, f.l)
-      )
-    ))
-  );
+  // Chapter art: one official construction per chapter, recoloured to the chapter's hue.
+  document.querySelectorAll('.sc-chapter-art').forEach((node) => {
+    ReactDOM.createRoot(node).render(h(DS.BrandMotif, { variant: node.dataset.motif, hue: node.dataset.hue, size: 416 }));
+  });
 
-  /* ── Por que um sistema: the same page, with and without ─────────────────── */
+  mount('mount-mosaic', h(F, null, MOSAIC.map(([hue, variant]) =>
+    h('div', { key: hue, className: 'sc-tile', style: { background: `var(--rse-brand-${hue}-light)` } },
+      h(DS.BrandMotif, { variant, hue, size: 200 }),
+      h('span', { className: 'sc-tile-label', 'aria-hidden': 'true' }, HUE_PT[hue])
+    ))));
 
-  const PLAIN_PAGE = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"></head><body>
+  const Figures = () => {
+    const pairs = D.contrastPairs.length;
+    const items = [
+      [D.counts.components, 'componentes reais, nesta página'],
+      [D.counts.tokens, 'tokens, de uma fonte só'],
+      [20, 'cores oficiais, com CMYK'],
+      [pairs, 'pares de contraste verificados a cada mudança'],
+      [D.quality.axeViolations, `violações WCAG em ${D.quality.pagesTested} páginas testadas`],
+      [D.counts.themes, 'temas, mais o automático'],
+    ];
+    return h(F, null, items.map(([n, l], i) =>
+      h('div', { className: 'sc-figure', key: i }, h('div', { className: 'n' }, fmt(n)), h('div', { className: 'l' }, l))));
+  };
+  mount('mount-figures', h(Figures));
+
+  const PERSONAS = [
+    { hue: 'purple', icon: 'trending-up', who: 'Liderança', what: 'O que o sistema resolve, como se mede e o caminho de adoção para todo o ecossistema.', href: '#por-que', go: 'Ver o argumento' },
+    { hue: 'pink', icon: 'pencil', who: 'Design', what: 'Selo, paleta, tipografia, cubo impossível e as escalas que sustentam cada tela.', href: '#marca', go: 'Abrir a marca' },
+    { hue: 'blue', icon: 'layout-dashboard', who: 'Desenvolvimento', what: 'Componentes vivos, o HTML que produzem, tokens tipados e as três rotas de instalação.', href: '#componentes', go: 'Ver componentes' },
+    { hue: 'orange', icon: 'message-square', who: 'Comunicação', what: 'A voz da Rede, os slogans, as faixas de cor e as peças prontas para copiar.', href: '#voz', go: 'Ler a voz' },
+    { hue: 'green', icon: 'bot', who: 'Agentes de IA', what: 'Regras escritas para máquinas e uma verificação que diz se o resultado respeita a marca.', href: '#agentes', go: 'Ver os arquivos' },
+  ];
+  mount('mount-personas', h(F, null, PERSONAS.map((p) =>
+    h('a', { key: p.who, className: 'sc-persona', href: p.href, style: { background: `var(--rse-brand-${p.hue}-light)` } },
+      h('span', { className: 'sc-persona-icon', 'aria-hidden': 'true' }, icon(p.icon, 22)),
+      h('b', null, p.who),
+      h('p', null, p.what),
+      h('span', { className: 'go' }, p.go, icon('arrow-right', 16))
+    ))));
+
+  /* ── Por que: the same page, without and with the system ─────────────────── */
+
+  const PLAIN_PAGE = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Sem sistema</title></head><body>
 <h3>Rede Sesc de Educação</h3>
 <h1>Aprender para a vida acontecer</h1>
 <p>Educação que acolhe, forma e transforma — em unidades por todo o Brasil.</p>
 <p><button>Quero me inscrever</button> <button>Conheça os programas</button></p>
-<hr>
-<h2>Programas</h2>
+<hr><h2>Programas</h2>
 <p><b>Educação Infantil</b><br>Cuidar e educar juntos, com o brincar como método.</p>
 <p><b>Ensino Fundamental</b><br>Base sólida em leitura, matemática e convivência.</p>
 <p><b>Ensino Médio</b><br>Formação integral com projeto de vida no centro.</p>
-<hr>
-<p><label>Nome completo <input></label></p>
+<hr><p><label>Nome completo <input></label></p>
 <p><label>Unidade <select><option>Selecione</option></select></label></p>
-<p><button>Enviar inscrição</button></p>
-</body></html>`;
+<p><button>Enviar inscrição</button></p></body></html>`;
 
   function ComparedWithSystem() {
     const [tab, setTab] = React.useState('infantil');
@@ -214,1171 +193,643 @@
       medio: { title: 'Ensino Médio', desc: 'Formação integral com projeto de vida no centro.', color: 'orange' },
     };
     const current = PROGRAMS[tab];
-    return h('div', { className: 'sc-compare-body', style: { background: 'var(--rse-color-surface-page)', display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-5)' } },
+    return h('div', { className: 'sc-compare-body', style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-5)', background: 'var(--rse-color-surface-page)' } },
       h('p', { className: 'sc-eyebrow', style: { margin: 0 } }, 'Rede Sesc de Educação'),
-      h('h1', { style: { fontSize: 'var(--rse-font-size-h1)', margin: 0 } }, 'Aprender para a vida acontecer'),
-      h('p', { style: { fontSize: 'var(--rse-font-size-body-md)', color: 'var(--rse-color-text-muted)', margin: 0, lineHeight: 'var(--rse-line-height-body)' } },
-        'Educação que acolhe, forma e transforma — em unidades por todo o Brasil.'),
+      h('h3', { style: { fontSize: 'var(--rse-font-size-h1)', margin: 0 } }, 'Aprender para a vida acontecer'),
+      h('p', { style: { margin: 0, color: 'var(--rse-color-text-muted)', lineHeight: 'var(--rse-line-height-body)' } }, 'Educação que acolhe, forma e transforma — em unidades por todo o Brasil.'),
       h('div', { style: { display: 'flex', gap: 'var(--rse-space-3)', flexWrap: 'wrap' } },
-        h(DS.Button, { variant: 'primary', icon: h(DS.Icon, { name: 'graduation-cap', size: 20 }) }, 'Quero me inscrever'),
-        h(DS.Button, { variant: 'ghost' }, 'Conheça os programas')
-      ),
+        h(DS.Button, { icon: icon('graduation-cap') }, 'Quero me inscrever'),
+        h(DS.Button, { variant: 'ghost' }, 'Conheça os programas')),
       h(DS.Divider, null),
-      h(DS.Tabs, {
-        tabs: [
-          { id: 'infantil', label: 'Infantil' },
-          { id: 'fundamental', label: 'Fundamental' },
-          { id: 'medio', label: 'Médio' },
-        ],
-        activeId: tab,
-        onChange: setTab,
-        label: 'Níveis de ensino',
-      }),
-      h(DS.Card, {
-        tag: h(DS.Tag, { color: current.color }, current.title),
-        eyebrow: 'Programa',
-        title: current.title,
-        description: current.desc,
-      }),
+      h(DS.Tabs, { tabs: [{ id: 'infantil', label: 'Infantil' }, { id: 'fundamental', label: 'Fundamental' }, { id: 'medio', label: 'Médio' }], activeId: tab, onChange: setTab, label: 'Níveis de ensino' }),
+      h(DS.Card, { tag: h(DS.Tag, { color: current.color }, current.title), eyebrow: 'Programa', title: current.title, description: current.desc, headingLevel: 4 }),
       h(DS.Input, { label: 'Nome completo', placeholder: 'Como está no documento' }),
-      h(DS.Select, {
-        label: 'Unidade',
-        placeholder: 'Selecione uma unidade',
-        options: [
-          { label: 'Unidade A', value: 'a' },
-          { label: 'Unidade B', value: 'b' },
-        ],
-      }),
-      h(DS.Button, { variant: 'primary' }, 'Enviar inscrição')
-    );
+      h(DS.Select, { label: 'Unidade', placeholder: 'Selecione uma unidade', options: [{ label: 'Unidade A', value: 'a' }, { label: 'Unidade B', value: 'b' }] }),
+      h('div', null, h(DS.Button, null, 'Enviar inscrição')));
   }
+  mount('mount-compare', h(F, null,
+    h('div', { className: 'sc-compare-col' },
+      h('p', { className: 'sc-compare-label' }, icon('circle-x', 16), 'Sem sistema — o padrão do navegador'),
+      h('div', { className: 'sc-compare-frame' }, h('iframe', { srcDoc: PLAIN_PAGE, title: 'A mesma página sem nenhum sistema de design' }))),
+    h('div', { className: 'sc-compare-col' },
+      h('p', { className: 'sc-compare-label is-good' }, icon('circle-check', 16), 'Com o sistema — componentes reais'),
+      h('div', { className: 'sc-compare-frame' }, h(ComparedWithSystem)))));
 
-  mount(
-    'mount-compare',
-    h(F, null,
-      h('div', { className: 'sc-compare-col' },
-        h('p', { className: 'sc-compare-label' },
-          h(DS.Icon, { name: 'circle-x', size: 16 }), 'Sem sistema — o padrão do navegador'),
-        h('div', { className: 'sc-compare-frame' },
-          h('iframe', { srcDoc: PLAIN_PAGE, title: 'A mesma página sem nenhum sistema de design', loading: 'lazy' })
-        ),
-        h('p', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)', margin: 0, lineHeight: 'var(--rse-line-height-body)' } },
-          'Mesmo conteúdo, mesma estrutura. Sem marca, sem hierarquia, sem alvo de toque, sem foco visível.')
-      ),
-      h('div', { className: 'sc-compare-col' },
-        h('p', { className: 'sc-compare-label is-good' },
-          h(DS.Icon, { name: 'circle-check', size: 16 }), 'Com o sistema — componentes reais'),
-        h('div', { className: 'sc-compare-frame' }, h(ComparedWithSystem)),
-        h('p', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)', margin: 0, lineHeight: 'var(--rse-line-height-body)' } },
-          'Clique nas abas e nos campos: este painel está vivo. E acompanha o tema escolhido no topo.')
-      )
-    )
-  );
+  /* ── 01 Marca: selo ──────────────────────────────────────────────────────── */
 
-  /* ── A marca ─────────────────────────────────────────────────────────────── */
+  const LOGO = (id) => `../assets/logos/${id}.svg`;
+  mount('mount-logo-versions', h(F, null, [
+    { id: 'badge-solid', stage: 'is-cream is-clearspace', name: 'Principal', note: 'A preferida. A linha tracejada é o esquema da área de proteção: X livre em todos os lados.' },
+    { id: 'badge-outline', stage: 'is-cream', name: 'Secundária', note: 'Contorno, para onde o sólido pesaria demais.' },
+    { id: 'wordmark-white', stage: 'is-purple', name: 'Simplificada', note: 'Abaixo do tamanho mínimo, em positivo ou negativo.' },
+  ].map((v) =>
+    h('figure', { key: v.id, className: 'sc-logo-card', style: { margin: 0 } },
+      h('div', { className: `sc-logo-stage ${v.stage}` }, h('img', { src: LOGO(v.id), alt: `Selo da Rede Sesc de Educação — versão ${v.name.toLowerCase()}` })),
+      h('figcaption', { className: 'sc-logo-meta' }, h('b', null, v.name), h('span', null, v.note)))
+  )));
 
-  const NEVER_PT = {
-    rotate: 'girar',
-    stretch: 'esticar',
-    distort: 'distorcer',
-    'add effects': 'aplicar efeitos',
-    redraw: 'redesenhar',
-    'gradient fill': 'preencher com degradê',
-    'outlined lettering': 'contornar o letreiramento',
-    'lock up with the Sesc signature': 'travar junto à assinatura do Sesc',
-  };
-  const neverList = document.getElementById('mount-logo-never');
-  for (const rule of D.rules.logo.never) {
-    const li = document.createElement('li');
-    li.textContent = NEVER_PT[rule] || rule;
-    neverList.appendChild(li);
-  }
-
-  const MOTIF_PT = {
-    cube: 'O cubo sólido — a marca de base',
-    interlock: 'Dois cubos atravessando um ao outro',
-    bar: 'Cubo atravessado por uma barra impossível',
-    frame: 'Moldura aberta com dois vazios',
-    chain: 'Corrente em ziguezague — a construção mais larga',
-    hollow: 'Cubo aberto em torno de um centro vazio',
-  };
-  const HUE_PT = { green: 'verde', blue: 'azul', pink: 'rosa', orange: 'laranja', purple: 'roxo', yellow: 'amarelo' };
-
-  const MOTIF_HUES = [
-    { id: null, label: 'Original' },
-    { id: 'purple', label: 'Roxo' },
-    { id: 'green', label: 'Verde' },
-    { id: 'blue', label: 'Azul' },
-    { id: 'pink', label: 'Rosa' },
-    { id: 'orange', label: 'Laranja' },
-    { id: 'yellow', label: 'Amarelo' },
-  ];
-
-  const MotifGallery = () => {
-    const [hue, setHue] = React.useState(null);
+  const LogoSize = () => {
+    const [px, setPx] = React.useState(200);
+    const simplified = px < 150;
     return h(F, null,
-      h('div', { className: 'sc-hue-switch', role: 'group', 'aria-label': 'Cor das construções' },
-        MOTIF_HUES.map((option) =>
-          h('button', {
-            key: option.id || 'original',
-            type: 'button',
-            'aria-pressed': String(hue === option.id),
-            onClick: () => setHue(option.id),
-          },
-            option.id
-              ? h('span', { className: 'dot', style: { background: `var(--color-${option.id})` } })
-              : null,
-            option.label
-          )
-        )
-      ),
-      h('div', { className: 'sc-grid sc-grid-3', style: { marginTop: 'var(--rse-space-5)' } },
-        D.assets.motifs.map((m) =>
-          h('div', { className: 'sc-motif-cell', key: m.id },
-            h(DS.BrandMotif, { variant: m.variant, size: 132, hue: hue || undefined }),
-            h('span', { className: 'cap' },
-              h('b', null, m.variant),
-              MOTIF_PT[m.variant] || '',
-              h('br'),
-              hue && hue !== m.hue
-                ? `família ${HUE_PT[m.hue] || m.hue}, recolorida`
-                : `família ${HUE_PT[m.hue] || m.hue}`
-            )
-          )
-        )
-      )
-    );
+      h('div', { className: 'sc-size-stage' },
+        h('img', { src: LOGO(simplified ? 'wordmark-purple' : 'badge-solid'), style: { width: px + 'px' }, alt: simplified ? 'Selo — versão simplificada' : 'Selo — versão principal' })),
+      h('div', { className: 'sc-size-readout', 'aria-live': 'polite' },
+        h('span', null, h('b', null, `${px} px`), ' de largura'),
+        h('span', null, simplified ? 'versão simplificada — abaixo de 150 px' : 'versão principal')),
+      h('input', { type: 'range', className: 'sc-range', min: 70, max: 300, step: 5, value: px, onChange: (e) => setPx(Number(e.target.value)), 'aria-label': 'Largura do selo em pixels' }));
   };
+  mount('mount-logo-size', h(LogoSize));
 
-  mount('mount-motifs', h(MotifGallery));
+  const MISUSE = [
+    ['Girar', { transform: 'rotate(-14deg)' }],
+    ['Esticar', { transform: 'scaleX(1.45)' }],
+    ['Distorcer', { transform: 'skewX(-16deg)' }],
+    ['Aplicar efeitos', { filter: 'drop-shadow(0 6px 4px var(--rse-brand-gray-500))' }],
+    ['Cor fora da paleta', { filter: 'hue-rotate(150deg) saturate(3) invert(.2)' }],
+    ['Contraste insuficiente', { opacity: 0.18 }],
+  ];
+  mount('mount-logo-misuse', h(F, null, MISUSE.map(([label, style]) =>
+    h('figure', { key: label },
+      h('div', { className: 'stage' },
+        h('img', { src: LOGO('badge-solid'), alt: '', style }),
+        h('span', { className: 'no', 'aria-hidden': 'true' }, icon('x', 14))),
+      h('figcaption', null, 'Não: ', label.toLowerCase())))));
 
-  mount(
-    'mount-patterns',
-    h(F, null, D.assets.patterns.map((p) =>
-      h('div', { key: p.id },
-        h('div', {
-          className: 'sc-pattern',
-          role: 'img',
-          'aria-label': `Padrão de cubos na família ${HUE_PT[p.hue] || p.hue}`,
-          style: { backgroundImage: `url(../${p.path})` },
-        }),
-        h('p', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)', margin: 'var(--rse-space-2) 0 0' } },
-          HUE_PT[p.hue] || p.hue)
-      )
-    ))
-  );
+  /* ── 01 Marca: paleta ────────────────────────────────────────────────────── */
 
-  /* ── Cores ───────────────────────────────────────────────────────────────── */
-
-  const FAMILY_PT = {
-    cream: 'Creme — o fundo da página',
-    indigo: 'Índigo — o acento profundo',
-    purple: 'Roxo — a cor primária da marca',
-    pink: 'Rosa',
-    orange: 'Laranja',
-    yellow: 'Amarelo',
-    green: 'Verde',
-    blue: 'Azul',
-    black: 'Preto da marca',
+  // Which ink a field carries, decided by the measured ratio — the band rule, applied.
+  const bestText = (bg) => {
+    const ink = ratio(INK, bg); const white = ratio(WHITE, bg);
+    const useInk = ink >= white;
+    const best = Math.max(ink, white);
+    return { color: useInk ? INK : WHITE, which: useInk ? 'tinta' : 'branco', best, ink, white,
+      grade: best >= 4.5 ? 'AA' : best >= 3 ? 'AA grande' : 'sem texto' };
   };
-  const FAMILY_ORDER = ['purple', 'indigo', 'cream', 'green', 'blue', 'pink', 'orange', 'yellow', 'black'];
-
-  const families = [];
-  for (const c of D.palette) {
-    let family = families.find((f) => f.name === c.family);
-    if (!family) { family = { name: c.family, colors: [] }; families.push(family); }
-    family.colors.push(c);
-  }
-  families.sort((a, b) => {
-    const ia = FAMILY_ORDER.indexOf(a.name);
-    const ib = FAMILY_ORDER.indexOf(b.name);
-    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
-  });
-
-  const Swatch = ({ color }) =>
-    h('button', {
-      type: 'button',
-      className: 'sc-swatch',
-      onClick: () => copy(color.hex, color.hex),
-      title: `Copiar ${color.hex}`,
+  const FAMILIES = ['purple', 'pink', 'orange', 'yellow', 'green', 'blue'];
+  const byFamily = (f) => D.palette.filter((c) => c.family === f);
+  // Below 4.5:1 the swatch keeps its colour and the words sit on a plate, so nothing on the page
+  // is written in a pairing the system itself would refuse.
+  const Chip = ({ hex, label, sub, token, isInk }) => {
+    const t = bestText(hex);
+    const plated = t.best < 4.5;
+    return h('button', {
+      type: 'button', className: `sc-chip${isInk ? ' is-ink' : ''}${plated ? ' is-plated' : ''}`, style: { background: hex, color: plated ? undefined : t.color },
+      onClick: () => copy(hex, hex.toUpperCase()), title: `${token} — copiar ${hex.toUpperCase()}`,
     },
-      h('span', { className: 'chip', style: { background: color.hex } }),
-      h('span', { className: 'meta' },
-        h('span', { className: 'tok' }, color.token),
-        h('span', { className: 'val' }, color.hex.toUpperCase()),
-        color.cmyk
-          ? h('span', { className: 'cmyk' },
-              `CMYK ${color.cmyk.c} ${color.cmyk.m} ${color.cmyk.y} ${color.cmyk.k}`)
-          : null
-      )
-    );
+      h('span', { className: 'top' }, h('span', { className: 'tone' }, label), h('span', { className: 'ratio' }, `${t.grade} ${fmtRatio(t.best)}`)),
+      h('span', null, h('span', { className: 'hex' }, hex.toUpperCase()), sub ? h('span', { className: 'cmyk', style: { display: 'block' } }, sub) : null));
+  };
+  const cmyk = (c) => (c ? `C${c.c} M${c.m} Y${c.y} K${c.k}` : null);
+  const Palette = () => h(F, null,
+    h('div', { className: 'sc-palette' }, FAMILIES.map((f) => {
+      const colors = ['light', 'base', 'dark'].map((tone) => byFamily(f).find((c) => c.tone === tone)).filter(Boolean);
+      const ink = D.tokens[`--rse-brand-${f}-ink`];
+      return h('div', { className: 'sc-family', key: f },
+        h('p', { className: 'sc-family-name' }, HUE_PT[f]),
+        colors.map((c) => h(Chip, { key: c.token, hex: c.hex, label: TONE_PT[c.tone], sub: cmyk(c.cmyk), token: c.token })),
+        ink ? h(Chip, { hex: ink.value, label: 'tinta', sub: 'derivada, para texto', token: `--rse-brand-${f}-ink`, isInk: true }) : null);
+    })),
+    h('div', { className: 'sc-palette-anchors' },
+      ['cream', 'indigo', 'black'].map((f) => {
+        const c = D.palette.find((x) => x.family === f);
+        return c ? h(Chip, { key: f, hex: c.hex, label: f === 'black' ? 'Preto da marca' : HUE_PT[f], sub: cmyk(c.cmyk), token: c.token }) : null;
+      })));
+  mount('mount-palette', h(Palette));
+  (() => {
+    const official = D.palette.filter((c) => c.cmyk && c.family !== 'black');
+    const inkOk = official.filter((c) => ratio(INK, c.hex) >= 4.5).length;
+    const whiteOk = official.filter((c) => ratio(WHITE, c.hex) >= 4.5).length;
+    document.getElementById('mount-palette-note').textContent =
+      `Medido agora: das ${official.length} cores oficiais, ${inkOk} carregam texto em tinta escura com 4,5:1 ou mais; só ${whiteOk} carregam branco. É por isso que a Rede escreve em tinta sobre as suas cores — e por que os tons escuros, que não sustentam nem uma nem outra, ganharam uma "tinta" derivada para o texto.`;
+  })();
 
-  mount(
-    'mount-palette',
-    h(F, null, families.map((family) =>
-      h('div', { className: 'sc-family', key: family.name },
-        h('p', { className: 'sc-family-name' }, FAMILY_PT[family.name] || family.name),
-        h('div', { className: 'sc-swatches' },
-          family.colors.map((c) => h(Swatch, { color: c, key: c.token }))
-        )
-      )
-    ))
-  );
+  /* ── 01 Marca: tipografia ────────────────────────────────────────────────── */
 
-  /* ── Semantic tokens + contrast: both measured, both re-run on theme change ─ */
-
-  const SEMANTIC_ROLES = [
-    ['--rse-color-surface-page', 'Fundo da página'],
-    ['--rse-color-surface-card', 'Superfície de cartão'],
-    ['--rse-color-surface-sunken', 'Superfície rebaixada'],
-    ['--rse-color-text-heading', 'Texto de título'],
-    ['--rse-color-text-body', 'Texto corrido'],
-    ['--rse-color-text-muted', 'Texto secundário'],
-    ['--rse-color-primary', 'Ação primária'],
-    ['--rse-color-border-subtle', 'Borda sutil'],
-    ['--rse-color-border-default', 'Borda padrão'],
-    ['--rse-color-focus-ring', 'Anel de foco'],
-  ];
-
-  const SemanticTable = () =>
-    h(F, null,
-      h('thead', null,
-        h('tr', null,
-          h('th', { style: { width: '52px' } }, ''),
-          h('th', null, 'Papel'),
-          h('th', null, 'Token'),
-          h('th', null, 'Valor agora')
-        )
-      ),
-      h('tbody', null, SEMANTIC_ROLES.map(([token, label]) => {
-        const value = resolveColor(token);
-        return h('tr', { key: token },
-          h('td', null, h('span', { className: 'sc-dot', style: { background: value } })),
-          h('td', null, label),
-          h('td', { className: 'mono' }, token),
-          h('td', { className: 'mono' }, toHex(value).toUpperCase())
-        );
-      }))
-    );
-
-  /* Every pair the system puts on screen, with its WCAG floor. Generated from
-     scripts/contrast-pairs.mjs — the same list `npm run audit` gates on, so the table
-     cannot quietly test only the pairs that pass. */
-  const CONTRAST_PAIRS = D.contrastPairs;
-
-  const ContrastTable = () => {
-    const rows = CONTRAST_PAIRS.map(({ fg, bg, label, floor }) => {
-      const front = resolveColor(fg);
-      const back = resolveColor(bg);
-      const ratio = contrastRatio(front, back);
-      return { fg, bg, label, floor, front, back, ratio, pass: ratio >= floor };
-    });
-    const failing = rows.filter((r) => !r.pass);
-
+  const WEIGHT_ROLE = {
+    400: 'Regular — corpo de texto.', 500: 'Medium — rótulos e apoios.', 600: 'Semibold — botões e links.',
+    700: 'Bold — eyebrows e destaques.', 800: 'Extrabold — todos os títulos.', 900: 'Black — números de impacto e peças grandes.',
+  };
+  const TypeLab = () => {
+    const [w, setW] = React.useState(800);
+    const snapped = Math.round(w / 100) * 100;
     return h(F, null,
-      h('caption', {
-        style: {
-          captionSide: 'top',
-          textAlign: 'left',
-          padding: 'var(--rse-space-4) var(--rse-space-4) 0',
-          fontSize: 'var(--rse-font-size-body-sm)',
-          color: failing.length ? 'var(--rse-color-danger-text)' : 'var(--rse-color-success-text)',
-          fontWeight: 'var(--rse-font-weight-semibold)',
-        },
-      },
-        failing.length
-          ? `${rows.length - failing.length} de ${rows.length} combinações passam neste tema. ` +
-            (failing.length > 1
-              ? `${failing.length} estão abaixo do piso`
-              : 'Uma está abaixo do piso') +
-            ' — veja a nota abaixo da tabela.'
-          : `As ${rows.length} combinações passam neste tema.`
-      ),
-      h('thead', null,
-        h('tr', null,
-          h('th', null, 'Combinação'),
-          h('th', null, 'Amostra'),
-          h('th', null, 'Razão'),
-          h('th', null, 'Mínimo'),
-          h('th', null, 'Resultado')
-        )
-      ),
-      h('tbody', null, rows.map((r) =>
-        h('tr', { key: r.label },
-          h('td', null, r.label),
-          h('td', null,
-            r.floor < 4.5
-              // A 3:1 pair is a boundary (a ring, a border), not text: show it as one.
-              ? h('span', {
-                  className: 'sc-contrast-sample is-graphic', 'aria-hidden': 'true',
-                  style: { background: r.back, boxShadow: `inset 0 0 0 3px ${r.front}` },
-                })
-              : h('span', {
-                  className: 'sc-contrast-sample',
-                  style: { color: r.front, background: r.back },
-                }, 'Aprender')
-          ),
-          h('td', null, h('span', { className: 'sc-ratio' }, `${r.ratio.toFixed(2)}:1`)),
-          h('td', { className: 'mono' }, `${r.floor}:1`),
-          h('td', null,
-            h('span', { className: `sc-verdict ${r.pass ? 'pass' : 'fail'}` },
-              h(DS.Icon, { name: r.pass ? 'circle-check' : 'triangle-alert', size: 14 }),
-              r.pass ? 'Passa' : 'Reprova'
-            )
-          )
-        )
-      ))
-    );
+      h('p', { className: 'sc-type-specimen', style: { fontWeight: w } }, D.slogan),
+      h('div', { className: 'sc-type-controls' },
+        h('div', { className: 'sc-type-weight', 'aria-live': 'polite' }, w),
+        h('div', { className: 'sc-type-role' }, WEIGHT_ROLE[snapped] || ''),
+        h('input', { type: 'range', className: 'sc-range', min: 400, max: 900, step: 10, value: w, onChange: (e) => setW(Number(e.target.value)), 'aria-label': 'Peso da fonte' })));
   };
-
-  /** Re-render everything that was measured from the DOM rather than declared. */
-  const renderMeasured = () => {
-    mount('mount-semantic', h(SemanticTable));
-    mount('mount-contrast', h(ContrastTable));
-  };
-
-  /* ── Tipografia ──────────────────────────────────────────────────────────── */
+  mount('mount-type-lab', h(TypeLab));
 
   const TYPE_ROWS = [
-    ['--rse-font-size-display-1', 'Display 1', 'Aprender para a vida acontecer', 'extrabold'],
-    ['--rse-font-size-display-2', 'Display 2', 'Aprender para a vida acontecer', 'extrabold'],
-    ['--rse-font-size-h1', 'Título 1', 'Educação que acolhe, forma e transforma', 'extrabold'],
-    ['--rse-font-size-h2', 'Título 2', 'Uma trajetória completa', 'extrabold'],
-    ['--rse-font-size-h3', 'Título 3', 'Ensino fundamental', 'extrabold'],
-    ['--rse-font-size-h4', 'Título 4', 'Matrículas abertas', 'bold'],
-    ['--rse-font-size-body-lg', 'Corpo grande', 'A Rede reúne escolas e programas educacionais do Sesc em todo o país.', 'regular'],
-    ['--rse-font-size-body-md', 'Corpo', 'A Rede reúne escolas e programas educacionais do Sesc em todo o país.', 'regular'],
-    ['--rse-font-size-body-sm', 'Corpo pequeno', 'A Rede reúne escolas e programas educacionais do Sesc em todo o país.', 'regular'],
-    ['--rse-font-size-caption', 'Legenda', 'Fonte a verificar com o Sesc', 'regular'],
-    ['--rse-font-size-eyebrow', 'Eyebrow', 'Rede Sesc de Educação', 'eyebrow'],
+    ['display-1', 'Display 1', 'Aprender para a vida acontecer', 'black'],
+    ['h1', 'Título 1', 'Educação que acolhe, forma e transforma', 'extrabold'],
+    ['h2', 'Título 2', 'Uma trajetória completa', 'extrabold'],
+    ['h3', 'Título 3', 'Ensino fundamental', 'extrabold'],
+    ['h4', 'Título 4', 'Matrículas abertas', 'bold'],
+    ['body-lg', 'Corpo grande', 'A Rede reúne escolas e programas educacionais do Sesc em todo o país.', 'regular'],
+    ['body-md', 'Corpo', 'A Rede reúne escolas e programas educacionais do Sesc em todo o país.', 'regular'],
+    ['caption', 'Legenda', 'Fonte a verificar com o Sesc', 'regular'],
+    ['eyebrow', 'Eyebrow', 'Rede Sesc de Educação', 'bold'],
   ];
+  mount('mount-type-scale', h(F, null, TYPE_ROWS.map(([size, label, sample, weight]) =>
+    h('div', { className: 'sc-type-row', key: size },
+      h('div', { className: 'sc-type-meta' }, h('b', null, label), h('code', null, `--rse-font-size-${size}`), D.scales.type.sizes[size]),
+      h('div', { className: 'sc-type-sample', style: {
+        fontSize: `var(--rse-font-size-${size})`, fontWeight: `var(--rse-font-weight-${weight})`,
+        letterSpacing: size === 'eyebrow' ? 'var(--rse-letter-spacing-eyebrow)' : weight === 'regular' ? 'normal' : 'var(--rse-letter-spacing-tight)',
+        textTransform: size === 'eyebrow' ? 'uppercase' : 'none',
+        lineHeight: weight === 'regular' ? 'var(--rse-line-height-body)' : 'var(--rse-line-height-heading)',
+        color: size === 'eyebrow' ? 'var(--rse-color-text-on-primary-tint)' : 'var(--rse-color-text-heading)',
+      } }, sample)))));
 
-  const TypeSpecimens = () =>
-    h(F, null, TYPE_ROWS.map(([token, label, sample, style]) => {
-      const isEyebrow = style === 'eyebrow';
-      return h('div', { className: 'sc-type-row', key: token },
-        h('div', { className: 'sc-type-meta' },
-          h('b', null, label),
-          token
-        ),
-        h('div', {
-          className: 'sc-type-sample',
-          style: {
-            fontSize: `var(${token})`,
-            fontWeight: isEyebrow
-              ? 'var(--rse-font-weight-bold)'
-              : `var(--font-weight-${style})`,
-            letterSpacing: isEyebrow
-              ? 'var(--rse-letter-spacing-eyebrow)'
-              : style === 'extrabold' ? 'var(--rse-letter-spacing-tight)' : 'normal',
-            textTransform: isEyebrow ? 'uppercase' : 'none',
-            lineHeight: style === 'regular' ? 'var(--rse-line-height-body)' : 'var(--rse-line-height-heading)',
-            color: isEyebrow ? 'var(--rse-color-primary)' : 'var(--rse-color-text-heading)',
-          },
-        }, sample)
-      );
-    }));
+  /* ── 01 Marca: cubo impossível e padrões ─────────────────────────────────── */
 
-  mount('mount-type', h(TypeSpecimens));
-
-  const WEIGHTS = [
-    ['regular', '400', 'Regular — corpo de texto'],
-    ['medium', '500', 'Medium — rótulos e apoios'],
-    ['semibold', '600', 'Semibold — botões e links'],
-    ['bold', '700', 'Bold — eyebrows e destaques'],
-    ['extrabold', '800', 'Extrabold — todos os títulos'],
-    ['black', '900', 'Black — uso pontual, peças grandes'],
-  ];
-
-  mount(
-    'mount-weights',
-    h(F, null, WEIGHTS.map(([name, value, label]) =>
-      h('div', { className: 'sc-type-row', key: name },
-        h('div', { className: 'sc-type-meta' },
-          h('b', null, value),
-          `--font-weight-${name}`
-        ),
-        h('div', {
-          className: 'sc-type-sample',
-          style: { fontSize: 'var(--rse-font-size-h4)', fontWeight: `var(--font-weight-${name})`, color: 'var(--rse-color-text-heading)' },
-        }, label)
-      )
-    ))
-  );
-
-  /* ── Espaço e forma ──────────────────────────────────────────────────────── */
-
-  const SPACES = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  mount(
-    'mount-space',
-    h(F, null, SPACES.map((n) =>
-      h('div', { className: 'sc-space-row', key: n },
-        h('span', { className: 'sc-space-name' }, `--space-${n}`),
-        h('span', { className: 'sc-space-bar', style: { width: `var(--space-${n})` } }),
-        h('span', { className: 'sc-space-name', style: { width: 'auto' } }, D.scales.spacing[n])
-      )
-    ))
-  );
-
-  const RADII = ['sm', 'md', 'lg', 'xl', 'pill'];
-  mount(
-    'mount-radius',
-    h(F, null, RADII.map((r) =>
-      h('div', { key: r },
-        h('div', { className: 'sc-specimen', style: { borderRadius: `var(--radius-${r})` } }, D.scales.radius[r]),
-        h('p', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)', margin: 'var(--rse-space-2) 0 0' } },
-          `--radius-${r}`)
-      )
-    ))
-  );
-
-  const SHADOWS = ['sm', 'md', 'lg'];
-  mount(
-    'mount-shadow',
-    h(F, null, SHADOWS.map((s) =>
-      h('div', { key: s, style: { padding: 'var(--rse-space-3)' } },
-        h('div', { className: 'sc-shadow-box', style: { boxShadow: `var(--shadow-${s})` } }, `shadow-${s}`),
-        h('p', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)', margin: 'var(--rse-space-3) 0 0' } },
-          `--shadow-${s}`)
-      )
-    ))
-  );
-
-  mount(
-    'mount-icons',
-    h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(64px,1fr))', gap: 'var(--rse-space-3)' } },
-      (D.assets.icons.names || []).map((name) =>
-        h('button', {
-          key: name,
-          type: 'button',
-          title: `Copiar "${name}"`,
-          onClick: () => copy(name, `O nome "${name}"`),
-          style: {
-            appearance: 'none', border: '1px solid var(--rse-color-border-subtle)', background: 'var(--rse-color-surface-card)',
-            borderRadius: 'var(--rse-radius-sm)', color: 'var(--rse-color-text-body)', cursor: 'pointer',
-            aspectRatio: '1', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          },
-        }, h(DS.Icon, { name, size: 22, title: name }))
-      )
-    )
-  );
-
-  /* ── Componentes: pt-BR gloss + a live demo for each ─────────────────────── */
-
-  /* Written for this page, for a reader who does not build screens. The English
-     one-liner from docs/components.md stays available under "detalhes técnicos". */
-  const GLOSS = {
-    Accordion: 'Lista que abre e fecha — perguntas frequentes e detalhes longos de um programa.',
-    Alert: 'Aviso fixo dentro da página: prazo de matrícula, erro em formulário, comunicado.',
-    Avatar: 'Foto ou iniciais de uma pessoa — depoimentos, equipe, área do estudante.',
-    Badge: 'Selinho de estado com um ponto colorido: vagas abertas, encerrado, novo.',
-    BrandMotif: 'O cubo impossível oficial, em suas seis construções. Obra da marca, não enfeite.',
-    Breadcrumb: 'Trilha de onde a pessoa está em páginas profundas de unidade ou programa.',
-    Button: 'A ação principal. Três variações e três tamanhos, sempre em formato de pílula.',
-    Card: 'O cartão de programa ou unidade — imagem, categoria, título e descrição.',
-    Checkbox: 'Caixa de seleção para múltipla escolha e aceite de termos.',
-    DataTable: 'Tabela de turmas, horários, unidades e valores. Rola no celular sem quebrar.',
-    DateField: 'Campo de data com prazo em destaque — nascimento, janela de inscrição.',
-    Divider: 'Linha fina que separa blocos, com rótulo opcional no meio.',
-    FileUpload: 'Envio de documentos por arrastar ou clicar, com a lista do que já foi anexado.',
-    FilterChips: 'Pílulas de filtro acima de uma listagem: nível, turno, região.',
-    Footer: 'O rodapé institucional, em fundo escuro, com assinatura e colunas de links.',
-    Icon: 'A fonte única de ícones. Um glifo fora daqui não entra no sistema.',
-    IconButton: 'Botão redondo só com ícone — fechar, compartilhar, avançar.',
-    Input: 'Campo de texto com rótulo, ajuda e estado de erro.',
-    Menu: 'Menu suspenso para navegação regional e ações de linha. Fecha com Esc.',
-    Modal: 'Diálogo centralizado sobre a página — confirmações e etapas de inscrição.',
-    Navbar: 'O cabeçalho fixo do site, translúcido, com a assinatura e a ação principal.',
-    Pagination: 'Controle de páginas para listagens longas de unidades e programas.',
-    PlatformEntry: 'A ponte para a Plataforma Sesc Sab.IA, com as duas marcas juntas.',
-    ProgressBar: 'Barra de progresso com percentual — envio de documentos, etapas concluídas.',
-    Radio: 'Escolha única dentro de um grupo: turno, categoria, forma de contato.',
-    Select: 'Lista suspensa para escolher unidade, programa ou estado.',
-    Skeleton: 'O esqueleto que ocupa o lugar do conteúdo enquanto ele carrega.',
-    Spinner: 'Indicador de carregamento para ações sem duração previsível.',
-    Stat: 'Um número de impacto com rótulo — o pilar do resultado, tornado visível.',
-    Stepper: 'As etapas de um fluxo, mostrando onde a pessoa está e o que já concluiu.',
-    Switch: 'Interruptor de liga e desliga para preferências.',
-    Tabs: 'Abas para alternar seções. Andam com as setas do teclado.',
-    Tag: 'Etiqueta de categoria em uma das seis cores de acento.',
-    Textarea: 'Campo de texto longo, com contador de caracteres opcional.',
-    Toast: 'Aviso passageiro que aparece após uma ação — o que confirma a cópia nesta página.',
-    Tooltip: 'Rótulo que aparece ao passar o cursor sobre um ícone ou texto cortado.',
+  const MOTIF_PT = {
+    cube: 'O cubo sólido', interlock: 'Dois cubos atravessados', bar: 'Cubo e barra impossível',
+    frame: 'Moldura com dois vazios', chain: 'Corrente em ziguezague', hollow: 'Cubo aberto, centro vazio',
   };
-
-  const icon = (name, size) => h(DS.Icon, { name, size: size || 20 });
-
-  const DEMOS = {
-    Accordion: { block: true, render: () =>
-      h(DS.Accordion, { items: [
-        { title: 'Quem pode se inscrever?', content: 'Trabalhadores do comércio de bens, serviços e turismo, seus dependentes e a comunidade em geral, conforme as vagas de cada unidade.' },
-        { title: 'Quais documentos são necessários?', content: 'Documento de identidade, CPF, comprovante de residência e, quando houver, a Credencial Sesc.' },
-        { title: 'Como funciona a lista de espera?', content: 'Quando as vagas se esgotam, a inscrição segue registrada e a unidade entra em contato assim que uma vaga abre.' },
-      ] }) },
-
-    Alert: { block: true, render: () => {
-      const Demo = () => {
-        const [shown, setShown] = React.useState(true);
-        return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-4)' } },
-          shown
-            ? h(DS.Alert, { tone: 'info', title: 'Matrículas abertas', message: 'As inscrições seguem até o fim do mês nas unidades participantes.', onDismiss: () => setShown(false) })
-            : h(DS.Button, { variant: 'ghost', size: 'sm', onClick: () => setShown(true) }, 'Mostrar o aviso de novo'),
-          h(DS.Alert, { tone: 'warning', title: 'Documento pendente', message: 'Falta anexar o comprovante de residência para concluir a inscrição.' }),
-          h(DS.Alert, { tone: 'danger', message: 'Não foi possível enviar o formulário. Verifique os campos destacados.' }),
-          h(DS.Alert, { tone: 'success', title: 'Inscrição registrada', message: 'A unidade entrará em contato pelo telefone informado.' })
-        );
-      };
-      return h(Demo);
-    } },
-
-    Avatar: { render: () =>
-      h(F, null,
-        h(DS.Avatar, { initials: 'MC', size: 'sm' }),
-        h(DS.Avatar, { initials: 'JS', size: 'md', status: 'online' }),
-        h(DS.Avatar, { initials: 'AR', size: 'lg', status: 'away' })
-      ) },
-
-    Badge: { render: () =>
-      h(F, null,
-        h(DS.Badge, { tone: 'success' }, 'Vagas abertas'),
-        h(DS.Badge, { tone: 'warning' }, 'Últimas vagas'),
-        h(DS.Badge, { tone: 'danger' }, 'Encerrado'),
-        h(DS.Badge, { tone: 'info' }, 'Novo'),
-        h(DS.Badge, { tone: 'primary' }, 'Destaque'),
-        h(DS.Badge, { tone: 'neutral' }, 'Rascunho')
-      ) },
-
-    BrandMotif: { render: () =>
-      h(F, null,
-        h(DS.BrandMotif, { variant: 'cube', size: 96 }),
-        h(DS.BrandMotif, { variant: 'interlock', size: 96 }),
-        h(DS.BrandMotif, { variant: 'frame', size: 96 })
-      ) },
-
-    Breadcrumb: { block: true, render: () =>
-      h(DS.Breadcrumb, { items: [
-        { label: 'Início', href: '#' },
-        { label: 'Programas', href: '#' },
-        { label: 'Ensino Fundamental' },
-      ] }) },
-
-    Button: { render: () =>
-      h(F, null,
-        h(DS.Button, { variant: 'primary', icon: icon('graduation-cap') }, 'Quero me inscrever'),
-        h(DS.Button, { variant: 'secondary' }, 'Saiba mais'),
-        h(DS.Button, { variant: 'ghost' }, 'Voltar'),
-        h(DS.Button, { variant: 'primary', size: 'sm' }, 'Pequeno'),
-        h(DS.Button, { variant: 'primary', disabled: true }, 'Indisponível')
-      ) },
-
-    Card: { block: true, render: () =>
-      h(DS.Card, {
-        tag: h(DS.Tag, { color: 'green' }, 'Educação Infantil'),
-        eyebrow: 'Programa',
-        title: 'Primeiros passos',
-        description: 'Acolhimento e descoberta para crianças de 0 a 5 anos, com o brincar como método.',
-        footer: h(DS.Button, { variant: 'ghost', size: 'sm', icon: icon('arrow-right', 18) }, 'Conheça o programa'),
-      }) },
-
-    Checkbox: { block: true, render: () => {
-      const Demo = () => {
-        const [state, setState] = React.useState({ termos: true, contato: false });
-        return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-3)' } },
-          h(DS.Checkbox, { label: 'Li e aceito os termos de matrícula', checked: state.termos, onChange: (e) => setState({ ...state, termos: e.target.checked }) }),
-          h(DS.Checkbox, { label: 'Quero receber avisos sobre novas turmas', checked: state.contato, onChange: (e) => setState({ ...state, contato: e.target.checked }) }),
-          h(DS.Checkbox, { label: 'Opção indisponível nesta unidade', checked: false, disabled: true })
-        );
-      };
-      return h(Demo);
-    } },
-
-    DataTable: { block: true, render: () =>
-      h(DS.DataTable, {
-        caption: 'Turmas — conteúdo de exemplo',
-        columns: [
-          { key: 'turma', label: 'Turma' },
-          { key: 'turno', label: 'Turno' },
-          { key: 'vagas', label: 'Vagas', align: 'right' },
-          { key: 'situacao', label: 'Situação' },
-        ],
-        rows: [
-          { turma: '1º ano A', turno: 'Manhã', vagas: '00', situacao: h(DS.Badge, { tone: 'success' }, 'Abertas') },
-          { turma: '1º ano B', turno: 'Tarde', vagas: '00', situacao: h(DS.Badge, { tone: 'warning' }, 'Últimas') },
-          { turma: '2º ano A', turno: 'Manhã', vagas: '00', situacao: h(DS.Badge, { tone: 'danger' }, 'Encerrada') },
-        ],
-      }) },
-
-    DateField: { block: true, render: () =>
-      h(DS.DateField, { label: 'Data de nascimento', hint: 'Como consta no documento do estudante.', deadline: 'Inscrições até 28/02' }) },
-
-    Divider: { block: true, render: () =>
-      h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-5)' } },
-        h(DS.Divider, null),
-        h(DS.Divider, { label: 'ou' }),
-        h('div', { style: { display: 'flex', alignItems: 'center', gap: 'var(--rse-space-4)', height: '40px' } },
-          h('span', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)' } }, 'Manhã'),
-          h(DS.Divider, { orientation: 'vertical' }),
-          h('span', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)' } }, 'Tarde'),
-          h(DS.Divider, { orientation: 'vertical' }),
-          h('span', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)' } }, 'Integral')
-        )
-      ) },
-
-    FileUpload: { block: true, render: () => {
-      const Demo = () => {
-        const [files, setFiles] = React.useState([{ name: 'comprovante-residencia.pdf', size: 184320 }]);
-        return h(DS.FileUpload, {
-          label: 'Documentos da matrícula',
-          hint: 'Identidade, CPF e comprovante de residência.',
-          accept: '.pdf,.jpg,.png',
-          multiple: true,
-          maxSizeLabel: 'até 5 MB por arquivo',
-          files,
-          onFilesChange: setFiles,
-        });
-      };
-      return h(Demo);
-    } },
-
-    FilterChips: { block: true, render: () => {
-      const Demo = () => {
-        const [value, setValue] = React.useState(['fundamental']);
-        return h(DS.FilterChips, {
-          label: 'Nível de ensino',
-          options: [
-            { id: 'infantil', label: 'Educação Infantil' },
-            { id: 'fundamental', label: 'Ensino Fundamental' },
-            { id: 'medio', label: 'Ensino Médio' },
-            { id: 'tecnico', label: 'Educação Profissional' },
-          ],
-          value,
-          onChange: setValue,
-          showClear: true,
-        });
-      };
-      return h(Demo);
-    } },
-
-    Footer: { block: true, render: () =>
-      h('div', { style: { borderRadius: 'var(--rse-radius-md)', overflow: 'hidden' } },
-        h(DS.Footer, {
-          logoSrc: '../assets/logos/wordmark-white.svg',
-          logoAlt: 'Rede Sesc de Educação',
-          tagline: 'Aprender para a vida acontecer.',
-          columns: [
-            { title: 'Institucional', links: [{ label: 'Sobre a Rede', href: '#' }, { label: 'Unidades', href: '#' }] },
-            { title: 'Estude', links: [{ label: 'Programas', href: '#' }, { label: 'Matrículas', href: '#' }] },
-          ],
-          note: 'Conteúdo de exemplo — verifique com o Sesc antes de publicar.',
-        })
-      ) },
-
-    Icon: { render: () =>
-      h(F, null,
-        ['graduation-cap', 'school', 'users', 'calendar-check', 'map-pin', 'book-open', 'award', 'heart'].map((n) =>
-          h('span', { key: n, style: { color: 'var(--rse-color-primary)' } }, h(DS.Icon, { name: n, size: 28, title: n }))
-        )
-      ) },
-
-    IconButton: { render: () =>
-      h(F, null,
-        h(DS.IconButton, { ariaLabel: 'Compartilhar', icon: icon('share-2') }),
-        h(DS.IconButton, { ariaLabel: 'Favoritar', icon: icon('heart'), variant: 'primary' }),
-        h(DS.IconButton, { ariaLabel: 'Fechar', icon: icon('x'), size: 'sm' }),
-        h(DS.IconButton, { ariaLabel: 'Baixar', icon: icon('download'), size: 'lg' })
-      ) },
-
-    Input: { block: true, render: () =>
-      h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-4)' } },
-        h(DS.Input, { label: 'Nome completo do estudante', placeholder: 'Como está no documento' }),
-        h(DS.Input, { label: 'E-mail', type: 'email', placeholder: 'nome@exemplo.com', helpText: 'Usaremos apenas para avisos sobre a matrícula.' }),
-        h(DS.Input, { label: 'CPF', value: '000', error: 'Informe os 11 dígitos, apenas números.' })
-      ) },
-
-    Menu: { block: true, render: () =>
-      h(DS.Menu, {
-        label: 'Escolha a região',
-        items: [
-          { label: 'Norte', href: '#', meta: '00 unidades' },
-          { label: 'Nordeste', href: '#', meta: '00 unidades' },
-          { label: 'Centro-Oeste', href: '#', meta: '00 unidades' },
-          { label: 'Sudeste', href: '#', meta: '00 unidades' },
-          { label: 'Sul', href: '#', meta: '00 unidades' },
-        ],
-      }) },
-
-    Modal: { render: () => {
-      const Demo = () => {
-        const [open, setOpen] = React.useState(false);
-        return h(F, null,
-          h(DS.Button, { variant: 'primary', onClick: () => setOpen(true) }, 'Abrir o diálogo'),
-          h(DS.Modal, {
-            open,
-            onClose: () => setOpen(false),
-            title: 'Confirmar inscrição',
-            footer: h(F, null,
-              h(DS.Button, { variant: 'ghost', onClick: () => setOpen(false) }, 'Cancelar'),
-              h(DS.Button, { variant: 'primary', onClick: () => setOpen(false) }, 'Confirmar')
-            ),
-          },
-            h('p', { style: { margin: 0, fontSize: 'var(--rse-font-size-body-md)', color: 'var(--rse-color-text-body)', lineHeight: 'var(--rse-line-height-body)' } },
-              'A inscrição será registrada e a unidade entrará em contato. Navegue com Tab: o foco fica preso dentro do diálogo e volta ao botão quando você fechar com Esc.')
-          )
-        );
-      };
-      return h(Demo);
-    } },
-
-    Navbar: { block: true, render: () =>
-      h('div', { style: { borderRadius: 'var(--rse-radius-md)', overflow: 'hidden', border: '1px solid var(--rse-color-border-subtle)' } },
-        h(DS.Navbar, {
-          logoSrc: '../assets/logos/wordmark-purple.svg',
-          logoAlt: 'Rede Sesc de Educação',
-          links: [{ label: 'Programas', href: '#' }, { label: 'Unidades', href: '#' }, { label: 'Matrículas', href: '#' }],
-          activeHref: '#',
-          ctaLabel: 'Quero me inscrever',
-          ctaHref: '#',
-        })
-      ) },
-
-    Pagination: { block: true, render: () => {
-      const Demo = () => {
-        const [page, setPage] = React.useState(3);
-        return h(DS.Pagination, { page, totalPages: 8, onChange: setPage });
-      };
-      return h(Demo);
-    } },
-
-    PlatformEntry: { block: true, render: () =>
-      h(DS.PlatformEntry, {
-        href: '#',
-        logoSrc: '../assets/logos/sabia-wordmark-cream.svg',
-        logoAlt: 'Plataforma Sesc Sab.IA',
-        title: 'Aprendizagem que acompanha cada estudante',
-        description: 'Avaliação diagnóstica, trilhas personalizadas e acompanhamento contínuo.',
-        ctaLabel: 'Acessar a plataforma',
-        note: 'O endereço real da plataforma ainda não foi informado pelo Sesc.',
-        tone: 'purple',
-      }) },
-
-    ProgressBar: { block: true, render: () =>
-      h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-5)' } },
-        h(DS.ProgressBar, { value: 60, label: 'Documentos enviados' }),
-        h(DS.ProgressBar, { value: 100, tone: 'success', label: 'Inscrição concluída' }),
-        h(DS.ProgressBar, { value: 25, tone: 'danger', label: 'Prazo restante' })
-      ) },
-
-    Radio: { block: true, render: () => {
-      const Demo = () => {
-        const [turno, setTurno] = React.useState('manha');
-        return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-3)' } },
-          ['manha', 'tarde', 'integral'].map((id) =>
-            h(DS.Radio, {
-              key: id,
-              name: 'turno-demo',
-              label: { manha: 'Manhã', tarde: 'Tarde', integral: 'Integral' }[id],
-              checked: turno === id,
-              onChange: () => setTurno(id),
-            })
-          )
-        );
-      };
-      return h(Demo);
-    } },
-
-    Select: { block: true, render: () =>
-      h(DS.Select, {
-        label: 'Unidade',
-        placeholder: 'Selecione uma unidade',
-        options: [
-          { label: 'Unidade de exemplo A', value: 'a' },
-          { label: 'Unidade de exemplo B', value: 'b' },
-          { label: 'Unidade de exemplo C', value: 'c' },
-        ],
-      }) },
-
-    Skeleton: { block: true, render: () =>
-      h('div', { style: { display: 'flex', gap: 'var(--rse-space-5)', alignItems: 'flex-start' } },
-        h(DS.Skeleton, { variant: 'circle' }),
-        h('div', { style: { flex: 1 } }, h(DS.Skeleton, { variant: 'text', lines: 3 }))
-      ) },
-
-    Spinner: { render: () =>
-      h(F, null,
-        h(DS.Spinner, { size: 20 }),
-        h(DS.Spinner, { size: 28 }),
-        h('span', { style: { background: 'var(--rse-color-primary)', padding: 'var(--rse-space-3)', borderRadius: 'var(--rse-radius-md)', display: 'inline-flex' } },
-          h(DS.Spinner, { size: 24, tone: 'inverse' }))
-      ) },
-
-    Stat: { block: true, render: () =>
-      h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(130px,1fr))', gap: 'var(--rse-space-5)' } },
-        h(DS.Stat, { value: '000', label: 'Unidades', accent: 'primary' }),
-        h(DS.Stat, { value: '00 anos', label: 'De tradição', accent: 'green' }),
-        h(DS.Stat, { value: '000 mil', label: 'Estudantes', accent: 'orange' })
-      ) },
-
-    Stepper: { block: true, render: () => {
-      const Demo = () => {
-        const [current, setCurrent] = React.useState(1);
-        return h(DS.Stepper, {
-          steps: [
-            { label: 'Dados', description: 'Estudante e responsável' },
-            { label: 'Documentos', description: 'Anexos obrigatórios' },
-            { label: 'Confirmação', description: 'Revisão e envio' },
-          ],
-          current,
-          onStepClick: setCurrent,
-        });
-      };
-      return h(Demo);
-    } },
-
-    Switch: { block: true, render: () => {
-      const Demo = () => {
-        const [on, setOn] = React.useState(true);
-        return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-3)' } },
-          h(DS.Switch, { label: 'Receber avisos por e-mail', checked: on, onChange: (e) => setOn(e.target.checked) }),
-          h(DS.Switch, { label: 'Indisponível nesta unidade', checked: false, disabled: true })
-        );
-      };
-      return h(Demo);
-    } },
-
-    Tabs: { block: true, render: () => {
-      const Demo = () => {
-        const [active, setActive] = React.useState('infantil');
-        const CONTENT = {
-          infantil: 'Cuidar e educar juntos, com o brincar como método.',
-          fundamental: 'Base sólida em leitura, matemática e convivência.',
-          medio: 'Formação integral com projeto de vida no centro.',
-        };
-        return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-4)' } },
-          h(DS.Tabs, {
-            tabs: [
-              { id: 'infantil', label: 'Infantil', panelId: 'demo-painel' },
-              { id: 'fundamental', label: 'Fundamental', panelId: 'demo-painel' },
-              { id: 'medio', label: 'Médio', panelId: 'demo-painel' },
-            ],
-            activeId: active,
-            onChange: setActive,
-            label: 'Níveis de ensino',
-          }),
-          h('p', {
-            id: 'demo-painel',
-            role: 'tabpanel',
-            'aria-labelledby': `tab-${active}`,
-            style: { margin: 0, fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-body)' },
-          }, CONTENT[active])
-        );
-      };
-      return h(Demo);
-    } },
-
-    Tag: { render: () =>
-      h(F, null,
-        ['pink', 'orange', 'green', 'blue', 'purple', 'yellow'].map((color) =>
-          h(DS.Tag, { key: color, color }, { pink: 'Artes', orange: 'Esporte', green: 'Ciências', blue: 'Linguagens', purple: 'Tecnologia', yellow: 'Cidadania' }[color])
-        )
-      ) },
-
-    Textarea: { block: true, render: () =>
-      h(DS.Textarea, {
-        label: 'Observações sobre o estudante',
-        placeholder: 'Necessidades de acessibilidade, cuidados de saúde, o que a unidade precisa saber.',
-        hint: 'Opcional. Fica visível apenas para a equipe da unidade.',
-        maxLength: 300,
-        rows: 4,
-      }) },
-
-    Toast: { block: true, render: () => {
-      const Demo = () => {
-        const [visible, setVisible] = React.useState(true);
-        return visible
-          ? h(DS.Toast, { tone: 'success', title: 'Inscrição enviada', message: 'A unidade entrará em contato em breve.', onClose: () => setVisible(false) })
-          : h(DS.Button, { variant: 'ghost', size: 'sm', onClick: () => setVisible(true) }, 'Mostrar de novo');
-      };
-      return h(Demo);
-    } },
-
-    Tooltip: { render: () =>
-      h(F, null,
-        h(DS.Tooltip, { label: 'Fonte do dado a verificar com o Sesc' },
-          h(DS.IconButton, { ariaLabel: 'Fonte do dado', icon: icon('info'), size: 'sm' })),
-        h('span', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)' } },
-          'Passe o cursor sobre o ícone.')
-      ) },
-  };
-
-  /* ── Component gallery ───────────────────────────────────────────────────── */
-
-  const GROUPS = [];
-  for (const c of D.components) {
-    if (!GROUPS.some((g) => g.id === c.group)) GROUPS.push({ id: c.group, label: c.groupLabel });
-  }
-
-  const importSnippet = (name) =>
-    `// React\nimport { ${name} } from './index.js';\n\n// Página estática\nconst { ${name} } = window.${D.namespace};`;
-
-  const DemoCard = ({ component }) => {
-    const demo = DEMOS[component.name];
-    return h('article', { className: 'sc-demo' },
-      h('div', { className: 'sc-demo-head' },
-        h('h3', { className: 'sc-demo-name' },
-          component.name,
-          h('span', { className: 'sc-demo-group' }, component.groupLabel)
-        ),
-        h('p', { className: 'sc-demo-desc' }, GLOSS[component.name] || component.summary)
-      ),
-      h('div', { className: `sc-demo-stage${demo && demo.block ? ' is-block' : ''}` },
-        demo
-          ? demo.render()
-          : h('p', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)', margin: 0 } },
-              'Sem demonstração nesta página — veja o espécime em ' + component.sourcePath.replace(/[^/]+$/, '') + '.')
-      ),
-      h('details', { className: 'sc-demo-details' },
-        h('summary', null, 'Detalhes técnicos'),
-        h('div', { className: 'body' },
-          h('p', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)', margin: '0 0 var(--rse-space-4)', lineHeight: 'var(--rse-line-height-body)' } },
-            component.summary),
-          component.props.length
-            ? h('table', { className: 'sc-props' },
-                h('thead', null, h('tr', null,
-                  h('th', null, 'prop'), h('th', null, 'tipo'), h('th', null, 'nota'))),
-                h('tbody', null, component.props.map((p) =>
-                  h('tr', { key: p.name },
-                    h('td', null, h('code', null, p.name), p.required ? h('span', { className: 'req' }, ' *') : null),
-                    h('td', null, h('code', null, p.type)),
-                    h('td', null, p.notes || '—')
-                  )
-                ))
-              )
-            : null,
-          h('pre', { className: 'sc-code', tabIndex: 0, 'aria-label': 'Exemplo de código: ' + component.name }, importSnippet(component.name)),
-          h('p', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)', margin: 'var(--rse-space-3) 0 0' } },
-            component.sourcePath)
-        )
-      )
-    );
-  };
-
-  const Gallery = () => {
-    const [query, setQuery] = React.useState('');
-    const [groups, setGroups] = React.useState([]);
-
-    const visible = D.components.filter((c) => {
-      const inGroup = groups.length === 0 || groups.includes(c.group);
-      const q = query.trim().toLowerCase();
-      const inQuery =
-        !q ||
-        c.name.toLowerCase().includes(q) ||
-        (GLOSS[c.name] || '').toLowerCase().includes(q) ||
-        c.summary.toLowerCase().includes(q);
-      return inGroup && inQuery;
-    });
-
-    // The controls live in their own container in the markup, so render both here
-    // and let the caller place them — a portal keeps the sticky bar out of the grid.
+  const MotifGallery = () => {
+    const [hue, setHue] = React.useState(null);
+    const options = [null, 'purple', 'green', 'blue', 'pink', 'orange', 'yellow'];
     return h(F, null,
-      ReactDOM.createPortal(
-        h(F, null,
-          h('div', { className: 'sc-gallery-search' },
-            h(DS.Input, {
-              label: 'Buscar componente',
-              placeholder: 'botão, tabela, matrícula…',
-              value: query,
-              onChange: (e) => setQuery(e.target.value),
-            })
-          ),
-          h('div', { style: { flex: '1 1 auto' } },
-            h(DS.FilterChips, {
-              label: 'Grupo',
-              options: GROUPS.map((g) => ({
-                id: g.id,
-                label: g.label,
-                count: D.components.filter((c) => c.group === g.id).length,
-              })),
-              value: groups,
-              onChange: setGroups,
-              showClear: true,
-            })
-          ),
-          h('span', { className: 'sc-gallery-count' },
-            `${visible.length} de ${D.components.length}`)
-        ),
-        document.getElementById('mount-gallery-controls')
-      ),
-      visible.length
-        ? h('div', { className: 'sc-demos' },
-            visible.map((c) => h(DemoCard, { component: c, key: c.name })))
-        : h('div', { className: 'sc-empty' },
-            'Nenhum componente corresponde a essa busca. Limpe os filtros para ver os ',
-            D.components.length, '.')
-    );
+      h('div', { className: 'sc-hue-switch', role: 'group', 'aria-label': 'Cor das construções' },
+        options.map((id) => h('button', { key: id || 'original', type: 'button', 'aria-pressed': String(hue === id), onClick: () => setHue(id) },
+          id ? h('span', { className: 'dot', style: { background: `var(--rse-brand-${id})` } }) : null,
+          id ? HUE_PT[id] : 'Original'))),
+      h('div', { className: 'sc-motifs' }, D.assets.motifs.map((m) =>
+        h('figure', { className: 'sc-motif', key: m.id },
+          h(DS.BrandMotif, { variant: m.variant, size: 140, hue: hue || undefined }),
+          h('figcaption', null, h('b', null, MOTIF_PT[m.variant] || m.variant),
+            hue && hue !== m.hue ? `${HUE_PT[hue].toLowerCase()} — derivada` : `${(HUE_PT[m.hue] || m.hue).toLowerCase()} — oficial`)))));
   };
+  mount('mount-motifs', h(MotifGallery));
+  mount('mount-patterns', h(F, null, D.assets.patterns.map((p) =>
+    h('figure', { className: 'sc-pattern', key: p.id },
+      h('div', { className: 'art', role: 'img', 'aria-label': `Padrão de cubos, família ${(HUE_PT[p.hue] || p.hue).toLowerCase()}`, style: { backgroundImage: `url(../${p.path})` } }),
+      h('figcaption', null, `${HUE_PT[p.hue] || p.hue} · ${p.id}${p.id === 'cubes-pattern-4' ? ' — campo liso' : ''}`)))));
 
-  mount('mount-gallery', h(Gallery));
+  /* ── 01 Marca: voz (from docs/brand-manual.md) ───────────────────────────── */
 
-  /* ── Temas lado a lado ───────────────────────────────────────────────────── */
+  const Voice = () => h(F, null,
+    h('div', { className: 'sc-slogan-block' },
+      h('p', { className: 'sc-slogan' }, D.slogan, h('small', null, 'Dialoga com o conceito institucional "A vida acontece com o Sesc".')),
+      h('ul', { className: 'sc-extensions', 'aria-label': 'Extensões sancionadas do slogan' },
+        ['crescer com confiança', 'ampliar horizontes', 'a vida acontecer em cada fase'].map((x) =>
+          h('li', { key: x }, h('span', null, 'Aprender para '), x)))),
+    h('div', { className: 'sc-tone' },
+      h('div', { className: 'sc-panel' }, h('h3', { className: 'sc-h3' }, 'Somos'),
+        h('ul', { className: 'yes' }, [
+          ['Claros', 'sem complexidade desnecessária.'], ['Próximos', 'da vida e das escolhas de quem lê.'],
+          ['Consistentes', 'com a Rede nacional e o Sesc.'], ['Relevantes', 'ligados à vida real e aos desafios de agora.'],
+          ['Confiáveis', 'com a credibilidade institucional do Sesc.'],
+        ].map(([b, t]) => h('li', { key: b }, icon('circle-check', 18), h('span', null, h('b', null, b), ' — ', t))))),
+      h('div', { className: 'sc-panel' }, h('h3', { className: 'sc-h3' }, 'Evitamos'),
+        h('ul', { className: 'no' }, [
+          ['Técnico em excesso', 'jargão pedagógico que afasta.'], ['Distante', 'o "nós anunciamos" impessoal.'],
+          ['Genérico', 'a mensagem que serviria a qualquer escola.'], ['Promocional demais', 'promessas que a Rede não sustenta.'],
+          ['Emoji', 'nunca: é uma marca institucional.'],
+        ].map(([b, t]) => h('li', { key: b }, icon('circle-x', 18), h('span', null, h('b', null, b), ' — ', t)))))),
+    h('div', { className: 'sc-segments' }, [
+      ['green', 'Educação Infantil', ['acolhimento', 'formação integral', 'protagonismo'], 'Linguagem sensível e próxima.'],
+      ['blue', 'Ensino Fundamental', ['acolhimento', 'protagonismo', 'formação integral'], 'Equilíbrio entre proximidade e clareza.'],
+      ['orange', 'Ensino Médio', ['resultado', 'inovação', 'protagonismo'], 'Direta e objetiva: futuro e decisões.'],
+      ['purple', 'EJA', ['acolhimento', 'resultado', 'acessibilidade'], 'Direta e respeitosa, sem infantilizar.'],
+    ].map(([hue, title, chips, tone]) =>
+      h('div', { key: title, className: 'sc-segment', style: { background: `var(--rse-brand-${hue}-light)` } },
+        h('b', null, title), h('div', { className: 'chips' }, chips.map((c) => h('span', { key: c }, c))), h('p', null, tone)))));
+  mount('mount-voice', h(Voice));
 
-  const THEME_PANELS = [
-    { theme: null, label: 'Claro — o padrão' },
-    { theme: 'dark', label: 'Escuro' },
-    { theme: 'contrast', label: 'Alto contraste' },
+  mount('mount-photos', h(F, null, [
+    ['foto-sala', 'estudantes do ensino fundamental em atividade em grupo, sala de aula real, luz natural da janela, plano aberto, sem pose, uniforme Sesc visível', 'Pauta: atividade em grupo, plano aberto, luz natural.'],
+    ['foto-zenital', 'vista de cima de mesa com mãos de crianças montando um projeto, materiais coloridos, luz natural, sem rostos identificáveis', 'Pauta: zenital, mãos e materiais.'],
+    ['foto-inclusao', 'estudante usuário de cadeira de rodas participando de atividade com colegas, ambiente escolar real, enquadramento respeitoso e natural', 'Pauta: plural e inclusiva, sem encenação.'],
+  ].map(([id, brief, caption]) =>
+    h('figure', { key: id, className: 'sc-photo' },
+      h('image-slot', { id: `sc-${id}`, shape: 'rounded', radius: '24', placeholder: brief }),
+      h('figcaption', null, caption)))));
+
+  /* ── 02 Fundamentos: token explorer ──────────────────────────────────────── */
+
+  const ROLE_GROUPS = [
+    ['Texto', /^--rse-color-text-/], ['Superfície', /^--rse-color-surface-/], ['Borda', /^--rse-color-border-/],
+    ['Ação e foco', /^--rse-color-(primary|focus)/], ['Estado', /^--rse-color-(success|warning|danger|info)/],
+    ['Etiquetas', /^--rse-color-tint-/], ['Sab.IA', /^--rse-color-sabia-/], ['Dados e outros', /^--rse-color-/],
   ];
+  const roleNames = Object.keys(D.tokenTable).filter((n) => n.startsWith('--rse-color-'));
+  const groupedRoles = ROLE_GROUPS.map(([label, re]) => [label, roleNames.filter((n) => re.test(n))]);
+  { const seen = new Set(); groupedRoles.forEach((g) => { g[1] = g[1].filter((n) => !seen.has(n) && seen.add(n)); }); }
+  const aliasOf = (raw) => { const m = raw && raw.match(/var\((--[a-z0-9-]+)\)/); return m ? m[1] : null; };
+  const MODES = [['light', 'Claro'], ['dark', 'Escuro'], ['contrast', 'Alto contraste']];
+
+  const TokenExplorer = () => {
+    const [sel, setSel] = React.useState('--rse-color-text-link');
+    const row = D.tokenTable[sel];
+    return h(F, null,
+      h('div', { className: 'sc-panel sc-panel--flush' },
+        h('div', { className: 'sc-role-list', role: 'group', 'aria-label': 'Papéis de cor', tabIndex: 0 },
+          groupedRoles.filter(([, list]) => list.length).map(([label, list]) => h(F, { key: label },
+            h('p', { className: 'sc-role-group' }, label),
+            list.map((n) => h('button', { key: n, type: 'button', className: 'sc-role', 'aria-pressed': String(n === sel), onClick: () => setSel(n) },
+              h('i', { style: { background: D.tokenTable[n].modes.light.value } }), n.replace('--rse-color-', '')))))) ),
+      h('div', { className: 'sc-panel' },
+        h('h3', { className: 'sc-chain-title' }, h('code', null, sel)),
+        h('p', { className: 'sc-chain-desc' }, row.description || 'Papel de cor da camada 2: componentes e páginas leem este nome, nunca o valor.'),
+        h('div', { className: 'sc-chain-modes' }, MODES.map(([mode, label]) => {
+          const m = row.modes[mode];
+          const alias = aliasOf(m.raw);
+          return h('div', { className: 'sc-chain-mode', key: mode },
+            h('div', { className: 'sw', style: { background: m.value } }),
+            h('div', { className: 'info' }, h('b', null, label), h('code', null, m.value),
+              alias ? h('span', null, '← ', h('code', null, alias)) : h('span', null, 'valor próprio deste tema')));
+        })),
+        h('div', { className: 'sc-tiers', 'aria-label': 'Camadas' },
+          h('span', { className: 'sc-tier' }, 'Marca: --rse-brand-*'), icon('arrow-right', 16),
+          h('span', { className: 'sc-tier' }, 'Papel: --rse-color-*'), icon('arrow-right', 16),
+          h('span', { className: 'sc-tier' }, 'Componente: .rse-*'))));
+  };
+  mount('mount-token-explorer', h(TokenExplorer));
+
+  /* ── 02 Fundamentos: escalas, movimento, layout ──────────────────────────── */
+
+  mount('mount-space', h(F, null, Object.entries(D.scales.spacing).map(([n, v]) =>
+    h('div', { className: 'sc-space-row', key: n },
+      h('code', null, `--rse-space-${n}`), h('i', { className: 'sc-space-bar', style: { width: `var(--rse-space-${n})` } }), h('span', null, v)))));
+  mount('mount-radius', h(F, null, Object.entries(D.scales.radius).map(([r, v]) =>
+    h('div', { key: r }, h('div', { className: 'sc-specimen', style: { borderRadius: `var(--rse-radius-${r})` } }), h('p', { className: 'sc-scale-label' }, r, h('br'), v)))));
+  mount('mount-shadow', h(F, null, Object.keys(D.scales.shadow).map((s) =>
+    h('div', { key: s }, h('div', { className: 'sc-shadow-box', style: { boxShadow: `var(--rse-shadow-${s})` } }), h('p', { className: 'sc-scale-label' }, `--rse-shadow-${s}`)))));
+
+  const Motion = () => {
+    const [on, setOn] = React.useState(false);
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return h(F, null,
+      h('h3', { className: 'sc-h3' }, 'Movimento'),
+      h('p', { className: 'sc-note' }, reduced ? 'Seu sistema pede menos movimento: aqui, como em todo o sistema, as transições são instantâneas.' : 'Curva padrão, três durações. Nada de quicar, nada disparado pela rolagem.'),
+      ['fast', 'base', 'slow'].map((d) => h('div', { className: 'sc-motion-row', key: d },
+        h('code', null, `${d} · ${D.tokens[`--rse-duration-${d}`].value}`),
+        h('div', { className: `sc-motion-track${on ? ' is-on' : ''}` }, h('span', { className: 'sc-motion-dot', style: { transitionDuration: `var(--rse-duration-${d})` } })))),
+      h(DS.Button, { variant: 'secondary', size: 'sm', icon: icon(on ? 'refresh-cw' : 'play', 16), onClick: () => setOn(!on) }, on ? 'Voltar' : 'Reproduzir'));
+  };
+  mount('mount-motion', h(Motion));
+
+  const Layout = () => {
+    const bps = Object.entries(D.scales.breakpoints || {});
+    const max = 1440;
+    const containers = Object.entries(D.scales.layout).filter(([k]) => /^container-(sm|md|lg|xl)$/.test(k)).sort((a, b) => parseInt(a[1], 10) - parseInt(b[1], 10));
+    return h(F, null,
+      h('h3', { className: 'sc-h3' }, 'Pontos de quebra e contêineres'),
+      h('p', { className: 'sc-note' }, 'Da tela de um celular à de um monitor. O conteúdo de leitura para em 66 caracteres por linha.'),
+      h('div', { className: 'sc-bp', role: 'img', 'aria-label': 'Régua de pontos de quebra: ' + bps.map(([k, v]) => `${k} ${v}`).join(', ') },
+        bps.map(([k, v]) => h('div', { key: k, className: 'sc-bp-mark', style: { left: `${(parseInt(v, 10) / max) * 100}%`, display: parseInt(v, 10) >= max ? 'none' : 'block' } },
+          h('span', null, k), h('em', null, v)))),
+      h('div', { className: 'sc-containers' }, containers.map(([k, v]) =>
+        h('div', { key: k, className: 'sc-container-bar', style: { width: `${(parseInt(v, 10) / max) * 100}%` } }, `${k.replace('container-', '')} · ${v}`))));
+  };
+  mount('mount-layout', h(Layout));
+
+  /* ── 02 Fundamentos: temas ───────────────────────────────────────────────── */
 
   const ThemePreview = ({ theme, label }) =>
     h('div', { className: 'sc-theme-preview', 'data-rse-theme': theme || undefined },
       h('div', { className: 'head' }, label),
       h('div', { className: 'body' },
-        h(DS.Tag, { color: 'green' }, 'Educação Infantil'),
-        h('h4', { style: { fontSize: 'var(--rse-font-size-h4)', margin: 0, color: 'var(--rse-color-text-heading)' } },
-          'Primeiros passos'),
-        h('p', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)', margin: 0, lineHeight: 'var(--rse-line-height-body)' } },
-          'Acolhimento e descoberta para crianças de 0 a 5 anos.'),
-        h(DS.Button, { variant: 'primary', size: 'sm' }, 'Quero me inscrever'),
-        h(DS.Alert, { tone: 'info', message: 'Matrículas abertas nas unidades participantes.' }),
-        h(DS.BrandMotif, { variant: 'cube', size: 64 })
-      )
-    );
+        h('div', { style: { display: 'flex', gap: 'var(--rse-space-2)', flexWrap: 'wrap' } }, h(DS.Tag, { color: 'green' }, 'Educação Infantil'), h(DS.Badge, { tone: 'success' }, 'Vagas abertas')),
+        h('h3', { style: { fontSize: 'var(--rse-font-size-h3)', margin: 0, color: 'var(--rse-color-text-heading)' } }, 'Primeiros passos'),
+        h('p', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)', margin: 0, lineHeight: 'var(--rse-line-height-body)' } }, 'Acolhimento e descoberta para crianças de 0 a 5 anos.'),
+        h(DS.Input, { label: 'E-mail do responsável', placeholder: 'nome@exemplo.com' }),
+        h('div', { style: { display: 'flex', gap: 'var(--rse-space-2)', flexWrap: 'wrap' } }, h(DS.Button, { size: 'sm' }, 'Quero me inscrever'), h(DS.Button, { size: 'sm', variant: 'ghost' }, 'Saiba mais')),
+        h(DS.Alert, { tone: 'info', message: 'Matrículas abertas nas unidades participantes.' })));
+  mount('mount-themes', h(F, null, [['light', 'Claro — o padrão'], ['dark', 'Escuro'], ['contrast', 'Alto contraste']].map(([theme, label]) =>
+    h(ThemePreview, { key: label, theme, label }))));
 
-  mount(
-    'mount-themes',
-    h(F, null, THEME_PANELS.map((p) => h(ThemePreview, { ...p, key: p.label })))
-  );
+  /* ── 02 Fundamentos: acessibilidade ──────────────────────────────────────── */
 
-  /* ── Demonstração de teclado ─────────────────────────────────────────────── */
+  const ContrastTable = () => {
+    const rows = D.contrastPairs.map((p) => {
+      const front = resolveColor(p.fg); const back = resolveColor(p.bg); const r = ratio(front, back);
+      return { ...p, front, back, r, pass: r >= p.floor };
+    });
+    const failing = rows.filter((x) => !x.pass).length;
+    return h(F, null,
+      h('caption', { style: { color: failing ? 'var(--rse-color-danger-text)' : 'var(--rse-color-success-text)' } },
+        failing ? `${rows.length - failing} de ${rows.length} combinações passam neste tema.` : `As ${rows.length} combinações passam neste tema.`),
+      h('thead', null, h('tr', null, h('th', null, 'Combinação'), h('th', null, 'Amostra'), h('th', null, 'Razão'), h('th', { className: 'hide-sm' }, 'Mínimo'), h('th', null, 'Resultado'))),
+      h('tbody', null, rows.map((x) => h('tr', { key: x.label },
+        h('td', null, x.label),
+        h('td', null, x.floor < 4.5
+          ? h('span', { className: 'sc-contrast-sample is-graphic', 'aria-hidden': 'true', style: { background: x.back, boxShadow: `inset 0 0 0 3px ${x.front}` } })
+          : h('span', { className: 'sc-contrast-sample', style: { color: x.front, background: x.back } }, 'Aprender')),
+        h('td', null, h('span', { className: 'sc-ratio' }, fmtRatio(x.r))),
+        h('td', { className: 'hide-sm' }, `${String(x.floor).replace('.', ',')}:1`),
+        h('td', null, h('span', { className: `sc-verdict ${x.pass ? 'pass' : 'fail'}` }, icon(x.pass ? 'circle-check' : 'triangle-alert', 14), x.pass ? 'Passa' : 'Reprova'))))));
+  };
 
   const KeyboardDemo = () => {
     const [tab, setTab] = React.useState('a');
     const [checked, setChecked] = React.useState(false);
     return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-4)' } },
       h(DS.Input, { label: 'Comece aqui', placeholder: 'e pressione Tab' }),
-      h(DS.Tabs, {
-        tabs: [{ id: 'a', label: 'Uma' }, { id: 'b', label: 'Duas' }, { id: 'c', label: 'Três' }],
-        activeId: tab,
-        onChange: setTab,
-        label: 'Demonstração de teclado',
-      }),
+      h(DS.Tabs, { tabs: [{ id: 'a', label: 'Uma' }, { id: 'b', label: 'Duas' }, { id: 'c', label: 'Três' }], activeId: tab, onChange: setTab, label: 'Demonstração de teclado' }),
       h(DS.Checkbox, { label: 'Marque com a barra de espaço', checked, onChange: (e) => setChecked(e.target.checked) }),
-      h(DS.Button, { variant: 'ghost', size: 'sm' }, 'Última parada')
-    );
+      h('div', null, h(DS.Button, { variant: 'ghost', size: 'sm' }, 'Última parada')));
   };
   mount('mount-a11y-demo', h(KeyboardDemo));
+  mount('mount-a11y-facts', h(F, null,
+    h('h3', { className: 'sc-h3' }, 'Garantido, e verificado'),
+    h('ul', { className: 'sc-facts' }, [
+      [`${fmt(D.quality.axeViolations)} violações WCAG 2.2 AA`, ` nas ${D.quality.pagesTested} páginas que o CI abre no Chromium a cada mudança.`],
+      ['Foco sempre visível', ' — nenhum elemento perde o anel ao receber o foco.'],
+      ['Tudo pelo teclado', ' — abas com as setas, menus e diálogos fecham com Esc.'],
+      ['Alvo de toque de 44 px', ' nas ações principais.'],
+      ['Menos movimento', ' para quem pede isso ao sistema operacional, automaticamente.'],
+    ].map(([b, t]) => h('li', { key: b }, icon('circle-check', 18), h('span', null, h('b', null, b), t))))));
 
-  /* ── Artefatos: real files, running in scaled frames ─────────────────────── */
+  /* ── 02 Fundamentos: ícones ──────────────────────────────────────────────── */
 
-  const TEMPLATE_PT = {
-    'Landing Page': {
-      title: 'Página de campanha',
-      desc: 'Barra de aviso, hero, faixa de números, programas em abas, depoimento, busca de unidades e formulário de interesse.',
-    },
-    'Program detail page': {
-      title: 'Página de programa',
-      desc: 'Cabeçalho fixo, janela de matrícula, tabela de turmas, filtros, perguntas frequentes e inscrição em etapas.',
-    },
-    'Institutional deck': {
-      title: 'Apresentação institucional',
-      desc: 'Nove slides em 1920×1080, prontos para projeção, PDF ou PowerPoint.',
-    },
-    'Enrollment form (print)': {
-      title: 'Ficha de matrícula',
-      desc: 'Formulário A4 de duas páginas para impressão: dados, documentos, termos e assinaturas.',
-    },
+  const Icons = () => {
+    const [q, setQ] = React.useState('');
+    const names = (D.assets.icons.names || []).filter((n) => !q || n.includes(q.trim().toLowerCase()));
+    return h(F, null,
+      h('div', { className: 'sc-icon-tools' },
+        h(DS.Input, { label: 'Buscar ícone', placeholder: 'calendar, school, user…', value: q, onChange: (e) => setQ(e.target.value) }),
+        h('span', { className: 'sc-note', style: { margin: 0 } }, `${names.length} de ${D.assets.icons.names.length} · Lucide (ISC)`)),
+      h('div', { className: 'sc-icon-grid' }, names.map((n) =>
+        h('button', { key: n, type: 'button', className: 'sc-icon', onClick: () => copy(n, `O nome "${n}"`), 'aria-label': `Copiar o nome do ícone ${n}` },
+          icon(n, 24), h('span', { 'aria-hidden': 'true' }, n)))));
+  };
+  mount('mount-icons', h(Icons));
+
+  /* ── 03 Componentes: the gallery ─────────────────────────────────────────── */
+
+  const GROUPS = [];
+  D.components.forEach((c) => { if (!GROUPS.some((g) => g.id === c.group)) GROUPS.push({ id: c.group, label: c.groupLabel }); });
+  const isContract = (name) => D.contractComponents.includes(name);
+
+  // Pretty-print the markup a demo produced: what a CMS author would paste.
+  const prettyHtml = (html) => {
+    const VOID = /^<(area|br|col|hr|img|input|link|meta|source|wbr)\b/;
+    const flat = html.replace(/<svg[\s\S]*?<\/svg>/g, '<svg>…</svg>').replace(/>\s+</g, '><');
+    const tokens = flat.split(/(?=<)|(?<=>)/).filter((t) => t.trim());
+    let depth = 0; const out = [];
+    for (const t of tokens) {
+      if (t.startsWith('</')) depth = Math.max(0, depth - 1);
+      out.push('  '.repeat(depth) + t);
+      if (t.startsWith('<') && !t.startsWith('</') && !t.endsWith('/>') && !VOID.test(t)) depth++;
+    }
+    // An element with only text stays on one line: <p>Texto</p>
+    return out.join('\n').replace(/^( *)(<[^/][^>]*>)\n *([^<\n]+)\n *(<\/[^>]+>)/gm, '$1$2$3$4').replace(/<svg>\n *…\n *<\/svg>/g, '<svg>…</svg>');
+  };
+  // The demo's own layout wrapper (an unclassed div with inline style) is not part of the component.
+  const componentMarkup = (stage) => {
+    const isLayout = (el) => el.tagName === 'DIV' && !el.className && el.hasAttribute('style');
+    const unwrap = (el) => [...el.children].map((c) => (isLayout(c) ? unwrap(c) : c.outerHTML)).join('');
+    return unwrap(stage);
   };
 
-  /* Viewport each artefact is given inside its frame. The deck and the printable
-     form size themselves (deck-stage scales its 1920×1080 canvas to whatever
-     viewport it gets; doc-page lays out an A4 sheet), so these are the window
-     they look through, not their authored size. */
-  const ARTEFACT_VIEWPORT = {
-    'Landing Page': { width: 1280, height: 1560 },
-    'Program detail page': { width: 1280, height: 1560 },
+  const DemoCard = ({ component }) => {
+    const demo = DEMOS[component.name];
+    const contract = isContract(component.name);
+    const [tab, setTab] = React.useState(null);
+    const stageRef = React.useRef(null);
+    const tabs = [['props', 'Props'], ...(contract ? [['html', 'HTML']] : []), ['use', 'Usar']];
+    const panel = () => {
+      if (tab === 'props') return component.props.length
+        ? h('table', { className: 'sc-props' }, h('thead', null, h('tr', null, h('th', null, 'prop'), h('th', null, 'tipo'), h('th', null, 'nota'))),
+            h('tbody', null, component.props.map((p) => h('tr', { key: p.name }, h('td', null, h('code', null, p.name), p.required ? h('span', { className: 'req' }, ' *') : null), h('td', null, h('code', null, p.type)), h('td', null, p.notes || '—')))))
+        : h('p', { className: 'sc-note' }, 'Sem props declaradas.');
+      if (tab === 'html') {
+        const html = stageRef.current ? prettyHtml(componentMarkup(stageRef.current)) : '';
+        return h(F, null,
+          h('p', { className: 'sc-note' }, 'A marcação que este componente acabou de produzir. Com o CSS do sistema, ela funciona igual sem React — cole num CMS ou no portal.'),
+          h('pre', { className: 'sc-code', tabIndex: 0, 'aria-label': `HTML gerado por ${component.name}` }, html),
+          h('div', { className: 'sc-copy-row' }, h(DS.Button, { size: 'sm', variant: 'secondary', icon: icon('download', 16), onClick: () => copy(html, `O HTML de ${component.name}`) }, 'Copiar HTML')));
+      }
+      if (tab === 'use') {
+        const snippet = `// React\nimport { ${component.name} } from '${D.package}';\n\n// Página estática, depois do React 18\nconst { ${component.name} } = window.RSE;`;
+        return h(F, null, h('pre', { className: 'sc-code', tabIndex: 0, 'aria-label': `Como importar ${component.name}` }, snippet),
+          h('p', { className: 'sc-note', style: { margin: 'var(--rse-space-3) 0 0' } }, component.sourcePath));
+      }
+      return null;
+    };
+    return h('article', { className: 'sc-demo', id: `componente-${component.name.toLowerCase()}` },
+      h('div', { className: 'sc-demo-head' },
+        h('h3', { className: 'sc-demo-name' }, component.name,
+          h('span', { className: 'sc-demo-tag' }, component.groupLabel),
+          contract ? h('span', { className: 'sc-demo-tag is-contract' }, 'Contrato CSS') : null),
+        h('p', { className: 'sc-demo-desc' }, GLOSS[component.name] || component.summary)),
+      h('div', { className: `sc-demo-stage${demo && demo.block ? ' is-block' : ''}`, ref: stageRef },
+        demo ? demo.render() : h('p', { className: 'sc-note', style: { margin: 0 } }, 'Sem demonstração nesta página.')),
+      h('div', { className: 'sc-demo-tabs', role: 'tablist', 'aria-label': `Detalhes de ${component.name}` },
+        tabs.map(([id, label]) => h('button', { key: id, type: 'button', role: 'tab', 'aria-selected': String(tab === id), onClick: () => setTab(tab === id ? null : id) }, label))),
+      tab ? h('div', { className: 'sc-demo-panel', role: 'tabpanel' }, panel()) : null);
+  };
+
+  const Gallery = () => {
+    const [query, setQuery] = React.useState('');
+    const [groups, setGroups] = React.useState([]);
+    const [onlyContract, setOnlyContract] = React.useState(false);
+    const q = query.trim().toLowerCase();
+    const visible = D.components.filter((c) =>
+      (groups.length === 0 || groups.includes(c.group)) && (!onlyContract || isContract(c.name)) &&
+      (!q || c.name.toLowerCase().includes(q) || (GLOSS[c.name] || '').toLowerCase().includes(q) || c.summary.toLowerCase().includes(q)));
+    return h(F, null,
+      ReactDOM.createPortal(h(F, null,
+        h('div', { className: 'sc-gallery-search' }, h(DS.Input, { label: 'Buscar componente', placeholder: 'botão, tabela, matrícula…', value: query, onChange: (e) => setQuery(e.target.value) })),
+        h('div', { style: { flex: '1 1 24rem' } }, h(DS.FilterChips, {
+          label: 'Grupo', value: groups, onChange: setGroups, showClear: true,
+          options: GROUPS.map((g) => ({ id: g.id, label: g.label, count: D.components.filter((c) => c.group === g.id).length })) })),
+        h(DS.Switch, { label: 'Só contrato CSS', checked: onlyContract, onChange: (e) => setOnlyContract(e.target.checked) }),
+        h('span', { className: 'sc-gallery-count', 'aria-live': 'polite' }, `${visible.length} de ${D.components.length}`)),
+      document.getElementById('mount-gallery-controls')),
+      visible.length
+        ? h('div', { className: 'sc-demos' }, visible.map((c) => h(DemoCard, { component: c, key: c.name })))
+        : h('div', { className: 'sc-empty' }, 'Nenhum componente corresponde a essa busca.'));
+  };
+  mount('mount-gallery', h(Gallery));
+
+  /* ── 04 Aplicações: band lab ─────────────────────────────────────────────── */
+
+  const BAND_OPTIONS = [];
+  FAMILIES.forEach((f) => ['light', 'base', 'dark'].forEach((tone) => {
+    const c = D.palette.find((x) => x.family === f && x.tone === tone);
+    if (c) BAND_OPTIONS.push({ id: c.token, hex: c.hex, label: `${HUE_PT[f]} ${TONE_PT[tone]}` });
+  }));
+  const indigo = D.palette.find((x) => x.family === 'indigo');
+  if (indigo) BAND_OPTIONS.push({ id: indigo.token, hex: indigo.hex, label: 'Índigo' });
+
+  const BandLab = () => {
+    const [sel, setSel] = React.useState('--rse-brand-green');
+    const [title, setTitle] = React.useState('Matrículas abertas para 2027');
+    const opt = BAND_OPTIONS.find((o) => o.id === sel);
+    const t = bestText(opt.hex);
+    const ok = t.best >= 4.5;
+    return h(F, null,
+      h('div', { className: 'sc-panel' },
+        h('h3', { className: 'sc-h3' }, 'Cor da faixa'),
+        h('div', { className: 'sc-band-swatches', role: 'group', 'aria-label': 'Cor da faixa' },
+          BAND_OPTIONS.map((o) => {
+            const refused = bestText(o.hex).best < 4.5;
+            return h('button', { key: o.id, type: 'button', className: `sc-band-swatch${refused ? ' is-refused' : ''}`, style: { background: o.hex },
+              'aria-pressed': String(o.id === sel), 'aria-label': `${o.label}${refused ? ' — não sustenta texto' : ''}`, title: o.label, onClick: () => setSel(o.id) });
+          })),
+        h(DS.Input, { label: 'Título da faixa', value: title, onChange: (e) => setTitle(e.target.value), maxLength: 80 }),
+        h('div', { className: 'sc-band-verdict' },
+          h(DS.Badge, { tone: t.ink >= 4.5 ? 'success' : 'danger' }, `Tinta ${fmtRatio(t.ink)}`),
+          h(DS.Badge, { tone: t.white >= 4.5 ? 'success' : 'danger' }, `Branco ${fmtRatio(t.white)}`))),
+      ok
+        ? h('div', { className: 'sc-band-preview', style: { background: opt.hex, color: t.color }, 'aria-live': 'polite' },
+            h('p', { className: 'eyebrow' }, `${opt.label} · texto em ${t.which} · ${fmtRatio(t.best)}`),
+            h('h3', null, title || 'Escreva um título'),
+            h('p', null, 'Inscrições nas unidades participantes até o fim do mês. Exemplo de conteúdo — verifique datas com o Sesc.'),
+            h('div', null, h(DS.Button, { variant: 'secondary', icon: icon('graduation-cap', 18) }, 'Quero me inscrever')))
+        : h('div', { className: 'sc-band-refused', role: 'status' },
+            icon('triangle-alert', 28),
+            h('b', null, `${opt.label} não sustenta texto`),
+            h('p', { style: { margin: 0 } }, `Tinta chega a ${fmtRatio(t.ink)} e branco a ${fmtRatio(t.white)} — ambos abaixo de 4,5:1. Use o tom claro ou médio desta família como faixa; o tom escuro fica para ilustração e para a arte.`)));
+  };
+  mount('mount-band-lab', h(BandLab));
+
+  /* ── 04 Aplicações: templates, live, at three widths ─────────────────────── */
+
+  const TEMPLATE_PT = {
+    'Landing Page': ['Página de campanha', 'Aviso, hero, números, programas em abas, depoimento, busca de unidades e formulário de interesse.'],
+    'Program detail page': ['Página de programa', 'Janela de matrícula, tabela de turmas, filtros, perguntas frequentes e inscrição em etapas.'],
+    'Institutional deck': ['Apresentação institucional', 'Nove slides em 1920×1080, para projeção, PDF ou PowerPoint.'],
+    'Enrollment form (print)': ['Ficha de matrícula', 'Formulário A4 de duas páginas: dados, documentos, termos e assinaturas.'],
+  };
+  const VIEW = {
+    'Landing Page': { width: 1280, height: 1500, web: true },
+    'Program detail page': { width: 1280, height: 1500, web: true },
     'Institutional deck': { width: 1280, height: 720 },
     'Enrollment form (print)': { width: 880, height: 1240, paper: true },
   };
-
   const ARTEFACTS = [
-    ...D.templates.map((t) => ({
-      key: t.name,
-      title: (TEMPLATE_PT[t.name] || {}).title || t.name,
-      desc: (TEMPLATE_PT[t.name] || {}).desc || t.description,
-      src: `../${t.entryPath}`,
-      ...(ARTEFACT_VIEWPORT[t.name] || { width: 1280, height: 1400 }),
-    })),
-    {
-      key: 'poster',
-      title: 'Cartaz A3',
-      desc: 'Ponto de partida em branco para peça impressa, com o CSS de impressão já resolvido.',
-      src: '../starters/poster.html',
-      width: 1170,
-      height: 1660,
-      paper: true,
-    },
+    ...D.templates.map((t) => ({ key: t.name, title: (TEMPLATE_PT[t.name] || [t.name])[0], desc: (TEMPLATE_PT[t.name] || [])[1] || t.description, src: `../${t.entryPath}`, ...(VIEW[t.name] || { width: 1280, height: 1400 }) })),
+    { key: 'poster', title: 'Cartaz A3', desc: 'Ponto de partida para peça impressa, com o CSS de impressão resolvido.', src: '../starters/poster.html', width: 1170, height: 1660, paper: true },
   ];
+  const DEVICES = [[360, 'Celular', 'phone'], [834, 'Tablet', 'layout-dashboard'], [1280, 'Desktop', 'globe']];
 
   const Artefact = ({ item }) => {
     const stageRef = React.useRef(null);
-    const [scale, setScale] = React.useState(0.25);
-
+    const [avail, setAvail] = React.useState(560);
+    const [device, setDevice] = React.useState(item.width);
     React.useEffect(() => {
-      const node = stageRef.current;
-      if (!node) return;
-      const measure = () => {
-        const available = node.clientWidth - (item.paper ? 32 : 0);
-        setScale(Math.max(0.08, available / item.width));
-      };
+      const node = stageRef.current; if (!node) return;
+      const measure = () => setAvail(node.clientWidth);
       measure();
-      const observer = new ResizeObserver(measure);
-      observer.observe(node);
-      return () => observer.disconnect();
-    }, [item.width, item.paper]);
-
-    const visibleHeight = Math.round(item.height * scale);
-
+      const ro = new ResizeObserver(measure); ro.observe(node);
+      return () => ro.disconnect();
+    }, []);
+    const width = item.web ? device : item.width;
+    const scale = Math.min(1, (avail - (item.paper ? 32 : 0)) / width);
+    const frameHeight = item.web && device < 834 ? 1500 : item.height;
+    const visible = Math.round(Math.min(frameHeight * scale, 640));
     return h('div', { className: 'sc-artefact' },
       h('div', { className: 'sc-artefact-head' },
-        h('div', null,
-          h('h3', { className: 'sc-artefact-title' }, item.title),
-          h('p', { className: 'sc-artefact-desc' }, item.desc)
-        )
-      ),
+        h('div', null, h('h3', { className: 'sc-artefact-title' }, item.title), h('p', { className: 'sc-artefact-desc' }, item.desc)),
+        item.web ? h('div', { className: 'sc-device', role: 'group', 'aria-label': `Largura de ${item.title}` },
+          DEVICES.map(([w, label, ic]) => h('button', { key: w, type: 'button', 'aria-pressed': String(device === w), onClick: () => setDevice(w) }, icon(ic, 14), label))) : null),
       h('div', { className: `sc-viewport${item.paper ? ' is-paper' : ''}` },
-        item.paper ? null : h('div', { className: 'chrome' }, h('i'), h('i'), h('i')),
-        h('div', {
-          className: 'stage',
-          ref: stageRef,
-          style: { height: `${visibleHeight + (item.paper ? 32 : 0)}px` },
-        },
-          h('iframe', {
-            src: item.src,
-            title: item.title,
-            loading: 'lazy',
-            tabIndex: -1,
-            'aria-hidden': 'true',
-            style: {
-              width: `${item.width}px`,
-              height: `${item.height}px`,
-              transform: `scale(${scale})`,
-            },
-          })
-        ),
-        h('a', {
-          className: 'sc-open',
-          href: item.src,
-          target: '_blank',
-          rel: 'noopener',
-        }, h('span', null, h(DS.Icon, { name: 'external-link', size: 18 }), `Abrir ${item.title} em tamanho real`))
-      )
-    );
+        item.paper ? null : h('div', { className: 'chrome', 'aria-hidden': 'true' }, h('i'), h('i'), h('i')),
+        h('div', { className: 'stage', ref: stageRef, style: { height: `${visible}px` } },
+          h('iframe', { src: item.src, title: `${item.title} — ${width} px`, tabIndex: -1, 'aria-hidden': 'true',
+            style: { width: `${width}px`, height: `${frameHeight}px`, transform: `scale(${scale})` } }))),
+      h('a', { className: 'sc-open', href: item.src, target: '_blank', rel: 'noopener' }, icon('external-link', 16), `Abrir ${item.title.toLowerCase()} em tamanho real`));
+  };
+  mount('mount-artefacts', h(F, null, ARTEFACTS.map((item) => h(Artefact, { item, key: item.key }))));
+
+  /* ── 04 Aplicações: Sab.IA (docs/sabia-platform.md) ──────────────────────── */
+
+  const SABIA_NAV = ['Social', 'Conteúdos', 'Biblioteca', 'Plano de aula', 'Atividades', 'Relatórios', 'Agendamento', 'Suporte'];
+  const SABIA_CARDS = [
+    ['purple', 'book-open', 'Plano de aula', 'Monte a sequência da semana com sugestões alinhadas ao material autoral.'],
+    ['orange', 'clipboard-check', 'Atividades', 'Acompanhe entregas e devolutivas da turma em um só lugar.'],
+    ['blue', 'folder', 'Biblioteca', 'Conteúdos da Rede organizados por segmento e componente curricular.'],
+    ['green', 'chart-column', 'Relatórios', 'Trilhas personalizadas e o avanço de cada estudante.'],
+  ];
+  mount('mount-sabia', h(F, null,
+    h('div', { className: 'sc-sabia', 'data-rse-theme': 'light', role: 'img', 'aria-label': 'Esquema do cabeçalho, da navegação e do rodapé da Plataforma Sesc Sab.IA' },
+      h('div', { className: 'sc-sabia-bar' },
+        h('img', { src: LOGO('sabia-horizontal-colour'), alt: '' }),
+        h('span', { className: 'sc-sabia-context' }, 'Educação · Rede de ensino (DN)'),
+        h('span', { className: 'sc-sabia-user' }, h(DS.Avatar, { initials: 'AR', size: 'sm' }), 'Ana R.')),
+      h('div', { className: 'sc-sabia-nav' }, SABIA_NAV.map((n) => h('span', { key: n, 'aria-current': n === 'Conteúdos' ? 'page' : undefined }, n))),
+      h('div', { className: 'sc-sabia-body' },
+        h('h3', null, 'Olá, Ana. Continue de onde parou.'),
+        h('div', { className: 'sc-sabia-cards' }, SABIA_CARDS.map(([hue, ic, title, text]) =>
+          h('div', { key: title, className: 'sc-sabia-card' },
+            h('i', { style: { background: `var(--rse-color-tint-${hue})`, color: `var(--rse-brand-${hue}-ink)` } }, icon(ic, 22)),
+            h('b', null, title), h('p', null, text))))),
+      h('div', { className: 'sc-sabia-foot' }, 'Suporte · (00) 0000-0000 · segunda a sexta — exemplo de preenchimento')),
+    h('div', { className: 'sc-sabia-palette' },
+      [['--rse-color-sabia-blue', 'Azul — cromo da plataforma'], ['--rse-color-sabia-purple', 'Roxo — acento'], ['--rse-color-sabia-orange', 'Laranja — acento']].map(([tok, label]) =>
+        h('span', { key: tok }, h('i', { style: { background: `var(${tok})` } }), label))),
+    h('div', { className: 'sc-sabia-entry' }, h(DS.PlatformEntry, null))));
+
+  /* ── 05 Uso ──────────────────────────────────────────────────────────────── */
+
+  const ROUTES = [
+    ['HTML e CSS', 'Sites em CMS, o portal de matrícula, peças entregues como arquivo. Um kit versionado, hospedado num caminho fixo; os componentes viram classes.',
+      `<link rel="stylesheet" href="/rse/${D.version}/styles.css">\n\n<a class="rse-button" href="/matricula">\n  Quero me inscrever\n</a>\n<span class="rse-badge rse-badge--success">\n  Vagas abertas\n</span>`],
+    ['React', 'Código de produção. Um pacote versionado no GitHub Packages, com tipos; os componentes renderizam as mesmas classes do HTML.',
+      `npm install ${D.package}\n\nimport '${D.package}/styles.css';\nimport { Button, Card } from '${D.package}';\n\n<Button href="/matricula">Quero me inscrever</Button>`],
+    ['Fora do navegador', 'Geradores em Python, fluxos de impressão, ferramentas de design. A marca inteira em dados: paleta com CMYK, escalas, regras.',
+      'import json\nbrand = json.load(open("brand.json"))\n\nroxo = brand["palette"][0]\nroxo["hex"], roxo["cmyk"]\nbrand["rules"]["logo"]["minSize"]'],
+  ];
+  mount('mount-routes', h(F, null, ROUTES.map(([title, who, code]) =>
+    h('div', { key: title, className: 'sc-panel sc-route' },
+      h('h3', { className: 'sc-h3' }, title), h('p', { className: 'who' }, who),
+      h('pre', { className: 'sc-code', tabIndex: 0, 'aria-label': `Exemplo: ${title}` }, code),
+      h('div', null, h(DS.Button, { size: 'sm', variant: 'secondary', onClick: () => copy(code, `O exemplo de ${title}`) }, 'Copiar'))))));
+
+  const LEVELS = [
+    ['is-bronze', 'Bronze', 'Parece a Rede', ['Carrega os tokens do sistema', 'Montserrat, paleta e selo pelas regras do manual', 'Texto em pt-BR, na voz da Rede']],
+    ['is-silver', 'Prata', 'Funciona como a Rede', ['Bronze, mais componentes do sistema em todo o cromo', 'WCAG 2.2 AA nas jornadas principais', 'Responsivo de 360 a 1440 px']],
+    ['is-gold', 'Ouro', 'É a Rede', ['Prata, mais seções montadas com os padrões', 'Temas claro, escuro e alto contraste', 'No máximo uma versão atrás da mais recente']],
+  ];
+  mount('mount-levels', h(F, null, LEVELS.map(([cls, name, tag, items]) =>
+    h('div', { key: name, className: `sc-level ${cls}` }, h('b', null, name), h('span', { className: 'tag' }, tag), h('ul', null, items.map((x) => h('li', { key: x }, x)))))));
+
+  const AGENT_FILES = [
+    ['bot', 'AGENTS.md', 'O guia de trabalho: regras inegociáveis, mapa do repositório, receitas e definição de pronto.'],
+    ['shield-check', 'RULES.md', 'As regras curtas que viajam dentro do pacote, para qualquer projeto que consuma o sistema.'],
+    ['file-text', 'brand.json', 'A marca em dados: paleta com CMYK, tokens por tema, ativos por papel e regras verificáveis.'],
+    ['sliders-horizontal', 'dist/tokens.json', 'Cada token resolvido nos três temas, com tipo e descrição — também como módulo tipado.'],
+    ['book-open', 'components/*/*.prompt.md', 'Quando usar cada componente, com exemplo em pt-BR e a marcação HTML.'],
+    ['clipboard-check', 'npm run check', 'A verificação: contraste, débito, arquivos gerados — o agente sabe se acertou.'],
+  ];
+  mount('mount-agent-files', h(F, null, AGENT_FILES.map(([ic, file, text]) =>
+    h('div', { key: file, className: 'sc-agent-file' }, h('i', { 'aria-hidden': 'true' }, icon(ic, 22)),
+      h('div', null, h('code', null, file), h('p', null, text))))));
+  document.getElementById('mount-agent-rules').textContent = JSON.stringify({ colour: D.rules.colour, logo: D.rules.logo, accessibility: D.rules.accessibility }, null, 2);
+
+  const Quality = () => {
+    const q = D.quality;
+    const pct = Math.round((q.componentsOnCssContract / q.componentsTotal) * 100);
+    const live = D.contrastPairs.filter((p) => ratio(resolveColor(p.fg), resolveColor(p.bg)) >= p.floor).length;
+    const metrics = [
+      [fmt(q.axeViolations), null, 'violações WCAG 2.2 AA', `em ${q.pagesTested} páginas abertas no Chromium, a 1280 e a 360 px, em cada mudança.`],
+      [`${live}`, `/${D.contrastPairs.length}`, 'pares de contraste passando', 'medidos agora, neste tema. O build é recusado se um deles cair.'],
+      [`${q.componentsOnCssContract}`, `/${q.componentsTotal}`, 'componentes no contrato CSS', null, pct],
+      [fmt(q.componentGlyphIcons ?? 0), null, 'ícones improvisados', 'nenhum caractere fazendo papel de ícone em componente.'],
+      [fmt(q.componentPxLiterals ?? 0), null, 'medidas fixas em componentes', 'só pode diminuir: a linha de base recusa qualquer aumento.'],
+      [fmt(q.pagesOverflowingOnPhone), null, 'páginas ainda rolam de lado a 360 px', 'templates e espécimes à espera da etapa responsiva — à vista, não escondidas.'],
+    ];
+    return h(F, null, metrics.map(([big, small, label, text, progress]) =>
+      h('div', { key: label, className: 'sc-metric' },
+        h('div', { className: 'big' }, big, small ? h('small', null, small) : null),
+        h('b', null, label),
+        progress !== undefined ? h(DS.ProgressBar, { value: progress, ariaLabel: `${progress}% dos componentes no contrato CSS` }) : null,
+        text ? h('p', null, text) : h('p', null, `${progress}% — os demais seguem na próxima etapa do roteiro.`))));
   };
 
-  mount(
-    'mount-artefacts',
-    h(F, null, ARTEFACTS.map((item) => h(Artefact, { item, key: item.key })))
-  );
+  /* ── Everything measured from the DOM, re-measured on theme change ───────── */
 
-  /* ── First paint of everything that is measured ──────────────────────────── */
-
+  function renderMeasured() {
+    mount('mount-contrast', h(ContrastTable));
+    mount('mount-quality', h(Quality));
+  }
   renderMeasured();
 })();

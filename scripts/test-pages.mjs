@@ -120,7 +120,8 @@ for (const [page, r] of Object.entries(results)) {
 console.log(`\n${pages.length} pages · ${totalAxe} axe violation nodes · ${overflowing} page(s) overflow at 360px`);
 
 if (update) {
-  const next = { ...baseline };
+  // A full run replaces the baseline, so pages that no longer exist drop out; --only merges.
+  const next = only ? { ...baseline } : {};
   for (const [page, r] of Object.entries(results)) next[page] = { axe: r.axe, overflow: r.overflow, rules: r.rules };
   writeFileSync(BASELINE, JSON.stringify(next, null, 2) + '\n');
   console.log(`${relative(ROOT, BASELINE)} updated`);

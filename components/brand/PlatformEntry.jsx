@@ -14,7 +14,8 @@ export function PlatformEntry({
   const onPurple = tone === 'purple';
   const surface = onPurple ? 'var(--rse-color-sabia-purple)' : 'var(--rse-color-sabia-surface)';
   const ink = onPurple ? 'var(--rse-brand-white)' : 'var(--rse-brand-ink)';
-  const muted = onPurple ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-text-body)';
+  // Sab.IA surfaces are fixed brand colours, so their text is fixed too: a themed role would flip in dark.
+  const muted = onPurple ? 'var(--rse-brand-white)' : 'var(--rse-brand-ink)';
   const [hover, setHover] = React.useState(false);
   return React.createElement('section', {
     style: {
@@ -31,7 +32,7 @@ export function PlatformEntry({
             style: {
               fontSize: 'var(--rse-font-size-eyebrow)', fontWeight: 'var(--rse-font-weight-bold)',
               letterSpacing: 'var(--rse-letter-spacing-eyebrow)', textTransform: 'uppercase',
-              color: onPurple ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-sabia-purple)'
+              color: onPurple ? 'var(--rse-brand-white)' : 'var(--rse-color-sabia-purple)'
             }
           }, eyebrow),
       React.createElement('h2', {
@@ -52,7 +53,7 @@ export function PlatformEntry({
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--rse-space-2)',
         minHeight: 'var(--rse-hit-target-min)', padding: '14px 28px', borderRadius: 'var(--rse-radius-pill)',
         fontSize: 'var(--rse-font-size-body-md)', fontWeight: 'var(--rse-font-weight-semibold)', textDecoration: 'none',
-        background: onPurple ? (hover ? 'var(--rse-color-sabia-surface)' : 'var(--rse-brand-white)') : (hover ? 'var(--rse-color-primary-hover)' : 'var(--rse-color-sabia-purple)'),
+        background: onPurple ? (hover ? 'var(--rse-color-sabia-surface)' : 'var(--rse-brand-white)') : (hover ? 'var(--rse-brand-purple-ink)' : 'var(--rse-color-sabia-purple)'),
         color: onPurple ? 'var(--rse-color-sabia-purple)' : 'var(--rse-brand-white)',
         transition: 'background var(--rse-duration-base) var(--rse-ease-standard)', whiteSpace: 'nowrap', flexShrink: 0
       }

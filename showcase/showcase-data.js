@@ -3030,6 +3030,1832 @@ window.SHOWCASE_DATA = {
       }
     }
   ],
+  "contractComponents": [
+    "Badge",
+    "Button",
+    "Card",
+    "Tag",
+    "Alert",
+    "Checkbox",
+    "Input",
+    "Radio",
+    "Select",
+    "Switch",
+    "Textarea"
+  ],
+  "tokenTable": {
+    "--rse-brand-cream": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#f2f4e4",
+          "raw": "#f2f4e4"
+        },
+        "dark": {
+          "value": "#f2f4e4",
+          "raw": "#f2f4e4"
+        },
+        "contrast": {
+          "value": "#f2f4e4",
+          "raw": "#f2f4e4"
+        }
+      }
+    },
+    "--rse-brand-indigo": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#4c549e",
+          "raw": "#4c549e"
+        },
+        "dark": {
+          "value": "#4c549e",
+          "raw": "#4c549e"
+        },
+        "contrast": {
+          "value": "#4c549e",
+          "raw": "#4c549e"
+        }
+      }
+    },
+    "--rse-brand-pink-light": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#f78f94",
+          "raw": "#f78f94"
+        },
+        "dark": {
+          "value": "#f78f94",
+          "raw": "#f78f94"
+        },
+        "contrast": {
+          "value": "#f78f94",
+          "raw": "#f78f94"
+        }
+      }
+    },
+    "--rse-brand-pink": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#e27879",
+          "raw": "#e27879"
+        },
+        "dark": {
+          "value": "#e27879",
+          "raw": "#e27879"
+        },
+        "contrast": {
+          "value": "#e27879",
+          "raw": "#e27879"
+        }
+      }
+    },
+    "--rse-brand-pink-dark": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#cc646a",
+          "raw": "#cc646a"
+        },
+        "dark": {
+          "value": "#cc646a",
+          "raw": "#cc646a"
+        },
+        "contrast": {
+          "value": "#cc646a",
+          "raw": "#cc646a"
+        }
+      }
+    },
+    "--rse-brand-orange-light": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#fc9b59",
+          "raw": "#fc9b59"
+        },
+        "dark": {
+          "value": "#fc9b59",
+          "raw": "#fc9b59"
+        },
+        "contrast": {
+          "value": "#fc9b59",
+          "raw": "#fc9b59"
+        }
+      }
+    },
+    "--rse-brand-orange": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#e17f38",
+          "raw": "#e17f38"
+        },
+        "dark": {
+          "value": "#e17f38",
+          "raw": "#e17f38"
+        },
+        "contrast": {
+          "value": "#e17f38",
+          "raw": "#e17f38"
+        }
+      }
+    },
+    "--rse-brand-orange-dark": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#c6621e",
+          "raw": "#c6621e"
+        },
+        "dark": {
+          "value": "#c6621e",
+          "raw": "#c6621e"
+        },
+        "contrast": {
+          "value": "#c6621e",
+          "raw": "#c6621e"
+        }
+      }
+    },
+    "--rse-brand-green-light": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#a3d864",
+          "raw": "#a3d864"
+        },
+        "dark": {
+          "value": "#a3d864",
+          "raw": "#a3d864"
+        },
+        "contrast": {
+          "value": "#a3d864",
+          "raw": "#a3d864"
+        }
+      }
+    },
+    "--rse-brand-green": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#85b73d",
+          "raw": "#85b73d"
+        },
+        "dark": {
+          "value": "#85b73d",
+          "raw": "#85b73d"
+        },
+        "contrast": {
+          "value": "#85b73d",
+          "raw": "#85b73d"
+        }
+      }
+    },
+    "--rse-brand-green-dark": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#658e1e",
+          "raw": "#658e1e"
+        },
+        "dark": {
+          "value": "#658e1e",
+          "raw": "#658e1e"
+        },
+        "contrast": {
+          "value": "#658e1e",
+          "raw": "#658e1e"
+        }
+      }
+    },
+    "--rse-brand-blue-light": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#92c4e6",
+          "raw": "#92c4e6"
+        },
+        "dark": {
+          "value": "#92c4e6",
+          "raw": "#92c4e6"
+        },
+        "contrast": {
+          "value": "#92c4e6",
+          "raw": "#92c4e6"
+        }
+      }
+    },
+    "--rse-brand-blue": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#76b3dd",
+          "raw": "#76b3dd"
+        },
+        "dark": {
+          "value": "#76b3dd",
+          "raw": "#76b3dd"
+        },
+        "contrast": {
+          "value": "#76b3dd",
+          "raw": "#76b3dd"
+        }
+      }
+    },
+    "--rse-brand-blue-dark": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#4f85b2",
+          "raw": "#4f85b2"
+        },
+        "dark": {
+          "value": "#4f85b2",
+          "raw": "#4f85b2"
+        },
+        "contrast": {
+          "value": "#4f85b2",
+          "raw": "#4f85b2"
+        }
+      }
+    },
+    "--rse-brand-purple-light": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#ad98ea",
+          "raw": "#ad98ea"
+        },
+        "dark": {
+          "value": "#ad98ea",
+          "raw": "#ad98ea"
+        },
+        "contrast": {
+          "value": "#ad98ea",
+          "raw": "#ad98ea"
+        }
+      }
+    },
+    "--rse-brand-purple": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#8e82d8",
+          "raw": "#8e82d8"
+        },
+        "dark": {
+          "value": "#8e82d8",
+          "raw": "#8e82d8"
+        },
+        "contrast": {
+          "value": "#8e82d8",
+          "raw": "#8e82d8"
+        }
+      }
+    },
+    "--rse-brand-purple-dark": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#6c62c4",
+          "raw": "#6c62c4"
+        },
+        "dark": {
+          "value": "#6c62c4",
+          "raw": "#6c62c4"
+        },
+        "contrast": {
+          "value": "#6c62c4",
+          "raw": "#6c62c4"
+        }
+      }
+    },
+    "--rse-brand-yellow-light": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#ffd67b",
+          "raw": "#ffd67b"
+        },
+        "dark": {
+          "value": "#ffd67b",
+          "raw": "#ffd67b"
+        },
+        "contrast": {
+          "value": "#ffd67b",
+          "raw": "#ffd67b"
+        }
+      }
+    },
+    "--rse-brand-yellow": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#f4bf2a",
+          "raw": "#f4bf2a"
+        },
+        "dark": {
+          "value": "#f4bf2a",
+          "raw": "#f4bf2a"
+        },
+        "contrast": {
+          "value": "#f4bf2a",
+          "raw": "#f4bf2a"
+        }
+      }
+    },
+    "--rse-brand-yellow-dark": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#d39f2b",
+          "raw": "#d39f2b"
+        },
+        "dark": {
+          "value": "#d39f2b",
+          "raw": "#d39f2b"
+        },
+        "contrast": {
+          "value": "#d39f2b",
+          "raw": "#d39f2b"
+        }
+      }
+    },
+    "--rse-brand-pink-ink": {
+      "description": "Derived text steps, one per accent hue (decision D2). The official -dark tones reach only 3.4–4.1:1 against both white and ink, so none can carry small text. Text only — fills, artwork, selo and motif use the official values.",
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#8a1f26",
+          "raw": "#8a1f26"
+        },
+        "dark": {
+          "value": "#8a1f26",
+          "raw": "#8a1f26"
+        },
+        "contrast": {
+          "value": "#8a1f26",
+          "raw": "#8a1f26"
+        }
+      }
+    },
+    "--rse-brand-orange-ink": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#7a3d00",
+          "raw": "#7a3d00"
+        },
+        "dark": {
+          "value": "#7a3d00",
+          "raw": "#7a3d00"
+        },
+        "contrast": {
+          "value": "#7a3d00",
+          "raw": "#7a3d00"
+        }
+      }
+    },
+    "--rse-brand-green-ink": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#3f6100",
+          "raw": "#3f6100"
+        },
+        "dark": {
+          "value": "#3f6100",
+          "raw": "#3f6100"
+        },
+        "contrast": {
+          "value": "#3f6100",
+          "raw": "#3f6100"
+        }
+      }
+    },
+    "--rse-brand-blue-ink": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#1d5c86",
+          "raw": "#1d5c86"
+        },
+        "dark": {
+          "value": "#1d5c86",
+          "raw": "#1d5c86"
+        },
+        "contrast": {
+          "value": "#1d5c86",
+          "raw": "#1d5c86"
+        }
+      }
+    },
+    "--rse-brand-purple-ink": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#3a3186",
+          "raw": "#3a3186"
+        },
+        "dark": {
+          "value": "#3a3186",
+          "raw": "#3a3186"
+        },
+        "contrast": {
+          "value": "#3a3186",
+          "raw": "#3a3186"
+        }
+      }
+    },
+    "--rse-brand-yellow-ink": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#6b4700",
+          "raw": "#6b4700"
+        },
+        "dark": {
+          "value": "#6b4700",
+          "raw": "#6b4700"
+        },
+        "contrast": {
+          "value": "#6b4700",
+          "raw": "#6b4700"
+        }
+      }
+    },
+    "--rse-brand-black": {
+      "description": "Official black of the marks. Logo ink and one-colour print.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#1d1d1b",
+          "raw": "#1d1d1b"
+        },
+        "dark": {
+          "value": "#1d1d1b",
+          "raw": "#1d1d1b"
+        },
+        "contrast": {
+          "value": "#1d1d1b",
+          "raw": "#1d1d1b"
+        }
+      }
+    },
+    "--rse-brand-ink": {
+      "description": "UI text ink, warmer than the mark black. Carries text on every light and mid accent (4.8–10:1).",
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#2b2a3d",
+          "raw": "#2b2a3d"
+        },
+        "dark": {
+          "value": "#2b2a3d",
+          "raw": "#2b2a3d"
+        },
+        "contrast": {
+          "value": "#2b2a3d",
+          "raw": "#2b2a3d"
+        }
+      }
+    },
+    "--rse-brand-white": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#ffffff",
+          "raw": "#ffffff"
+        },
+        "dark": {
+          "value": "#ffffff",
+          "raw": "#ffffff"
+        },
+        "contrast": {
+          "value": "#ffffff",
+          "raw": "#ffffff"
+        }
+      }
+    },
+    "--rse-brand-gray-50": {
+      "description": "System neutrals, warm to sit with cream. Not in the manual.",
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#faf9f7",
+          "raw": "#faf9f7"
+        },
+        "dark": {
+          "value": "#faf9f7",
+          "raw": "#faf9f7"
+        },
+        "contrast": {
+          "value": "#faf9f7",
+          "raw": "#faf9f7"
+        }
+      }
+    },
+    "--rse-brand-gray-100": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        },
+        "dark": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        },
+        "contrast": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        }
+      }
+    },
+    "--rse-brand-gray-200": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#e4e2d9",
+          "raw": "#e4e2d9"
+        },
+        "dark": {
+          "value": "#e4e2d9",
+          "raw": "#e4e2d9"
+        },
+        "contrast": {
+          "value": "#e4e2d9",
+          "raw": "#e4e2d9"
+        }
+      }
+    },
+    "--rse-brand-gray-300": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#cfccc0",
+          "raw": "#cfccc0"
+        },
+        "dark": {
+          "value": "#cfccc0",
+          "raw": "#cfccc0"
+        },
+        "contrast": {
+          "value": "#cfccc0",
+          "raw": "#cfccc0"
+        }
+      }
+    },
+    "--rse-brand-gray-400": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#a8a496",
+          "raw": "#a8a496"
+        },
+        "dark": {
+          "value": "#a8a496",
+          "raw": "#a8a496"
+        },
+        "contrast": {
+          "value": "#a8a496",
+          "raw": "#a8a496"
+        }
+      }
+    },
+    "--rse-brand-gray-500": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#84806f",
+          "raw": "#84806f"
+        },
+        "dark": {
+          "value": "#84806f",
+          "raw": "#84806f"
+        },
+        "contrast": {
+          "value": "#84806f",
+          "raw": "#84806f"
+        }
+      }
+    },
+    "--rse-brand-gray-600": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#615d4f",
+          "raw": "#615d4f"
+        },
+        "dark": {
+          "value": "#615d4f",
+          "raw": "#615d4f"
+        },
+        "contrast": {
+          "value": "#615d4f",
+          "raw": "#615d4f"
+        }
+      }
+    },
+    "--rse-brand-gray-700": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#454235",
+          "raw": "#454235"
+        },
+        "dark": {
+          "value": "#454235",
+          "raw": "#454235"
+        },
+        "contrast": {
+          "value": "#454235",
+          "raw": "#454235"
+        }
+      }
+    },
+    "--rse-brand-gray-800": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#302e26",
+          "raw": "#302e26"
+        },
+        "dark": {
+          "value": "#302e26",
+          "raw": "#302e26"
+        },
+        "contrast": {
+          "value": "#302e26",
+          "raw": "#302e26"
+        }
+      }
+    },
+    "--rse-brand-gray-900": {
+      "description": null,
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#1e1c17",
+          "raw": "#1e1c17"
+        },
+        "dark": {
+          "value": "#1e1c17",
+          "raw": "#1e1c17"
+        },
+        "contrast": {
+          "value": "#1e1c17",
+          "raw": "#1e1c17"
+        }
+      }
+    },
+    "--rse-color-sabia-purple": {
+      "description": "Plataforma Sesc Sab.IA palette (manual p.90): three unchanged Rede values, no colour of its own. Use only on Sab.IA surfaces and entry points. The platform chrome is BLUE, not purple — see docs/sabia-platform.md.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#6c62c4",
+          "raw": "var(--rse-brand-purple-dark)"
+        },
+        "dark": {
+          "value": "#6c62c4",
+          "raw": "var(--rse-brand-purple-dark)"
+        },
+        "contrast": {
+          "value": "#6c62c4",
+          "raw": "var(--rse-brand-purple-dark)"
+        }
+      }
+    },
+    "--rse-color-sabia-blue": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#76b3dd",
+          "raw": "var(--rse-brand-blue)"
+        },
+        "dark": {
+          "value": "#76b3dd",
+          "raw": "var(--rse-brand-blue)"
+        },
+        "contrast": {
+          "value": "#76b3dd",
+          "raw": "var(--rse-brand-blue)"
+        }
+      }
+    },
+    "--rse-color-sabia-orange": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#e17f38",
+          "raw": "var(--rse-brand-orange)"
+        },
+        "dark": {
+          "value": "#e17f38",
+          "raw": "var(--rse-brand-orange)"
+        },
+        "contrast": {
+          "value": "#e17f38",
+          "raw": "var(--rse-brand-orange)"
+        }
+      }
+    },
+    "--rse-color-sabia-on-blue": {
+      "description": "Text on the blue platform chrome. White on --rse-color-sabia-blue is 2.27:1; ink is 6.17:1.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#2b2a3d",
+          "raw": "var(--rse-brand-ink)"
+        },
+        "dark": {
+          "value": "#2b2a3d",
+          "raw": "var(--rse-brand-ink)"
+        },
+        "contrast": {
+          "value": "#2b2a3d",
+          "raw": "var(--rse-brand-ink)"
+        }
+      }
+    },
+    "--rse-color-sabia-surface": {
+      "description": "Not in the manual: a system page tone for Sab.IA surfaces, which the manual does not supply.",
+      "derived": true,
+      "modes": {
+        "light": {
+          "value": "#eef0da",
+          "raw": "#eef0da"
+        },
+        "dark": {
+          "value": "#eef0da",
+          "raw": "#eef0da"
+        },
+        "contrast": {
+          "value": "#eef0da",
+          "raw": "#eef0da"
+        }
+      }
+    },
+    "--rse-color-primary": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#6c62c4",
+          "raw": "var(--rse-brand-purple-dark)"
+        },
+        "dark": {
+          "value": "#8e82d8",
+          "raw": "var(--rse-brand-purple)"
+        },
+        "contrast": {
+          "value": "#4a3fa8",
+          "raw": "#4a3fa8"
+        }
+      }
+    },
+    "--rse-color-primary-hover": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#5e56ab",
+          "raw": "#5e56ab"
+        },
+        "dark": {
+          "value": "#ad98ea",
+          "raw": "var(--rse-brand-purple-light)"
+        },
+        "contrast": {
+          "value": "#3a3186",
+          "raw": "#3a3186"
+        }
+      }
+    },
+    "--rse-color-primary-active": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#504a92",
+          "raw": "#504a92"
+        },
+        "dark": {
+          "value": "#6c62c4",
+          "raw": "var(--rse-brand-purple-dark)"
+        },
+        "contrast": {
+          "value": "#2c2566",
+          "raw": "#2c2566"
+        }
+      }
+    },
+    "--rse-color-surface-page": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#f2f4e4",
+          "raw": "var(--rse-brand-cream)"
+        },
+        "dark": {
+          "value": "#1b1a26",
+          "raw": "#1b1a26"
+        },
+        "contrast": {
+          "value": "#ffffff",
+          "raw": "#ffffff"
+        }
+      }
+    },
+    "--rse-color-surface-card": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#ffffff",
+          "raw": "var(--rse-brand-white)"
+        },
+        "dark": {
+          "value": "#24232f",
+          "raw": "#24232f"
+        },
+        "contrast": {
+          "value": "#ffffff",
+          "raw": "#ffffff"
+        }
+      }
+    },
+    "--rse-color-surface-sunken": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#f2f1ec",
+          "raw": "var(--rse-brand-gray-100)"
+        },
+        "dark": {
+          "value": "#2e2d3b",
+          "raw": "#2e2d3b"
+        },
+        "contrast": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        }
+      }
+    },
+    "--rse-color-surface-inverse": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#2b2a3d",
+          "raw": "var(--rse-brand-ink)"
+        },
+        "dark": {
+          "value": "#f2f4e4",
+          "raw": "var(--rse-brand-cream)"
+        },
+        "contrast": {
+          "value": "#2b2a3d",
+          "raw": "var(--rse-brand-ink)"
+        }
+      }
+    },
+    "--rse-color-surface-primary-tint": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#edecf8",
+          "raw": "#edecf8"
+        },
+        "dark": {
+          "value": "#2f2b4d",
+          "raw": "#2f2b4d"
+        },
+        "contrast": {
+          "value": "#e6e3fa",
+          "raw": "#e6e3fa"
+        }
+      }
+    },
+    "--rse-color-surface-primary-tint-hover": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#e4e3f4",
+          "raw": "#e4e3f4"
+        },
+        "dark": {
+          "value": "#3a3563",
+          "raw": "#3a3563"
+        },
+        "contrast": {
+          "value": "#d7d2f5",
+          "raw": "#d7d2f5"
+        }
+      }
+    },
+    "--rse-color-text-on-primary-tint": {
+      "description": "Text and icons on --rse-color-surface-primary-tint (secondary button, menu hover, avatar initials).\n--rse-color-primary itself is 4.29:1 there; the hover purple is 5.29:1.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#5e56ab",
+          "raw": "var(--rse-color-primary-hover)"
+        },
+        "dark": {
+          "value": "#ad98ea",
+          "raw": "var(--rse-brand-purple-light)"
+        },
+        "contrast": {
+          "value": "#3a3186",
+          "raw": "#3a3186"
+        }
+      }
+    },
+    "--rse-color-surface-page-translucent": {
+      "description": "Sticky header / any chrome that sits over scrolling page content.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "rgba(242,244,228,0.92)",
+          "raw": "rgba(242,244,228,0.92)"
+        },
+        "dark": {
+          "value": "rgba(27,26,38,0.92)",
+          "raw": "rgba(27,26,38,0.92)"
+        },
+        "contrast": {
+          "value": "#ffffff",
+          "raw": "#ffffff"
+        }
+      }
+    },
+    "--rse-color-border-subtle": {
+      "description": "Three borders, and the difference is a rule, not a taste:\nsubtle / default are decoration — hairlines between rows, around a specimen, under a\nsection. They may sit below 3:1.\nstrong is the resting boundary of an interactive control — field, checkbox, radio, chip,\nghost button, menu trigger, step marker. Those controls fill with --rse-color-surface-card, the same\ncolour as the surface behind them, so the border is the only thing identifying the control\nand WCAG 1.4.11 requires 3:1. --rse-color-border-default (gray-300) gave 1.61:1; gray-500 gives 3.96:1.\nNever move a control's border back to --rse-color-border-default.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#e4e2d9",
+          "raw": "var(--rse-brand-gray-200)"
+        },
+        "dark": {
+          "value": "#34323f",
+          "raw": "#34323f"
+        },
+        "contrast": {
+          "value": "#5b5866",
+          "raw": "#5b5866"
+        }
+      }
+    },
+    "--rse-color-border-default": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#cfccc0",
+          "raw": "var(--rse-brand-gray-300)"
+        },
+        "dark": {
+          "value": "#474553",
+          "raw": "#474553"
+        },
+        "contrast": {
+          "value": "#2b2a3d",
+          "raw": "#2b2a3d"
+        }
+      }
+    },
+    "--rse-color-border-strong": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#84806f",
+          "raw": "var(--rse-brand-gray-500)"
+        },
+        "dark": {
+          "value": "#7a7890",
+          "raw": "#7a7890"
+        },
+        "contrast": {
+          "value": "#000000",
+          "raw": "#000000"
+        }
+      }
+    },
+    "--rse-color-border-on-ink": {
+      "description": "Hairline on the fixed ink surface (footer), which stays ink in every theme.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#3a3830",
+          "raw": "#3a3830"
+        },
+        "dark": {
+          "value": "#3a3830",
+          "raw": "#3a3830"
+        },
+        "contrast": {
+          "value": "#3a3830",
+          "raw": "#3a3830"
+        }
+      }
+    },
+    "--rse-color-text-on-ink": {
+      "description": "Text on the fixed ink surface (footer), which stays ink in every theme.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#ffffff",
+          "raw": "var(--rse-brand-white)"
+        },
+        "dark": {
+          "value": "#ffffff",
+          "raw": "var(--rse-brand-white)"
+        },
+        "contrast": {
+          "value": "#ffffff",
+          "raw": "var(--rse-brand-white)"
+        }
+      }
+    },
+    "--rse-color-text-on-ink-muted": {
+      "description": "Secondary text on the ink surface: 6.0:1 against it. Never a dimmed white.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#a8a496",
+          "raw": "var(--rse-brand-gray-400)"
+        },
+        "dark": {
+          "value": "#a8a496",
+          "raw": "var(--rse-brand-gray-400)"
+        },
+        "contrast": {
+          "value": "#a8a496",
+          "raw": "var(--rse-brand-gray-400)"
+        }
+      }
+    },
+    "--rse-color-text-heading": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#2b2a3d",
+          "raw": "var(--rse-brand-ink)"
+        },
+        "dark": {
+          "value": "#f4f3ee",
+          "raw": "#f4f3ee"
+        },
+        "contrast": {
+          "value": "#000000",
+          "raw": "#000000"
+        }
+      }
+    },
+    "--rse-color-text-body": {
+      "description": "Body text colour.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#454235",
+          "raw": "var(--rse-brand-gray-700)"
+        },
+        "dark": {
+          "value": "#cfcdc6",
+          "raw": "#cfcdc6"
+        },
+        "contrast": {
+          "value": "#1a1926",
+          "raw": "#1a1926"
+        }
+      }
+    },
+    "--rse-color-text-muted": {
+      "description": "gray-600, not gray-500: at gray-500 this cleared only 3.56:1 on the cream page and\n3.96:1 on a white card, under the 4.5:1 floor this system sets for body text — and\n--rse-color-text-muted carries real body copy (card descriptions, lead paragraphs). The dark\nand contrast themes override it separately and were already above the floor.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#615d4f",
+          "raw": "var(--rse-brand-gray-600)"
+        },
+        "dark": {
+          "value": "#9b998f",
+          "raw": "#9b998f"
+        },
+        "contrast": {
+          "value": "#3d3b4a",
+          "raw": "#3d3b4a"
+        }
+      }
+    },
+    "--rse-color-text-inverse": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#ffffff",
+          "raw": "var(--rse-brand-white)"
+        },
+        "dark": {
+          "value": "#2b2a3d",
+          "raw": "var(--rse-brand-ink)"
+        },
+        "contrast": {
+          "value": "#ffffff",
+          "raw": "var(--rse-brand-white)"
+        }
+      }
+    },
+    "--rse-color-text-on-primary": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#ffffff",
+          "raw": "var(--rse-brand-white)"
+        },
+        "dark": {
+          "value": "#171622",
+          "raw": "#171622"
+        },
+        "contrast": {
+          "value": "#ffffff",
+          "raw": "var(--rse-brand-white)"
+        }
+      }
+    },
+    "--rse-color-text-link": {
+      "description": "Link text. The deeper purple, not --rse-color-primary: the primary is 4.50:1 on cream and 4.44:1 on the sunken surface, this is 5.3:1 or more on every light surface.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#5e56ab",
+          "raw": "var(--rse-color-primary-hover)"
+        },
+        "dark": {
+          "value": "#ad98ea",
+          "raw": "var(--rse-brand-purple-light)"
+        },
+        "contrast": {
+          "value": "#3a3186",
+          "raw": "#3a3186"
+        }
+      }
+    },
+    "--rse-color-text-link-hover": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#4c549e",
+          "raw": "var(--rse-brand-indigo)"
+        },
+        "dark": {
+          "value": "#c8b9ff",
+          "raw": "#c8b9ff"
+        },
+        "contrast": {
+          "value": "#2c2566",
+          "raw": "#2c2566"
+        }
+      }
+    },
+    "--rse-color-focus-ring": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#4f85b2",
+          "raw": "var(--rse-brand-blue-dark)"
+        },
+        "dark": {
+          "value": "#92c4e6",
+          "raw": "var(--rse-brand-blue-light)"
+        },
+        "contrast": {
+          "value": "#000000",
+          "raw": "#000000"
+        }
+      }
+    },
+    "--rse-color-success": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#658e1e",
+          "raw": "var(--rse-brand-green-dark)"
+        },
+        "dark": {
+          "value": "#a3d864",
+          "raw": "var(--rse-brand-green-light)"
+        },
+        "contrast": {
+          "value": "#3f6100",
+          "raw": "#3f6100"
+        }
+      }
+    },
+    "--rse-color-warning": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#d39f2b",
+          "raw": "var(--rse-brand-yellow-dark)"
+        },
+        "dark": {
+          "value": "#ffd67b",
+          "raw": "var(--rse-brand-yellow-light)"
+        },
+        "contrast": {
+          "value": "#7a5200",
+          "raw": "#7a5200"
+        }
+      }
+    },
+    "--rse-color-danger": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#cc646a",
+          "raw": "var(--rse-brand-pink-dark)"
+        },
+        "dark": {
+          "value": "#f78f94",
+          "raw": "var(--rse-brand-pink-light)"
+        },
+        "contrast": {
+          "value": "#a3232b",
+          "raw": "#a3232b"
+        }
+      }
+    },
+    "--rse-color-info": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#4f85b2",
+          "raw": "var(--rse-brand-blue-dark)"
+        },
+        "dark": {
+          "value": "#92c4e6",
+          "raw": "var(--rse-brand-blue-light)"
+        },
+        "contrast": {
+          "value": "#1d5c86",
+          "raw": "#1d5c86"
+        }
+      }
+    },
+    "--rse-color-success-text": {
+      "description": "Status colours come in three roles. The bare name (--rse-color-success) is the INDICATOR: dots,\nborders, icons, progress fills, held to 3:1 non-text contrast. Text uses the -text role,\nwhich clears 4.5:1 on the matching -surface and on white. Never set text in the bare name:\n--rse-color-warning as text is 2.17:1.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#3f6100",
+          "raw": "var(--rse-brand-green-ink)"
+        },
+        "dark": {
+          "value": "#a3d864",
+          "raw": "var(--rse-brand-green-light)"
+        },
+        "contrast": {
+          "value": "#3f6100",
+          "raw": "#3f6100"
+        }
+      }
+    },
+    "--rse-color-warning-text": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#6b4700",
+          "raw": "var(--rse-brand-yellow-ink)"
+        },
+        "dark": {
+          "value": "#ffd67b",
+          "raw": "var(--rse-brand-yellow-light)"
+        },
+        "contrast": {
+          "value": "#7a5200",
+          "raw": "#7a5200"
+        }
+      }
+    },
+    "--rse-color-danger-text": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#8a1f26",
+          "raw": "var(--rse-brand-pink-ink)"
+        },
+        "dark": {
+          "value": "#f78f94",
+          "raw": "var(--rse-brand-pink-light)"
+        },
+        "contrast": {
+          "value": "#a3232b",
+          "raw": "#a3232b"
+        }
+      }
+    },
+    "--rse-color-info-text": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#1d5c86",
+          "raw": "var(--rse-brand-blue-ink)"
+        },
+        "dark": {
+          "value": "#92c4e6",
+          "raw": "var(--rse-brand-blue-light)"
+        },
+        "contrast": {
+          "value": "#1d5c86",
+          "raw": "#1d5c86"
+        }
+      }
+    },
+    "--rse-color-success-surface": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#eef5e0",
+          "raw": "#eef5e0"
+        },
+        "dark": {
+          "value": "#25301c",
+          "raw": "#25301c"
+        },
+        "contrast": {
+          "value": "#eef5e0",
+          "raw": "#eef5e0"
+        }
+      }
+    },
+    "--rse-color-warning-surface": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#fdf3d8",
+          "raw": "#fdf3d8"
+        },
+        "dark": {
+          "value": "#332a12",
+          "raw": "#332a12"
+        },
+        "contrast": {
+          "value": "#fdf3d8",
+          "raw": "#fdf3d8"
+        }
+      }
+    },
+    "--rse-color-danger-surface": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#fbe8e8",
+          "raw": "#fbe8e8"
+        },
+        "dark": {
+          "value": "#361f21",
+          "raw": "#361f21"
+        },
+        "contrast": {
+          "value": "#fbe8e8",
+          "raw": "#fbe8e8"
+        }
+      }
+    },
+    "--rse-color-info-surface": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#e6f1f9",
+          "raw": "#e6f1f9"
+        },
+        "dark": {
+          "value": "#1c2a33",
+          "raw": "#1c2a33"
+        },
+        "contrast": {
+          "value": "#e6f1f9",
+          "raw": "#e6f1f9"
+        }
+      }
+    },
+    "--rse-color-tint-pink": {
+      "description": "Accent chip tints — the pale backing behind a Tag in each of the six accent families. Paired with the matching tint-*-ink as foreground. Themed: never hard-code these values in a component.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#fce9ea",
+          "raw": "#fce9ea"
+        },
+        "dark": {
+          "value": "#3a2226",
+          "raw": "#3a2226"
+        },
+        "contrast": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        }
+      }
+    },
+    "--rse-color-tint-orange": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#fdeee0",
+          "raw": "#fdeee0"
+        },
+        "dark": {
+          "value": "#3a2a1c",
+          "raw": "#3a2a1c"
+        },
+        "contrast": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        }
+      }
+    },
+    "--rse-color-tint-green": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#eaf3dd",
+          "raw": "#eaf3dd"
+        },
+        "dark": {
+          "value": "#24301b",
+          "raw": "#24301b"
+        },
+        "contrast": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        }
+      }
+    },
+    "--rse-color-tint-blue": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#e8f2f9",
+          "raw": "#e8f2f9"
+        },
+        "dark": {
+          "value": "#1d2b34",
+          "raw": "#1d2b34"
+        },
+        "contrast": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        }
+      }
+    },
+    "--rse-color-tint-purple": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#edecf8",
+          "raw": "#edecf8"
+        },
+        "dark": {
+          "value": "#2c2850",
+          "raw": "#2c2850"
+        },
+        "contrast": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        }
+      }
+    },
+    "--rse-color-tint-yellow": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#fdf3d8",
+          "raw": "#fdf3d8"
+        },
+        "dark": {
+          "value": "#352c14",
+          "raw": "#352c14"
+        },
+        "contrast": {
+          "value": "#f2f1ec",
+          "raw": "#f2f1ec"
+        }
+      }
+    },
+    "--rse-color-tint-pink-ink": {
+      "description": "Text/icon colour to use on the matching tint.",
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#8a1f26",
+          "raw": "var(--rse-brand-pink-ink)"
+        },
+        "dark": {
+          "value": "#f78f94",
+          "raw": "var(--rse-brand-pink-light)"
+        },
+        "contrast": {
+          "value": "#8a1f26",
+          "raw": "#8a1f26"
+        }
+      }
+    },
+    "--rse-color-tint-orange-ink": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#7a3d00",
+          "raw": "var(--rse-brand-orange-ink)"
+        },
+        "dark": {
+          "value": "#fc9b59",
+          "raw": "var(--rse-brand-orange-light)"
+        },
+        "contrast": {
+          "value": "#7a3d00",
+          "raw": "#7a3d00"
+        }
+      }
+    },
+    "--rse-color-tint-green-ink": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#3f6100",
+          "raw": "var(--rse-brand-green-ink)"
+        },
+        "dark": {
+          "value": "#a3d864",
+          "raw": "var(--rse-brand-green-light)"
+        },
+        "contrast": {
+          "value": "#3f6100",
+          "raw": "#3f6100"
+        }
+      }
+    },
+    "--rse-color-tint-blue-ink": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#1d5c86",
+          "raw": "var(--rse-brand-blue-ink)"
+        },
+        "dark": {
+          "value": "#92c4e6",
+          "raw": "var(--rse-brand-blue-light)"
+        },
+        "contrast": {
+          "value": "#1d5c86",
+          "raw": "#1d5c86"
+        }
+      }
+    },
+    "--rse-color-tint-purple-ink": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#3a3186",
+          "raw": "var(--rse-brand-purple-ink)"
+        },
+        "dark": {
+          "value": "#ad98ea",
+          "raw": "var(--rse-brand-purple-light)"
+        },
+        "contrast": {
+          "value": "#3a3186",
+          "raw": "#3a3186"
+        }
+      }
+    },
+    "--rse-color-tint-yellow-ink": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#6b4700",
+          "raw": "var(--rse-brand-yellow-ink)"
+        },
+        "dark": {
+          "value": "#ffd67b",
+          "raw": "var(--rse-brand-yellow-light)"
+        },
+        "contrast": {
+          "value": "#6b4700",
+          "raw": "#6b4700"
+        }
+      }
+    },
+    "--rse-color-data-1": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#6c62c4",
+          "raw": "var(--rse-brand-purple-dark)"
+        },
+        "dark": {
+          "value": "#6c62c4",
+          "raw": "var(--rse-brand-purple-dark)"
+        },
+        "contrast": {
+          "value": "#6c62c4",
+          "raw": "var(--rse-brand-purple-dark)"
+        }
+      }
+    },
+    "--rse-color-data-2": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#76b3dd",
+          "raw": "var(--rse-brand-blue)"
+        },
+        "dark": {
+          "value": "#76b3dd",
+          "raw": "var(--rse-brand-blue)"
+        },
+        "contrast": {
+          "value": "#76b3dd",
+          "raw": "var(--rse-brand-blue)"
+        }
+      }
+    },
+    "--rse-color-data-3": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#85b73d",
+          "raw": "var(--rse-brand-green)"
+        },
+        "dark": {
+          "value": "#85b73d",
+          "raw": "var(--rse-brand-green)"
+        },
+        "contrast": {
+          "value": "#85b73d",
+          "raw": "var(--rse-brand-green)"
+        }
+      }
+    },
+    "--rse-color-data-4": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#f4bf2a",
+          "raw": "var(--rse-brand-yellow)"
+        },
+        "dark": {
+          "value": "#f4bf2a",
+          "raw": "var(--rse-brand-yellow)"
+        },
+        "contrast": {
+          "value": "#f4bf2a",
+          "raw": "var(--rse-brand-yellow)"
+        }
+      }
+    },
+    "--rse-color-data-5": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#e17f38",
+          "raw": "var(--rse-brand-orange)"
+        },
+        "dark": {
+          "value": "#e17f38",
+          "raw": "var(--rse-brand-orange)"
+        },
+        "contrast": {
+          "value": "#e17f38",
+          "raw": "var(--rse-brand-orange)"
+        }
+      }
+    },
+    "--rse-color-data-6": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "#e27879",
+          "raw": "var(--rse-brand-pink)"
+        },
+        "dark": {
+          "value": "#e27879",
+          "raw": "var(--rse-brand-pink)"
+        },
+        "contrast": {
+          "value": "#e27879",
+          "raw": "var(--rse-brand-pink)"
+        }
+      }
+    },
+    "--rse-color-scrim": {
+      "description": null,
+      "derived": false,
+      "modes": {
+        "light": {
+          "value": "rgba(43,42,61,0.55)",
+          "raw": "rgba(43,42,61,0.55)"
+        },
+        "dark": {
+          "value": "rgba(12,11,18,0.68)",
+          "raw": "rgba(12,11,18,0.68)"
+        },
+        "contrast": {
+          "value": "rgba(43,42,61,0.55)",
+          "raw": "rgba(43,42,61,0.55)"
+        }
+      }
+    }
+  },
+  "quality": {
+    "pagesTested": 46,
+    "axeViolations": 0,
+    "pagesOverflowingOnPhone": 12,
+    "componentsOnCssContract": 11,
+    "componentsTotal": 36,
+    "componentGlyphIcons": 0,
+    "componentPxLiterals": 81,
+    "componentsWithJsHover": 3
+  },
+  "package": "@idcesares/rse-design-system",
   "contrastPairs": [
     {
       "label": "Texto corrido sobre a página",
@@ -3272,7 +5098,7 @@ window.SHOWCASE_DATA = {
     "palette": 21,
     "themes": 3,
     "templates": 4,
-    "cards": 38,
+    "contrastPairs": 39,
     "icons": 97
   }
 };

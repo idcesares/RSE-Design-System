@@ -11,7 +11,7 @@
  * from tokens/src/*.tokens.json and the component sources, so the showcase inherits their freshness.
  * Run via `npm run sync`; `npm run check` verifies the output is current with --check.
  */
-import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CONTRAST_PAIRS } from './contrast-pairs.mjs';
@@ -82,19 +82,43 @@ const palette = brand.palette.map((c) => ({
   source: c.source,
 }));
 
-/* ── Counts, so the showcase never states a figure it did not derive ────────── */
-const countCards = () => {
-  let n = 0;
-  for (const dir of ['guidelines', 'components']) {
-    const walk = (d) => {
-      for (const e of readdirSync(join(ROOT, d), { withFileTypes: true })) {
-        if (e.isDirectory()) walk(`${d}/${e.name}`);
-        else if (e.name.endsWith('.card.html')) n++;
-      }
-    };
-    walk(dir);
+/* ── Components on the CSS contract: they have a .css file next to the .jsx ──── */
+const contractComponents = manifest.components
+  .filter((c) => existsSync(join(ROOT, c.sourcePath.replace(/\.jsx$/, '.css'))))
+  .map((c) => c.name);
+
+/* ── Tokens per theme with the alias each one points at, for the explorer ───── */
+const dist = read('dist/tokens.json');
+const raw = {};
+for (const t of manifest.tokens) {
+  const mode = t.scope ? (t.scope.match(/data-rse-theme="(\w+)"/) || [])[1] : 'light';
+  if (!mode || mode === 'auto') continue;
+  (raw[t.name] ??= {})[mode] = t.value;
+}
+const tokenTable = {};
+for (const [name, meta] of Object.entries(dist.tokens)) {
+  if (!meta.css || meta.type !== 'color') continue;
+  const row = { description: meta.description ?? null, derived: !!meta.derived, modes: {} };
+  for (const mode of ['light', 'dark', 'contrast']) {
+    row.modes[mode] = { value: dist.modes[mode][name], raw: raw[name]?.[mode] ?? raw[name]?.light ?? null };
   }
-  return n;
+  tokenTable[name] = row;
+}
+
+/* ── Quality, from the same baselines the gates read ──────────────────────────── */
+const readJson = (p) => (existsSync(join(ROOT, p)) ? read(p) : null);
+const auditBaseline = readJson('scripts/audit-baseline.json') ?? {};
+const pagesBaseline = readJson('scripts/test-pages-baseline.json') ?? {};
+const pageRows = Object.values(pagesBaseline);
+const quality = {
+  pagesTested: pageRows.length,
+  axeViolations: pageRows.reduce((n, r) => n + (r.axe ?? 0), 0),
+  pagesOverflowingOnPhone: pageRows.filter((r) => r.overflow).length,
+  componentsOnCssContract: contractComponents.length,
+  componentsTotal: manifest.components.length,
+  componentGlyphIcons: auditBaseline.componentGlyphIcons ?? null,
+  componentPxLiterals: auditBaseline.componentPxLiterals ?? null,
+  componentsWithJsHover: auditBaseline.componentsWithJsHover ?? null,
 };
 
 const data = {
@@ -110,6 +134,10 @@ const data = {
   assets: brand.assets,
   rules: brand.rules,
   templates: brand.templates,
+  contractComponents,
+  tokenTable,
+  quality,
+  package: pkg.name,
   contrastPairs: CONTRAST_PAIRS.map(({ label, fg, bg, floor }) => ({ label, fg, bg, floor })),
   counts: {
     components: components.length,
@@ -117,7 +145,7 @@ const data = {
     palette: palette.length,
     themes: Object.keys(brand.themes).length + 1, // + the light default
     templates: brand.templates.length,
-    cards: countCards(),
+    contrastPairs: CONTRAST_PAIRS.length,
     icons: brand.assets.icons?.count ?? 0,
   },
 };

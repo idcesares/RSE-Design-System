@@ -1771,11 +1771,12 @@
     "themes": {
       "attribute": "data-rse-theme",
       "values": [
+        "light",
         "dark",
         "contrast",
         "auto"
       ],
-      "default": "light (no attribute)"
+      "default": "light (no attribute; set \"light\" to nest it inside another theme)"
     },
     "bundle": "dist/rse.js",
     "bundleGlobal": "RSE",
