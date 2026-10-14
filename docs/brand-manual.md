@@ -49,8 +49,7 @@ Notes:
 - The manual's RGB and hex disagree for `orange` (RGB 255 127 56 = `#ff7f38`, published hex
   `#e17f38`) and `green-dark` (RGB 101 142 30 = `#658e1e`, matching). Where they disagree, the
   **hex** is what the digital system uses.
-- `purple`, `yellow-dark` and `orange-dark` are **official**, not derived — `tokens/colors.css`
-  marks them `/* derived */` and should not.
+- `purple`, `yellow-dark` and `orange-dark` are **official**, not derived.
 - The system's grays, tints, semantic roles, state layers and data-viz ramp are **not** in the
   manual. They are system-built on top of it and remain a legitimate extension.
 
@@ -116,9 +115,11 @@ flexibilidade*.
 Sanctioned uses: **small, blown-up (estourada), in outline, or forming patterns.**
 
 The manual publishes **six constructions in three hue families only — green, pink, blue**
-(`pdf 64`), and four full-bleed line-pattern fields (`pdf 65–69`) in those same families. This
-confirms the system's existing caveat: purple, orange and yellow constructions **do not exist** and
-must be requested, not invented by recolouring.
+(`pdf 64`), and four full-bleed line-pattern fields (`pdf 65–69`); the supplied pattern SVGs in
+`assets/patterns/` are blue, green, orange and pink. Purple, orange and yellow *constructions* do
+not exist in the supplied artwork. The design owner has since authorised deriving them through
+`BrandMotif`'s `hue` prop from the published palette (`AGENTS.md` rule 10) — present those three as
+**derived**, and replace them with official artwork if Sesc produces it.
 
 ## Verbal
 

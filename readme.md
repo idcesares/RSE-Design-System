@@ -22,7 +22,7 @@ The Rede Sesc de Educação is Sesc's (Serviço Social do Comércio) national ne
 
 **Brand attributes:** Tradição, Acolhimento, Resultado.
 
-## Components (35 built — brand-guidelines-only, so a standard primitive set sized to an educational marketing site)
+## Components (36 built — brand-guidelines-only, so a standard primitive set sized to an educational marketing site)
 Core: **Button**, **IconButton**, **Icon**, **Badge**, **Tag**, **Card**, **Avatar**, **Divider**
 Brand: **BrandMotif**
 Forms: **Input**, **Textarea**, **Select**, **Checkbox**, **Radio**, **Switch**, **Stepper**, **FilterChips**, **FileUpload**, **DateField**
@@ -63,7 +63,7 @@ All four load the system through a sibling `ds-base.js`; edit its one `base` lin
 ## Assets
 `assets/logos/` — **official vector lockups**: `wordmark-purple/black/white.svg`, `badge-solid.svg`, `badge-outline.svg`, and the Sab.IA set (`sabia-wordmark-purple/cream.svg`, `sabia-horizontal-colour.svg`). Originals and the approved colour sheets are kept in `assets/logos/source/`. See `assets/logos/README.md`.
 `assets/motifs/` — the official *cubo impossível* artwork plus its six constructions, split by `scripts/build-motifs.mjs`.
-`assets/patterns/` — four full-bleed cube pattern backgrounds (blue, green, orange, red).
+`assets/patterns/` — four full-bleed cube pattern backgrounds (blue, green, orange, pink).
 `assets/icons/lucide/` — the vendored Lucide icon set (ISC) that `components/core/Icon.jsx` is generated from. See `assets/icons/README.md`.
 `assets/logo-*.png` — the superseded raster extractions, kept only so older pages keep rendering.
 `assets/favicon.png`, `assets/og-image.png` — favicon and social-share image, composited from the existing official lockups (no new marks invented) — swap in production if Sesc has approved dedicated favicon/OG artwork.
@@ -79,9 +79,9 @@ All four load the system through a sibling `ds-base.js`; edit its one `base` lin
 - `CHANGELOG.md` — what changed and why, including the defects fixed in the 1.1.0 soundness pass.
 - `tokens/` — CSS custom properties.
 - `guidelines/*.card.html` — foundation specimen cards (Colors, Type, Spacing, Brand, Accessibility).
-- `components/{brand,core,data,disclosure,feedback,forms,navigation,overlay}/` — 35 React primitives, each with `.jsx` + `.d.ts` + `.prompt.md`, plus one or more `*.card.html` per directory.
+- `components/{brand,core,data,disclosure,feedback,forms,navigation,overlay}/` — 36 React primitives, each with `.jsx` + `.d.ts` + `.prompt.md`, plus one or more `*.card.html` per directory.
 - `templates/{institutional-deck,program-page,enrollment-form,landing-page}/` — four starting points (deck, detail page, printable form, landing page).
-- `ui_kits/site/` — marketing site recreation (`index.html`, `app.jsx`, `SiteHeader.jsx`, `SiteFooter.jsx`, `EnrollDialog.jsx`).
+- `ui_kits/site/` — marketing site recreation (`index.html`, `app.js`, `SiteHeader.js`, `SiteFooter.js`, `EnrollDialog.js`).
 - `showcase/index.html` — **the system presented as one page**, for showing to leadership or onboarding someone new. Opens by double-click, no build. Live components from `_ds_bundle.js`, palette and CMYK from `brand.json`, contrast ratios measured from the live DOM, and the four templates running in frames. See `showcase/README.md`.
 - `templates/landing-page/` — reusable landing-page starting point (`LandingPage.dc.html` + `ds-base.js`).
 - `thumbnail.html` — homepage tile.

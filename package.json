@@ -29,7 +29,8 @@
     "bind": "node scripts/bind.mjs",
     "icons": "node scripts/build-icons.mjs",
     "docs": "node scripts/gen-docs.mjs",
-    "lint:adherence": "npx --yes oxlint --config _adherence.oxlintrc.json components ui_kits templates"
+    "lint:adherence": "npx --yes oxlint --config _adherence.oxlintrc.json components ui_kits templates",
+    "audit": "node scripts/audit.mjs"
   },
   "engines": {
     "node": ">=18"

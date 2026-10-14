@@ -14,6 +14,7 @@ You are almost always doing one of four things. Jump straight to the one you're 
 | Add or change a component | [Changing a component](#changing-a-component) |
 | Change tokens / brand foundations | [Changing tokens](#changing-tokens) |
 | Put this system into another project | [docs/integration.md](docs/integration.md) |
+| Improve the system itself (roadmap work) | [docs/roadmap/roadmap.md](docs/roadmap/roadmap.md) |
 
 Before you ship anything, run:
 
@@ -192,8 +193,9 @@ the components.
 
 Artwork rules on top of the non-negotiables: flat colour fields only — no gradients, no textures,
 no drop shadows beyond `--shadow-sm/md/lg`, no photographic full-bleeds until real photography
-exists. The `BrandMotif` component (the brief's *cubo impossível*) is an explicit **placeholder**:
-use it as a geometric accent, and tell the user it must be replaced with the official artwork.
+exists. `BrandMotif` renders the official *cubo impossível* constructions (rule 10): one
+construction per composition; if you use the purple, orange or yellow `hue`, tell the user those
+are derived, not supplied.
 
 ## Changing a component
 
@@ -272,6 +274,7 @@ students, families and Sesc staff across the whole country.
 
 ```bash
 npm run check    # integrity: files, manifest, bundle + brand.json freshness, token collisions, a11y
+npm run audit    # quality scorecard: contrast of rendered pairs, component/page debt, doc drift
 npm run sync     # after editing components, tokens, icons or motifs — regenerates everything
 npm run icons    # rebuild Icon.jsx after vendoring a new Lucide SVG
 npm run docs     # regenerate docs/components.md and docs/tokens.md only

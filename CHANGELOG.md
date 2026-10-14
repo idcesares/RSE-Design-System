@@ -1,6 +1,31 @@
 # Changelog
 
-## Unreleased — the showcase, and what it found
+## Unreleased — assessment and roadmap
+
+### `docs/roadmap/` — where the system stands, and the plan to make it the ecosystem's foundation
+
+[`assessment.md`](docs/roadmap/assessment.md) scores the system on ten dimensions with measured
+evidence: the brand layer is strong; the product layer is React-only, inline-styled, not
+responsive, and fails its own contrast floor on 18 of 63 rendered colour pairs (every Tag, every
+Badge, input errors). [`roadmap.md`](docs/roadmap/roadmap.md) turns that into a target
+architecture (brand → tokens → CSS contract → React wrappers), conformance levels for the systems
+that adopt it, the decisions that need an owner, and work packages whose acceptance is a number.
+
+### `npm run audit` — the quality scorecard
+
+New `scripts/audit.mjs`. Where `check` asks whether the repo is consistent, `audit` asks whether
+what it ships is good: contrast of every pair the components render in all three themes, raw
+values and glyph icons in components and templates, responsiveness, and docs that disagree with
+the manifest. Not part of `check` yet — the baseline fails on purpose; roadmap P1.2 makes it a gate.
+
+### Documentation contradictions fixed
+
+Component count in `readme.md` (35 → 36), pattern hues (`readme.md` said red, `brand-manual.md`
+said only green/pink/blue — the SVGs are blue, green, orange, pink), the motif recolouring rule in
+`brand-manual.md` and the "placeholder" wording in `AGENTS.md` now agree with rule 10, and a stale
+note about `/* derived */` markers is gone.
+
+## Previous — the showcase, and what it found
 
 ### `showcase/index.html` — the system presented as one page
 
