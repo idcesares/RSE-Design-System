@@ -9,35 +9,35 @@
 <link rel="stylesheet" href="../styles.css">
 <style>
   /* Page-local layout only. Colour, type, radius, shadow and motion come from tokens. */
-  .container{max-width:var(--container-max);margin:0 auto;padding:0 var(--container-padding);box-sizing:border-box}
-  .section{padding:var(--section-y) 0}
-  .eyebrow{font-size:var(--text-eyebrow);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-eyebrow);text-transform:uppercase;color:var(--color-primary);margin:0 0 var(--space-3)}
-  .lead{font-size:var(--text-body-lg);color:var(--text-muted);max-width:var(--container-prose)}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:12px 24px;border-radius:var(--radius-pill);font:inherit;font-size:var(--text-body-md);font-weight:var(--font-weight-semibold);text-decoration:none;border:1px solid transparent;cursor:pointer;min-height:var(--hit-target-min);transition:background var(--duration-base) var(--ease-standard)}
-  .btn-primary{background:var(--color-primary);color:var(--text-on-primary)}
-  .btn-primary:hover{background:var(--color-primary-hover);color:var(--text-on-primary)}
-  /* --border-strong, matching Button's ghost variant: a control's resting border needs 3:1. */
-  .btn-ghost{background:transparent;color:var(--color-primary);border-color:var(--border-strong)}
-  .btn-ghost:hover{background:var(--surface-sunken);color:var(--color-primary)}
-  .card{background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:var(--space-5)}
-  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--grid-gutter)}
-  .band{background:var(--color-primary);color:var(--text-on-primary);padding:var(--section-y-sm) 0}
-  .band h2,.band p{color:var(--text-on-primary)}
-  .site-header{position:sticky;top:0;z-index:var(--z-sticky);background:var(--surface-page-translucent);backdrop-filter:blur(8px);border-bottom:1px solid var(--border-subtle)}
-  .site-header .container{display:flex;align-items:center;justify-content:space-between;gap:var(--space-5);min-height:var(--header-height)}
-  .site-nav{display:flex;gap:var(--space-5);font-size:var(--text-body-sm);font-weight:var(--font-weight-semibold)}
-  .site-nav a{color:var(--text-heading);text-decoration:none}
-  .site-nav a:hover{color:var(--color-primary)}
+  .container{max-width:var(--rse-container-xl);margin:0 auto;padding:0 var(--rse-container-padding);box-sizing:border-box}
+  .section{padding:var(--rse-section-y-md) 0}
+  .eyebrow{font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary);margin:0 0 var(--rse-space-3)}
+  .lead{font-size:var(--rse-font-size-body-lg);color:var(--rse-color-text-muted);max-width:var(--rse-container-prose)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--rse-space-2);padding:12px 24px;border-radius:var(--rse-radius-pill);font:inherit;font-size:var(--rse-font-size-body-md);font-weight:var(--rse-font-weight-semibold);text-decoration:none;border:1px solid transparent;cursor:pointer;min-height:var(--rse-hit-target-min);transition:background var(--rse-duration-base) var(--rse-ease-standard)}
+  .btn-primary{background:var(--rse-color-primary);color:var(--rse-color-text-on-primary)}
+  .btn-primary:hover{background:var(--rse-color-primary-hover);color:var(--rse-color-text-on-primary)}
+  /* --rse-color-border-strong, matching Button's ghost variant: a control's resting border needs 3:1. */
+  .btn-ghost{background:transparent;color:var(--rse-color-primary);border-color:var(--rse-color-border-strong)}
+  .btn-ghost:hover{background:var(--rse-color-surface-sunken);color:var(--rse-color-primary)}
+  .card{background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);box-shadow:var(--rse-shadow-sm);padding:var(--rse-space-5)}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--rse-grid-gutter)}
+  .band{background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);padding:var(--rse-section-y-sm) 0}
+  .band h2,.band p{color:var(--rse-color-text-on-primary)}
+  .site-header{position:sticky;top:0;z-index:var(--rse-z-sticky);background:var(--rse-color-surface-page-translucent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rse-color-border-subtle)}
+  .site-header .container{display:flex;align-items:center;justify-content:space-between;gap:var(--rse-space-5);min-height:var(--rse-header-height)}
+  .site-nav{display:flex;gap:var(--rse-space-5);font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)}
+  .site-nav a{color:var(--rse-color-text-heading);text-decoration:none}
+  .site-nav a:hover{color:var(--rse-color-primary)}
   .skip{position:absolute;left:-9999px}
-  .skip:focus{left:var(--space-4);top:var(--space-4);z-index:var(--z-toast);background:var(--surface-card);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md)}
-  .platform{background:var(--sabia-purple);color:var(--color-white);border-radius:var(--radius-lg);padding:var(--space-7) var(--space-6);display:flex;gap:var(--space-6);align-items:center;flex-wrap:wrap}
-  .platform h2,.platform p{color:var(--color-white)}
-  .platform .btn{background:var(--color-white);color:var(--sabia-purple)}
-  .platform .btn:hover{background:var(--sabia-cream);color:var(--sabia-purple)}
-  .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--space-6);align-items:center}
+  .skip:focus{left:var(--rse-space-4);top:var(--rse-space-4);z-index:var(--rse-z-toast);background:var(--rse-color-surface-card);padding:var(--rse-space-3) var(--rse-space-4);border-radius:var(--rse-radius-md)}
+  .platform{background:var(--rse-color-sabia-purple);color:var(--rse-brand-white);border-radius:var(--rse-radius-lg);padding:var(--rse-space-7) var(--rse-space-6);display:flex;gap:var(--rse-space-6);align-items:center;flex-wrap:wrap}
+  .platform h2,.platform p{color:var(--rse-brand-white)}
+  .platform .btn{background:var(--rse-brand-white);color:var(--rse-color-sabia-purple)}
+  .platform .btn:hover{background:var(--rse-color-sabia-surface);color:var(--rse-color-sabia-purple)}
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--rse-space-6);align-items:center}
   @media (max-width:834px){.hero{grid-template-columns:1fr}.hero img{display:none}}
-  footer.site-footer{background:var(--color-ink);color:var(--gray-300);padding:var(--section-y-sm) 0}
-  footer.site-footer .note{border-top:1px solid var(--border-on-ink);margin-top:var(--space-5);padding-top:var(--space-5);font-size:var(--text-caption);color:var(--gray-500)}
+  footer.site-footer{background:var(--rse-brand-ink);color:var(--rse-brand-gray-300);padding:var(--rse-section-y-sm) 0}
+  footer.site-footer .note{border-top:1px solid var(--rse-color-border-on-ink);margin-top:var(--rse-space-5);padding-top:var(--rse-space-5);font-size:var(--rse-font-size-caption);color:var(--rse-color-text-on-ink-muted)}
 </style>
 </head>
 <body>
@@ -65,11 +65,11 @@
     <div class="container hero">
       <div>
       <p class="eyebrow">Rede Sesc de Educação</p>
-      <h1 style="font-size:var(--text-display-2);max-width:14ch">Aprender para a vida acontecer</h1>
-      <p class="lead" style="margin:var(--space-4) 0 var(--space-5)">
+      <h1 style="font-size:var(--rse-font-size-display-2);max-width:14ch">Aprender para a vida acontecer</h1>
+      <p class="lead" style="margin:var(--rse-space-4) 0 var(--rse-space-5)">
         Educação que acolhe, forma e transforma — em unidades por todo o Brasil.
       </p>
-      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+      <div style="display:flex;gap:var(--rse-space-3);flex-wrap:wrap">
         <a class="btn btn-primary" href="#matriculas">Quero me inscrever</a>
         <a class="btn btn-ghost" href="#programas">Conheça os programas</a>
       </div>
@@ -83,16 +83,16 @@
   <section class="band">
     <div class="container grid-3" style="text-align:center">
       <div>
-        <div style="font-size:var(--text-h1);font-weight:var(--font-weight-extrabold)">000</div>
-        <div style="font-size:var(--text-body-sm);opacity:.85">unidades no Brasil <!-- exemplo: verificar --></div>
+        <div style="font-size:var(--rse-font-size-h1);font-weight:var(--rse-font-weight-extrabold)">000</div>
+        <div style="font-size:var(--rse-font-size-body-sm)">unidades no Brasil <!-- exemplo: verificar --></div>
       </div>
       <div>
-        <div style="font-size:var(--text-h1);font-weight:var(--font-weight-extrabold)">00 anos</div>
-        <div style="font-size:var(--text-body-sm);opacity:.85">de tradição em educação</div>
+        <div style="font-size:var(--rse-font-size-h1);font-weight:var(--rse-font-weight-extrabold)">00 anos</div>
+        <div style="font-size:var(--rse-font-size-body-sm)">de tradição em educação</div>
       </div>
       <div>
-        <div style="font-size:var(--text-h1);font-weight:var(--font-weight-extrabold)">000 mil</div>
-        <div style="font-size:var(--text-body-sm);opacity:.85">estudantes atendidos</div>
+        <div style="font-size:var(--rse-font-size-h1);font-weight:var(--rse-font-weight-extrabold)">000 mil</div>
+        <div style="font-size:var(--rse-font-size-body-sm)">estudantes atendidos</div>
       </div>
     </div>
   </section>
@@ -101,23 +101,23 @@
   <section class="section" id="programas">
     <div class="container">
       <p class="eyebrow">Programas</p>
-      <h2 style="font-size:var(--text-h2);margin-bottom:var(--space-5)">Uma trajetória completa</h2>
+      <h2 style="font-size:var(--rse-font-size-h2);margin-bottom:var(--rse-space-5)">Uma trajetória completa</h2>
       <div class="grid-3">
         <article class="card">
-          <h3 style="font-size:var(--text-h4)">Educação Infantil</h3>
-          <p style="margin-top:var(--space-2);font-size:var(--text-body-sm);color:var(--text-body)">
+          <h3 style="font-size:var(--rse-font-size-h4)">Educação Infantil</h3>
+          <p style="margin-top:var(--rse-space-2);font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body)">
             Cuidar e educar juntos, com o brincar como método.
           </p>
         </article>
         <article class="card">
-          <h3 style="font-size:var(--text-h4)">Ensino Fundamental</h3>
-          <p style="margin-top:var(--space-2);font-size:var(--text-body-sm);color:var(--text-body)">
+          <h3 style="font-size:var(--rse-font-size-h4)">Ensino Fundamental</h3>
+          <p style="margin-top:var(--rse-space-2);font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body)">
             Base sólida em leitura, matemática e convivência.
           </p>
         </article>
         <article class="card">
-          <h3 style="font-size:var(--text-h4)">Ensino Médio</h3>
-          <p style="margin-top:var(--space-2);font-size:var(--text-body-sm);color:var(--text-body)">
+          <h3 style="font-size:var(--rse-font-size-h4)">Ensino Médio</h3>
+          <p style="margin-top:var(--rse-space-2);font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body)">
             Formação integral com projeto de vida no centro.
           </p>
         </article>
@@ -131,9 +131,9 @@
     <div class="container">
       <div class="platform">
         <div style="flex:1 1 320px">
-          <img src="../assets/logos/sabia-wordmark-cream.svg" alt="Plataforma Sesc Sab.IA" style="height:32px;display:block;margin-bottom:var(--space-4)">
-          <h2 style="font-size:var(--text-h2);margin:0 0 var(--space-3)">Aprendizagem que acompanha cada estudante</h2>
-          <p style="margin:0;max-width:var(--container-prose);line-height:var(--line-height-body)">
+          <img src="../assets/logos/sabia-wordmark-cream.svg" alt="Plataforma Sesc Sab.IA" style="height:32px;display:block;margin-bottom:var(--rse-space-4)">
+          <h2 style="font-size:var(--rse-font-size-h2);margin:0 0 var(--rse-space-3)">Aprendizagem que acompanha cada estudante</h2>
+          <p style="margin:0;max-width:var(--rse-container-prose);line-height:var(--rse-line-height-body)">
             Avaliação diagnóstica, trilhas personalizadas e acompanhamento contínuo — o núcleo de
             inteligência educacional da Rede.
           </p>

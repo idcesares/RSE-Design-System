@@ -1,49 +1,49 @@
 <!-- @dsCard group="Spacing" viewport="900x600" name="Layout, containers & z-index" subtitle="Breakpoints, container widths, section rhythm, stacking order" -->
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script><script src="../_ds_bundle.js"></script></head>
-<body style="margin:0;padding:32px;background:var(--surface-page);font-family:var(--font-family-base);color:var(--text-body)">
+<!DOCTYPE html><html lang="pt-BR"><head><title>Layout, containers & z-index — Rede Sesc de Educação</title><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script><script src="../dist/rse.js"></script></head>
+<body style="margin:0;padding:32px;background:var(--rse-color-surface-page);font-family:var(--rse-font-family);color:var(--rse-color-text-body)">
 <div style="display:flex;flex-direction:column;gap:32px;max-width:820px">
 <div>
-<p style="font-size:var(--text-eyebrow);text-transform:uppercase;letter-spacing:var(--letter-spacing-eyebrow);font-weight:700;color:var(--text-muted);margin:0 0 12px">Breakpoints</p>
+<p style="font-size:var(--rse-font-size-eyebrow);text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);font-weight:700;color:var(--rse-color-text-muted);margin:0 0 12px">Breakpoints</p>
 <div style="display:flex;flex-wrap:wrap;gap:8px">
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);padding:6px 14px;font-size:var(--text-body-sm)">xs 480</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);padding:6px 14px;font-size:var(--text-body-sm)">sm 640</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);padding:6px 14px;font-size:var(--text-body-sm)">md 834</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);padding:6px 14px;font-size:var(--text-body-sm)">lg 1120</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);padding:6px 14px;font-size:var(--text-body-sm)">xl 1440</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-pill);padding:6px 14px;font-size:var(--rse-font-size-body-sm)">xs 480</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-pill);padding:6px 14px;font-size:var(--rse-font-size-body-sm)">sm 640</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-pill);padding:6px 14px;font-size:var(--rse-font-size-body-sm)">md 834</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-pill);padding:6px 14px;font-size:var(--rse-font-size-body-sm)">lg 1120</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-pill);padding:6px 14px;font-size:var(--rse-font-size-body-sm)">xl 1440</span>
 </div>
-<p style="margin-top:10px;font-size:var(--text-body-sm);color:var(--text-muted)">Mobile-first: write <code>min-width</code> queries. Grid is 12 columns with a 24px gutter (<code>--grid-gutter</code>).</p>
+<p style="margin-top:10px;font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted)">Mobile-first: write <code>min-width</code> queries. Grid is 12 columns with a 24px gutter (<code>--rse-grid-gutter</code>).</p>
 </div>
 <div>
-<p style="font-size:var(--text-eyebrow);text-transform:uppercase;letter-spacing:var(--letter-spacing-eyebrow);font-weight:700;color:var(--text-muted);margin:0 0 12px">Container widths</p>
+<p style="font-size:var(--rse-font-size-eyebrow);text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);font-weight:700;color:var(--rse-color-text-muted);margin:0 0 12px">Container widths</p>
 <div style="display:flex;flex-direction:column;gap:8px">
-<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--text-body-sm);font-weight:600;color:var(--text-heading)">prose 66ch</span><div style="height:14px;width:46%;background:var(--color-blue);border-radius:var(--radius-pill)"></div></div>
-<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--text-body-sm);font-weight:600;color:var(--text-heading)">sm 640</span><div style="height:14px;width:53%;background:var(--color-green);border-radius:var(--radius-pill)"></div></div>
-<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--text-body-sm);font-weight:600;color:var(--text-heading)">md 880</span><div style="height:14px;width:73%;background:var(--color-yellow);border-radius:var(--radius-pill)"></div></div>
-<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--text-body-sm);font-weight:600;color:var(--text-heading)">lg 1120</span><div style="height:14px;width:93%;background:var(--color-orange);border-radius:var(--radius-pill)"></div></div>
-<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--text-body-sm);font-weight:600;color:var(--text-heading)">xl 1200</span><div style="height:14px;width:100%;background:var(--color-primary);border-radius:var(--radius-pill)"></div></div>
+<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--rse-font-size-body-sm);font-weight:600;color:var(--rse-color-text-heading)">prose 66ch</span><div style="height:14px;width:46%;background:var(--rse-brand-blue);border-radius:var(--rse-radius-pill)"></div></div>
+<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--rse-font-size-body-sm);font-weight:600;color:var(--rse-color-text-heading)">sm 640</span><div style="height:14px;width:53%;background:var(--rse-brand-green);border-radius:var(--rse-radius-pill)"></div></div>
+<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--rse-font-size-body-sm);font-weight:600;color:var(--rse-color-text-heading)">md 880</span><div style="height:14px;width:73%;background:var(--rse-brand-yellow);border-radius:var(--rse-radius-pill)"></div></div>
+<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--rse-font-size-body-sm);font-weight:600;color:var(--rse-color-text-heading)">lg 1120</span><div style="height:14px;width:93%;background:var(--rse-brand-orange);border-radius:var(--rse-radius-pill)"></div></div>
+<div style="display:flex;align-items:center;gap:12px"><span style="width:130px;font-size:var(--rse-font-size-body-sm);font-weight:600;color:var(--rse-color-text-heading)">xl 1200</span><div style="height:14px;width:100%;background:var(--rse-color-primary);border-radius:var(--rse-radius-pill)"></div></div>
 </div>
-<p style="margin-top:10px;font-size:var(--text-body-sm);color:var(--text-muted)">Marketing pages use <code>--container-xl</code>; long-form text always caps at <code>--container-prose</code> for readability.</p>
+<p style="margin-top:10px;font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted)">Marketing pages use <code>--rse-container-xl</code>; long-form text always caps at <code>--rse-container-prose</code> for readability.</p>
 </div>
 <div>
-<p style="font-size:var(--text-eyebrow);text-transform:uppercase;letter-spacing:var(--letter-spacing-eyebrow);font-weight:700;color:var(--text-muted);margin:0 0 12px">Section rhythm</p>
+<p style="font-size:var(--rse-font-size-eyebrow);text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);font-weight:700;color:var(--rse-color-text-muted);margin:0 0 12px">Section rhythm</p>
 <div style="display:flex;gap:10px;align-items:flex-end">
-<div style="text-align:center"><div style="width:80px;height:48px;background:var(--surface-primary-tint);border-radius:var(--radius-sm)"></div><span style="font-size:var(--text-caption);color:var(--text-muted)">sm 48</span></div>
-<div style="text-align:center"><div style="width:80px;height:96px;background:var(--color-purple-light);border-radius:var(--radius-sm)"></div><span style="font-size:var(--text-caption);color:var(--text-muted)">base 96</span></div>
-<div style="text-align:center"><div style="width:80px;height:128px;background:var(--color-primary);border-radius:var(--radius-sm)"></div><span style="font-size:var(--text-caption);color:var(--text-muted)">lg 128</span></div>
+<div style="text-align:center"><div style="width:80px;height:48px;background:var(--rse-color-surface-primary-tint);border-radius:var(--rse-radius-sm)"></div><span style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">sm 48</span></div>
+<div style="text-align:center"><div style="width:80px;height:96px;background:var(--rse-brand-purple-light);border-radius:var(--rse-radius-sm)"></div><span style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">base 96</span></div>
+<div style="text-align:center"><div style="width:80px;height:128px;background:var(--rse-color-primary);border-radius:var(--rse-radius-sm)"></div><span style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">lg 128</span></div>
 </div>
 </div>
 <div>
-<p style="font-size:var(--text-eyebrow);text-transform:uppercase;letter-spacing:var(--letter-spacing-eyebrow);font-weight:700;color:var(--text-muted);margin:0 0 12px">Stacking order</p>
-<div style="display:flex;flex-wrap:wrap;gap:8px;font-size:var(--text-body-sm)">
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:6px 12px">raised 10</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:6px 12px">sticky 100</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:6px 12px">dropdown 200</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:6px 12px">overlay 300</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:6px 12px">modal 400</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:6px 12px">toast 500</span>
-<span style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:6px 12px">tooltip 600</span>
+<p style="font-size:var(--rse-font-size-eyebrow);text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);font-weight:700;color:var(--rse-color-text-muted);margin:0 0 12px">Stacking order</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;font-size:var(--rse-font-size-body-sm)">
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-sm);padding:6px 12px">raised 10</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-sm);padding:6px 12px">sticky 100</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-sm);padding:6px 12px">dropdown 200</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-sm);padding:6px 12px">overlay 300</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-sm);padding:6px 12px">modal 400</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-sm);padding:6px 12px">toast 500</span>
+<span style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-sm);padding:6px 12px">tooltip 600</span>
 </div>
-<p style="margin-top:10px;font-size:var(--text-body-sm);color:var(--text-muted)">Never hard-code a z-index. Header is <code>--header-height</code> (72px); minimum hit target is <code>--hit-target-min</code> (44px).</p>
+<p style="margin-top:10px;font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted)">Never hard-code a z-index. Header is <code>--rse-header-height</code> (72px); minimum hit target is <code>--rse-hit-target-min</code> (44px).</p>
 </div>
 </div>
 </body></html>

@@ -21,7 +21,7 @@ export function Tabs({ tabs = [], activeId, onChange, label = 'Seções' }) {
   };
   return React.createElement('div', {
     role: 'tablist', 'aria-label': label, onKeyDown,
-    style: { display: 'inline-flex', gap: 4, padding: 4, background: 'var(--surface-sunken)', borderRadius: 'var(--radius-pill)', fontFamily: 'var(--font-family-base)' }
+    style: { display: 'inline-flex', gap: 4, padding: 4, background: 'var(--rse-color-surface-sunken)', borderRadius: 'var(--rse-radius-pill)', fontFamily: 'var(--rse-font-family)' }
   },
     tabs.map(t => {
       const active = t.id === activeId;
@@ -33,13 +33,13 @@ export function Tabs({ tabs = [], activeId, onChange, label = 'Seções' }) {
         ref: el => { refs.current[t.id] = el; },
         onClick: () => onChange && onChange(t.id),
         style: {
-          padding: '10px 20px', borderRadius: 'var(--radius-pill)', border: 'none', cursor: 'pointer',
-          fontFamily: 'var(--font-family-base)',
-          fontSize: 'var(--text-body-sm)', fontWeight: 'var(--font-weight-semibold)',
-          background: active ? 'var(--surface-card)' : 'transparent',
-          color: active ? 'var(--color-primary)' : 'var(--text-muted)',
-          boxShadow: active ? 'var(--shadow-sm)' : 'none',
-          transition: 'background var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard)'
+          padding: '10px 20px', borderRadius: 'var(--rse-radius-pill)', border: 'none', cursor: 'pointer',
+          fontFamily: 'var(--rse-font-family)',
+          fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)',
+          background: active ? 'var(--rse-color-surface-card)' : 'transparent',
+          color: active ? 'var(--rse-color-primary)' : 'var(--rse-color-text-muted)',
+          boxShadow: active ? 'var(--rse-shadow-sm)' : 'none',
+          transition: 'background var(--rse-duration-base) var(--rse-ease-standard), color var(--rse-duration-base) var(--rse-ease-standard)'
         }
       }, t.label);
     })

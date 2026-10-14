@@ -1,142 +1,60 @@
-# Integrating this design system
+# Using the design system from another project
 
-Everything else in this repo assumes you are working *inside* it. This page is the opposite:
-how to put the Rede Sesc de Educação into something that is not this repo — a website, a React
-app, a Python script that renders social posts, a print piece, a one-off artifact.
+Everything else in this repo assumes you are working *inside* it. This page is for a project that
+**consumes** it: a regional site, the Sab.IA front end, the enrollment portal, a Python generator,
+a deck handed over as a file. The rules that travel with the system are in
+[RULES.md](../RULES.md) — read them once, they are short.
 
-## The one idea
+## Pick your route
 
-**[`brand.json`](../brand.json) is the contract.** Every colour resolved to a literal hex with its
-CMYK, the full type and spacing scales, every logo, motif, pattern and icon indexed by role, and
-the brand rules in machine-readable form. Anything that can parse JSON can consume this brand —
-no CSS, no React, no npm, no build step.
-
-The CSS and the React entry are conveniences layered on top of that contract, for the two cases
-where the target happens to be a browser. They are not the system; the contract is.
-
-```
-brand.json
-├── palette      21 colours — hex, rgb, cmyk, family, tone
-├── tokens       181 tokens, every var() chain already resolved
-├── themes       dark + contrast override maps, also resolved
-├── scales       type / spacing / radius / shadow / layout, grouped and named
-├── assets       logos, motifs, patterns, icons, fonts — by role, with paths
-├── rules        colour, typography, logo, motif, language, content, accessibility
-└── caveats      what is still unverified in this system
-```
-
-> `brand.json` is generated and is a **summary**. [AGENTS.md](../AGENTS.md) and
-> [docs/brand-manual.md](brand-manual.md) are the source of truth. Where they disagree, they win.
-> Never hand-edit `brand.json` — edit `tokens/*.css` or the docs and run `npm run sync`.
-
-## Quick start
-
-From this repo, bind the system into your project:
-
-```bash
-npm run bind ../my-project
-```
-
-That copies a self-contained `_ds/` folder into `../my-project` — contract, tokens, assets,
-browser bundle, React entry — and stamps it with the version and a hash per file. There is no
-registry and no network involved.
-
-If your target never touches a browser (a Python generator, a print pipeline), take the smaller
-tier — contract, tokens and artwork only, no JavaScript:
-
-```bash
-npm run bind ../my-generator -- --tier=brand
-```
-
-The bound folder also gets an `AGENTS.md` carrying the non-negotiables, so agents working in the
-consuming repo inherit the rules instead of reaching for a raw hex, and a `check.mjs` so that repo
-can answer "is my copy current?" without this one:
-
-```bash
-node _ds/check.mjs
-```
-
-## Pick your tier
-
-| You are building | Load | Touches the host's styles |
+| Your project | Route | What you link |
 | --- | --- | --- |
-| A page that should look like the Rede | `_ds/styles.css` | Yes — restyles `body`, `a`, `h1–h4`, `p` |
-| Something inside a site that already has its own styles | `_ds/tokens/tokens-only.css` | No |
-| …and you want this system's components too | + `_ds/tokens/base-runtime.css` | Focus ring and two keyframes only |
-| Static HTML with real components | + `_ds/_ds_bundle.js` | — |
-| React | `import { Button } from './_ds/index.js'` | — |
-| Next.js (App Router) | the same, but global CSS only in `app/layout.tsx` — [recipe](#recipe-nextjs-app-router) | — |
-| A social post, poster, PDF, deck — anything not a browser | `_ds/brand.json` | — |
+| Has `npm` (React, Next.js, Vite, any bundler) | the **package** | `import '@idcesares/rse-design-system/styles.css'` |
+| Cannot install (WordPress/Liferay theme, TOTVS portal, a static page you upload) | the **static kit** | `/rse/<version>/styles.css` on your server |
+| Is not a browser (Python, print, a design tool) | either, then **JSON** | `brand.json`, `dist/tokens.json` |
+| Is a one-off file (deck, mock, artifact) | a **starter** or **template** from this repo | `styles.css` next to it |
 
-`tokens/base.css` is now just `base-runtime.css` + `base-reset.css`. Everything that already
-links `styles.css` or `tokens/base.css` keeps working exactly as before; the split only matters
-when you are adding this system to something that already has base styles of its own.
+Both routes carry the same files at the same version. **Never edit them in place**: fix things
+here, release, and update the version. That is what keeps thirty systems on one design.
 
----
+## The package (GitHub Packages)
 
-## Recipe: an existing site that has its own CSS
+The package is published to GitHub Packages under the `@idcesares` scope. Tell npm where that scope
+lives, once per project, with a token that can read packages:
 
-The lowest-friction tier, and the one to reach for when you cannot restructure the host — a
-WordPress theme, a CMS page, someone else's app.
-
-```html
-<link rel="stylesheet" href="/_ds/tokens/tokens-only.css">
+```ini
+# .npmrc
+@idcesares:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
-That file is `@font-face` and custom properties and nothing else: no element selectors, no class
-rules, no keyframes. The host's typography, links and box-sizing are untouched. You then style
-your own markup with the tokens:
-
-```css
-.enrollment-cta {
-  background: var(--color-primary);
-  color: var(--text-on-primary);
-  border-radius: var(--radius-pill);
-  font-family: var(--font-family-base);
-  font-weight: var(--font-weight-semibold);
-  padding: 12px 24px;
-  min-height: var(--hit-target-min);
-}
+```bash
+npm install @idcesares/rse-design-system
 ```
 
-Add `tokens/base-runtime.css` as well if you use the components — it carries the focus ring, the
-`.rede-control-input` hook that keeps Checkbox/Radio/Switch in the tab order, and the two keyframes
-Spinner and Skeleton animate with. Skipping it breaks those components silently.
+| Import | What it is |
+| --- | --- |
+| `@idcesares/rse-design-system` | React components (`react >= 18` is a peer) |
+| `@idcesares/rse-design-system/styles.css` | everything: fonts, tokens, runtime base, element reset |
+| `@idcesares/rse-design-system/tokens-only.css` | fonts + custom properties only — for a site with its own base styles |
+| `@idcesares/rse-design-system/base-runtime.css` | what the components need (focus ring, control hiding, keyframes) |
+| `@idcesares/rse-design-system/components.css` | the component CSS contract (`.rse-button`, `.rse-field`…), in `@layer rse.components` |
+| `@idcesares/rse-design-system/tokens` | every token resolved per theme, as a typed ES module |
+| `@idcesares/rse-design-system/tokens.json`, `/brand.json` | the same as JSON; the brand contract |
+| `@idcesares/rse-design-system/bundle` | `dist/rse.js` — every component on `window.RSE` for unbuilt pages |
+| `@idcesares/rse-design-system/assets/*` | logos, motifs, patterns, icons, fonts |
+| `@idcesares/rse-design-system/tokens/src/*` | the DTCG source |
 
-## Recipe: a static HTML page
-
-```html
-<link rel="stylesheet" href="/_ds/styles.css">
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-<script src="/_ds/_ds_bundle.js"></script>
-<script>
-  const DS = window.RedeSescDeEducaODesignSystem_2167ce;
-  ReactDOM.createRoot(document.getElementById('cta')).render(
-    React.createElement(DS.Button, { variant: 'primary' }, 'Quero me inscrever')
-  );
-</script>
-```
-
-No build step. If you only need markup and no component behaviour, drop the three scripts and copy
-[`starters/page.html`](../starters/page.html) instead — it is tokens-only and opens offline.
-
-## Recipe: React
+### React
 
 ```jsx
-import { Button, Card, Stat, Tabs } from './_ds/index.js';
-import './_ds/styles.css';
+import { Button, Card, Stat, Tabs } from '@idcesares/rse-design-system';
+import '@idcesares/rse-design-system/styles.css';
 ```
 
-Three things to know:
-
-1. **Import from `index.js`, never from a component file.** `_adherence.oxlintrc.json` forbids the
-   direct path so components can be re-pathed without breaking consumers.
-2. **The `.jsx` files contain no JSX** — they are `React.createElement` calls, which is what lets
-   the same sources run unbuilt in a browser. Any bundler that resolves `.jsx` handles them; no
-   transform is required beyond that. `react >= 18` is a peer, not bundled.
-3. **`assets/` must be served.** Copy `_ds/assets/` into your public directory, or point your
-   bundler at it. See the next section for why the layout matters.
+The `.jsx` files contain no JSX — they are `React.createElement` calls — so any bundler that
+resolves `.jsx` handles them with no transform. Import from the package root, never from a file
+under `components/`: component files will move when they become a CSS contract (roadmap P2).
 
 ## Recipe: Next.js (App Router)
 
@@ -148,7 +66,7 @@ imported from any other file.
 
 ```tsx
 // app/layout.tsx
-import './_ds/styles.css';
+import '@idcesares/rse-design-system/styles.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -159,8 +77,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-Inside a site that already has base styles, import `./_ds/tokens/tokens-only.css` instead — plus
-`./_ds/tokens/base-runtime.css` if you use the components, or Spinner, Skeleton and the
+Inside a site that already has base styles, import `@idcesares/rse-design-system/tokens-only.css` instead — plus
+`@idcesares/rse-design-system/base-runtime.css` if you use the components, or Spinner, Skeleton and the
 Checkbox/Radio/Switch focus behaviour break silently.
 
 **2. Import components in a Client Component.** The 14 components that use hooks each carry a
@@ -168,7 +86,7 @@ Checkbox/Radio/Switch focus behaviour break silently.
 
 ```tsx
 // app/page.tsx — a Server Component; this is fine
-import { Card, Stat, Button } from './_ds/index.js';
+import { Card, Stat, Button } from '@idcesares/rse-design-system';
 ```
 
 Server-render whatever you can, and mark your *own* component `'use client'` only when it holds
@@ -176,7 +94,7 @@ state or passes an event handler down:
 
 ```tsx
 'use client';
-import { Tabs } from './_ds/index.js';
+import { Tabs } from '@idcesares/rse-design-system';
 
 export function ProgramTabs({ tabs }) {
   const [active, setActive] = React.useState(tabs[0].id);
@@ -188,12 +106,53 @@ An event handler is the usual trap: `<Button onClick={...}>` from a Server Compo
 functions cannot cross the boundary — not a design-system problem, but this is where you will hit it.
 
 **Fonts and assets.** `tokens/fonts.css` reaches for `../assets/fonts/Montserrat-Variable.woff2`,
-a path relative to the CSS file. Keep `_ds/assets/` a sibling of `_ds/tokens/` and the bundler
-resolves and emits it. Do not reach for `next/font` — it would fetch Montserrat from Google rather
+a path relative to the CSS file inside the package, so the bundler resolves and emits it. Do not reach for `next/font` — it would fetch Montserrat from Google rather
 than using the vendored file, and the `@font-face` block in `fonts.css` already declares the
 variable weights this system needs.
 
 `.jsx` resolves out of the box; the sources contain no JSX, so no transform is involved.
+
+## The static kit (CMS, portals, uploads)
+
+Every release attaches `rse-<version>.zip` to its GitHub Release (`npm run pack` builds the same
+folder locally). Unzip it to a **versioned** path on a server you control and link it:
+
+```html
+<link rel="stylesheet" href="/rse/2.0.0/styles.css">
+<!-- inside a site with its own typography, instead: -->
+<link rel="stylesheet" href="/rse/2.0.0/tokens/tokens-only.css">
+<link rel="stylesheet" href="/rse/2.0.0/tokens/base-runtime.css">
+<link rel="stylesheet" href="/rse/2.0.0/dist/components.css">
+```
+
+Components that are on the CSS contract need no JavaScript at all — write the classes:
+
+```html
+<a class="rse-button" href="/matricula">Quero me inscrever</a>
+<span class="rse-badge rse-badge--success">Vagas abertas</span>
+<div class="rse-field">
+  <label class="rse-field__label" for="nome">Nome completo</label>
+  <input class="rse-input" id="nome" name="nome">
+</div>
+```
+
+Which components are on the contract, and their markup: each `components/<group>/<Name>.prompt.md`
+and `dist/components.css`. The rest still need React (below) until roadmap P2 moves them.
+
+Then use `var(--rse-…)` in your own theme CSS. Components in an unbuilt page:
+
+```html
+<script src="/rse/2.0.0/assets/vendor/react.production.min.js"></script>
+<script src="/rse/2.0.0/assets/vendor/react-dom.production.min.js"></script>
+<script src="/rse/2.0.0/dist/rse.js"></script>
+<script>const { Button, Card } = window.RSE;</script>
+```
+
+The version in the path is the point: a page links one version until someone moves it, and a new
+release never changes a page that did not ask for it. The kit also carries `starters/`.
+
+Themes work the same everywhere: `data-rse-theme="dark" | "contrast" | "auto"` on `<html>` or on any
+section; no attribute means light.
 
 ## Recipe: anything that is not a browser
 
@@ -202,12 +161,13 @@ entirely. In any language:
 
 ```python
 import json
-brand = json.load(open("_ds/brand.json"))
+brand = json.load(open("node_modules/@idcesares/rse-design-system/brand.json"))  # or rse-<version>/brand.json from the static kit
 
-purple = next(c for c in brand["palette"] if c["token"] == "--color-purple-dark")
+purple = next(c for c in brand["palette"] if c["token"] == "--rse-brand-purple-dark")
 purple["hex"]                       # '#6c62c4'   — screen
 purple["cmyk"]                      # {'c': 67, 'm': 68, 'y': 0, 'k': 0}  — print
-brand["tokens"]["--color-primary"]["value"]     # '#6c62c4'  — alias already followed
+brand["tokens"]["--rse-color-primary"]["value"]     # '#6c62c4'  — alias already followed
+brand["themes"]["dark"]["overrides"]                 # what changes in the dark theme
 brand["scales"]["spacing"]["6"]                 # '32px'
 brand["assets"]["fonts"][0]["file"]             # 'assets/fonts/Montserrat-Variable.woff2'
 brand["rules"]["logo"]["minSize"]["digital"]    # '150px wide'
@@ -233,42 +193,27 @@ For print, read `cmyk` instead of `hex` — never convert the hex yourself. The 
 CMYK for all 20 palette values and they are not round-trips of the RGB. Pantone numbers do not
 exist; the manual defers to Formula Guide comparison, so ask before committing to a spot-colour job.
 
+Need every token, per theme, including the ones `brand.json` leaves out (breakpoints)? Read
+`dist/tokens.json`: `modes.light|dark|contrast` map every `--rse-*` name to a literal, and `tokens`
+carries the type, description, derived flag and CMYK. The same data is an ES module with types at
+`@idcesares/rse-design-system/tokens`.
+
+The token *source*, `tokens/src/*.tokens.json`, is W3C DTCG — Style Dictionary, Tokens Studio and
+other DTCG tools read it directly, which is the route into Figma variables or native apps.
+
 ---
 
-## Five things that break
+## Things that break
 
 1. **`assets/` must stay a sibling of `tokens/`.** `tokens/fonts.css` reaches for
-   `../assets/fonts/Montserrat-Variable.woff2`. Break that layout and the page silently falls back
-   to a system font — no error, just wrong type. This is the most common integration failure.
+   `../assets/fonts/Montserrat-Variable.woff2`. Break that layout (say, by copying only `tokens/`)
+   and the page silently falls back to a system font.
 2. **`styles.css` restyles the host.** It sets `body`, `a`, `h1–h4`, `p`, `*{box-sizing}` and
-   `::selection` globally. That is correct for a page you own and wrong for a widget inside someone
-   else's site. Use the tokens-only tier there.
-3. **Editing `_ds/` in place.** Re-binding overwrites it. `node _ds/check.mjs` reports anything
-   modified so you find out before the next update eats it. Need a change? Make it in this repo.
-4. **A stale bundle.** `_ds_bundle.js` is a *mirror* of the component sources, not a second
-   implementation. Editing a `.jsx` without `npm run sync` means every static page keeps running the
-   old code. `npm run check` catches it here, before it ever reaches a consumer.
-5. **Templates copied out of the repo.** Each carries a `ds-base.js` with a single `base` line
-   pointing at the design system. Copy the folder, edit that one line to point at your `_ds/`
-   (`'_ds'` at the project root, `'../_ds'` one level down). That line is the entire wiring.
-
-## Updating a consumer
-
-```bash
-npm run bind ../my-project --check    # is their copy current?
-npm run bind ../my-project            # bring it up to date
-```
-
-`--check` compares every file against this repo and reports version drift, missing files, files
-edited in place, and files that are no longer part of the system. Re-binding removes exactly what
-the previous bind put there and leaves anything else in the folder alone.
-
-## What a consumer does not get
-
-Bind ships the system, not the workshop. `guidelines/*.card.html`, `templates/`, `starters/`,
-`ui_kits/`, `docs/` and `scripts/` stay here — they are for building the system and for learning it,
-and a consuming project has no use for them. The reference artboards in `assets/logos/source/` and
-the superseded raster logos do not travel either.
-
-If you want a template, copy it out of this repo by hand and point its `ds-base.js` at the bound
-`_ds/` folder.
+   `::selection` globally — right for a page you own, wrong inside someone else's site. Use
+   `tokens-only.css` (+ `base-runtime.css`) there.
+3. **Editing the package or the kit in place.** The next update overwrites it, and your system
+   drifts from the other twenty-nine. Fix it upstream.
+4. **Mixing versions.** One page, one version: never link `styles.css` from one version and
+   `dist/rse.js` from another.
+5. **Templates copied out of this repo.** Each carries a `ds-base.js` with one `base` line pointing
+   at the design system root. Point it at the package folder or the unzipped kit.

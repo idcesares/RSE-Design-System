@@ -1,15 +1,15 @@
-// Loads this design system into the template. In a consuming project, point
-// base at the bound DS folder relative to this file (e.g. '_ds/<folder>' at
-// the project root, '../_ds/<folder>' one level down) — one line to edit.
+// Loads the design system into this template. Copying the template elsewhere? Point `base` at
+// the design system root relative to this file (the package folder, or the unzipped static kit
+// from `npm run pack`) — that one line is the only wiring.
 (() => {
   const base = '../..';
-  for (const p of ["tokens/fonts.css","tokens/colors.css","tokens/typography.css","tokens/spacing.css","tokens/layout.css","tokens/effects.css","tokens/base.css","styles.css"]) {
+  for (const p of ["styles.css"]) {
     const l = document.createElement('link');
     l.rel = 'stylesheet'; l.href = base + '/' + p;
     document.head.appendChild(l);
   }
   const s = document.createElement('script');
-  s.src = base + '/_ds_bundle.js';
-  s.onerror = () => console.error('ds-base.js: failed to load ' + s.src + ' — if this is a consuming project, point the base line in ds-base.js at the bound _ds/<folder> tree relative to this page (e.g. _ds/<folder> at the project root, ../_ds/<folder> one level down); in a fresh design system this can just mean the bundle is not compiled yet');
+  s.src = base + '/dist/rse.js';
+  s.onerror = () => console.error('ds-base.js: failed to load ' + s.src + ' — point the base line in ds-base.js at the design system root relative to this page.');
   document.head.appendChild(s);
 })();

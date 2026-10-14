@@ -11,17 +11,17 @@
 :root{color-scheme:light}
 
 /* Focus is always visible — AGENTS.md, accessibility floor. */
-:focus-visible{outline:var(--focus-ring-width) solid var(--focus-ring);outline-offset:var(--focus-ring-offset)}
+:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset)}
 :focus:not(:focus-visible){outline:none}
 
 /* Native input behind a custom control (Checkbox, Radio, Switch): visually hidden but
    still focusable and announced. Never use display:none here — it removes the control
    from the tab order and from the accessibility tree. */
-.rede-control-input{position:absolute;width:1px;height:1px;opacity:0;margin:0;pointer-events:none}
-.rede-control-input:focus-visible+.rede-control-box{outline:var(--focus-ring-width) solid var(--focus-ring);outline-offset:var(--focus-ring-offset)}
+.rse-control-input{position:absolute;width:1px;height:1px;opacity:0;margin:0;pointer-events:none}
+.rse-control-input:focus-visible+.rse-control-box{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset)}
 
 /* Referenced by Spinner and Skeleton. */
-@keyframes rede-spin{to{transform:rotate(360deg)}}
-@keyframes rede-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes rse-spin{to{transform:rotate(360deg)}}
+@keyframes rse-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

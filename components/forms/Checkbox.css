@@ -1,0 +1,19 @@
+/* Choice controls — Checkbox, Radio and Switch share .rse-choice. The native input is visually
+   hidden (.rse-control-input, tokens/base-runtime.css) and drives every state through :checked,
+   so the control works even before React hydrates. */
+.rse-choice{
+  position:relative;display:inline-flex;align-items:center;gap:0.625rem;
+  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);color:var(--rse-color-text-body);cursor:pointer;
+}
+.rse-choice:has(.rse-control-input:disabled){opacity:.5;cursor:not-allowed}
+.rse-choice__box{
+  display:inline-flex;flex:none;align-items:center;justify-content:center;width:1.25rem;height:1.25rem;
+  border:1.5px solid var(--rse-color-border-strong);background:var(--rse-color-surface-card);
+  transition:background-color var(--rse-duration-fast) var(--rse-ease-standard),border-color var(--rse-duration-fast) var(--rse-ease-standard);
+}
+
+/* Checkbox */
+.rse-checkbox .rse-choice__box{border-radius:0.375rem;color:var(--rse-color-text-on-primary)}
+.rse-checkbox .rse-choice__mark{display:inline-flex;opacity:0}
+.rse-checkbox .rse-control-input:checked + .rse-choice__box{background:var(--rse-color-primary);border-color:var(--rse-color-primary)}
+.rse-checkbox .rse-control-input:checked + .rse-choice__box .rse-choice__mark{opacity:1}

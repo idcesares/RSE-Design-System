@@ -1,0 +1,5 @@
+/* Radio — .rse-choice.rse-radio (shared rules in Checkbox.css) */
+.rse-radio .rse-choice__box{border-radius:50%}
+.rse-radio .rse-choice__box::after{content:"";width:0.625rem;height:0.625rem;border-radius:50%;background:var(--rse-color-primary);transform:scale(0);transition:transform var(--rse-duration-fast) var(--rse-ease-out)}
+.rse-radio .rse-control-input:checked + .rse-choice__box{border-color:var(--rse-color-primary)}
+.rse-radio .rse-control-input:checked + .rse-choice__box::after{transform:scale(1)}

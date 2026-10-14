@@ -1,0 +1,43 @@
+name: release
+
+# Push a tag that matches package.json (`git tag v2.0.0 && git push origin v2.0.0`).
+# Publishes the npm package to GitHub Packages and attaches the static kit to a GitHub Release.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+      - name: Tag matches package.json
+        run: |
+          v=$(node -p "require('./package.json').version")
+          test "v$v" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME does not match package.json $v"; exit 1; }
+          grep -q "^## $v" CHANGELOG.md || { echo "CHANGELOG.md has no '## $v' section"; exit 1; }
+      - run: npm run check
+      - run: npm i --no-save --no-audit --no-fund playwright@1.56.1 axe-core@4.14.0 && npx playwright install --with-deps chromium
+      - run: npm run test:pages
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Static kit
+        run: |
+          npm run pack
+          v=$(node -p "require('./package.json').version")
+          (cd dist/static && zip -qr "rse-$v.zip" "rse-$v")
+          echo "KIT=dist/static/rse-$v.zip" >> "$GITHUB_ENV"
+      - name: GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "$GITHUB_REF_NAME" "$KIT" --title "$GITHUB_REF_NAME" --notes "See CHANGELOG.md. Static kit attached; npm package on GitHub Packages."

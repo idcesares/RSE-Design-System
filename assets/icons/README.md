@@ -26,7 +26,7 @@ Tailwind's visual language).
 ## Vendored, not installed
 
 The SVGs live in the repo instead of coming from npm or a CDN because static pages here load
-`_ds_bundle.js` with no build step and must work offline. Vendoring also pins exactly what shipped.
+`dist/rse.js` with no build step and must work offline. Vendoring also pins exactly what shipped.
 
 ## Adding an icon
 

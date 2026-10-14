@@ -1,27 +1,27 @@
 <!-- @dsCard group="Guidelines" viewport="700x560" name="Accessibility" subtitle="Contrast, focus, motion and keyboard notes" -->
-<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"></head>
-<body style="margin:0;padding:28px;background:var(--surface-page);font-family:var(--font-family-base);color:var(--text-body)">
+<!DOCTYPE html><html lang="pt-BR"><head><title>Accessibility — Rede Sesc de Educação</title><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"></head>
+<body style="margin:0;padding:28px;background:var(--rse-color-surface-page);font-family:var(--rse-font-family);color:var(--rse-color-text-body)">
 <div style="display:flex;flex-direction:column;gap:20;max-width:640px">
 <h3 style="margin:0 0 4px">Accessibility</h3>
 <div>
-<div style="font-weight:var(--font-weight-semibold);color:var(--text-heading);margin-bottom:4px">Contrast</div>
-<p style="font-size:var(--text-body-sm);margin:0">Body text (<code>--text-body</code> on <code>--surface-card</code>/<code>--surface-page</code>) meets WCAG AA. Never place <code>--text-muted</code> on colored accent backgrounds — pair muted text with white/cream surfaces only. On brand-purple or ink fills, always use <code>--text-on-primary</code>/white, never gray.</p>
+<div style="font-weight:var(--rse-font-weight-semibold);color:var(--rse-color-text-heading);margin-bottom:4px">Contrast</div>
+<p style="font-size:var(--rse-font-size-body-sm);margin:0">Body text (<code>--rse-color-text-body</code> on <code>--rse-color-surface-card</code>/<code>--rse-color-surface-page</code>) meets WCAG AA. Never place <code>--rse-color-text-muted</code> on colored accent backgrounds — pair muted text with white/cream surfaces only. On brand-purple or ink fills, always use <code>--rse-color-text-on-primary</code>/white, never gray.</p>
 </div>
 <div>
-<div style="font-weight:var(--font-weight-semibold);color:var(--text-heading);margin-bottom:4px">Focus</div>
-<p style="font-size:var(--text-body-sm);margin:0">Every interactive element needs a visible focus state using <code>--focus-ring</code> (a 3px tinted ring, as seen on <code>Input</code>/<code>Checkbox</code>/<code>Radio</code> focus). Don't rely on color change alone — pair with the ring, not just a border-color swap.</p>
+<div style="font-weight:var(--rse-font-weight-semibold);color:var(--rse-color-text-heading);margin-bottom:4px">Focus</div>
+<p style="font-size:var(--rse-font-size-body-sm);margin:0">Every interactive element needs a visible focus state using <code>--rse-color-focus-ring</code> (a 3px tinted ring, as seen on <code>Input</code>/<code>Checkbox</code>/<code>Radio</code> focus). Don't rely on color change alone — pair with the ring, not just a border-color swap.</p>
 </div>
 <div>
-<div style="font-weight:var(--font-weight-semibold);color:var(--text-heading);margin-bottom:4px">Motion</div>
-<p style="font-size:var(--text-body-sm);margin:0">All transitions are short (150–360ms) and non-essential to comprehension. Wrap any future scroll-triggered or looping motion in <code>@media (prefers-reduced-motion: reduce)</code> to disable it — the brand's calm, unhurried tone should degrade gracefully, not jitter.</p>
+<div style="font-weight:var(--rse-font-weight-semibold);color:var(--rse-color-text-heading);margin-bottom:4px">Motion</div>
+<p style="font-size:var(--rse-font-size-body-sm);margin:0">All transitions are short (150–360ms) and non-essential to comprehension. Wrap any future scroll-triggered or looping motion in <code>@media (prefers-reduced-motion: reduce)</code> to disable it — the brand's calm, unhurried tone should degrade gracefully, not jitter.</p>
 </div>
 <div>
-<div style="font-weight:var(--font-weight-semibold);color:var(--text-heading);margin-bottom:4px">Keyboard</div>
-<p style="font-size:var(--text-body-sm);margin:0"><code>Tabs</code>/<code>Pagination</code> buttons are native <code>&lt;button&gt;</code> elements — Tab/Enter/Space work by default. <code>Modal</code> should trap focus and close on <code>Escape</code> when wired up by the consumer (the primitive provides the backdrop-click/close-button hooks; focus-trap is the integrator's responsibility). <code>Tooltip</code> content should also be reachable on keyboard focus, not just hover.</p>
+<div style="font-weight:var(--rse-font-weight-semibold);color:var(--rse-color-text-heading);margin-bottom:4px">Keyboard</div>
+<p style="font-size:var(--rse-font-size-body-sm);margin:0"><code>Tabs</code>/<code>Pagination</code> buttons are native <code>&lt;button&gt;</code> elements — Tab/Enter/Space work by default. <code>Modal</code> should trap focus and close on <code>Escape</code> when wired up by the consumer (the primitive provides the backdrop-click/close-button hooks; focus-trap is the integrator's responsibility). <code>Tooltip</code> content should also be reachable on keyboard focus, not just hover.</p>
 </div>
 <div>
-<div style="font-weight:var(--font-weight-semibold);color:var(--text-heading);margin-bottom:4px">Alt text & labels</div>
-<p style="font-size:var(--text-body-sm);margin:0">Every <code>&lt;img&gt;</code> and icon-only <code>IconButton</code> needs real <code>alt</code>/<code>aria-label</code> text in Portuguese describing the content or action — never decorative filler like "imagem" or the filename.</p>
+<div style="font-weight:var(--rse-font-weight-semibold);color:var(--rse-color-text-heading);margin-bottom:4px">Alt text & labels</div>
+<p style="font-size:var(--rse-font-size-body-sm);margin:0">Every <code>&lt;img&gt;</code> and icon-only <code>IconButton</code> needs real <code>alt</code>/<code>aria-label</code> text in Portuguese describing the content or action — never decorative filler like "imagem" or the filename.</p>
 </div>
 </div>
 </body></html>

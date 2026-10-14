@@ -41,12 +41,12 @@ const styles = Object.fromEntries([...svg.matchAll(/\.(cls-\d+)\s*\{\s*fill:\s*(
 /* ── Hue ramps, read from the palette so they cannot drift from the manual ───────── */
 
 const HUE_FAMILIES = ['green', 'blue', 'pink', 'purple', 'orange', 'yellow'];
-const colorsCss = readFileSync(join(ROOT, 'tokens/colors.css'), 'utf8');
+const brandTokens = JSON.parse(readFileSync(join(ROOT, 'tokens/src/brand.tokens.json'), 'utf8')).rse.brand;
 
 const paletteHex = (name) => {
-  const m = colorsCss.match(new RegExp(`--color-${name}\\s*:\\s*(#[0-9a-f]{6})`, 'i'));
-  if (!m) { console.error(`build-motifs: --color-${name} not found in tokens/colors.css`); process.exit(1); }
-  return m[1];
+  const v = brandTokens[name]?.$value;
+  if (!/^#[0-9a-f]{6}$/i.test(v ?? '')) { console.error(`build-motifs: rse.brand.${name} not found in tokens/src/brand.tokens.json`); process.exit(1); }
+  return v;
 };
 
 // light → base → dark, the three anchors every accent family publishes.
@@ -146,7 +146,7 @@ const MOTIFS = {
 ${jsBody}
 };
 
-// light → base → dark for each accent family, from tokens/colors.css.
+// light → base → dark for each accent family, from tokens/src/brand.tokens.json.
 const HUES = {
 ${huesBody}
 };

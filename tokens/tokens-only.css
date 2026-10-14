@@ -3,14 +3,9 @@
    already has its own base styles changes nothing the host did not ask for.
 
    This is the lightest integration tier: you get the palette, type scale, spacing, radii,
-   shadows, layout tokens and both themes as var(--token), and you style your own markup
+   shadows, layout tokens and every theme as var(--rse-…), and you style your own markup
    with them. To also use this system's components, add tokens/base-runtime.css. For a page
    that should look like the Rede out of the box, link styles.css instead.
    See docs/integration.md. */
 @import url('fonts.css');
-@import url('colors.css');
-@import url('typography.css');
-@import url('spacing.css');
-@import url('layout.css');
-@import url('effects.css');
-@import url('themes.css');
+@import url('tokens.css');

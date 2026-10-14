@@ -8,7 +8,6 @@
 // Run this after touching components, tokens or the manifest. See AGENTS.md.
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
-import { createHash } from 'node:crypto';
 import { join, dirname, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -31,9 +30,7 @@ function walk(dir, out = []) {
   return out;
 }
 
-const manifest = JSON.parse(read('_ds_manifest.json'));
-const bundle = read('_ds_bundle.js');
-const bundleMeta = JSON.parse(bundle.match(/^\/\* @ds-bundle: (.*?) \*\//s)[1]);
+const manifest = JSON.parse(read('rse.manifest.json'));
 const allFiles = walk('.');
 
 // ─── 1. Every component ships source + types + usage doc ────────────────────
@@ -43,8 +40,8 @@ for (const c of manifest.components) {
     if (!existsSync(join(ROOT, p))) err(`${c.name}: missing ${p}`);
   }
   const src = existsSync(join(ROOT, c.sourcePath)) ? read(c.sourcePath) : '';
-  if (src && !new RegExp(`export function ${c.name}\\b`).test(src)) {
-    err(`${c.name}: ${c.sourcePath} does not "export function ${c.name}"`);
+  if (src && !new RegExp(`export (function|const) ${c.name}\\b`).test(src)) {
+    err(`${c.name}: ${c.sourcePath} does not export ${c.name} (function or forwardRef const)`);
   }
 }
 
@@ -52,7 +49,7 @@ for (const c of manifest.components) {
 const known = new Set(manifest.components.map((c) => c.sourcePath));
 for (const f of allFiles) {
   if (f.startsWith('components/') && f.endsWith('.jsx') && !known.has(f)) {
-    err(`${f} exists but is not registered in _ds_manifest.json`);
+    err(`${f} exists but is not registered in rse.manifest.json`);
   }
 }
 
@@ -62,17 +59,22 @@ for (const c of manifest.components) {
   if (!new RegExp(`\\b${c.name}\\b`).test(index)) err(`index.js does not export ${c.name}`);
 }
 
-// ─── 4. _ds_bundle.js is in sync with component sources ─────────────────────
-// The bundle is what every static page and template actually loads. Editing a
-// .jsx without regenerating the bundle means the page keeps running old code.
-let stale = 0;
-for (const [p, hash] of Object.entries(bundleMeta.sourceHashes ?? {})) {
-  if (!existsSync(join(ROOT, p))) { err(`bundle references missing source ${p}`); continue; }
-  const actual = createHash('sha256').update(readFileSync(join(ROOT, p))).digest('hex').slice(0, 12);
-  if (actual !== hash) { err(`bundle is stale for ${p} (source ${actual} ≠ bundle ${hash})`); stale++; }
+// ─── 4. Generated files are fresh ───────────────────────────────────────────
+// dist/rse.js, tokens/tokens.css, dist/tokens.*, brand.json and the docs are each verified by
+// their own builder's --check, which `npm run check` runs after this script.
+
+// ─── 4b. Token source names follow the scheme ───────────────────────────────
+// Every token lives under rse.<category>; a name outside it would collide with a host's CSS.
+for (const f of allFiles.filter((f) => /^tokens\/src\/.+\.tokens\.json$/.test(f))) {
+  const top = Object.keys(JSON.parse(read(f))).filter((k) => !k.startsWith('$'));
+  if (top.join() !== 'rse') err(`${f}: top-level groups must be exactly "rse" (found ${top.join(', ')})`);
 }
-for (const c of manifest.components) {
-  if (!(c.sourcePath in (bundleMeta.sourceHashes ?? {}))) err(`bundle does not include ${c.sourcePath}`);
+
+// ─── 4c. Nothing outside tokens/ uses a pre-2.0 token name ──────────────────
+const OLD = /var\(--(?!rse-)(color|surface|text|border|tint|gray|space|radius|shadow|font|line-height|letter-spacing|duration|ease|z|container|section|focus|hit|sabia|success|warning|danger|info|data|overlay)-?[a-z0-9-]*\)/;
+for (const f of allFiles.filter((f) => /\.(jsx|html|css|js|md)$/.test(f) && !/^(tokens\/|dist\/|CHANGELOG|docs\/roadmap\/|showcase\/showcase-data)/.test(f))) {
+  const m = read(f).match(OLD);
+  if (m) err(`${f}: uses ${m[0]} — 2.0 names are --rse-*; see docs/tokens.md`);
 }
 
 // ─── 5. Token hygiene: one name, one meaning ────────────────────────────────
@@ -107,7 +109,7 @@ for (const [name, list] of defs) {
 
 // ─── 6. Every var() used across the system resolves to a defined token ──────
 const consumers = allFiles.filter(
-  (f) => /\.(jsx|html|css)$/.test(f) && !f.startsWith('tokens/') && f !== '_ds_bundle.js' && !f.startsWith('scripts/')
+  (f) => /\.(jsx|html|css)$/.test(f) && !f.startsWith('tokens/') && f !== 'dist/rse.js' && !f.startsWith('scripts/')
 );
 const missing = new Map();
 for (const f of consumers) {
@@ -133,8 +135,17 @@ for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith
   for (const m of generated ? [] : text.matchAll(/#[0-9a-f]{3,8}\b/gi)) {
     warn(`${f}: raw hex ${m[0]} — use a colour token`);
   }
-  if (/font-family|fontFamily/.test(text) && !/var\(--font-family-base\)/.test(text)) {
-    warn(`${f}: sets a font without --font-family-base`);
+  if (/font-family|fontFamily/.test(text) && !/var\(--rse-font-family\)/.test(text)) {
+    warn(`${f}: sets a font without --rse-font-family`);
+  }
+}
+
+// ─── 7b. Consumers import from index.js, never from a component file ───────
+// So a component can be re-pathed or re-implemented (roadmap P2) without breaking anyone.
+for (const f of allFiles.filter((f) => /^(templates|starters|showcase|docs\/examples)\//.test(f) && /\.(m?js|jsx|html)$/.test(f))) {
+  if (f === 'showcase/showcase-data.js') continue;
+  for (const m of read(f).matchAll(/(?:from|import)\s*\(?\s*['"]([^'"]*components\/[a-z]+\/[A-Za-z]+(?:\.jsx?)?)['"]/g)) {
+    err(`${f}: imports ${m[1]} directly — import from index.js`);
   }
 }
 
@@ -142,9 +153,9 @@ for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith
 for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith('.jsx'))) {
   const text = read(f);
   if (/createElement\('input'[^)]*display: 'none'/.test(text.replace(/\s+/g, ' '))) {
-    err(`${f}: native input hidden with display:none — it leaves the tab order. Use className 'rede-control-input'.`);
+    err(`${f}: native input hidden with display:none — it leaves the tab order. Use className 'rse-control-input'.`);
   }
-  if (/zIndex: *\d/.test(text)) warn(`${f}: hard-coded zIndex — use the --z-* scale from tokens/layout.css`);
+  if (/zIndex: *\d/.test(text)) warn(`${f}: hard-coded zIndex — use the --rse-z-* scale (docs/tokens.md)`);
 }
 
 // ─── 8b. Hook-using components carry 'use client' ───────────────────────────
@@ -163,7 +174,7 @@ for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith
 for (const group of ['cards', 'templates', 'startingPoints']) {
   for (const entry of manifest[group] ?? []) {
     const p = typeof entry === 'string' ? entry : entry.path ?? entry.entry ?? entry.file ?? entry.entryPath;
-    if (p && !existsSync(join(ROOT, p))) err(`_ds_manifest.json ${group}: ${p} does not exist`);
+    if (p && !existsSync(join(ROOT, p))) err(`rse.manifest.json ${group}: ${p} does not exist`);
   }
 }
 for (const p of manifest.globalCssPaths ?? []) {
@@ -197,8 +208,7 @@ for (const f of allFiles.filter((f) => /\.(html|jsx|css)$/.test(f) && !f.startsW
 if (!quiet) {
   console.log(`components  ${manifest.components.length}`);
   console.log(`tokens      ${defs.size} names in ${tokenFiles.length} files`);
-  console.log(`bundle      ${stale ? `${stale} stale source(s)` : 'in sync with sources'}`);
-  console.log('');
+    console.log('');
 }
 for (const w of warnings) console.log(`warn   ${w}`);
 for (const e of errors) console.log(`ERROR  ${e}`);

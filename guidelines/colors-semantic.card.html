@@ -1,10 +1,19 @@
-<!-- @dsCard group="Colors" viewport="700x110" name="Semantic" subtitle="Success, warning, danger, info — mapped to accent family darks" -->
-<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"></head>
-<body style="margin:0;padding:20px;font-family:var(--font-family-base);background:var(--surface-page)">
-<div style="display:flex;gap:8px">
-<div style="flex:1;height:60px;border-radius:8px;background:var(--success);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:600">Success</div>
-<div style="flex:1;height:60px;border-radius:8px;background:var(--warning);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:600">Warning</div>
-<div style="flex:1;height:60px;border-radius:8px;background:var(--danger);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:600">Danger</div>
-<div style="flex:1;height:60px;border-radius:8px;background:var(--info);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:600">Info</div>
+<!-- @dsCard group="Colors" viewport="700x150" name="Semantic" subtitle="Status in three roles: surface, -text for words, bare name for indicators" -->
+<!DOCTYPE html><html lang="pt-BR"><head><title>Semantic — Rede Sesc de Educação</title><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+.row{display:flex;gap:8px}
+.s{flex:1;border-radius:var(--rse-radius-sm);padding:var(--rse-space-3);display:flex;flex-direction:column;gap:var(--rse-space-1);font-size:var(--rse-font-size-body-sm)}
+.s b{display:flex;align-items:center;gap:var(--rse-space-2);font-weight:var(--rse-font-weight-semibold)}
+.s i{width:8px;height:8px;border-radius:50%;flex:none}
+.s code{font-size:var(--rse-font-size-caption);color:var(--rse-color-text-body)}
+.note{margin:var(--rse-space-3) 0 0;font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)}
+</style></head>
+<body style="margin:0;padding:20px;font-family:var(--rse-font-family);background:var(--rse-color-surface-page)">
+<div class="row">
+<div class="s" style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text)"><b><i style="background:var(--rse-color-success)"></i>Sucesso</b><code>--rse-color-success-text</code></div>
+<div class="s" style="background:var(--rse-color-warning-surface);color:var(--rse-color-warning-text)"><b><i style="background:var(--rse-color-warning-text)"></i>Atenção</b><code>--rse-color-warning-text</code></div>
+<div class="s" style="background:var(--rse-color-danger-surface);color:var(--rse-color-danger-text)"><b><i style="background:var(--rse-color-danger)"></i>Erro</b><code>--rse-color-danger-text</code></div>
+<div class="s" style="background:var(--rse-color-info-surface);color:var(--rse-color-info-text)"><b><i style="background:var(--rse-color-info)"></i>Informação</b><code>--rse-color-info-text</code></div>
 </div>
+<p class="note">Words use <code>--*-text</code> (4.5:1+). Dots, borders and icons use the bare name (3:1). Never white text on a status colour.</p>
 </body></html>

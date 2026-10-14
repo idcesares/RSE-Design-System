@@ -1,12 +1,11 @@
 import React from 'react';
-export interface InputProps {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  placeholder?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
+  /** Helper text below the field (alias: hint) */
   helpText?: string;
-  disabled?: boolean;
-  type?: string;
+  hint?: string;
+  /** Error message — replaces the helper text, sets aria-invalid and is announced with the field */
+  error?: string;
 }
-export function Input(props: InputProps): JSX.Element;
+/** Text field with label, helper text and error, wired for screen readers. Class contract: .rse-field + .rse-input. Every other prop goes to the <input>; className goes to the field wrapper. */
+export declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLInputElement>>;

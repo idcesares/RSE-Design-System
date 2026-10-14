@@ -7,23 +7,36 @@ components are an existing one with a prop you haven't read.
 Add a component when a pattern appears on **three or more** surfaces and cannot be expressed by
 composing what exists. Otherwise compose it in the page.
 
-## 1. Write the source
+## 1. Write the CSS contract, then the wrapper
 
-`components/<group>/Name.jsx` — groups are `core`, `brand`, `forms`, `navigation`, `feedback`,
-`data`, `disclosure`, `overlay`.
+Start with `components/<group>/Name.css`: a root class `.rse-name`, BEM elements
+(`.rse-name__part`) and modifiers (`.rse-name--variant`). Every state is CSS — `:hover`,
+`:focus-visible`, `:checked`, `:disabled`, `[aria-invalid="true"]` — so the component works in a CMS
+page with no JavaScript. `npm run sync` wraps all of them in `@layer rse.components` in
+`dist/components.css`; a raw colour fails the build.
+
+Then `components/<group>/Name.jsx` renders that markup. Groups are `core`, `brand`, `forms`,
+`navigation`, `feedback`, `data`, `disclosure`, `overlay`.
 
 ```jsx
 import React from 'react';
-export function Name({ tone = 'primary', children }) {
-  return React.createElement('div', { style: { /* tokens only */ } }, children);
-}
+const cx = (...c) => c.filter(Boolean).join(' ');
+export const Name = React.forwardRef(function Name({ tone = 'primary', className, children, ...rest }, ref) {
+  return React.createElement('div', { ref, className: cx('rse-name', tone !== 'primary' && 'rse-name--' + tone, className), ...rest }, children);
+});
 ```
+
+Another component is imported by relative path (`import { Icon } from '../core/Icon.jsx';`); the
+bundle builder resolves it and orders the blocks.
 
 Hard rules:
 
-- **`React.createElement`, never JSX.** `scripts/sync-bundle.mjs` copies this file into
-  `_ds_bundle.js` verbatim so static pages can load it with no build step; JSX is rejected.
-- **One default export shape**: `export function Name`. The name must match the filename.
+- **`React.createElement`, never JSX.** `scripts/build-bundle.mjs` copies this file into
+  `dist/rse.js` verbatim so static pages can load it with no build step; JSX is rejected.
+- **Export shape**: `export const Name = React.forwardRef(function Name(…))` (or `export function
+  Name` for one that needs no ref). The name must match the filename.
+- **No inline style objects, no hover in state.** Forward `ref`, spread `...rest` onto the main
+  element, merge `className`, build ids with `React.useId` (never `Math.random`).
 - **Tokens only** for colour, type, radius, shadow, motion, z-index. Layout geometry (a 20px
   checkbox box, a 16:10 media ratio) may be literal.
 - **Prop shapes stay simple** — strings, numbers, booleans, arrays of plain objects, React nodes.
@@ -33,7 +46,7 @@ Hard rules:
   purely presentational open/close (`Menu`, `Accordion`) which support both.
 - **Accessibility is part of the component, not the page**: roles, `aria-*`, keyboard handling and
   focus management live here. See the floor in [../AGENTS.md](../AGENTS.md#accessibility-floor).
-  A native input behind custom chrome uses `className="rede-control-input"` — never `display:none`.
+  A native input behind custom chrome uses `className="rse-control-input"` — never `display:none`.
 
 ## 2. Write the types
 
@@ -62,20 +75,21 @@ uphold (e.g. "always pass `label`").
 ## 4. Add it to a specimen card
 
 Each group has one or more `*.card.html` specimens rendered in the design system browser. Add your
-component to the relevant card, or create a new one and register it in `_ds_manifest.json` under
+component to the relevant card, or create a new one and register it in `rse.manifest.json` under
 `cards` with `path`, `group`, `name`, `subtitle` and `viewport`.
 
 ## 5. Register it
 
-- `_ds_manifest.json` → `components`: `{ "name": "Name", "sourcePath": "components/<group>/Name.jsx" }`
+- `rse.manifest.json` → `components`: `{ "name": "Name", "sourcePath": "components/<group>/Name.jsx" }`
 - `index.js` → `export { Name } from './components/<group>/Name.jsx';`
 - `index.d.ts` → the matching type re-export.
-- `_adherence.oxlintrc.json` → the prop allow-list entry, if you want the lint rules to cover it.
+- If it renders text on a new surface, add the pair to `scripts/contrast-pairs.mjs` — the audit
+  gate and the showcase both read it.
 
 ## 6. Sync and check
 
 ```bash
-npm run sync    # mirror into _ds_bundle.js, refresh manifest tokens, regenerate docs
+npm run sync    # mirror into dist/rse.js, refresh manifest tokens, regenerate docs
 npm run check   # must pass
 ```
 

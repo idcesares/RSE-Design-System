@@ -1,11 +1,13 @@
 import React from 'react';
 export interface SelectOption { label: string; value: string }
-export interface SelectProps {
+export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   options: SelectOption[];
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  /** Disabled first option shown until a value is picked */
   placeholder?: string;
-  disabled?: boolean;
+  helpText?: string;
+  hint?: string;
+  error?: string;
 }
-export function Select(props: SelectProps): JSX.Element;
+/** Native select with the system's field chrome. Class contract: .rse-field + .rse-select. */
+export declare const Select: React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLSelectElement>>;

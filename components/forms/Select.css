@@ -1,0 +1,6 @@
+/* Select — native <select class="rse-input"> inside .rse-select, with an Icon chevron drawn on
+   top. Native, so it keeps the platform picker, keyboard and screen-reader behaviour. */
+.rse-select{position:relative;display:block}
+.rse-select .rse-input{appearance:none;padding-right:var(--rse-space-7);cursor:pointer}
+.rse-select .rse-input:disabled{cursor:not-allowed}
+.rse-select__chevron{position:absolute;top:50%;right:var(--rse-space-4);display:inline-flex;transform:translateY(-50%);pointer-events:none;color:var(--rse-color-text-muted)}

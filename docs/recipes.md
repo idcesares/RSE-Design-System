@@ -26,12 +26,12 @@ components off the global namespace.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Programas — Rede Sesc de Educação</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="_ds_bundle.js"></script>
+  <script src="dist/rse.js"></script>
 </head>
 <body>
   <main id="app"></main>
   <script>
-    const DS = window.RedeSescDeEducaODesignSystem_2167ce;
+    const DS = window.RSE;
     // DS.Button, DS.Card, DS.Stat, … see docs/components.md
   </script>
 </body>
@@ -40,15 +40,13 @@ components off the global namespace.
 
 Paths are relative to where you put the file. One level down from the system root, `styles.css`
 becomes `../styles.css`. If you copy the file somewhere else entirely, copy `styles.css`,
-`tokens/`, `assets/fonts/` and `_ds_bundle.js` with it — the fonts are referenced from
+`tokens/`, `assets/fonts/` and `dist/rse.js` with it — the fonts are referenced from
 `tokens/fonts.css` by relative path.
 
-Components need React to render. For a page with real interactivity, mirror what
-`ui_kits/site/index.html` does: load the vendored React UMD builds from `assets/vendor/`, then
-`_ds_bundle.js`. Write your screens in `React.createElement` form and let `npm run sync` mirror
-them into the bundle — no JSX, so no Babel and no network. (Babel standalone compiles a `src`
-script by fetching it over XHR, which a `file://` page cannot do; that is what used to make this
-page open blank outside a web server.) For a page that is mostly layout, write the markup directly
+Components need React to render. For a page with real interactivity, do what
+`starters/page-react.html` does: load the vendored React UMD builds from `assets/vendor/`, then
+`dist/rse.js`, and write your screens in `React.createElement` form — no JSX, so no Babel and no
+network, and the page opens from `file://`. For a page that is mostly layout, write the markup directly
 with tokens and use the components only where behaviour matters — that is what the templates do.
 
 ## A page inside a React project
@@ -76,8 +74,8 @@ that page:
 const base = '../../_ds';   // the one line to edit
 ```
 
-`ds-base.js` link-tags the token stylesheets and loads `_ds_bundle.js`; the page itself mounts
-components through `<x-import component-from-global-scope="RedeSescDeEducaODesignSystem_2167ce.Button" …>`.
+`ds-base.js` link-tags the token stylesheets and loads `dist/rse.js`; the page itself mounts
+components through `<x-import component-from-global-scope="RSE.Button" …>`.
 Attributes are strings — that is why component props are kept to strings, arrays and plain objects.
 
 | Template | Use for |
@@ -91,7 +89,7 @@ Attributes are strings — that is why component props are kept to strings, arra
 
 Copy `templates/institutional-deck/`. Slides are 1920×1080 stages handled by `deck-stage.js`;
 each `<section>` is one slide. Type scales up hard at that size — the deck uses explicit px sizes
-(40–120px) rather than the web type scale, which is the one sanctioned place to leave the `--text-*`
+(40–120px) rather than the web type scale, which is the one sanctioned place to leave the `--rse-font-size-*`
 scale, because the tokens are tuned for screen reading distance.
 
 Keep to the deck's existing rhythm: one idea per slide, an eyebrow + a short declarative headline,
@@ -126,7 +124,7 @@ Sab.IA login screen's signature: a cube field on one side, content on a calm sur
 
 ```css
 .hero-field{
-  background: var(--color-blue-light) url('assets/patterns/cubes-pattern-1.svg') left center / cover no-repeat;
+  background: var(--rse-brand-blue-light) url('assets/patterns/cubes-pattern-1.svg') left center / cover no-repeat;
 }
 ```
 
@@ -154,7 +152,7 @@ entry is a separate, quieter promise. Background: [sabia-platform.md](sabia-plat
 Set the attribute on any ancestor — usually `<html>`:
 
 ```html
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-rse-theme="dark">
 ```
 
 `dark` and `contrast` re-map the semantic layer only. If something looks wrong in a theme, the
@@ -163,18 +161,18 @@ cause is nearly always a hard-coded colour in the component or page, not a missi
 To offer a toggle, flip the attribute and let CSS do the rest:
 
 ```js
-document.documentElement.dataset.theme = isDark ? 'dark' : '';
+document.documentElement.dataset.rseTheme = isDark ? 'dark' : '';
 ```
 
 ## Standard section patterns
 
 These compositions recur across the network's surfaces; reuse them rather than inventing new ones.
 
-**Hero** — eyebrow (uppercase, `--color-primary`) → `--text-display-2` headline → one supporting
-line at `--text-body-lg` in `--text-muted` → two buttons (`primary` + `ghost`) → an `<image-slot>`
-at `--radius-xl`.
+**Hero** — eyebrow (uppercase, `--rse-color-primary`) → `--rse-font-size-display-2` headline → one supporting
+line at `--rse-font-size-body-lg` in `--rse-color-text-muted` → two buttons (`primary` + `ghost`) → an `<image-slot>`
+at `--rse-radius-xl`.
 
-**Stat band** — solid `--color-primary` full-bleed band, 3–4 `Stat` components in a grid, white
+**Stat band** — solid `--rse-color-primary` full-bleed band, 3–4 `Stat` components in a grid, white
 figures. This is the "resultado" pillar made visible; keep the figures to four at most.
 
 **Program cards** — 3-up grid of `Card` at 16:10 media, each with a coloured `Tag` above the
@@ -182,11 +180,11 @@ eyebrow. Vary the `Tag` colour across the accent families to show the plurality 
 is the one place multiple accent hues appear together.
 
 **Enrollment flow** — `Stepper` across the top, form fields (`Input`, `Select`, `DateField`,
-`FileUpload`) in a single column at `--container-prose` width, `Alert` for the deadline, `Modal`
+`FileUpload`) in a single column at `--rse-container-prose` width, `Alert` for the deadline, `Modal`
 for confirmation.
 
-**FAQ** — `Accordion`, single-open, at `--container-prose` width. The most-requested pattern on an
+**FAQ** — `Accordion`, single-open, at `--rse-container-prose` width. The most-requested pattern on an
 education site; use it instead of long unbroken copy.
 
-**Footer** — `Footer` component with 3–4 link columns on `--color-ink`. Always carries the
+**Footer** — `Footer` component with 3–4 link columns on `--rse-brand-ink`. Always carries the
 institutional note line.

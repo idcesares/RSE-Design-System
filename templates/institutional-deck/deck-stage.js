@@ -973,7 +973,7 @@
         // form, so any compound on :root — [attr], .class, #id, :pseudo —
         // must become :host(<compound>) not :host<compound>. Same for the
         // html type selector (Tailwind class-strategy dark mode emits
-        // html.dark; Pico uses html[data-theme]), which has nothing to
+        // html.dark; Pico uses html[data-rse-theme]), which has nothing to
         // match inside the thumb's shadow tree.
         .replace(/:root((?:\[[^\]]*\]|[.#][-\w]+|:[-\w]+(?:\([^)]*\))?)+)/g, ':host($1)')
         .replace(/:root\b/g, ':host')

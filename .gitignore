@@ -12,5 +12,7 @@ npm-debug.log*
 .image-slots.state.json
 **/.image-slots.state.json
 
-# nothing here is built from source except _ds_bundle.js, which IS committed on
-# purpose: static pages load it directly and there is no build step in consumers.
+# Generated files (dist/, tokens/tokens.css, brand.json, docs/*.md references) ARE committed
+# on purpose: static pages load them directly and consumers need no build step.
+# The static kit is a release artifact, rebuilt by `npm run pack`.
+dist/static/

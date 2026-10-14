@@ -1,9 +1,9 @@
 <!-- @dsCard group="Components" viewport="820x520" name="Menu" subtitle="Dropdown for regional/unit navigation and row actions" -->
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script><script src="../../_ds_bundle.js"></script></head>
-<body style="margin:0;padding:32px;background:var(--surface-page)">
+<!DOCTYPE html><html lang="pt-BR"><head><title>Menu — Rede Sesc de Educação</title><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script><script src="../../dist/rse.js"></script></head>
+<body style="margin:0;padding:32px;background:var(--rse-color-surface-page)">
 <div id="root"></div>
 <script type="text/babel">
-const { Menu, Icon } = window.RedeSescDeEducaODesignSystem_2167ce;
+const { Menu, Icon } = window.RSE;
 const estados = [
   { heading: 'Sudeste' },
   { label: 'São Paulo', meta: '48 unidades', href: '#' },
@@ -22,18 +22,18 @@ const acoes = [
   { label: 'Falar com a unidade' }
 ];
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <div style={{display:'flex',flexDirection:'column',gap:'var(--space-7)',fontFamily:'var(--font-family-base)'}}>
-    <div style={{display:'flex',gap:'var(--space-4)',alignItems:'flex-start',flexWrap:'wrap'}}>
+  <div style={{display:'flex',flexDirection:'column',gap:'var(--rse-space-7)',fontFamily:'var(--rse-font-family)'}}>
+    <div style={{display:'flex',gap:'var(--rse-space-4)',alignItems:'flex-start',flexWrap:'wrap'}}>
       <Menu label="Escolha o estado" items={estados} width={280} />
       <Menu label="Ações" items={acoes} align="right" width={230} />
     </div>
-    <div style={{display:'flex',gap:'var(--space-6)',alignItems:'center',padding:'var(--space-4) var(--space-5)',background:'var(--surface-card)',border:'1px solid var(--border-subtle)',borderRadius:'var(--radius-pill)',boxShadow:'var(--shadow-sm)',width:'fit-content'}}>
-      <span style={{fontWeight:800,color:'var(--text-heading)'}}>Rede Sesc</span>
+    <div style={{display:'flex',gap:'var(--rse-space-6)',alignItems:'center',padding:'var(--rse-space-4) var(--rse-space-5)',background:'var(--rse-color-surface-card)',border:'1px solid var(--rse-color-border-subtle)',borderRadius:'var(--rse-radius-pill)',boxShadow:'var(--rse-shadow-sm)',width:'fit-content'}}>
+      <span style={{fontWeight:800,color:'var(--rse-color-text-heading)'}}>Rede Sesc</span>
       <Menu trigger="link" label="Programas" width={240} items={[{label:'Educação Infantil',href:'#'},{label:'Ensino Fundamental',href:'#'},{label:'Ensino Médio',href:'#'},{label:'Formação Profissional',href:'#'}]} />
       <Menu trigger="link" label="Unidades" width={240} items={estados.slice(0,4)} />
-      <span style={{fontSize:'var(--text-body-sm)',fontWeight:600,color:'var(--text-heading)'}}>Sobre a Rede</span>
+      <span style={{fontSize:'var(--rse-font-size-body-sm)',fontWeight:600,color:'var(--rse-color-text-heading)'}}>Sobre a Rede</span>
     </div>
-    <p style={{fontSize:'var(--text-body-sm)',color:'var(--text-muted)',margin:0,maxWidth:'var(--container-prose)'}}>Closes on outside click and Escape. Grouped with headings past ~7 items; <code>trigger="link"</code> for use inside the navbar.</p>
+    <p style={{fontSize:'var(--rse-font-size-body-sm)',color:'var(--rse-color-text-muted)',margin:0,maxWidth:'var(--rse-container-prose)'}}>Closes on outside click and Escape. Grouped with headings past ~7 items; <code>trigger="link"</code> for use inside the navbar.</p>
   </div>
 );
 </script>

@@ -1,6 +1,148 @@
 # Changelog
 
-## Unreleased — the showcase, and what it found
+## 2.0.0 — 2026-10-14 — one source, one name, one package
+
+Breaking, by design: nothing consumed 1.x, so there are no aliases. Every token, the theme
+attribute, the bundle global and several file paths changed. Decisions D1–D6 in
+`docs/roadmap/roadmap.md`.
+
+### Tokens: a DTCG source, tiers, and names that say what they are
+
+- **Source of truth is `tokens/src/*.tokens.json`** (W3C DTCG). `scripts/build-tokens.mjs`
+  generates `tokens/tokens.css`, `dist/tokens.json` (every token resolved per theme),
+  `dist/tokens.js` + `.d.ts`, and the manifest entries. The six hand-written token CSS files and
+  `sync-tokens.mjs` are gone.
+- **`--rse-<category>-<role>` everywhere.** Tier 1 `--rse-brand-*` is the palette (official 20 with
+  CMYK, plus the derived inks, ink, grays); tier 2 `--rse-color-*` holds every role components read
+  (`--rse-color-text-body`, `--rse-color-danger-text`, `--rse-color-tint-pink-ink`…); scales are
+  `--rse-font-size-*`, `--rse-space-*`, `--rse-radius-*`, `--rse-shadow-*`, `--rse-duration-*`, etc.
+  The colour/size collision that rule 2 used to police cannot happen any more.
+- **Themes are `data-rse-theme="dark" | "contrast" | "auto"`.** `auto` follows
+  `prefers-color-scheme`. A theme block re-declares every alias that reaches a themed token, so a
+  themed section nested inside a light page now gets the right values (before, `--a: var(--b)`
+  kept its `:root` value).
+- **Removed:** the sampled `--cube-*` values (the rule forbids sampling artwork), unused
+  `--color-accent-*` / `--color-secondary` aliases, `--shadow-inset`, `--grid-columns`,
+  `--letter-spacing-normal`, `--line-height-loose`, `--state-*-layer`, and `--container-max`
+  (merged into `--rse-container-xl`). Breakpoints left the CSS (it cannot read `var()` inside
+  `@media`) and live in `dist/tokens.json` / `brand.json` → `scales.breakpoints`.
+- **Fluid:** H1–H3 and display sizes scale with `rem + vw` (so they also scale with zoom);
+  `--rse-container-padding` is 16px on a phone and 24px from ~600px.
+
+### Components: the CSS contract (roadmap P2.1–P2.4)
+
+- **Twelve components are now a CSS contract first**: Button, IconButton, Card, Tag, Badge, Alert,
+  Input, Select, Textarea, Checkbox, Radio, Switch. Each has a `components/<group>/<Name>.css`
+  (`.rse-button`, `.rse-field`, `.rse-choice`…) built into `dist/components.css` inside
+  `@layer rse.components`; `styles.css` puts the reset in `@layer rse.base`. A CMS or the portal
+  can use the classes with no JavaScript; host styles win without `!important`.
+- **The React components render that markup**: `forwardRef`, every native prop passed through,
+  `className` merged, ids from `useId`. No inline style objects and no hover held in state, so
+  hover, focus and checked states exist before hydration and on touch.
+- **Behaviour fixes that came with it**: Input/Select wire their message with `aria-describedby`
+  and `aria-invalid`; text fields keep the visible focus ring (the pale shadow alone was not one);
+  Select draws its chevron with `Icon` (no raw-hex data URI); Alert is `role="status"` unless
+  `urgent`, and shows its tone as an icon; Card with `href` makes the title the link and stretches
+  it over the card, so footer buttons are no longer nested inside a link — without `href` the card
+  is static; Checkbox/Radio/Switch states follow `:checked`, and the Switch's off track now clears
+  3:1; Button takes `href` and `block`.
+- **No more Unicode glyphs as icons**: `×`, `▾`, `‹ ›`, `✓` in Modal, Toast, FileUpload, Stepper, Menu
+  and Pagination are `Icon`s. Components can import each other; the bundle orders them.
+- Modal and Tooltip ids come from `useId` (no `Math.random`, no hydration mismatch).
+- `tokens/base.css` is gone; `styles.css` imports the pieces directly.
+
+### Tests in a real browser (roadmap P2.5)
+
+`npm run test:pages` (`scripts/test-pages.mjs`) opens every shipped page in Chromium at 1280px and
+360px: runtime errors fail; axe-core WCAG 2.2 AA violations and horizontal overflow on a phone are
+ratcheted against `scripts/test-pages-baseline.json`. It runs in CI and before every release.
+Specimen pages gained `lang="pt-BR"` and a `<title>`.
+
+### Package and release
+
+- Published as **`@idcesares/rse-design-system`** on GitHub Packages, with subpath exports
+  (`/styles.css`, `/tokens-only.css`, `/tokens`, `/tokens.json`, `/brand.json`, `/bundle`,
+  `/assets/*`). `LICENSE` (Sesc internal use; to be confirmed by Sesc legal) and `RULES.md` (the
+  short rules for consuming projects) ship inside it.
+- **Static kit** for sites that cannot `npm install`: `npm run pack` → `dist/static/rse-<version>/`,
+  attached as a zip to each GitHub Release.
+- `.github/workflows/release.yml`: on a `v*` tag matching `package.json` and a CHANGELOG section,
+  runs `check`, publishes, and creates the release.
+
+### Bundle
+
+- `_ds_bundle.js` → **`dist/rse.js`**, on **`window.RSE`**. `scripts/build-bundle.mjs` regenerates
+  it whole from the manifest each time (it used to be patched in place and still carried the ui kit
+  and a second copy of `image-slot.js`). `_ds_manifest.json` → `rse.manifest.json`.
+
+### Removed (D6)
+
+`ui_kits/site/` (a second, older landing page), the five superseded raster logos,
+`_adherence.oxlintrc.json`, `scripts/bind.mjs` (replaced by the package and the static kit) and
+`scripts/sync-bundle.mjs`. CSS class hooks are `rse-control-input` / `rse-control-box`; keyframes
+`rse-spin` / `rse-shimmer`.
+
+### Docs
+
+`readme.md` is the brand brief only (the history of passes is here, below). Known gaps live in one
+place, `docs/known-gaps.md`. `docs/integration.md` is rewritten around the package and the kit.
+`docs/tokens.md` shows every token's value in all three themes. Several specimens and the showcase
+used status *indicator* colours for text; they now use the `-text` roles.
+
+
+### Before 2.0 in this cycle: roadmap phase 0 and P1.1–P1.2 (decisions D1–D3)
+
+**Every rendered colour pair now meets its floor — 0 of 108 fail across the three themes (was 18
+of 63 in the earlier set).** The fix is in the tokens, not the brand: the official `-dark` tones sit
+at 3.4–4.1:1 against both white and ink, so nothing small can be written in them.
+
+- **Derived inks (D2).** `--color-{pink,orange,green,blue,purple,yellow}-ink`, one deep step per
+  hue, marked *derived*. Light-theme `--tint-*-ink` now point at them: every Tag clears 6.2:1.
+- **Status colours split into roles.** `--success-text` / `--warning-text` / `--danger-text` /
+  `--info-text` for words; the bare `--success`… stay as indicators (dots, borders, icons). Badge,
+  Alert, the error and required markers of Input, Textarea, DateField and FileUpload, and the
+  DateField deadline chip use the text role. Field errors went from 3.75:1 to 9.1:1.
+- **`--text-on-primary-tint`** for text on the pale purple: secondary Button, Menu hover, Avatar
+  initials, Badge `primary`, the ui kit and program page links (4.29 → 5.29:1).
+- **`--sabia-on-blue`**: Sab.IA chrome text is ink (6.17:1), not white (2.27:1).
+- **`Stat accent="yellow"`** renders the themed yellow ink; no official yellow reaches 3:1 on cream.
+- **Accent bands (D3).** Pages may use a light or mid accent band with ink text; the rule changed
+  in `AGENTS.md`, `readme.md`, `brand-manual.md`, `brand.json` rules and the rules `bind` ships.
+- **The gate.** `npm run check` now ends with `audit --strict`: any failing pair, any pair naming a
+  missing token, or any debt count above `scripts/audit-baseline.json` fails it. Pairs live in
+  `scripts/contrast-pairs.mjs`, which the showcase's contrast table now reads too — it can no
+  longer test only the pairs that pass.
+- **Direct component imports** are now an error in `check-ds`; `_adherence.oxlintrc.json`, which
+  nothing ran, is documented as tool metadata. `lint:adherence` (whose config no longer parsed) is gone.
+- **CI.** `.github/workflows/ci.yml` runs `npm run check` on every PR and keeps the audit JSON.
+- **Scope freeze** on new components until the CSS contract lands (`AGENTS.md`).
+- Specimens: the semantic colour card shows the three roles instead of white text on status
+  colours (which failed); the accent card shows the inks.
+
+### `docs/roadmap/` — where the system stands, and the plan to make it the ecosystem's foundation
+
+[`assessment.md`](docs/roadmap/assessment.md) scores the system on ten dimensions with measured
+evidence: the brand layer is strong; the product layer is React-only, inline-styled, not
+responsive, and fails its own contrast floor on 18 of 63 rendered colour pairs (every Tag, every
+Badge, input errors). [`roadmap.md`](docs/roadmap/roadmap.md) turns that into a target
+architecture (brand → tokens → CSS contract → React wrappers), conformance levels for the systems
+that adopt it, the decisions that need an owner, and work packages whose acceptance is a number.
+
+### `npm run audit` — the quality scorecard
+
+New `scripts/audit.mjs`. Where `check` asks whether the repo is consistent, `audit` asks whether
+what it ships is good: contrast of every pair the components render in all three themes, raw
+values and glyph icons in components and templates, responsiveness, and docs that disagree with
+the manifest. Not part of `check` yet — the baseline fails on purpose; roadmap P1.2 makes it a gate.
+
+### Documentation contradictions fixed
+
+Component count in `readme.md` (35 → 36), pattern hues (`readme.md` said red, `brand-manual.md`
+said only green/pink/blue — the SVGs are blue, green, orange, pink), the motif recolouring rule in
+`brand-manual.md` and the "placeholder" wording in `AGENTS.md` now agree with rule 10, and a stale
+note about `/* derived */` markers is gone.
+
+## 1.5.0 (unreleased) — the showcase, and what it found
 
 ### `showcase/index.html` — the system presented as one page
 

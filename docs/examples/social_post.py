@@ -32,14 +32,15 @@ import sys
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-# _ds/ when bound into another project; the repo root when run from here.
+# The repo root when run from here; the package or the unzipped static kit elsewhere.
 ROOT = next(
-    (p for p in (Path(__file__).resolve().parents[2], Path.cwd() / "_ds", Path.cwd())
+    (p for p in (Path(__file__).resolve().parents[2],
+                 Path.cwd() / "node_modules" / "@idcesares" / "rse-design-system", Path.cwd())
      if (p / "brand.json").is_file()),
     None,
 )
 if ROOT is None:
-    sys.exit("brand.json not found — run this from the design system repo, or from a project with _ds/ bound into it.")
+    sys.exit("brand.json not found — run this from the design system repo, from a project with the package installed, or from inside the unzipped static kit.")
 
 BRAND = json.loads((ROOT / "brand.json").read_text(encoding="utf-8"))
 
@@ -101,8 +102,8 @@ def build(eyebrow: str, headline: str, hue: str, out: Path) -> None:
     background = hex_of("purple", "dark") if on_purple else hex_of("cream")
     # Two background colours max (rules.colour.maxBackgroundColoursPerComposition), so the
     # accent hue is carried by the motif, never by a second full-bleed field.
-    ink = token("--color-white") if on_purple else token("--text-heading")
-    eyebrow_colour = token("--color-white") if on_purple else hex_of("purple", "dark")
+    ink = token("--rse-brand-white") if on_purple else token("--rse-color-text-heading")
+    eyebrow_colour = token("--rse-brand-white") if on_purple else hex_of("purple", "dark")
 
     # The wordmark is the simplificada version; pick the one made for this surface.
     logo = asset("logos", id="wordmark-white" if on_purple else "wordmark-purple")

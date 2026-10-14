@@ -1,38 +1,84 @@
 {
-  "name": "rede-sesc-educacao-design-system",
-  "version": "1.4.0",
-  "private": true,
-  "description": "Design system for the Rede Sesc de Educação — tokens, 36 React components, templates and brand guidance for generating sites, pages and print artwork.",
+  "name": "@idcesares/rse-design-system",
+  "version": "2.0.0",
+  "description": "Design system for the Rede Sesc de Educação — brand, tokens (DTCG), 36 React components, templates and guidance for sites, platforms, print and agents.",
   "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
   "sideEffects": [
     "*.css",
     "image-slot.js",
-    "_ds_bundle.js"
+    "dist/rse.js"
   ],
   "files": [
     "index.js",
     "index.d.ts",
-    "components",
+    "components/**/*.jsx",
+    "components/**/*.css",
+    "components/**/*.d.ts",
+    "components/**/*.prompt.md",
     "tokens",
     "styles.css",
+    "dist",
+    "!dist/static",
     "assets",
+    "!assets/logos/source",
     "brand.json",
     "image-slot.js",
-    "_ds_bundle.js",
-    "_ds_manifest.json"
+    "RULES.md",
+    "LICENSE"
   ],
   "scripts": {
-    "check": "node scripts/check-ds.mjs && node scripts/build-icons.mjs --check && node scripts/sync-bundle.mjs --check && node scripts/sync-tokens.mjs --check && node scripts/build-brand.mjs --check && node scripts/gen-docs.mjs --check && node scripts/build-showcase.mjs --check",
-    "sync": "node scripts/build-icons.mjs && node scripts/sync-bundle.mjs && node scripts/sync-tokens.mjs && node scripts/build-brand.mjs && node scripts/gen-docs.mjs && node scripts/build-showcase.mjs",
-    "bind": "node scripts/bind.mjs",
+    "check": "node scripts/check-ds.mjs && node scripts/build-tokens.mjs --check && node scripts/build-icons.mjs --check && node scripts/build-bundle.mjs --check && node scripts/build-css.mjs --check && node scripts/build-brand.mjs --check && node scripts/gen-docs.mjs --check && node scripts/build-showcase.mjs --check && node scripts/audit.mjs --strict",
+    "sync": "node scripts/build-tokens.mjs && node scripts/build-icons.mjs && node scripts/build-bundle.mjs && node scripts/build-css.mjs && node scripts/build-brand.mjs && node scripts/gen-docs.mjs && node scripts/build-showcase.mjs",
+    "audit": "node scripts/audit.mjs",
     "icons": "node scripts/build-icons.mjs",
+    "motifs": "node scripts/build-motifs.mjs",
     "docs": "node scripts/gen-docs.mjs",
-    "lint:adherence": "npx --yes oxlint --config _adherence.oxlintrc.json components ui_kits templates"
+    "pack": "node scripts/pack-static.mjs",
+    "test:pages": "node scripts/test-pages.mjs"
   },
   "engines": {
     "node": ">=18"
   },
-  "license": "UNLICENSED"
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idcesares/RSE-Design-System.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./styles.css": "./styles.css",
+    "./tokens.css": "./tokens/tokens.css",
+    "./tokens-only.css": "./tokens/tokens-only.css",
+    "./base-runtime.css": "./tokens/base-runtime.css",
+    "./base-reset.css": "./tokens/base-reset.css",
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "default": "./dist/tokens.js"
+    },
+    "./tokens.json": "./dist/tokens.json",
+    "./tokens/src/*": "./tokens/src/*",
+    "./brand.json": "./brand.json",
+    "./bundle": "./dist/rse.js",
+    "./image-slot": "./image-slot.js",
+    "./assets/*": "./assets/*",
+    "./RULES.md": "./RULES.md",
+    "./package.json": "./package.json",
+    "./components.css": "./dist/components.css"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  }
 }

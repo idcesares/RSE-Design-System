@@ -11,16 +11,16 @@
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="showcase.css">
 
-<!-- React runs the real components. Vendored under assets/, shared with ui_kits/site, so both
-     open offline and neither reaches for a CDN. -->
+<!-- React runs the real components. Vendored under assets/, so the page can
+     open offline and never reaches for a CDN. -->
 <script src="../assets/vendor/react.production.min.js"></script>
 <script src="../assets/vendor/react-dom.production.min.js"></script>
 
-<!-- Every component, on window.RedeSescDeEducaODesignSystem_2167ce -->
-<script src="../_ds_bundle.js"></script>
+<!-- Every component, on window.RSE -->
+<script src="../dist/rse.js"></script>
 <script src="../image-slot.js"></script>
 
-<!-- Generated from brand.json + _ds_manifest.json by scripts/build-showcase.mjs -->
+<!-- Generated from brand.json + rse.manifest.json by scripts/build-showcase.mjs -->
 <script src="showcase-data.js"></script>
 </head>
 <body>
@@ -36,9 +36,9 @@
     </div>
     <div class="sc-topbar-spacer"></div>
     <div class="sc-themes" role="group" aria-label="Tema da página">
-      <button type="button" data-theme-set="light" aria-pressed="true">Claro</button>
-      <button type="button" data-theme-set="dark" aria-pressed="false">Escuro</button>
-      <button type="button" data-theme-set="contrast" aria-pressed="false">Alto contraste</button>
+      <button type="button" data-rse-theme-set="light" aria-pressed="true">Claro</button>
+      <button type="button" data-rse-theme-set="dark" aria-pressed="false">Escuro</button>
+      <button type="button" data-rse-theme-set="contrast" aria-pressed="false">Alto contraste</button>
     </div>
     <span class="sc-version" id="sc-version"></span>
   </div>
@@ -64,7 +64,7 @@
           <p class="sc-eyebrow">Rede Sesc de Educação</p>
           <span class="sc-slogan" id="sc-slogan"></span>
           <h1>Uma rede nacional que se parece com uma instituição só</h1>
-          <p class="sc-lead" style="margin-bottom:var(--space-5)">
+          <p class="sc-lead" style="margin-bottom:var(--rse-space-5)">
             Este documento é o sistema de design da Rede em funcionamento. Os botões abaixo são os
             botões reais; as cores vêm dos tokens; os números foram contados no próprio repositório.
             Nada aqui é uma imagem de como o sistema ficaria — é o sistema rodando.
@@ -80,7 +80,7 @@
       </div>
 
       <div class="sc-numbers" id="mount-numbers"></div>
-      <p class="sc-hint" style="margin-top:var(--space-4)">
+      <p class="sc-hint" style="margin-top:var(--rse-space-4)">
         Todos os números desta faixa são lidos do repositório quando a página carrega. Se um
         componente for criado amanhã, o número muda sozinho.
       </p>
@@ -98,24 +98,24 @@
 
       <div class="sc-compare" id="mount-compare"></div>
 
-      <div class="sc-grid sc-grid-3" style="margin-top:var(--space-7)">
+      <div class="sc-grid sc-grid-3" style="margin-top:var(--rse-space-7)">
         <div class="sc-panel">
           <p class="sc-eyebrow">Velocidade</p>
-          <p style="margin:0;font-size:var(--text-body-sm);line-height:var(--line-height-body);color:var(--text-body)">
+          <p style="margin:0;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-color-text-body)">
             Uma página nova não começa em branco: começa em um dos quatro modelos prontos. O trabalho
             passa a ser escolher e escrever, não redesenhar o que já existe.
           </p>
         </div>
         <div class="sc-panel">
           <p class="sc-eyebrow">Consistência</p>
-          <p style="margin:0;font-size:var(--text-body-sm);line-height:var(--line-height-body);color:var(--text-body)">
+          <p style="margin:0;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-color-text-body)">
             Ninguém digita uma cor à mão. Toda cor, tamanho de texto e espaçamento vem de um token
             nomeado — e uma verificação automática recusa o que sair da regra.
           </p>
         </div>
         <div class="sc-panel">
           <p class="sc-eyebrow">Alcance</p>
-          <p style="margin:0;font-size:var(--text-body-sm);line-height:var(--line-height-body);color:var(--text-body)">
+          <p style="margin:0;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-color-text-body)">
             O mesmo sistema serve site, apresentação, formulário impresso e peça gráfica. As 21 cores
             oficiais já vêm com CMYK, então o que sai na gráfica é o que se vê na tela.
           </p>
@@ -150,22 +150,22 @@
 
       <p class="sc-sub">Área de respiro e tamanho mínimo</p>
       <div class="sc-grid sc-grid-2">
-        <div class="sc-panel" style="display:flex;flex-direction:column;gap:var(--space-4);align-items:flex-start">
+        <div class="sc-panel" style="display:flex;flex-direction:column;gap:var(--rse-space-4);align-items:flex-start">
           <span class="sc-clearspace">
             <img src="../assets/logos/wordmark-purple.svg" alt="Assinatura da Rede com a área de respiro demarcada">
           </span>
-          <p style="margin:0;font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body)">
+          <p style="margin:0;font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body);line-height:var(--rse-line-height-body)">
             <b>X em todos os lados</b> — X é a altura da haste do E. Mais que X é sempre preferível.
             Nada entra nessa faixa: nem texto, nem imagem, nem a assinatura do Sesc, que fica a
             distância e nunca é travada junto ao selo.
           </p>
         </div>
         <div class="sc-panel">
-          <p style="margin:0 0 var(--space-4);font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body)">
+          <p style="margin:0 0 var(--rse-space-4);font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body);line-height:var(--rse-line-height-body)">
             <b>Tamanho mínimo:</b> 45 mm de largura no impresso, 150 px no digital. Abaixo disso, o
             selo dá lugar à versão simplificada.
           </p>
-          <p style="margin:0 0 var(--space-3);font-size:var(--text-caption);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-eyebrow);text-transform:uppercase;color:var(--text-muted)">
+          <p style="margin:0 0 var(--rse-space-3);font-size:var(--rse-font-size-caption);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-text-muted)">
             Nunca
           </p>
           <ul class="sc-never" id="mount-logo-never"></ul>
@@ -226,7 +226,7 @@
       <p class="sc-sub">Pesos</p>
       <div class="sc-panel" id="mount-weights"></div>
 
-      <div class="sc-callout" style="margin-top:var(--space-6)">
+      <div class="sc-callout" style="margin-top:var(--rse-space-6)">
         <strong>A única caixa alta do sistema</strong> é o eyebrow — aquele rótulo curto acima do
         título, em Bold com entreletra aberta. Títulos e corpo são sempre em caixa de sentença.
         Isso mantém a leitura próxima em vez de institucional-distante.
@@ -247,7 +247,7 @@
           <p class="sc-sub" style="margin-top:0">Escala de espaçamento</p>
           <div id="mount-space"></div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:var(--grid-gutter)">
+        <div style="display:flex;flex-direction:column;gap:var(--rse-grid-gutter)">
           <div class="sc-panel">
             <p class="sc-sub" style="margin-top:0">Cantos</p>
             <div class="sc-grid sc-grid-4" id="mount-radius"></div>
@@ -288,7 +288,7 @@
         da marca nunca mudam — só o papel que cada um cumpre.
       </p>
       <div class="sc-grid sc-grid-3" id="mount-themes"></div>
-      <div class="sc-callout" style="margin-top:var(--space-6)">
+      <div class="sc-callout" style="margin-top:var(--rse-space-6)">
         <strong>Por que isso importa para a Rede:</strong> alto contraste não é um enfeite técnico.
         É o que permite que um estudante com baixa visão use a mesma página que todo mundo, sem uma
         versão à parte, sem pedir ajuda.
@@ -310,7 +310,7 @@
         <table class="sc-table" id="mount-contrast"></table>
       </div>
 
-      <div class="sc-callout" style="margin-top:var(--space-5)">
+      <div class="sc-callout" style="margin-top:var(--rse-space-5)">
         <strong>Esta tabela já corrigiu o sistema três vezes.</strong>
         Quando ela foi ligada pela primeira vez, três linhas estavam vermelhas: o cinza de texto
         secundário a 3,56:1 sobre a página, a nota do rodapé a 3,53:1, e a borda dos campos de
@@ -320,7 +320,7 @@
         não se mede volta a acontecer, e esta tabela volta a acusar no dia em que voltar.
       </div>
 
-      <div class="sc-grid sc-grid-2" style="margin-top:var(--space-6)">
+      <div class="sc-grid sc-grid-2" style="margin-top:var(--rse-space-6)">
         <div class="sc-panel">
           <p class="sc-sub" style="margin-top:0">O que mais está garantido</p>
           <ul class="sc-list">
@@ -336,7 +336,7 @@
         </div>
         <div class="sc-panel">
           <p class="sc-sub" style="margin-top:0">Teste você mesmo</p>
-          <p style="font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body);margin:0 0 var(--space-4)">
+          <p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body);line-height:var(--rse-line-height-body);margin:0 0 var(--rse-space-4)">
             Clique no campo abaixo e pressione Tab várias vezes. O anel de foco acompanha cada
             parada, inclusive dentro do grupo de abas, onde as setas do teclado assumem.
           </p>
@@ -355,7 +355,7 @@
       </p>
       <div class="sc-grid sc-grid-2" id="mount-artefacts"></div>
 
-      <div class="sc-callout is-warn" style="margin-top:var(--space-7)">
+      <div class="sc-callout is-warn" style="margin-top:var(--rse-space-7)">
         <strong>Sobre o conteúdo destas peças:</strong> os números, endereços, prazos e depoimentos
         são exemplos de preenchimento, não dados do Sesc. As fotografias são espaços reservados com
         a descrição da imagem necessária. Tudo isso precisa ser verificado e substituído antes de
@@ -374,37 +374,37 @@
 
       <div class="sc-grid sc-grid-3">
         <div class="sc-panel">
-          <p class="sc-eyebrow">1. Página estática</p>
-          <p style="font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body);margin:0 0 var(--space-4)">
-            Para apresentações, peças e protótipos entregues como arquivo. Sem instalação, sem
-            compilação. É o que esta página faz.
+          <p class="sc-eyebrow">1. HTML e CSS</p>
+          <p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body);line-height:var(--rse-line-height-body);margin:0 0 var(--rse-space-4)">
+            Para sites em CMS, o portal de matrícula, peças entregues como arquivo. Sem instalação:
+            um kit versionado, e os componentes viram classes.
           </p>
           <!-- Quotes are entities so the repo's asset-reference check reads this as
                sample text rather than a real link to resolve. -->
-          <pre class="sc-code">&lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
-&lt;script src=&quot;_ds_bundle.js&quot;&gt;&lt;/script&gt;</pre>
+          <pre class="sc-code" tabindex="0" aria-label="Exemplo: HTML e CSS">&lt;link rel=&quot;stylesheet&quot; href=&quot;/rse/2.0.0/styles.css&quot;&gt;
+&lt;a class=&quot;rse-button&quot; href=&quot;/matricula&quot;&gt;Inscreva-se&lt;/a&gt;</pre>
         </div>
         <div class="sc-panel">
           <p class="sc-eyebrow">2. Projeto React</p>
-          <p style="font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body);margin:0 0 var(--space-4)">
-            Para código de produção. Uma única porta de entrada, para que um componente possa ser
-            reescrito por dentro sem quebrar quem o usa.
+          <p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body);line-height:var(--rse-line-height-body);margin:0 0 var(--rse-space-4)">
+            Para código de produção. Um pacote versionado no GitHub Packages, com tipos; os componentes
+            renderizam as mesmas classes do HTML.
           </p>
-          <pre class="sc-code">import { Button, Card, Stat }
-  from './index.js';</pre>
+          <pre class="sc-code" tabindex="0" aria-label="Exemplo: React">import { Button, Card, Stat }
+  from '@idcesares/rse-design-system';</pre>
         </div>
         <div class="sc-panel">
           <p class="sc-eyebrow">3. Fora do navegador</p>
-          <p style="font-size:var(--text-body-sm);color:var(--text-body);line-height:var(--line-height-body);margin:0 0 var(--space-4)">
+          <p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body);line-height:var(--rse-line-height-body);margin:0 0 var(--rse-space-4)">
             Para geradores em Python, fluxos de impressão, ferramentas de design. Um único arquivo
             descreve a marca inteira em formato de dados.
           </p>
-          <pre class="sc-code">brand = json.load(open('brand.json'))
+          <pre class="sc-code" tabindex="0" aria-label="Exemplo: Python">brand = json.load(open('brand.json'))
 brand['palette'][0]['cmyk']</pre>
         </div>
       </div>
 
-      <div class="sc-callout" style="margin-top:var(--space-6)">
+      <div class="sc-callout" style="margin-top:var(--rse-space-6)">
         <strong>Para levar o sistema a outro projeto:</strong> um comando copia uma cópia
         autocontida e carimbada, junto com as regras que viajam com ela. A mesma verificação que roda
         aqui roda lá, e avisa quando a cópia ficar velha.

@@ -1,0 +1,12 @@
+/* Switch — .rse-choice.rse-switch (shared rules in Checkbox.css). The off track uses the
+   control border role, so the switch itself clears 3:1 against the page (WCAG 1.4.11). */
+.rse-switch .rse-choice__box{
+  justify-content:flex-start;width:2.5rem;height:1.5rem;padding:0.1875rem;border:none;
+  border-radius:var(--rse-radius-pill);background:var(--rse-color-border-strong);
+}
+.rse-switch .rse-choice__box::after{
+  content:"";width:1.125rem;height:1.125rem;border-radius:50%;background:var(--rse-color-surface-card);box-shadow:var(--rse-shadow-sm);
+  transition:transform var(--rse-duration-base) var(--rse-ease-standard);
+}
+.rse-switch .rse-control-input:checked + .rse-choice__box{background:var(--rse-color-primary)}
+.rse-switch .rse-control-input:checked + .rse-choice__box::after{transform:translateX(1rem)}

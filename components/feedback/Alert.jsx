@@ -1,28 +1,20 @@
 import React from 'react';
-export function Alert({ tone = 'info', title, message, onDismiss }) {
-  const tones = {
-    success: { bg: 'var(--success-surface)', border: 'var(--success)', fg: 'var(--success)' },
-    warning: { bg: 'var(--warning-surface)', border: 'var(--warning)', fg: 'var(--warning)' },
-    danger: { bg: 'var(--danger-surface)', border: 'var(--danger)', fg: 'var(--danger)' },
-    info: { bg: 'var(--info-surface)', border: 'var(--info)', fg: 'var(--info)' }
-  };
-  const t = tones[tone];
+import { Icon } from '../core/Icon.jsx';
+const cx = (...c) => c.filter(Boolean).join(' ');
+const ICONS = { info: 'info', success: 'circle-check', warning: 'triangle-alert', danger: 'circle-alert' };
+// Renders the CSS contract in Alert.css. A persistent banner is role="status" (announced
+// politely); pass `urgent` only when the reader must be interrupted (role="alert").
+export const Alert = React.forwardRef(function Alert({ tone = 'info', title, message, children, onDismiss, urgent, dismissLabel = 'Fechar', className, ...rest }, ref) {
   return React.createElement('div', {
-    role: 'alert',
-    style: {
-      display: 'flex', alignItems: 'flex-start', gap: 14, width: '100%', boxSizing: 'border-box',
-      padding: '16px 20px', borderRadius: 'var(--radius-md)', background: t.bg,
-      border: `1.5px solid ${t.border}`, fontFamily: 'var(--font-family-base)'
-    }
+    ref, role: urgent ? 'alert' : 'status',
+    className: cx('rse-alert', tone !== 'info' && 'rse-alert--' + tone, className), ...rest
   },
-    React.createElement('span', { style: { width: 8, height: 8, borderRadius: '50%', background: t.fg, marginTop: 6, flexShrink: 0 } }),
-    React.createElement('div', { style: { flex: 1 } },
-      title ? React.createElement('div', { style: { fontWeight: 'var(--font-weight-semibold)', fontSize: 'var(--text-body-sm)', color: 'var(--text-heading)', marginBottom: 2 } }, title) : null,
-      React.createElement('div', { style: { fontSize: 'var(--text-body-sm)', color: 'var(--text-body)', lineHeight: 'var(--line-height-body)' } }, message)
+    React.createElement('span', { className: 'rse-alert__icon', 'aria-hidden': 'true' }, React.createElement(Icon, { name: ICONS[tone] || 'info', size: 18 })),
+    React.createElement('div', { className: 'rse-alert__content' },
+      title ? React.createElement('p', { className: 'rse-alert__title' }, title) : null,
+      React.createElement('p', { className: 'rse-alert__message' }, message || children)
     ),
-    onDismiss ? React.createElement('button', {
-      onClick: onDismiss, 'aria-label': 'Fechar',
-      style: { border: 'none', background: 'transparent', color: t.fg, cursor: 'pointer', fontSize: 16, lineHeight: 1, padding: 0, flexShrink: 0 }
-    }, '\u00d7') : null
+    onDismiss ? React.createElement('button', { type: 'button', className: 'rse-alert__dismiss', onClick: onDismiss, 'aria-label': dismissLabel },
+      React.createElement(Icon, { name: 'x', size: 16 })) : null
   );
-}
+});

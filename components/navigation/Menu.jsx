@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { Icon } from '../core/Icon.jsx';
 export function Menu({ label, items = [], align = 'left', width = 260, trigger = 'button', open: openProp, onOpenChange }) {
   const [uncontrolled, setUncontrolled] = React.useState(false);
   const open = openProp !== undefined ? openProp : uncontrolled;
@@ -14,35 +15,35 @@ export function Menu({ label, items = [], align = 'left', width = 260, trigger =
     return () => { document.removeEventListener('mousedown', onDoc); document.removeEventListener('keydown', onKey); };
   }, [open]);
   const triggerStyle = trigger === 'link'
-    ? { background: 'none', border: 'none', padding: '6px 0', color: open ? 'var(--color-primary)' : 'var(--text-heading)', fontWeight: 'var(--font-weight-semibold)' }
-    : { background: open ? 'var(--surface-primary-tint)' : 'var(--surface-card)', border: '1.5px solid ' + (open ? 'var(--color-primary)' : 'var(--border-strong)'), padding: '10px 18px', color: 'var(--text-heading)', fontWeight: 'var(--font-weight-semibold)', borderRadius: 'var(--radius-pill)' };
-  return React.createElement('div', { ref, style: { position: 'relative', display: 'inline-block', fontFamily: 'var(--font-family-base)' } },
+    ? { background: 'none', border: 'none', padding: '6px 0', color: open ? 'var(--rse-color-primary)' : 'var(--rse-color-text-heading)', fontWeight: 'var(--rse-font-weight-semibold)' }
+    : { background: open ? 'var(--rse-color-surface-primary-tint)' : 'var(--rse-color-surface-card)', border: '1.5px solid ' + (open ? 'var(--rse-color-primary)' : 'var(--rse-color-border-strong)'), padding: '10px 18px', color: 'var(--rse-color-text-heading)', fontWeight: 'var(--rse-font-weight-semibold)', borderRadius: 'var(--rse-radius-pill)' };
+  return React.createElement('div', { ref, style: { position: 'relative', display: 'inline-block', fontFamily: 'var(--rse-font-family)' } },
     React.createElement('button', {
       type: 'button', 'aria-expanded': open, 'aria-haspopup': 'true', onClick: () => setOpen(!open),
       style: {
-        display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 'var(--text-body-sm)',
-        fontFamily: 'var(--font-family-base)', minHeight: 'var(--hit-target-min)',
-        transition: 'background var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard)',
+        display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 'var(--rse-font-size-body-sm)',
+        fontFamily: 'var(--rse-font-family)', minHeight: 'var(--rse-hit-target-min)',
+        transition: 'background var(--rse-duration-fast) var(--rse-ease-standard), border-color var(--rse-duration-fast) var(--rse-ease-standard)',
         ...triggerStyle
       }
     }, label, React.createElement('span', {
       'aria-hidden': 'true',
-      style: { fontSize: 10, transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--duration-base) var(--ease-standard)', color: 'var(--color-primary)' }
-    }, '▾')),
+      style: { display: 'inline-flex', transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--rse-duration-base) var(--rse-ease-standard)', color: 'var(--rse-color-primary)' }
+    }, React.createElement(Icon, { name: 'chevron-down', size: 16 }))),
     open ? React.createElement('div', {
       role: 'menu',
       style: {
         position: 'absolute', top: 'calc(100% + 8px)', left: align === 'left' ? 0 : 'auto', right: align === 'right' ? 0 : 'auto',
-        width, background: 'var(--surface-card)', border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-md)', padding: 'var(--space-2)',
-        zIndex: 'var(--z-dropdown)', display: 'flex', flexDirection: 'column', gap: 2
+        width, background: 'var(--rse-color-surface-card)', border: '1px solid var(--rse-color-border-subtle)',
+        borderRadius: 'var(--rse-radius-md)', boxShadow: 'var(--rse-shadow-md)', padding: 'var(--rse-space-2)',
+        zIndex: 'var(--rse-z-dropdown)', display: 'flex', flexDirection: 'column', gap: 2
       }
     }, items.map((item, i) => item.divider
-      ? React.createElement('div', { key: i, style: { height: 1, background: 'var(--border-subtle)', margin: '6px 8px' } })
+      ? React.createElement('div', { key: i, style: { height: 1, background: 'var(--rse-color-border-subtle)', margin: '6px 8px' } })
       : item.heading
         ? React.createElement('div', {
             key: i,
-            style: { padding: '10px 12px 4px', fontSize: 'var(--text-caption)', textTransform: 'uppercase', letterSpacing: 'var(--letter-spacing-eyebrow)', fontWeight: 'var(--font-weight-bold)', color: 'var(--text-muted)' }
+            style: { padding: '10px 12px 4px', fontSize: 'var(--rse-font-size-caption)', textTransform: 'uppercase', letterSpacing: 'var(--rse-letter-spacing-eyebrow)', fontWeight: 'var(--rse-font-weight-bold)', color: 'var(--rse-color-text-muted)' }
           }, item.heading)
         : React.createElement(MenuItem, { key: i, item, onSelect: () => { setOpen(false); if (item.onSelect) item.onSelect(); } })
     )) : null
@@ -55,16 +56,16 @@ function MenuItem({ item, onSelect }) {
     onClick: onSelect, onMouseEnter: () => setHover(true), onMouseLeave: () => setHover(false),
     style: {
       display: 'flex', alignItems: 'center', gap: 10, width: '100%', textAlign: 'left',
-      padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: 'none', textDecoration: 'none',
-      background: hover ? 'var(--surface-primary-tint)' : 'transparent',
-      color: hover ? 'var(--color-primary)' : 'var(--text-body)',
-      fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-family-base)',
-      fontWeight: 'var(--font-weight-medium)', cursor: 'pointer',
-      transition: 'background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard)'
+      padding: '10px 12px', borderRadius: 'var(--rse-radius-sm)', border: 'none', textDecoration: 'none',
+      background: hover ? 'var(--rse-color-surface-primary-tint)' : 'transparent',
+      color: hover ? 'var(--rse-color-text-on-primary-tint)' : 'var(--rse-color-text-body)',
+      fontSize: 'var(--rse-font-size-body-sm)', fontFamily: 'var(--rse-font-family)',
+      fontWeight: 'var(--rse-font-weight-medium)', cursor: 'pointer',
+      transition: 'background var(--rse-duration-fast) var(--rse-ease-standard), color var(--rse-duration-fast) var(--rse-ease-standard)'
     }
   },
     item.icon ? React.createElement('span', { style: { display: 'inline-flex', width: 18, height: 18, flex: 'none' } }, item.icon) : null,
     React.createElement('span', { style: { flex: 1, minWidth: 0 } }, item.label),
-    item.meta ? React.createElement('span', { style: { fontSize: 'var(--text-caption)', color: 'var(--text-muted)' } }, item.meta) : null
+    item.meta ? React.createElement('span', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)' } }, item.meta) : null
   );
 }

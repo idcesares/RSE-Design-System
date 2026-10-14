@@ -1,18 +1,18 @@
 import React from 'react';
 export function Skeleton({ variant = 'text', width, height, lines = 3, radius }) {
   const shimmer = {
-    background: 'linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 37%, var(--gray-100) 63%)',
-    backgroundSize: '400% 100%', animation: 'rede-shimmer 1.4s var(--ease-standard) infinite'
+    background: 'linear-gradient(90deg, var(--rse-brand-gray-100) 25%, var(--rse-brand-gray-200) 37%, var(--rse-brand-gray-100) 63%)',
+    backgroundSize: '400% 100%', animation: 'rse-shimmer 1.4s var(--rse-ease-standard) infinite'
   };
-  const r = radius || (variant === 'circle' ? 'var(--radius-pill)' : variant === 'card' ? 'var(--radius-lg)' : 'var(--radius-sm)');
+  const r = radius || (variant === 'circle' ? 'var(--rse-radius-pill)' : variant === 'card' ? 'var(--rse-radius-lg)' : 'var(--rse-radius-sm)');
   if (variant === 'text') {
     return React.createElement('div', {
       'aria-hidden': 'true',
-      style: { display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: width || '100%' }
+      style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-3)', width: width || '100%' }
     }, Array.from({ length: lines }).map((_, i) =>
       React.createElement('div', {
         key: i,
-        style: { ...shimmer, height: height || 12, borderRadius: 'var(--radius-pill)', width: i === lines - 1 ? '60%' : '100%' }
+        style: { ...shimmer, height: height || 12, borderRadius: 'var(--rse-radius-pill)', width: i === lines - 1 ? '60%' : '100%' }
       })
     ));
   }

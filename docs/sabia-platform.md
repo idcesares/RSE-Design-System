@@ -50,16 +50,20 @@ intelligence) and the Polos Educacionais (experimentation and scaling).
 
 | Token | Value | Manual |
 | --- | --- | --- |
-| `--sabia-blue` | `#76b3dd` | C51 M16 Y2 K0 |
-| `--sabia-purple` | `#6c62c4` | C67 M68 Y0 K0 |
-| `--sabia-orange` | `#e17f38` | C9 M60 Y90 K0 |
+| `--rse-color-sabia-blue` | `#76b3dd` | C51 M16 Y2 K0 |
+| `--rse-color-sabia-purple` | `#6c62c4` | C67 M68 Y0 K0 |
+| `--rse-color-sabia-orange` | `#e17f38` | C9 M60 Y90 K0 |
 
-`--sabia-cream` `#eef0da` is **not in the manual** — it is a system tone kept because platform
+`--rse-color-sabia-surface` `#eef0da` is **not in the manual** — it is a system tone kept because platform
 surfaces need a page background and the manual supplies none. Treat it as ours, not the brand's.
 
 **The platform's chrome is blue, not purple.** This is the easiest thing to get wrong: purple is the
 Rede's primary, but every published Sab.IA surface — login plane, header bar, footer bar — is
-`--sabia-blue`. Purple stays an accent on platform surfaces.
+`--rse-color-sabia-blue`. Purple stays an accent on platform surfaces.
+
+**Text on the blue chrome is ink, not white.** White on `--rse-color-sabia-blue` is 2.27:1; use
+`--rse-color-sabia-on-blue` (`--rse-brand-ink`, 6.17:1). The manual's screens show white titles on the login plane —
+this system departs from that on purpose, for the same reason as every accent band (decision D3).
 
 Everything else — Montserrat, the spacing scale, radii, motion, the accessibility floor — is
 unchanged.
@@ -97,7 +101,7 @@ lines of supporting copy.
 opening hours on a second line. The Sesc CNC Senac lockup sits at the right.
 
 Note the tinted icon circles and the pale yellow list rows in the published screens map onto this
-system's `--tint-*` tokens — use those rather than inventing new pale backgrounds.
+system's `--rse-color-tint-*` tokens — use those rather than inventing new pale backgrounds.
 
 **Voice.** Talk about what the student gets, not the machinery. "Acompanhamento contínuo da
 aprendizagem", not "motor adaptativo com IA". The technology is the means; equity and real learning

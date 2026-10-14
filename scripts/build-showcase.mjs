@@ -3,17 +3,18 @@
  * build-showcase.mjs — generates showcase/showcase-data.js
  *
  * The showcase must open by double-clicking index.html, with no server. Browsers block
- * fetch() from file:// URLs, so brand.json and _ds_manifest.json cannot be read at runtime.
+ * fetch() from file:// URLs, so brand.json and rse.manifest.json cannot be read at runtime.
  * This script folds the parts the showcase needs into one plain <script src> file that
  * assigns window.SHOWCASE_DATA.
  *
- * Nothing here is authored by hand: brand.json and _ds_manifest.json are themselves generated
- * from tokens/*.css and the component sources, so the showcase inherits their freshness.
+ * Nothing here is authored by hand: brand.json and rse.manifest.json are themselves generated
+ * from tokens/src/*.tokens.json and the component sources, so the showcase inherits their freshness.
  * Run via `npm run sync`; `npm run check` verifies the output is current with --check.
  */
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CONTRAST_PAIRS } from './contrast-pairs.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'showcase', 'showcase-data.js');
@@ -21,7 +22,7 @@ const CHECK = process.argv.includes('--check');
 
 const read = (p) => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
 const brand = read('brand.json');
-const manifest = read('_ds_manifest.json');
+const manifest = read('rse.manifest.json');
 const pkg = read('package.json');
 
 /* ── Components, grouped by the folder they live in ─────────────────────────── */
@@ -97,7 +98,7 @@ const countCards = () => {
 };
 
 const data = {
-  generatedFrom: 'brand.json + _ds_manifest.json — run `npm run sync` to refresh',
+  generatedFrom: 'brand.json + rse.manifest.json — run `npm run sync` to refresh',
   version: pkg.version,
   namespace: manifest.namespace,
   slogan: 'Aprender para a vida acontecer',
@@ -109,6 +110,7 @@ const data = {
   assets: brand.assets,
   rules: brand.rules,
   templates: brand.templates,
+  contrastPairs: CONTRAST_PAIRS.map(({ label, fg, bg, floor }) => ({ label, fg, bg, floor })),
   counts: {
     components: components.length,
     tokens: Object.keys(brand.tokens).length,
