@@ -1,11 +1,14 @@
 name: release
 
-# Push a tag that matches package.json (`git tag v2.0.0 && git push origin v2.0.0`).
+# Two ways in, same result:
+#   - push a tag matching package.json (`git tag v2.0.0 && git push origin v2.0.0`), or
+#   - run this workflow by hand (Actions → release → Run workflow) on main; it creates the tag.
 # Publishes the npm package to GitHub Packages and attaches the static kit to a GitHub Release.
 
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -20,10 +23,16 @@ jobs:
         with:
           node-version: 22
           registry-url: https://npm.pkg.github.com
-      - name: Tag matches package.json
+      - name: Version, tag and changelog agree
         run: |
           v=$(node -p "require('./package.json').version")
-          test "v$v" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME does not match package.json $v"; exit 1; }
+          echo "VERSION=$v" >> "$GITHUB_ENV"
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            test "v$v" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME does not match package.json $v"; exit 1; }
+          else
+            test "$GITHUB_REF_NAME" = "main" || { echo "run the release from main, not $GITHUB_REF_NAME"; exit 1; }
+            if git ls-remote --exit-code --tags origin "refs/tags/v$v" >/dev/null; then echo "v$v already exists — bump the version"; exit 1; fi
+          fi
           grep -q "^## $v" CHANGELOG.md || { echo "CHANGELOG.md has no '## $v' section"; exit 1; }
       - run: npm run check
       - run: npm i --no-save --no-audit --no-fund playwright@1.56.1 axe-core@4.14.0 && npx playwright install --with-deps chromium
@@ -34,10 +43,10 @@ jobs:
       - name: Static kit
         run: |
           npm run pack
-          v=$(node -p "require('./package.json').version")
-          (cd dist/static && zip -qr "rse-$v.zip" "rse-$v")
-          echo "KIT=dist/static/rse-$v.zip" >> "$GITHUB_ENV"
-      - name: GitHub Release
+          (cd dist/static && zip -qr "rse-$VERSION.zip" "rse-$VERSION")
+      - name: GitHub Release (creates the tag when run by hand)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create "$GITHUB_REF_NAME" "$KIT" --title "$GITHUB_REF_NAME" --notes "See CHANGELOG.md. Static kit attached; npm package on GitHub Packages."
+        run: |
+          gh release create "v$VERSION" "dist/static/rse-$VERSION.zip" --target "$GITHUB_SHA" \
+            --title "v$VERSION" --notes "See CHANGELOG.md. Static kit attached; npm package @idcesares/rse-design-system@$VERSION on GitHub Packages."
