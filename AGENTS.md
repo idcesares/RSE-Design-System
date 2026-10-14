@@ -306,7 +306,7 @@ cross-checks the palette hex and CMYK in `tokens/src/brand.tokens.json` against 
 published table and warns on any drift — the guard against re-sampling colour from artwork.
 
 **Releasing.** Bump `version` in `package.json`, add a `## <version>` section to `CHANGELOG.md`,
-then tag `v<version>` and push the tag. `.github/workflows/release.yml` checks, publishes to GitHub
+then push a `v<version>` tag, or run the `release` workflow by hand on main (it creates the tag). `.github/workflows/release.yml` checks, publishes to GitHub
 Packages and attaches the static kit to a GitHub Release. Breaking a token or prop name is a major.
 
 ## Definition of done
