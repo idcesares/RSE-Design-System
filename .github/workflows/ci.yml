@@ -27,3 +27,17 @@ jobs:
         with:
           name: audit
           path: audit.json
+
+  pages:
+    # Every shipped page in Chromium: runtime errors fail; axe (WCAG 2.2 AA) and 360px overflow
+    # are ratcheted against scripts/test-pages-baseline.json. Tools are installed for this job
+    # only — the repo itself keeps zero dependencies.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm i --no-save --no-audit --no-fund playwright@1.56.1 axe-core@4.14.0
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:pages

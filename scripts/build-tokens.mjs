@@ -190,7 +190,7 @@ manifest.tokens = [
   }))),
 ];
 manifest.themes = [...MODES, 'auto'].map((m) => ({ selector: `[data-rse-theme="${m}"]`, label: THEME_LABELS[m] }));
-manifest.globalCssPaths = ['tokens/fonts.css', 'tokens/tokens.css', 'tokens/base-runtime.css', 'tokens/base-reset.css', 'tokens/base.css', 'tokens/tokens-only.css', 'styles.css'];
+manifest.globalCssPaths = ['tokens/fonts.css', 'tokens/tokens.css', 'tokens/base-runtime.css', 'tokens/base-reset.css', 'tokens/tokens-only.css', 'dist/components.css', 'styles.css'];
 manifest.brandFonts = (manifest.brandFonts ?? []).map((f) => ({ ...f, tokens: ['--rse-font-family'] }));
 
 // ─── 7. Write or check ──────────────────────────────────────────────────────

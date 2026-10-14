@@ -7,7 +7,7 @@ export function Footer({ logoSrc, logoAlt, tagline, columns = [], note }) {
         tagline ? React.createElement('p', { style: { fontSize: 'var(--rse-font-size-body-sm)', maxWidth: 260, lineHeight: 'var(--rse-line-height-body)', color: 'var(--rse-brand-gray-400)', margin: 0 } }, tagline) : null
       ),
       columns.map((c, i) => React.createElement('div', { key: i },
-        React.createElement('div', { style: { fontWeight: 'var(--rse-font-weight-semibold)', color: 'white', fontSize: 'var(--rse-font-size-body-sm)', marginBottom: 14 } }, c.title),
+        React.createElement('div', { style: { fontWeight: 'var(--rse-font-weight-semibold)', color: 'var(--rse-color-text-on-ink)', fontSize: 'var(--rse-font-size-body-sm)', marginBottom: 14 } }, c.title),
         React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
           (c.links || []).map((it, j) => React.createElement('a', { key: j, href: it.href || '#', style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-brand-gray-400)', textDecoration: 'none' } }, it.label))
         )

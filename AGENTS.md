@@ -96,6 +96,8 @@ tokens/fonts.css          Montserrat @font-face.
 tokens/base-runtime.css   What components need (focus ring, control hiding, keyframes). Required.
 tokens/base-reset.css     Opinionated element styles (body, links, headings). Opt-in.
 tokens/tokens-only.css    fonts + tokens, nothing else: for a site with its own base styles.
+components/<group>/*.css  The component CSS contract (.rse-button, .rse-field…), next to each component.
+dist/components.css       GENERATED. All of them in @layer rse.components.
 styles.css                Everything above. The one stylesheet for a page that should look like the Rede.
 dist/                     GENERATED. rse.js (every component on window.RSE), tokens.json (resolved
                           per theme), tokens.js + tokens.d.ts (typed module).
@@ -200,14 +202,22 @@ are derived, not supplied.
 
 ## Changing a component
 
-Every component is four files. All four move together:
+A component is these files. They move together:
 
 ```
-components/<group>/Name.jsx        source (React.createElement form — no JSX, see below)
+components/<group>/Name.css        the CSS contract: .rse-name, BEM elements, --modifiers. Look and
+                                   state live here (:hover, :focus-visible, :checked, [aria-*]).
+components/<group>/Name.jsx        React wrapper that renders the contract (createElement form, no JSX)
 components/<group>/Name.d.ts       props + one-line doc comment
-components/<group>/Name.prompt.md  when to use it, with a realistic pt-BR example
+components/<group>/Name.prompt.md  when to use it, a pt-BR example, and the plain-HTML markup
 components/<group>/*.card.html     specimen card (one per group, add your component to it)
 ```
+
+**The CSS contract is the component; React is a convenience.** A CMS, the enrollment portal or a
+static page uses the classes directly, so nothing visual may live only in JavaScript: no inline
+style objects, no hover held in state. Wrappers forward `ref`, pass every other prop to the main
+element (`...rest`), merge `className`, and build ids with `React.useId`. Twelve components are on
+the contract (`npm run audit` → `componentsOnCssContract`); moving the rest is roadmap P2.
 
 Then:
 
@@ -229,9 +239,8 @@ Rules:
   static pages are unaffected.
 - Props are strings, arrays and plain objects wherever possible — templates mount components
   through `<x-import>` with HTML attributes, so exotic prop shapes don't survive the trip.
-- **Scope freeze (roadmap P0.3).** No new components until the CSS-first contract (roadmap P2.1)
-  lands — the current implementation is being replaced, so a new one would be written twice. Bug
-  and accessibility fixes are welcome. Need a pattern? Compose it in a template, or open an issue.
+- **New components start on the contract** (a `.css` file first). The scope freeze of roadmap P0.3
+  ended with P2.1; still check for an existing component with a prop before adding one.
 - Don't add a component that duplicates an existing one with a prop. Check
   [docs/components.md](docs/components.md) and `guidelines/system-audit.card.html` first.
 

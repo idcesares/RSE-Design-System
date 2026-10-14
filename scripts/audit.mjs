@@ -14,7 +14,7 @@
 // exist, or any debt count rises above scripts/audit-baseline.json. Debt may only go down: when a
 // change lowers a count, run --update-baseline in the same PR so it cannot creep back.
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CONTRAST_PAIRS } from './contrast-pairs.mjs';
@@ -92,6 +92,7 @@ const components = walk('components')
       passesRest: /\.\.\.(?:rest|props|other)\b/.test(src),
       acceptsClassName: /\bclassName\b(?!:\s*'rse-control)/.test(src.replace(/className:\s*'rse-control-(?:input|box)'/g, '')),
       responsive: /matchMedia|@media|container-type/.test(src),
+      cssContract: existsSync(join(ROOT, f.replace(/\.jsx$/, '.css'))) || /className: cx\('rse-/.test(src),
     };
   });
 
@@ -133,6 +134,7 @@ const score = {
   componentsWithRandomIds: sum(components, 'randomId'),
   componentsWithoutRestProps: components.length - sum(components, 'passesRest'),
   componentsResponsive: sum(components, 'responsive'),
+  componentsOnCssContract: sum(components, 'cssContract'),
   componentsAudited: components.length,
   pageRawColors: sum(pages, 'rawColors'),
   pageHardWidths: sum(pages, 'hardWidths'),
@@ -147,7 +149,7 @@ const LOWER_IS_BETTER = [
   'componentsWithRandomIds', 'componentsWithoutRestProps', 'pageRawColors', 'pageHardWidths',
   'pagesWithoutMediaQueries', 'docCountDrift',
 ];
-const HIGHER_IS_BETTER = ['componentsResponsive'];
+const HIGHER_IS_BETTER = ['componentsResponsive', 'componentsOnCssContract'];
 const baseline = (() => { try { return JSON.parse(read(BASELINE)); } catch { return null; } })();
 const regressions = [];
 if (baseline) {

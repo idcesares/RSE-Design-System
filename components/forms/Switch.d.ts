@@ -1,8 +1,6 @@
 import React from 'react';
-export interface SwitchProps {
-  label?: string;
-  checked?: boolean;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled?: boolean;
+export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  label?: React.ReactNode;
 }
-export function Switch(props: SwitchProps): JSX.Element;
+/** On/off switch (role=switch). A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-switch. */
+export declare const Switch: React.ForwardRefExoticComponent<SwitchProps & React.RefAttributes<HTMLInputElement>>;

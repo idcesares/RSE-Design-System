@@ -40,8 +40,8 @@ for (const c of manifest.components) {
     if (!existsSync(join(ROOT, p))) err(`${c.name}: missing ${p}`);
   }
   const src = existsSync(join(ROOT, c.sourcePath)) ? read(c.sourcePath) : '';
-  if (src && !new RegExp(`export function ${c.name}\\b`).test(src)) {
-    err(`${c.name}: ${c.sourcePath} does not "export function ${c.name}"`);
+  if (src && !new RegExp(`export (function|const) ${c.name}\\b`).test(src)) {
+    err(`${c.name}: ${c.sourcePath} does not export ${c.name} (function or forwardRef const)`);
   }
 }
 

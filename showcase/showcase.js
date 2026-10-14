@@ -507,10 +507,16 @@
         h('tr', { key: r.label },
           h('td', null, r.label),
           h('td', null,
-            h('span', {
-              className: 'sc-contrast-sample',
-              style: { color: r.front, background: r.back },
-            }, 'Aprender')
+            r.floor < 4.5
+              // A 3:1 pair is a boundary (a ring, a border), not text: show it as one.
+              ? h('span', {
+                  className: 'sc-contrast-sample is-graphic', 'aria-hidden': 'true',
+                  style: { background: r.back, boxShadow: `inset 0 0 0 3px ${r.front}` },
+                })
+              : h('span', {
+                  className: 'sc-contrast-sample',
+                  style: { color: r.front, background: r.back },
+                }, 'Aprender')
           ),
           h('td', null, h('span', { className: 'sc-ratio' }, `${r.ratio.toFixed(2)}:1`)),
           h('td', { className: 'mono' }, `${r.floor}:1`),
@@ -1148,7 +1154,7 @@
                 ))
               )
             : null,
-          h('pre', { className: 'sc-code' }, importSnippet(component.name)),
+          h('pre', { className: 'sc-code', tabIndex: 0, 'aria-label': 'Exemplo de código: ' + component.name }, importSnippet(component.name)),
           h('p', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)', margin: 'var(--rse-space-3) 0 0' } },
             component.sourcePath)
         )

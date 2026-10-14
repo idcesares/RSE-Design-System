@@ -10,8 +10,11 @@ reasoning and the brand manual extract live in the design system repository (`AG
 - Install `@idcesares/rse-design-system`, or link a versioned static kit (`rse-<version>/`). Never
   edit the files you received: fix things upstream and update the version.
 - Link `styles.css` for a page that should look like the Rede out of the box. Inside a site that
-  already has its own base styles, link `tokens/tokens-only.css` (+ `tokens/base-runtime.css` if
-  you use the components).
+  already has its own base styles, link `tokens/tokens-only.css`, and for the components add
+  `tokens/base-runtime.css` + `dist/components.css`.
+- Components exist twice with one look: React (`import { Button } from '@idcesares/rse-design-system'`)
+  and plain HTML classes (`<button class="rse-button rse-button--secondary">`). Use the classes in
+  a CMS or portal; each component's `.prompt.md` shows the markup.
 - Themes: set `data-rse-theme="dark" | "contrast" | "auto"` on `<html>` or on any section.
 
 ## Non-negotiables

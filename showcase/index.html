@@ -374,24 +374,24 @@
 
       <div class="sc-grid sc-grid-3">
         <div class="sc-panel">
-          <p class="sc-eyebrow">1. Página estática</p>
+          <p class="sc-eyebrow">1. HTML e CSS</p>
           <p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body);line-height:var(--rse-line-height-body);margin:0 0 var(--rse-space-4)">
-            Para apresentações, peças e protótipos entregues como arquivo. Sem instalação, sem
-            compilação. É o que esta página faz.
+            Para sites em CMS, o portal de matrícula, peças entregues como arquivo. Sem instalação:
+            um kit versionado, e os componentes viram classes.
           </p>
           <!-- Quotes are entities so the repo's asset-reference check reads this as
                sample text rather than a real link to resolve. -->
-          <pre class="sc-code">&lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
-&lt;script src=&quot;dist/rse.js&quot;&gt;&lt;/script&gt;</pre>
+          <pre class="sc-code" tabindex="0" aria-label="Exemplo: HTML e CSS">&lt;link rel=&quot;stylesheet&quot; href=&quot;/rse/2.0.0/styles.css&quot;&gt;
+&lt;a class=&quot;rse-button&quot; href=&quot;/matricula&quot;&gt;Inscreva-se&lt;/a&gt;</pre>
         </div>
         <div class="sc-panel">
           <p class="sc-eyebrow">2. Projeto React</p>
           <p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-body);line-height:var(--rse-line-height-body);margin:0 0 var(--rse-space-4)">
-            Para código de produção. Uma única porta de entrada, para que um componente possa ser
-            reescrito por dentro sem quebrar quem o usa.
+            Para código de produção. Um pacote versionado no GitHub Packages, com tipos; os componentes
+            renderizam as mesmas classes do HTML.
           </p>
-          <pre class="sc-code">import { Button, Card, Stat }
-  from './index.js';</pre>
+          <pre class="sc-code" tabindex="0" aria-label="Exemplo: React">import { Button, Card, Stat }
+  from '@idcesares/rse-design-system';</pre>
         </div>
         <div class="sc-panel">
           <p class="sc-eyebrow">3. Fora do navegador</p>
@@ -399,7 +399,7 @@
             Para geradores em Python, fluxos de impressão, ferramentas de design. Um único arquivo
             descreve a marca inteira em formato de dados.
           </p>
-          <pre class="sc-code">brand = json.load(open('brand.json'))
+          <pre class="sc-code" tabindex="0" aria-label="Exemplo: Python">brand = json.load(open('brand.json'))
 brand['palette'][0]['cmyk']</pre>
         </div>
       </div>

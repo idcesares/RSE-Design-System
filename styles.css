@@ -1,8 +1,14 @@
-/* The one stylesheet. Link this and a page looks like the Rede with no further work.
-   Order matters: tokens first, then the base layer that consumes them.
+/* The one stylesheet. Link this and a page looks like the Rede with no further work:
+   fonts, tokens, the runtime base, the element reset and every component's CSS contract.
+
+   Cascade layers keep the system polite: the reset sits in rse.base and the components in
+   rse.components, so any unlayered style of the host page wins without !important.
 
    Adding this system to a site that already has its own base styles? Do not link this —
-   it restyles body, links and h1–h4. Link tokens/tokens-only.css (+ tokens/base-runtime.css
-   if you use the components) instead. See docs/integration.md. */
+   it restyles body, links and h1–h4. Link tokens/tokens-only.css + tokens/base-runtime.css
+   (+ dist/components.css if you use the components). See docs/integration.md. */
+@layer rse.base, rse.components;
 @import url('tokens/tokens-only.css');
-@import url('tokens/base.css');
+@import url('tokens/base-runtime.css');
+@import url('tokens/base-reset.css') layer(rse.base);
+@import url('dist/components.css');

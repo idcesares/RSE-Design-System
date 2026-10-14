@@ -26,7 +26,7 @@ Circular photo or initials avatar for students, staff, and testimonial bylines.
 
 ### Badge
 
-Small status pill with a dot indicator — enrollment status, availability, alerts.
+Small status pill with a dot. Class contract: .rse-badge--<tone>.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
@@ -37,23 +37,23 @@ Small status pill with a dot indicator — enrollment status, availability, aler
 
 ### Button
 
-Primary action button with 3 variants (primary, secondary, ghost) and 3 sizes.
+Action button (or link styled as one) with 3 variants and 3 sizes. Class contract: .rse-button. Accepts every native attribute and a ref.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
 | `variant` | `'primary' \| 'secondary' \| 'ghost'` | — | Visual style |
 | `size` | `'sm' \| 'md' \| 'lg'` | — | Size |
-| `icon` | `React.ReactNode` | — | Optional leading icon element |
-| `disabled` | `boolean` | — |  |
+| `icon` | `React.ReactNode` | — | Optional leading icon element, usually an <Icon> |
+| `href` | `string` | — | Renders an <a> that looks like a button. With disabled, the link is removed and aria-disabled set. |
+| `block` | `boolean` | — | Full width |
+| `type` | `'button' \| 'submit' \| 'reset'` | — |  |
 | `children` | `React.ReactNode` | yes |  |
-| `onClick` | `() => void` | — |  |
-| `type` | `'button' \| 'submit'` | — |  |
 
 `components/core/Button.jsx` · [props](../components/core/Button.d.ts) · [usage](../components/core/Button.prompt.md)
 
 ### Card
 
-Program/school card with image, eyebrow, title and optional footer.
+Program/school card: media, eyebrow, title, description, footer. Class contract: .rse-card.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
@@ -62,8 +62,9 @@ Program/school card with image, eyebrow, title and optional footer.
 | `title` | `React.ReactNode` | yes |  |
 | `description` | `string` | — |  |
 | `tag` | `React.ReactNode` | — | Optional Tag/Badge element shown above the eyebrow |
-| `footer` | `React.ReactNode` | — |  |
-| `href` | `string` | — |  |
+| `footer` | `React.ReactNode` | — | Actions or meta below the body; stays independently clickable |
+| `href` | `string` | — | Makes the title a link whose hit area covers the whole card |
+| `headingLevel` | `2 \| 3 \| 4 \| 5 \| 6` | — | Heading level of the title (default 3) |
 
 `components/core/Card.jsx` · [props](../components/core/Card.d.ts) · [usage](../components/core/Card.prompt.md)
 
@@ -94,29 +95,29 @@ Line-icon primitive — the single source of truth for iconography. 24×24 grid,
 
 ### IconButton
 
-Circular icon-only button for compact actions (close, share, arrows in carousels).
+Icon-only round button. Class contract: .rse-icon-button. Accepts every native attribute and a ref.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
 | `icon` | `React.ReactNode` | yes |  |
-| `ariaLabel` | `string` | — | Accessible label for the icon-only button. Also accepts the native `aria-label` attribute (e.g. when mounted via x-import). |
+| `ariaLabel` | `string` | — | Accessible label for the icon-only button (required — there is no visible text). Also accepts the native `aria-label`. |
 | `aria-label` | `string` | — |  |
 | `variant` | `'primary' \| 'ghost'` | — |  |
 | `size` | `'sm' \| 'md' \| 'lg'` | — |  |
-| `disabled` | `boolean` | — |  |
-| `onClick` | `() => void` | — |  |
+| `type` | `'button' \| 'submit' \| 'reset'` | — |  |
 
 `components/core/IconButton.jsx` · [props](../components/core/IconButton.d.ts) · [usage](../components/core/IconButton.prompt.md)
 
 ### Tag
 
-Rectangular category chip in one of the six accent hues — subject areas, program types, filters.
+Accent chip on a pale tint with its paired ink. Class contract: .rse-tag--<hue>.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
 | `color` | `'pink' \| 'orange' \| 'green' \| 'blue' \| 'purple' \| 'yellow'` | — |  |
 | `children` | `React.ReactNode` | yes |  |
-| `onRemove` | `() => void` | — |  |
+| `onRemove` | `() => void` | — | Shows a remove button |
+| `removeLabel` | `string` | — | Accessible label of the remove button (default "Remover") |
 
 `components/core/Tag.jsx` · [props](../components/core/Tag.d.ts) · [usage](../components/core/Tag.prompt.md)
 
@@ -160,14 +161,11 @@ Co-branded entry point from a Rede Sesc de Educação surface into the Plataform
 
 ### Checkbox
 
-Custom checkbox, filled purple with a checkmark when active.
+Checkbox. A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-checkbox.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
-| `label` | `string` | — |  |
-| `checked` | `boolean` | — |  |
-| `onChange` | `(e: React.ChangeEvent<HTMLInputElement>) => void` | — |  |
-| `disabled` | `boolean` | — |  |
+| `label` | `React.ReactNode` | — |  |
 
 `components/forms/Checkbox.jsx` · [props](../components/forms/Checkbox.d.ts) · [usage](../components/forms/Checkbox.prompt.md)
 
@@ -225,47 +223,39 @@ Pill toggle group for filtering program, level and unit listings. Use above a re
 
 ### Input
 
-Labeled text field with focus ring, error and helper-text states.
+Text field with label, helper text and error, wired for screen readers. Class contract: .rse-field + .rse-input. Every other prop goes to the <input>; className goes to the field wrapper.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
 | `label` | `string` | — |  |
-| `placeholder` | `string` | — |  |
-| `value` | `string` | — |  |
-| `onChange` | `(e: React.ChangeEvent<HTMLInputElement>) => void` | — |  |
-| `error` | `string` | — |  |
-| `helpText` | `string` | — |  |
-| `disabled` | `boolean` | — |  |
-| `type` | `string` | — |  |
+| `helpText` | `string` | — | Helper text below the field (alias: hint) |
+| `hint` | `string` | — |  |
+| `error` | `string` | — | Error message — replaces the helper text, sets aria-invalid and is announced with the field |
 
 `components/forms/Input.jsx` · [props](../components/forms/Input.d.ts) · [usage](../components/forms/Input.prompt.md)
 
 ### Radio
 
-Radio button, dot-filled purple when selected. Group multiple with the same `name`.
+Radio button — group several with the same name. A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-radio.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
-| `label` | `string` | — |  |
-| `name` | `string` | — |  |
-| `checked` | `boolean` | — |  |
-| `onChange` | `(e: React.ChangeEvent<HTMLInputElement>) => void` | — |  |
-| `disabled` | `boolean` | — |  |
+| `label` | `React.ReactNode` | — |  |
 
 `components/forms/Radio.jsx` · [props](../components/forms/Radio.d.ts) · [usage](../components/forms/Radio.prompt.md)
 
 ### Select
 
-Labeled native select with a custom chevron — unit/program pickers, filters.
+Native select with the system's field chrome. Class contract: .rse-field + .rse-select.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
 | `label` | `string` | — |  |
 | `options` | `SelectOption[]` | yes |  |
-| `value` | `string` | — |  |
-| `onChange` | `(e: React.ChangeEvent<HTMLSelectElement>) => void` | — |  |
-| `placeholder` | `string` | — |  |
-| `disabled` | `boolean` | — |  |
+| `placeholder` | `string` | — | Disabled first option shown until a value is picked |
+| `helpText` | `string` | — |  |
+| `hint` | `string` | — |  |
+| `error` | `string` | — |  |
 
 `components/forms/Select.jsx` · [props](../components/forms/Select.d.ts) · [usage](../components/forms/Select.prompt.md)
 
@@ -284,34 +274,26 @@ Progress indicator for multi-step flows: enrollment, document upload, applicatio
 
 ### Switch
 
-Toggle switch for on/off preferences (notifications, filters).
+On/off switch (role=switch). A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-switch.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
-| `label` | `string` | — |  |
-| `checked` | `boolean` | — |  |
-| `onChange` | `(e: React.ChangeEvent<HTMLInputElement>) => void` | — |  |
-| `disabled` | `boolean` | — |  |
+| `label` | `React.ReactNode` | — |  |
 
 `components/forms/Switch.jsx` · [props](../components/forms/Switch.d.ts) · [usage](../components/forms/Switch.prompt.md)
 
 ### Textarea
 
-Multi-line text field matching Input styling, with optional hint, error and character counter.
+Multi-line text field matching Input, with optional hint, error and character counter. Class contract: .rse-field + .rse-textarea.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
 | `label` | `string` | — |  |
-| `placeholder` | `string` | — |  |
-| `value` | `string` | — |  |
-| `onChange` | `(e: React.ChangeEvent<HTMLTextAreaElement>) => void` | — |  |
+| `hint` | `string` | — | Helper text below the field (alias: helpText) |
+| `helpText` | `string` | — |  |
+| `error` | `string` | — | Error message — replaces the hint and sets aria-invalid |
+| `maxLength` | `number` | — | Enables the character counter (needs a controlled value) |
 | `rows` | `number` | — |  |
-| `hint` | `string` | — | Helper text below the field |
-| `error` | `string` | — | Error message — replaces hint and turns the border red |
-| `maxLength` | `number` | — | Enables the character counter |
-| `required` | `boolean` | — |  |
-| `disabled` | `boolean` | — |  |
-| `id` | `string` | — |  |
 
 `components/forms/Textarea.jsx` · [props](../components/forms/Textarea.d.ts) · [usage](../components/forms/Textarea.prompt.md)
 
@@ -398,14 +380,16 @@ Pill tab bar for switching sections. Implements the ARIA tablist pattern: roving
 
 ### Alert
 
-Full-width, in-flow banner for page-level or form-level announcements — enrollment windows, deadline notices, validation summaries.
+Persistent inline banner with a tone icon. Class contract: .rse-alert--<tone>.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
 | `tone` | `'success' \| 'warning' \| 'danger' \| 'info'` | — |  |
 | `title` | `string` | — |  |
-| `message` | `string` | yes |  |
+| `message` | `React.ReactNode` | — | The message (children also work) |
 | `onDismiss` | `() => void` | — |  |
+| `urgent` | `boolean` | — | Interrupts screen readers (role="alert"). Default is role="status". |
+| `dismissLabel` | `string` | — | Accessible label of the dismiss button (default "Fechar") |
 
 `components/feedback/Alert.jsx` · [props](../components/feedback/Alert.d.ts) · [usage](../components/feedback/Alert.prompt.md)
 

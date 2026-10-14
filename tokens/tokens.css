@@ -84,6 +84,10 @@
 --rse-color-border-strong:var(--rse-brand-gray-500);
 /* Hairline on the fixed ink surface (footer), which stays ink in every theme. */
 --rse-color-border-on-ink:#3a3830;
+/* Text on the fixed ink surface (footer), which stays ink in every theme. */
+--rse-color-text-on-ink:var(--rse-brand-white);
+/* Secondary text on the ink surface: 6.0:1 against it. Never a dimmed white. */
+--rse-color-text-on-ink-muted:var(--rse-brand-gray-400);
 --rse-color-text-heading:var(--rse-brand-ink);
 /* Body text colour. */
 --rse-color-text-body:var(--rse-brand-gray-700);
@@ -94,7 +98,8 @@
 --rse-color-text-muted:var(--rse-brand-gray-600);
 --rse-color-text-inverse:var(--rse-brand-white);
 --rse-color-text-on-primary:var(--rse-brand-white);
---rse-color-text-link:var(--rse-brand-purple-dark);
+/* Link text. The deeper purple, not --rse-color-primary: the primary is 4.50:1 on cream and 4.44:1 on the sunken surface, this is 5.3:1 or more on every light surface. */
+--rse-color-text-link:var(--rse-color-primary-hover);
 --rse-color-text-link-hover:var(--rse-brand-indigo);
 --rse-color-focus-ring:var(--rse-brand-blue-dark);
 --rse-color-success:var(--rse-brand-green-dark);

@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { Icon } from '../core/Icon.jsx';
 export function FileUpload({ label, hint, accept, multiple = false, files = [], onFilesChange, error, maxSizeLabel }) {
   const [dragging, setDragging] = React.useState(false);
   const inputRef = React.useRef(null);
@@ -49,8 +50,8 @@ export function FileUpload({ label, hint, accept, multiple = false, files = [], 
         React.createElement('button', {
           type: 'button', 'aria-label': 'Remover ' + (f.name || 'arquivo'),
           onClick: () => onFilesChange && onFilesChange(files.filter((_, j) => j !== i)),
-          style: { background: 'none', border: 'none', cursor: 'pointer', color: 'var(--rse-color-text-muted)', fontSize: 16, lineHeight: 1, padding: 4 }
-        }, '×')
+          style: { background: 'none', border: 'none', cursor: 'pointer', color: 'var(--rse-color-text-muted)', display: 'inline-flex', padding: 4 }
+        }, React.createElement(Icon, { name: 'x', size: 16 }))
       ))
     ) : null,
     (hint || error) ? React.createElement('span', {

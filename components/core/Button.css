@@ -1,0 +1,40 @@
+/* Button — .rse-button [--primary | --secondary | --ghost] [--sm | --lg]
+   Works on <button> and on <a href>. States are CSS, so they exist before (or without) React. */
+.rse-button{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--rse-space-2);
+  min-height:var(--rse-hit-target-min);padding:var(--rse-space-3) var(--rse-space-5);
+  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);font-weight:var(--rse-font-weight-semibold);
+  line-height:1.2;white-space:nowrap;text-decoration:none;cursor:pointer;
+  border:1.5px solid transparent;border-radius:var(--rse-radius-pill);
+  background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);
+  transition:background-color var(--rse-duration-base) var(--rse-ease-standard),border-color var(--rse-duration-base) var(--rse-ease-standard),transform var(--rse-duration-fast) var(--rse-ease-out);
+}
+.rse-button:hover{background:var(--rse-color-primary-hover);color:var(--rse-color-text-on-primary)}
+.rse-button:active{background:var(--rse-color-primary-active);transform:scale(.97)}
+.rse-button--secondary{background:var(--rse-color-surface-primary-tint);color:var(--rse-color-text-on-primary-tint)}
+.rse-button--secondary:hover,.rse-button--secondary:active{background:var(--rse-color-surface-primary-tint-hover);color:var(--rse-color-text-on-primary-tint)}
+/* Ghost text uses the deeper purple: --rse-color-primary is only 4.44:1 on the hover surface. */
+.rse-button--ghost{background:transparent;color:var(--rse-color-text-on-primary-tint);border-color:var(--rse-color-border-strong)}
+.rse-button--ghost:hover,.rse-button--ghost:active{background:var(--rse-color-surface-sunken);color:var(--rse-color-text-on-primary-tint)}
+.rse-button--sm{min-height:2.25rem;padding:var(--rse-space-2) var(--rse-space-4);font-size:var(--rse-font-size-body-sm)}
+.rse-button--lg{padding:var(--rse-space-4) var(--rse-space-6);font-size:var(--rse-font-size-body-lg)}
+.rse-button--block{display:flex;width:100%}
+.rse-button:disabled,.rse-button[aria-disabled="true"]{
+  background:var(--rse-color-surface-sunken);color:var(--rse-color-text-muted);border-color:transparent;cursor:not-allowed;transform:none;
+}
+.rse-button__icon{display:inline-flex;flex:none;width:1.125rem;height:1.125rem}
+
+/* IconButton — .rse-icon-button [--primary | --ghost] [--sm | --lg]. Always carries aria-label. */
+.rse-icon-button{
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+  width:2.5rem;height:2.5rem;padding:0;border:none;border-radius:var(--rse-radius-pill);cursor:pointer;
+  background:var(--rse-color-surface-sunken);color:var(--rse-color-text-heading);
+  transition:background-color var(--rse-duration-base) var(--rse-ease-standard);
+}
+.rse-icon-button:hover{background:var(--rse-color-border-subtle)}
+.rse-icon-button--primary{background:var(--rse-color-primary);color:var(--rse-color-text-on-primary)}
+.rse-icon-button--primary:hover{background:var(--rse-color-primary-hover)}
+.rse-icon-button--sm{width:2rem;height:2rem}
+.rse-icon-button--lg{width:3rem;height:3rem}
+.rse-icon-button:disabled{background:var(--rse-color-surface-sunken);color:var(--rse-color-text-muted);cursor:not-allowed}
+.rse-icon-button__icon{display:inline-flex;width:1.125rem;height:1.125rem}

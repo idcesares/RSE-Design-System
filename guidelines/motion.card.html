@@ -1,5 +1,5 @@
 <!-- @dsCard group="Guidelines" viewport="880x560" name="Motion & interaction" subtitle="Durations, easing, hover/press behaviour, reduced motion" -->
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"></head>
+<!DOCTYPE html><html lang="pt-BR"><head><title>Motion & interaction — Rede Sesc de Educação</title><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"></head>
 <body style="margin:0;padding:32px;background:var(--rse-color-surface-page);font-family:var(--rse-font-family);color:var(--rse-color-text-body)">
 <style>.demo{background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);padding:20px;display:flex;flex-direction:column;gap:12px}.eyebrow{font-size:var(--rse-font-size-eyebrow);text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);font-weight:700;color:var(--rse-color-text-muted);margin:0}.lbl{font-size:var(--rse-font-size-body-sm);font-weight:700;color:var(--rse-color-text-heading)}.note{font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted);margin:0}
 .pill{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:var(--rse-radius-pill);background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);font-weight:600;font-size:var(--rse-font-size-body-sm);cursor:pointer;transition:background var(--rse-duration-base) var(--rse-ease-standard),transform var(--rse-duration-fast) var(--rse-ease-out)}.pill:hover{background:var(--rse-color-primary-hover)}.pill:active{transform:scale(.97);background:var(--rse-color-primary-active)}
@@ -24,7 +24,7 @@
 <li>Animate <code>transform</code>, <code>opacity</code>, <code>background</code> and <code>box-shadow</code> only — never layout properties.</li>
 <li>No scroll-triggered motion, parallax, or autoplaying decorative animation.</li>
 <li>Motion carries meaning (state change, progress, arrival) or it is removed.</li>
-<li><code>prefers-reduced-motion: reduce</code> is honoured globally in <code>tokens/base.css</code>; never re-introduce motion inline in a way that escapes it.</li>
+<li><code>prefers-reduced-motion: reduce</code> is honoured globally in <code>tokens/base-runtime.css</code>; never re-introduce motion inline in a way that escapes it.</li>
 </ul></div>
 </div>
 </body></html>

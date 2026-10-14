@@ -7,23 +7,36 @@ components are an existing one with a prop you haven't read.
 Add a component when a pattern appears on **three or more** surfaces and cannot be expressed by
 composing what exists. Otherwise compose it in the page.
 
-## 1. Write the source
+## 1. Write the CSS contract, then the wrapper
 
-`components/<group>/Name.jsx` — groups are `core`, `brand`, `forms`, `navigation`, `feedback`,
-`data`, `disclosure`, `overlay`.
+Start with `components/<group>/Name.css`: a root class `.rse-name`, BEM elements
+(`.rse-name__part`) and modifiers (`.rse-name--variant`). Every state is CSS — `:hover`,
+`:focus-visible`, `:checked`, `:disabled`, `[aria-invalid="true"]` — so the component works in a CMS
+page with no JavaScript. `npm run sync` wraps all of them in `@layer rse.components` in
+`dist/components.css`; a raw colour fails the build.
+
+Then `components/<group>/Name.jsx` renders that markup. Groups are `core`, `brand`, `forms`,
+`navigation`, `feedback`, `data`, `disclosure`, `overlay`.
 
 ```jsx
 import React from 'react';
-export function Name({ tone = 'primary', children }) {
-  return React.createElement('div', { style: { /* tokens only */ } }, children);
-}
+const cx = (...c) => c.filter(Boolean).join(' ');
+export const Name = React.forwardRef(function Name({ tone = 'primary', className, children, ...rest }, ref) {
+  return React.createElement('div', { ref, className: cx('rse-name', tone !== 'primary' && 'rse-name--' + tone, className), ...rest }, children);
+});
 ```
+
+Another component is imported by relative path (`import { Icon } from '../core/Icon.jsx';`); the
+bundle builder resolves it and orders the blocks.
 
 Hard rules:
 
 - **`React.createElement`, never JSX.** `scripts/build-bundle.mjs` copies this file into
   `dist/rse.js` verbatim so static pages can load it with no build step; JSX is rejected.
-- **One default export shape**: `export function Name`. The name must match the filename.
+- **Export shape**: `export const Name = React.forwardRef(function Name(…))` (or `export function
+  Name` for one that needs no ref). The name must match the filename.
+- **No inline style objects, no hover in state.** Forward `ref`, spread `...rest` onto the main
+  element, merge `className`, build ids with `React.useId` (never `Math.random`).
 - **Tokens only** for colour, type, radius, shadow, motion, z-index. Layout geometry (a 20px
   checkbox box, a 16:10 media ratio) may be literal.
 - **Prop shapes stay simple** — strings, numbers, booleans, arrays of plain objects, React nodes.

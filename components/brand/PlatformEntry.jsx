@@ -14,7 +14,7 @@ export function PlatformEntry({
   const onPurple = tone === 'purple';
   const surface = onPurple ? 'var(--rse-color-sabia-purple)' : 'var(--rse-color-sabia-surface)';
   const ink = onPurple ? 'var(--rse-brand-white)' : 'var(--rse-brand-ink)';
-  const muted = onPurple ? 'rgba(255,255,255,0.82)' : 'var(--rse-color-text-body)';
+  const muted = onPurple ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-text-body)';
   const [hover, setHover] = React.useState(false);
   return React.createElement('section', {
     style: {
@@ -31,7 +31,7 @@ export function PlatformEntry({
             style: {
               fontSize: 'var(--rse-font-size-eyebrow)', fontWeight: 'var(--rse-font-weight-bold)',
               letterSpacing: 'var(--rse-letter-spacing-eyebrow)', textTransform: 'uppercase',
-              color: onPurple ? 'rgba(255,255,255,0.85)' : 'var(--rse-color-sabia-purple)'
+              color: onPurple ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-sabia-purple)'
             }
           }, eyebrow),
       React.createElement('h2', {
@@ -41,7 +41,7 @@ export function PlatformEntry({
         style: { fontSize: 'var(--rse-font-size-body-md)', lineHeight: 'var(--rse-line-height-body)', color: muted, margin: 0, maxWidth: 'var(--rse-container-prose)' }
       }, description),
       note ? React.createElement('p', {
-        style: { fontSize: 'var(--rse-font-size-caption)', color: muted, margin: 0, opacity: 0.85 }
+        style: { fontSize: 'var(--rse-font-size-caption)', color: muted, margin: 0 }
       }, note) : null
     ),
     React.createElement('a', {

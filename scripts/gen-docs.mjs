@@ -15,7 +15,7 @@ const manifest = JSON.parse(readFileSync(join(ROOT, 'rse.manifest.json'), 'utf8'
 const GROUPS = { core: 'Core', brand: 'Brand', forms: 'Forms', navigation: 'Navigation', feedback: 'Feedback', data: 'Data', disclosure: 'Disclosure', overlay: 'Overlay' };
 
 const propsOf = (dts, name) => {
-  const block = dts.match(new RegExp(`export interface ${name}Props \\{([\\s\\S]*?)\\n\\}`));
+  const block = dts.match(new RegExp(`export interface ${name}Props(?: extends [^{]+)? \\{([\\s\\S]*?)\\n\\}`));
   if (!block) return [];
   return [...block[1].matchAll(/(?:\/\*\*(.*?)\*\/\s*)?\n?\s*'?([\w-]+)'?(\??):\s*([^;]+);/gs)].map((m) => ({
     doc: (m[1] ?? '').trim(),
@@ -26,7 +26,7 @@ const propsOf = (dts, name) => {
 };
 const summaryOf = (dts, name) => {
   // only the doc comment immediately before the declaration, not everything above it
-  const m = dts.match(new RegExp(`/\\*\\*((?:(?!\\*/)[\\s\\S])*)\\*/\\s*export function ${name}\\b`));
+  const m = dts.match(new RegExp(`/\\*\\*((?:(?!\\*/)[\\s\\S])*)\\*/\\s*export (?:declare )?(?:function|const) ${name}\\b`));
   return m ? m[1].replace(/^\s*\*\s?/gm, ' ').replace(/\s+/g, ' ').trim() : '';
 };
 const cell = (s) => String(s).replace(/\|/g, '\\|');

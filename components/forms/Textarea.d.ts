@@ -1,19 +1,14 @@
 import React from 'react';
-export interface TextareaProps {
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
-  placeholder?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  rows?: number;
-  /** Helper text below the field */
+  /** Helper text below the field (alias: helpText) */
   hint?: string;
-  /** Error message — replaces hint and turns the border red */
+  helpText?: string;
+  /** Error message — replaces the hint and sets aria-invalid */
   error?: string;
-  /** Enables the character counter */
+  /** Enables the character counter (needs a controlled value) */
   maxLength?: number;
-  required?: boolean;
-  disabled?: boolean;
-  id?: string;
+  rows?: number;
 }
-/** Multi-line text field matching Input styling, with optional hint, error and character counter. */
-export function Textarea(props: TextareaProps): JSX.Element;
+/** Multi-line text field matching Input, with optional hint, error and character counter. Class contract: .rse-field + .rse-textarea. */
+export declare const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttributes<HTMLTextAreaElement>>;

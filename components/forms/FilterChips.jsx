@@ -29,7 +29,7 @@ export function FilterChips({ options = [], value = [], onChange, multiple = tru
             transition: 'background var(--rse-duration-fast) var(--rse-ease-standard), border-color var(--rse-duration-fast) var(--rse-ease-standard), color var(--rse-duration-fast) var(--rse-ease-standard)'
           }
         }, text, count != null ? React.createElement('span', {
-          style: { fontSize: 'var(--rse-font-size-caption)', fontWeight: 'var(--rse-font-weight-bold)', color: on ? 'rgba(255,255,255,0.75)' : 'var(--rse-color-text-muted)' }
+          style: { fontSize: 'var(--rse-font-size-caption)', fontWeight: 'var(--rse-font-weight-bold)', color: on ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-text-muted)' }
         }, count) : null);
       }),
       showClear && selected.length ? React.createElement('button', {

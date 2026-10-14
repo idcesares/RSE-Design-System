@@ -1,0 +1,21 @@
+/* Field — the label / control / message wrapper shared by Input, Select, Textarea and DateField.
+   .rse-field [--invalid] [--disabled] > .rse-field__label, control, .rse-field__message */
+.rse-field{display:flex;flex-direction:column;gap:var(--rse-space-2);width:100%;font-family:var(--rse-font-family)}
+.rse-field__label{font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);color:var(--rse-color-text-heading)}
+.rse-field__required{color:var(--rse-color-danger-text)}
+.rse-field__message{display:flex;justify-content:space-between;gap:var(--rse-space-4);margin:0;font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)}
+.rse-field--invalid .rse-field__message{color:var(--rse-color-danger-text)}
+.rse-field__count{flex:none;color:var(--rse-color-text-muted)}
+
+/* Input — .rse-input on <input>, <select> or <textarea>. The global focus ring stays: a pale
+   shadow alone is not a visible focus indicator. */
+.rse-input{
+  width:100%;min-height:var(--rse-hit-target-min);padding:var(--rse-space-3) var(--rse-space-4);
+  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);line-height:1.4;color:var(--rse-color-text-heading);
+  background:var(--rse-color-surface-card);border:1.5px solid var(--rse-color-border-strong);border-radius:var(--rse-radius-md);
+  transition:border-color var(--rse-duration-fast) var(--rse-ease-standard);
+}
+.rse-input::placeholder{color:var(--rse-color-text-muted);opacity:1}
+.rse-input:focus{border-color:var(--rse-color-primary)}
+.rse-input[aria-invalid="true"]{border-color:var(--rse-color-danger)}
+.rse-input:disabled{background:var(--rse-color-surface-sunken);color:var(--rse-color-text-muted);cursor:not-allowed}

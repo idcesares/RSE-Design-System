@@ -1,22 +1,22 @@
 'use client';
 import React from 'react';
-export function Input({ label, placeholder, value, onChange, error, helpText, disabled, type = 'text' }) {
-  const [focused, setFocused] = React.useState(false);
-  return React.createElement('label', { style: { display: 'flex', flexDirection: 'column', gap: 6, fontFamily: 'var(--rse-font-family)', width: '100%' } },
-    label ? React.createElement('span', { style: { fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)', color: 'var(--rse-color-text-heading)' } }, label) : null,
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in Input.css (.rse-field + .rse-input). The message is wired to the
+// field with aria-describedby, and an error sets aria-invalid, so it is announced, not only red.
+// Every other prop (name, value, onChange, autoComplete, inputMode…) goes to the <input>.
+export const Input = React.forwardRef(function Input({ label, helpText, hint, error, id, required, type = 'text', className, ...rest }, ref) {
+  const autoId = React.useId();
+  const inputId = id || 'rse-input-' + autoId.replace(/:/g, '');
+  const message = error || helpText || hint;
+  return React.createElement('div', { className: cx('rse-field', error && 'rse-field--invalid', className) },
+    label ? React.createElement('label', { className: 'rse-field__label', htmlFor: inputId }, label,
+      required ? React.createElement('span', { className: 'rse-field__required', 'aria-hidden': 'true' }, ' *') : null) : null,
     React.createElement('input', {
-      type, placeholder, value, disabled, onChange,
-      onFocus: () => setFocused(true), onBlur: () => setFocused(false),
-      style: {
-        padding: '12px 16px', borderRadius: 'var(--rse-radius-md)', fontSize: 'var(--rse-font-size-body-md)',
-        fontFamily: 'var(--rse-font-family)', color: 'var(--rse-color-text-heading)',
-        background: disabled ? 'var(--rse-brand-gray-100)' : 'var(--rse-color-surface-card)',
-        border: `1.5px solid ${error ? 'var(--rse-color-danger)' : focused ? 'var(--rse-color-primary)' : 'var(--rse-color-border-strong)'}`,
-        outline: 'none', boxShadow: focused ? '0 0 0 3px var(--rse-color-surface-primary-tint)' : 'none',
-        transition: 'border var(--rse-duration-fast) var(--rse-ease-standard), box-shadow var(--rse-duration-fast) var(--rse-ease-standard)'
-      }
+      ref, id: inputId, type, required, className: 'rse-input',
+      'aria-invalid': error ? 'true' : undefined,
+      'aria-describedby': message ? inputId + '-msg' : undefined,
+      ...rest
     }),
-    error ? React.createElement('span', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-danger-text)' } }, error)
-      : helpText ? React.createElement('span', { style: { fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-color-text-muted)' } }, helpText) : null
+    message ? React.createElement('p', { className: 'rse-field__message', id: inputId + '-msg' }, message) : null
   );
-}
+});

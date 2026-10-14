@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { Icon } from '../core/Icon.jsx';
 export function Menu({ label, items = [], align = 'left', width = 260, trigger = 'button', open: openProp, onOpenChange }) {
   const [uncontrolled, setUncontrolled] = React.useState(false);
   const open = openProp !== undefined ? openProp : uncontrolled;
@@ -27,8 +28,8 @@ export function Menu({ label, items = [], align = 'left', width = 260, trigger =
       }
     }, label, React.createElement('span', {
       'aria-hidden': 'true',
-      style: { fontSize: 10, transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--rse-duration-base) var(--rse-ease-standard)', color: 'var(--rse-color-primary)' }
-    }, '▾')),
+      style: { display: 'inline-flex', transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--rse-duration-base) var(--rse-ease-standard)', color: 'var(--rse-color-primary)' }
+    }, React.createElement(Icon, { name: 'chevron-down', size: 16 }))),
     open ? React.createElement('div', {
       role: 'menu',
       style: {

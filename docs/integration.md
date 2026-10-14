@@ -38,6 +38,7 @@ npm install @idcesares/rse-design-system
 | `@idcesares/rse-design-system/styles.css` | everything: fonts, tokens, runtime base, element reset |
 | `@idcesares/rse-design-system/tokens-only.css` | fonts + custom properties only — for a site with its own base styles |
 | `@idcesares/rse-design-system/base-runtime.css` | what the components need (focus ring, control hiding, keyframes) |
+| `@idcesares/rse-design-system/components.css` | the component CSS contract (`.rse-button`, `.rse-field`…), in `@layer rse.components` |
 | `@idcesares/rse-design-system/tokens` | every token resolved per theme, as a typed ES module |
 | `@idcesares/rse-design-system/tokens.json`, `/brand.json` | the same as JSON; the brand contract |
 | `@idcesares/rse-design-system/bundle` | `dist/rse.js` — every component on `window.RSE` for unbuilt pages |
@@ -121,7 +122,22 @@ folder locally). Unzip it to a **versioned** path on a server you control and li
 <!-- inside a site with its own typography, instead: -->
 <link rel="stylesheet" href="/rse/2.0.0/tokens/tokens-only.css">
 <link rel="stylesheet" href="/rse/2.0.0/tokens/base-runtime.css">
+<link rel="stylesheet" href="/rse/2.0.0/dist/components.css">
 ```
+
+Components that are on the CSS contract need no JavaScript at all — write the classes:
+
+```html
+<a class="rse-button" href="/matricula">Quero me inscrever</a>
+<span class="rse-badge rse-badge--success">Vagas abertas</span>
+<div class="rse-field">
+  <label class="rse-field__label" for="nome">Nome completo</label>
+  <input class="rse-input" id="nome" name="nome">
+</div>
+```
+
+Which components are on the contract, and their markup: each `components/<group>/<Name>.prompt.md`
+and `dist/components.css`. The rest still need React (below) until roadmap P2 moves them.
 
 Then use `var(--rse-…)` in your own theme CSS. Components in an unbuilt page:
 

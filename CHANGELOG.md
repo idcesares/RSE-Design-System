@@ -29,6 +29,35 @@ attribute, the bundle global and several file paths changed. Decisions D1–D6 i
 - **Fluid:** H1–H3 and display sizes scale with `rem + vw` (so they also scale with zoom);
   `--rse-container-padding` is 16px on a phone and 24px from ~600px.
 
+### Components: the CSS contract (roadmap P2.1–P2.4)
+
+- **Twelve components are now a CSS contract first**: Button, IconButton, Card, Tag, Badge, Alert,
+  Input, Select, Textarea, Checkbox, Radio, Switch. Each has a `components/<group>/<Name>.css`
+  (`.rse-button`, `.rse-field`, `.rse-choice`…) built into `dist/components.css` inside
+  `@layer rse.components`; `styles.css` puts the reset in `@layer rse.base`. A CMS or the portal
+  can use the classes with no JavaScript; host styles win without `!important`.
+- **The React components render that markup**: `forwardRef`, every native prop passed through,
+  `className` merged, ids from `useId`. No inline style objects and no hover held in state, so
+  hover, focus and checked states exist before hydration and on touch.
+- **Behaviour fixes that came with it**: Input/Select wire their message with `aria-describedby`
+  and `aria-invalid`; text fields keep the visible focus ring (the pale shadow alone was not one);
+  Select draws its chevron with `Icon` (no raw-hex data URI); Alert is `role="status"` unless
+  `urgent`, and shows its tone as an icon; Card with `href` makes the title the link and stretches
+  it over the card, so footer buttons are no longer nested inside a link — without `href` the card
+  is static; Checkbox/Radio/Switch states follow `:checked`, and the Switch's off track now clears
+  3:1; Button takes `href` and `block`.
+- **No more Unicode glyphs as icons**: `×`, `▾`, `‹ ›`, `✓` in Modal, Toast, FileUpload, Stepper, Menu
+  and Pagination are `Icon`s. Components can import each other; the bundle orders them.
+- Modal and Tooltip ids come from `useId` (no `Math.random`, no hydration mismatch).
+- `tokens/base.css` is gone; `styles.css` imports the pieces directly.
+
+### Tests in a real browser (roadmap P2.5)
+
+`npm run test:pages` (`scripts/test-pages.mjs`) opens every shipped page in Chromium at 1280px and
+360px: runtime errors fail; axe-core WCAG 2.2 AA violations and horizontal overflow on a phone are
+ratcheted against `scripts/test-pages-baseline.json`. It runs in CI and before every release.
+Specimen pages gained `lang="pt-BR"` and a `<title>`.
+
 ### Package and release
 
 - Published as **`@idcesares/rse-design-system`** on GitHub Packages, with subpath exports

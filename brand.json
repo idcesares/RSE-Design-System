@@ -629,6 +629,14 @@
       "value": "#3a3830",
       "kind": "color"
     },
+    "--rse-color-text-on-ink": {
+      "value": "#ffffff",
+      "kind": "color"
+    },
+    "--rse-color-text-on-ink-muted": {
+      "value": "#a8a496",
+      "kind": "color"
+    },
     "--rse-color-text-heading": {
       "value": "#2b2a3d",
       "kind": "color"
@@ -650,7 +658,7 @@
       "kind": "color"
     },
     "--rse-color-text-link": {
-      "value": "#6c62c4",
+      "value": "#5e56ab",
       "kind": "color"
     },
     "--rse-color-text-link-hover": {

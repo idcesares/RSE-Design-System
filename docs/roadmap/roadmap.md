@@ -9,8 +9,13 @@ a script can verify, and whether it can start now or waits on a decision.
 | | |
 | --- | --- |
 | Decisions approved | **D1–D6** (October 2026). D5 without legacy aliases: nothing consumed 1.x, so 2.0.0 is a clean break. |
-| Done | **Phase 0** (P0.1–P0.3) · **Phase 1** (P1.1–P1.4) · D6 removals — released as **2.0.0** |
-| Next | **P2.4** glyph icons → `Icon` (small, start here) · **P2.1** CSS contract · **P2.5** visual + axe tests |
+| Done in 2.0.0 | **Phase 0** (P0.1–P0.3) · **Phase 1** (P1.1–P1.4) · D6 removals · **P2.4** glyphs → `Icon` · **P2.1–P2.3** for 12 components (Button, IconButton, Card, Tag, Badge, Alert, Input, Select, Textarea, Checkbox, Radio, Switch) · **P2.5** browser tests (errors + axe + 360px) |
+| Measured | axe WCAG 2.2 AA violation nodes across 46 pages: **171 → 0**; contrast pairs gated: **117**, all passing in 3 themes; glyph icons **9 → 0**; px literals in components **133 → 81** |
+| Next | **P2.1/P2.2** for the other 22 components · **P3.1** responsive templates (12 pages still scroll sideways at 360px, ratcheted) · **P3.4** one docs site (see the showcase proposal) |
+
+P2.5 landed without screenshot diffs on purpose: baselines of 46 pages × 3 themes churn on every
+intended change and get approved blindly. Runtime errors, axe and phone overflow catch the
+regressions that matter; visual snapshots can come with the docs site.
 
 How phase 1 landed differently from the plan below, on purpose:
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon } from '../core/Icon.jsx';
 export function Stepper({ steps = [], current = 0, orientation = 'horizontal', onStepClick }) {
   const isH = orientation === 'horizontal';
   return React.createElement('ol', {
@@ -20,6 +21,7 @@ export function Stepper({ steps = [], current = 0, orientation = 'horizontal', o
       React.createElement('div', { style: { display: 'flex', flexDirection: isH ? 'row' : 'column', alignItems: 'center', gap: 0, flex: 'none' } },
         React.createElement(onStepClick ? 'button' : 'div', {
           type: onStepClick ? 'button' : undefined,
+          'aria-label': onStepClick ? 'Etapa ' + (i + 1) + ': ' + label + (done ? ' (concluída)' : '') : undefined,
           onClick: onStepClick ? () => onStepClick(i) : undefined,
           style: {
             flex: 'none', width: 34, height: 34, borderRadius: 'var(--rse-radius-pill)',
@@ -30,7 +32,7 @@ export function Stepper({ steps = [], current = 0, orientation = 'horizontal', o
             fontFamily: 'var(--rse-font-family)', cursor: onStepClick ? 'pointer' : 'default',
             transition: 'background var(--rse-duration-base) var(--rse-ease-standard), border-color var(--rse-duration-base) var(--rse-ease-standard)'
           }
-        }, done ? '✓' : String(i + 1)),
+        }, done ? React.createElement(Icon, { name: 'check', size: 16 }) : String(i + 1)),
         i < steps.length - 1 ? React.createElement('div', {
           'aria-hidden': 'true',
           style: isH

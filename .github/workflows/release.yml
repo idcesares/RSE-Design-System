@@ -26,6 +26,8 @@ jobs:
           test "v$v" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME does not match package.json $v"; exit 1; }
           grep -q "^## $v" CHANGELOG.md || { echo "CHANGELOG.md has no '## $v' section"; exit 1; }
       - run: npm run check
+      - run: npm i --no-save --no-audit --no-fund playwright@1.56.1 axe-core@4.14.0 && npx playwright install --with-deps chromium
+      - run: npm run test:pages
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

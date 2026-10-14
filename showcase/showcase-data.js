@@ -37,7 +37,7 @@ window.SHOWCASE_DATA = {
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
       "sourcePath": "components/feedback/Alert.jsx",
-      "summary": "Full-width, in-flow banner for page-level or form-level announcements — enrollment windows, deadline notices, validation summaries.",
+      "summary": "Persistent inline banner with a tone icon. Class contract: .rse-alert--<tone>.",
       "props": [
         {
           "name": "tone",
@@ -53,15 +53,27 @@ window.SHOWCASE_DATA = {
         },
         {
           "name": "message",
-          "type": "string",
-          "required": true,
-          "notes": ""
+          "type": "React.ReactNode",
+          "required": false,
+          "notes": "The message (children also work)"
         },
         {
           "name": "onDismiss",
           "type": "() => void",
           "required": false,
           "notes": ""
+        },
+        {
+          "name": "urgent",
+          "type": "boolean",
+          "required": false,
+          "notes": "Interrupts screen readers (role=\"alert\"). Default is role=\"status\"."
+        },
+        {
+          "name": "dismissLabel",
+          "type": "string",
+          "required": false,
+          "notes": "Accessible label of the dismiss button (default \"Fechar\")"
         }
       ]
     },
@@ -109,7 +121,7 @@ window.SHOWCASE_DATA = {
       "group": "core",
       "groupLabel": "Essenciais",
       "sourcePath": "components/core/Badge.jsx",
-      "summary": "Small status pill with a dot indicator — enrollment status, availability, alerts.",
+      "summary": "Small status pill with a dot. Class contract: .rse-badge--<tone>.",
       "props": [
         {
           "name": "tone",
@@ -171,7 +183,7 @@ window.SHOWCASE_DATA = {
       "group": "core",
       "groupLabel": "Essenciais",
       "sourcePath": "components/core/Button.jsx",
-      "summary": "Primary action button with 3 variants (primary, secondary, ghost) and 3 sizes.",
+      "summary": "Action button (or link styled as one) with 3 variants and 3 sizes. Class contract: .rse-button. Accepts every native attribute and a ref.",
       "props": [
         {
           "name": "variant",
@@ -189,11 +201,23 @@ window.SHOWCASE_DATA = {
           "name": "icon",
           "type": "React.ReactNode",
           "required": false,
-          "notes": "Optional leading icon element"
+          "notes": "Optional leading icon element, usually an <Icon>"
         },
         {
-          "name": "disabled",
+          "name": "href",
+          "type": "string",
+          "required": false,
+          "notes": "Renders an <a> that looks like a button. With disabled, the link is removed and aria-disabled set."
+        },
+        {
+          "name": "block",
           "type": "boolean",
+          "required": false,
+          "notes": "Full width"
+        },
+        {
+          "name": "type",
+          "type": "'button' | 'submit' | 'reset'",
           "required": false,
           "notes": ""
         },
@@ -201,18 +225,6 @@ window.SHOWCASE_DATA = {
           "name": "children",
           "type": "React.ReactNode",
           "required": true,
-          "notes": ""
-        },
-        {
-          "name": "onClick",
-          "type": "() => void",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "type",
-          "type": "'button' | 'submit'",
-          "required": false,
           "notes": ""
         }
       ]
@@ -222,7 +234,7 @@ window.SHOWCASE_DATA = {
       "group": "core",
       "groupLabel": "Essenciais",
       "sourcePath": "components/core/Card.jsx",
-      "summary": "Program/school card with image, eyebrow, title and optional footer.",
+      "summary": "Program/school card: media, eyebrow, title, description, footer. Class contract: .rse-card.",
       "props": [
         {
           "name": "image",
@@ -258,13 +270,19 @@ window.SHOWCASE_DATA = {
           "name": "footer",
           "type": "React.ReactNode",
           "required": false,
-          "notes": ""
+          "notes": "Actions or meta below the body; stays independently clickable"
         },
         {
           "name": "href",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "Makes the title a link whose hit area covers the whole card"
+        },
+        {
+          "name": "headingLevel",
+          "type": "2 | 3 | 4 | 5 | 6",
+          "required": false,
+          "notes": "Heading level of the title (default 3)"
         }
       ]
     },
@@ -273,29 +291,11 @@ window.SHOWCASE_DATA = {
       "group": "forms",
       "groupLabel": "Formulários",
       "sourcePath": "components/forms/Checkbox.jsx",
-      "summary": "Custom checkbox, filled purple with a checkmark when active.",
+      "summary": "Checkbox. A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-checkbox.",
       "props": [
         {
           "name": "label",
-          "type": "string",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "checked",
-          "type": "boolean",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "onChange",
-          "type": "(e: React.ChangeEvent<HTMLInputElement>) => void",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
+          "type": "React.ReactNode",
           "required": false,
           "notes": ""
         }
@@ -627,7 +627,7 @@ window.SHOWCASE_DATA = {
       "group": "core",
       "groupLabel": "Essenciais",
       "sourcePath": "components/core/IconButton.jsx",
-      "summary": "Circular icon-only button for compact actions (close, share, arrows in carousels).",
+      "summary": "Icon-only round button. Class contract: .rse-icon-button. Accepts every native attribute and a ref.",
       "props": [
         {
           "name": "icon",
@@ -639,7 +639,7 @@ window.SHOWCASE_DATA = {
           "name": "ariaLabel",
           "type": "string",
           "required": false,
-          "notes": "Accessible label for the icon-only button. Also accepts the native `aria-label` attribute (e.g. when mounted via x-import)."
+          "notes": "Accessible label for the icon-only button (required — there is no visible text). Also accepts the native `aria-label`."
         },
         {
           "name": "aria-label",
@@ -660,14 +660,8 @@ window.SHOWCASE_DATA = {
           "notes": ""
         },
         {
-          "name": "disabled",
-          "type": "boolean",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "onClick",
-          "type": "() => void",
+          "name": "type",
+          "type": "'button' | 'submit' | 'reset'",
           "required": false,
           "notes": ""
         }
@@ -678,7 +672,7 @@ window.SHOWCASE_DATA = {
       "group": "forms",
       "groupLabel": "Formulários",
       "sourcePath": "components/forms/Input.jsx",
-      "summary": "Labeled text field with focus ring, error and helper-text states.",
+      "summary": "Text field with label, helper text and error, wired for screen readers. Class contract: .rse-field + .rse-input. Every other prop goes to the <input>; className goes to the field wrapper.",
       "props": [
         {
           "name": "label",
@@ -687,20 +681,14 @@ window.SHOWCASE_DATA = {
           "notes": ""
         },
         {
-          "name": "placeholder",
+          "name": "helpText",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "Helper text below the field (alias: hint)"
         },
         {
-          "name": "value",
+          "name": "hint",
           "type": "string",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "onChange",
-          "type": "(e: React.ChangeEvent<HTMLInputElement>) => void",
           "required": false,
           "notes": ""
         },
@@ -708,25 +696,7 @@ window.SHOWCASE_DATA = {
           "name": "error",
           "type": "string",
           "required": false,
-          "notes": ""
-        },
-        {
-          "name": "helpText",
-          "type": "string",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "type",
-          "type": "string",
-          "required": false,
-          "notes": ""
+          "notes": "Error message — replaces the helper text, sets aria-invalid and is announced with the field"
         }
       ]
     },
@@ -1005,35 +975,11 @@ window.SHOWCASE_DATA = {
       "group": "forms",
       "groupLabel": "Formulários",
       "sourcePath": "components/forms/Radio.jsx",
-      "summary": "Radio button, dot-filled purple when selected. Group multiple with the same `name`.",
+      "summary": "Radio button — group several with the same name. A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-radio.",
       "props": [
         {
           "name": "label",
-          "type": "string",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "checked",
-          "type": "boolean",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "onChange",
-          "type": "(e: React.ChangeEvent<HTMLInputElement>) => void",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
+          "type": "React.ReactNode",
           "required": false,
           "notes": ""
         }
@@ -1044,7 +990,7 @@ window.SHOWCASE_DATA = {
       "group": "forms",
       "groupLabel": "Formulários",
       "sourcePath": "components/forms/Select.jsx",
-      "summary": "Labeled native select with a custom chevron — unit/program pickers, filters.",
+      "summary": "Native select with the system's field chrome. Class contract: .rse-field + .rse-select.",
       "props": [
         {
           "name": "label",
@@ -1059,26 +1005,26 @@ window.SHOWCASE_DATA = {
           "notes": ""
         },
         {
-          "name": "value",
-          "type": "string",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "onChange",
-          "type": "(e: React.ChangeEvent<HTMLSelectElement>) => void",
-          "required": false,
-          "notes": ""
-        },
-        {
           "name": "placeholder",
           "type": "string",
           "required": false,
+          "notes": "Disabled first option shown until a value is picked"
+        },
+        {
+          "name": "helpText",
+          "type": "string",
+          "required": false,
           "notes": ""
         },
         {
-          "name": "disabled",
-          "type": "boolean",
+          "name": "hint",
+          "type": "string",
+          "required": false,
+          "notes": ""
+        },
+        {
+          "name": "error",
+          "type": "string",
           "required": false,
           "notes": ""
         }
@@ -1227,29 +1173,11 @@ window.SHOWCASE_DATA = {
       "group": "forms",
       "groupLabel": "Formulários",
       "sourcePath": "components/forms/Switch.jsx",
-      "summary": "Toggle switch for on/off preferences (notifications, filters).",
+      "summary": "On/off switch (role=switch). A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-switch.",
       "props": [
         {
           "name": "label",
-          "type": "string",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "checked",
-          "type": "boolean",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "onChange",
-          "type": "(e: React.ChangeEvent<HTMLInputElement>) => void",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
+          "type": "React.ReactNode",
           "required": false,
           "notes": ""
         }
@@ -1293,7 +1221,7 @@ window.SHOWCASE_DATA = {
       "group": "core",
       "groupLabel": "Essenciais",
       "sourcePath": "components/core/Tag.jsx",
-      "summary": "Rectangular category chip in one of the six accent hues — subject areas, program types, filters.",
+      "summary": "Accent chip on a pale tint with its paired ink. Class contract: .rse-tag--<hue>.",
       "props": [
         {
           "name": "color",
@@ -1311,7 +1239,13 @@ window.SHOWCASE_DATA = {
           "name": "onRemove",
           "type": "() => void",
           "required": false,
-          "notes": ""
+          "notes": "Shows a remove button"
+        },
+        {
+          "name": "removeLabel",
+          "type": "string",
+          "required": false,
+          "notes": "Accessible label of the remove button (default \"Remover\")"
         }
       ]
     },
@@ -1320,7 +1254,7 @@ window.SHOWCASE_DATA = {
       "group": "forms",
       "groupLabel": "Formulários",
       "sourcePath": "components/forms/Textarea.jsx",
-      "summary": "Multi-line text field matching Input styling, with optional hint, error and character counter.",
+      "summary": "Multi-line text field matching Input, with optional hint, error and character counter. Class contract: .rse-field + .rse-textarea.",
       "props": [
         {
           "name": "label",
@@ -1329,62 +1263,32 @@ window.SHOWCASE_DATA = {
           "notes": ""
         },
         {
-          "name": "placeholder",
-          "type": "string",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "value",
-          "type": "string",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "onChange",
-          "type": "(e: React.ChangeEvent<HTMLTextAreaElement>) => void",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "rows",
-          "type": "number",
-          "required": false,
-          "notes": ""
-        },
-        {
           "name": "hint",
           "type": "string",
           "required": false,
-          "notes": "Helper text below the field"
+          "notes": "Helper text below the field (alias: helpText)"
+        },
+        {
+          "name": "helpText",
+          "type": "string",
+          "required": false,
+          "notes": ""
         },
         {
           "name": "error",
           "type": "string",
           "required": false,
-          "notes": "Error message — replaces hint and turns the border red"
+          "notes": "Error message — replaces the hint and sets aria-invalid"
         },
         {
           "name": "maxLength",
           "type": "number",
           "required": false,
-          "notes": "Enables the character counter"
+          "notes": "Enables the character counter (needs a controlled value)"
         },
         {
-          "name": "required",
-          "type": "boolean",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "required": false,
-          "notes": ""
-        },
-        {
-          "name": "id",
-          "type": "string",
+          "name": "rows",
+          "type": "number",
           "required": false,
           "notes": ""
         }
@@ -1952,6 +1856,14 @@ window.SHOWCASE_DATA = {
       "value": "#3a3830",
       "kind": "color"
     },
+    "--rse-color-text-on-ink": {
+      "value": "#ffffff",
+      "kind": "color"
+    },
+    "--rse-color-text-on-ink-muted": {
+      "value": "#a8a496",
+      "kind": "color"
+    },
     "--rse-color-text-heading": {
       "value": "#2b2a3d",
       "kind": "color"
@@ -1973,7 +1885,7 @@ window.SHOWCASE_DATA = {
       "kind": "color"
     },
     "--rse-color-text-link": {
-      "value": "#6c62c4",
+      "value": "#5e56ab",
       "kind": "color"
     },
     "--rse-color-text-link-hover": {
@@ -3162,6 +3074,18 @@ window.SHOWCASE_DATA = {
       "floor": 4.5
     },
     {
+      "label": "Botão fantasma em foco do mouse",
+      "fg": "--rse-color-text-on-primary-tint",
+      "bg": "--rse-color-surface-sunken",
+      "floor": 4.5
+    },
+    {
+      "label": "Botão fantasma sobre a página",
+      "fg": "--rse-color-text-on-primary-tint",
+      "bg": "--rse-color-surface-page",
+      "floor": 4.5
+    },
+    {
       "label": "Link sobre a página",
       "fg": "--rse-color-text-link",
       "bg": "--rse-color-surface-page",
@@ -3330,6 +3254,12 @@ window.SHOWCASE_DATA = {
       "floor": 4.5
     },
     {
+      "label": "Texto secundário no rodapé",
+      "fg": "--rse-color-text-on-ink-muted",
+      "bg": "--rse-brand-ink",
+      "floor": 4.5
+    },
+    {
       "label": "Texto sobre o azul da Sab.IA",
       "fg": "--rse-color-sabia-on-blue",
       "bg": "--rse-color-sabia-blue",
@@ -3338,7 +3268,7 @@ window.SHOWCASE_DATA = {
   ],
   "counts": {
     "components": 36,
-    "tokens": 166,
+    "tokens": 168,
     "palette": 21,
     "themes": 3,
     "templates": 4,

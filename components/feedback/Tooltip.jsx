@@ -2,7 +2,7 @@
 import React from 'react';
 export function Tooltip({ label, children }) {
   const [show, setShow] = React.useState(false);
-  const id = React.useMemo(() => 'rse-tip-' + Math.random().toString(36).slice(2, 8), []);
+  const id = 'rse-tip-' + React.useId().replace(/:/g, '');
   React.useEffect(() => {
     if (!show) return;
     const onKey = (e) => { if (e.key === 'Escape') setShow(false); };

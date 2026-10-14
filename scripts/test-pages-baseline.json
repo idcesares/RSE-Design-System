@@ -1,0 +1,232 @@
+{
+  "guidelines/accessibility.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/brand-clearspace.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/brand-full-palette.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/brand-logo.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/brand-patterns.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/colors-accents.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/colors-neutrals.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/colors-primary.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/colors-semantic.card.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "guidelines/imagery.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/layout-tokens.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/motion.card.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "guidelines/sabia-subbrand.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/spacing-radius-shadow.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/spacing-scale.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/system-audit.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/theming.card.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "guidelines/type-body.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/type-headings.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "guidelines/type-weights.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/brand/motif.card.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "components/core/avatar-divider.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/core/buttons.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/core/cards.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/core/icons.card.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "components/data/data.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/disclosure/accordion.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/feedback/alert-progress.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/feedback/feedback.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/feedback/skeleton.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/forms/enrollment.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/forms/forms.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/forms/stepper-textarea.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/navigation/breadcrumb-pagination.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "components/navigation/menu.card.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "components/navigation/navbar-footer.card.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "components/navigation/tabs.card.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "components/overlay/modal.card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "templates/enrollment-form/EnrollmentForm.dc.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "templates/institutional-deck/InstitutionalDeck.dc.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "templates/landing-page/LandingPage.dc.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "templates/program-page/ProgramPage.dc.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "starters/page-react.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "starters/page.html": {
+    "axe": 0,
+    "overflow": true,
+    "rules": {}
+  },
+  "starters/poster.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "showcase/index.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  }
+}

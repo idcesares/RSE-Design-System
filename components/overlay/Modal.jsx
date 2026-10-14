@@ -1,9 +1,10 @@
 'use client';
 import React from 'react';
+import { Icon } from '../core/Icon.jsx';
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 export function Modal({ open, onClose, title, children, footer, size = 'md' }) {
   const panel = React.useRef(null);
-  const titleId = React.useMemo(() => 'rse-modal-' + Math.random().toString(36).slice(2, 8), []);
+  const titleId = 'rse-modal-' + React.useId().replace(/:/g, '');
   // Escape to close, focus moved into the dialog on open and returned to the
   // trigger on close, Tab cycled inside the panel while it is open.
   React.useEffect(() => {
@@ -55,8 +56,8 @@ export function Modal({ open, onClose, title, children, footer, size = 'md' }) {
         React.createElement('h3', { id: titleId, style: { fontSize: 'var(--rse-font-size-h3)', margin: 0 } }, title),
         onClose ? React.createElement('button', {
           type: 'button', onClick: onClose, 'aria-label': 'Fechar',
-          style: { border: 'none', background: 'var(--rse-color-surface-sunken)', borderRadius: '50%', width: 32, height: 32, cursor: 'pointer', color: 'var(--rse-color-text-muted)', fontSize: 16 }
-        }, '×') : null
+          style: { border: 'none', background: 'var(--rse-color-surface-sunken)', borderRadius: '50%', width: 32, height: 32, cursor: 'pointer', color: 'var(--rse-color-text-muted)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }
+        }, React.createElement(Icon, { name: 'x', size: 16 })) : null
       ),
       React.createElement('div', { style: { padding: 24 } }, children),
       footer ? React.createElement('div', { style: { display: 'flex', justifyContent: 'flex-end', gap: 12, padding: '16px 24px', borderTop: '1px solid var(--rse-color-border-subtle)' } }, footer) : null

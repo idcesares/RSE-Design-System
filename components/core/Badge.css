@@ -1,0 +1,13 @@
+/* Badge — .rse-badge--<tone>. Words in the -text role, the dot in the indicator role. */
+.rse-badge{
+  display:inline-flex;align-items:center;gap:0.375rem;padding:0.25rem var(--rse-space-3);
+  font-family:var(--rse-font-family);font-size:var(--rse-font-size-caption);font-weight:var(--rse-font-weight-semibold);
+  letter-spacing:.02em;border-radius:var(--rse-radius-pill);
+  background:var(--rse-color-surface-sunken);color:var(--rse-color-text-body);--rse-badge-dot:var(--rse-color-text-body);
+}
+.rse-badge::before{content:"";width:0.375rem;height:0.375rem;flex:none;border-radius:50%;background:var(--rse-badge-dot)}
+.rse-badge--success{background:var(--rse-color-success-surface);color:var(--rse-color-success-text);--rse-badge-dot:var(--rse-color-success)}
+.rse-badge--warning{background:var(--rse-color-warning-surface);color:var(--rse-color-warning-text);--rse-badge-dot:var(--rse-color-warning-text)}
+.rse-badge--danger{background:var(--rse-color-danger-surface);color:var(--rse-color-danger-text);--rse-badge-dot:var(--rse-color-danger)}
+.rse-badge--info{background:var(--rse-color-info-surface);color:var(--rse-color-info-text);--rse-badge-dot:var(--rse-color-info)}
+.rse-badge--primary{background:var(--rse-color-surface-primary-tint);color:var(--rse-color-text-on-primary-tint);--rse-badge-dot:var(--rse-color-primary)}

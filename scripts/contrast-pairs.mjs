@@ -15,6 +15,8 @@ export const CONTRAST_PAIRS = [
   { where: 'Muted text on card', label: 'Texto secundário sobre o cartão', fg: '--rse-color-text-muted', bg: '--rse-color-surface-card', floor: 4.5 },
   { where: 'Primary button label', label: 'Texto dentro do botão primário', fg: '--rse-color-text-on-primary', bg: '--rse-color-primary', floor: 4.5 },
   { where: 'Secondary button, menu hover, avatar', label: 'Botão secundário, item de menu, avatar', fg: '--rse-color-text-on-primary-tint', bg: '--rse-color-surface-primary-tint', floor: 4.5 },
+  { where: 'Ghost button on hover', label: 'Botão fantasma em foco do mouse', fg: '--rse-color-text-on-primary-tint', bg: '--rse-color-surface-sunken', floor: 4.5 },
+  { where: 'Ghost button on page', label: 'Botão fantasma sobre a página', fg: '--rse-color-text-on-primary-tint', bg: '--rse-color-surface-page', floor: 4.5 },
   { where: 'Link on page', label: 'Link sobre a página', fg: '--rse-color-text-link', bg: '--rse-color-surface-page', floor: 4.5 },
   { where: 'Field error message', label: 'Mensagem de erro do campo', fg: '--rse-color-danger-text', bg: '--rse-color-surface-card', floor: 4.5 },
   { where: 'Badge / Alert success', label: 'Status: sucesso', fg: '--rse-color-success-text', bg: '--rse-color-success-surface', floor: 4.5 },
@@ -44,5 +46,6 @@ export const CONTRAST_PAIRS = [
   { where: 'Band: ink on blue light', label: 'Faixa azul clara com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-blue-light', floor: 4.5 },
   { where: 'Band: ink on blue mid', label: 'Faixa azul média com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-blue', floor: 4.5 },
   { where: 'Band: ink on purple light', label: 'Faixa roxa clara com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-purple-light', floor: 4.5 },
+  { where: 'Footer secondary text on ink', label: 'Texto secundário no rodapé', fg: '--rse-color-text-on-ink-muted', bg: '--rse-brand-ink', floor: 4.5 },
   { where: 'Sab.IA chrome text on blue', label: 'Texto sobre o azul da Sab.IA', fg: '--rse-color-sabia-on-blue', bg: '--rse-color-sabia-blue', floor: 4.5 },
 ];

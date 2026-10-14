@@ -3,7 +3,7 @@ export function Stat({ value, label, description, accent = 'primary', align = 'l
   const accents = {
     primary: 'var(--rse-color-primary)', indigo: 'var(--rse-brand-indigo)', pink: 'var(--rse-brand-pink-dark)',
     orange: 'var(--rse-brand-orange-dark)', green: 'var(--rse-brand-green-dark)', blue: 'var(--rse-brand-blue-dark)',
-    yellow: 'var(--rse-color-tint-yellow-ink)', inverse: 'var(--rse-color-text-inverse)'
+    yellow: 'var(--rse-color-tint-yellow-ink)', inverse: 'var(--rse-color-text-on-primary)'
   };
   const valueSize = size === 'lg' ? 'var(--rse-font-size-display-2)' : size === 'sm' ? 'var(--rse-font-size-h2)' : 'var(--rse-font-size-h1)';
   return React.createElement('div', {
@@ -20,13 +20,13 @@ export function Stat({ value, label, description, accent = 'primary', align = 'l
       style: {
         fontSize: 'var(--rse-font-size-eyebrow)', textTransform: 'uppercase', letterSpacing: 'var(--rse-letter-spacing-eyebrow)',
         fontWeight: 'var(--rse-font-weight-bold)',
-        color: accent === 'inverse' ? 'rgba(255,255,255,0.8)' : 'var(--rse-color-text-muted)'
+        color: accent === 'inverse' ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-text-muted)'
       }
     }, label),
     description ? React.createElement('p', {
       style: {
         marginTop: 'var(--rse-space-1)', fontSize: 'var(--rse-font-size-body-sm)', lineHeight: 'var(--rse-line-height-body)',
-        color: accent === 'inverse' ? 'rgba(255,255,255,0.85)' : 'var(--rse-color-text-body)', maxWidth: '32ch'
+        color: accent === 'inverse' ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-text-body)', maxWidth: '32ch'
       }
     }, description) : null
   );

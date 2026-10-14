@@ -181,7 +181,7 @@ body {
   color: var(--rse-color-text-heading);
 }
 .sc-index a[aria-current='true'] {
-  color: var(--rse-color-primary);
+  color: var(--rse-color-text-on-primary-tint);
   font-weight: var(--rse-font-weight-bold);
   border-left-color: var(--rse-color-primary);
   background: var(--rse-color-surface-primary-tint);
@@ -336,7 +336,7 @@ body {
   align-items: center;
   gap: var(--rse-space-3);
   background: var(--rse-color-surface-primary-tint);
-  color: var(--rse-color-primary);
+  color: var(--rse-color-text-on-primary-tint);
   border-radius: var(--rse-radius-pill);
   padding: 8px var(--rse-space-4);
   font-size: var(--rse-font-size-body-sm);
@@ -367,7 +367,7 @@ body {
   font-weight: var(--rse-font-weight-bold);
   letter-spacing: var(--rse-letter-spacing-eyebrow);
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--rse-color-text-on-primary) 78%, transparent);
+  color: var(--rse-color-text-on-primary);
   margin-top: var(--rse-space-2);
 }
 
@@ -581,7 +581,7 @@ body {
   font-weight: var(--rse-font-weight-bold);
   letter-spacing: var(--rse-letter-spacing-eyebrow);
   text-transform: uppercase;
-  color: var(--rse-color-primary);
+  color: var(--rse-color-text-on-primary-tint);
   background: var(--rse-color-surface-primary-tint);
   border-radius: var(--rse-radius-pill);
   padding: 3px 10px;
@@ -777,6 +777,7 @@ body {
   display: inline-block;
   white-space: nowrap;
 }
+.sc-contrast-sample.is-graphic { width: 5.5rem; height: 2rem; padding: 0; vertical-align: middle; }
 .sc-ratio { font-variant-numeric: tabular-nums; font-weight: var(--rse-font-weight-bold); color: var(--rse-color-text-heading); }
 .sc-verdict {
   display: inline-flex;
@@ -832,7 +833,7 @@ body {
   text-align: center;
 }
 .sc-logo-cell.on-purple { background: var(--rse-color-primary); border-color: var(--rse-color-primary); }
-.sc-logo-cell.on-purple .cap { color: color-mix(in srgb, var(--rse-color-text-on-primary) 80%, transparent); }
+.sc-logo-cell.on-purple .cap { color: var(--rse-color-text-on-primary); }
 .sc-logo-cell img { max-width: 100%; display: block; }
 .sc-logo-cell .cap { font-size: var(--rse-font-size-caption); color: var(--rse-color-text-muted); }
 .sc-logo-cell .cap b { display: block; color: var(--rse-color-text-heading); font-size: var(--rse-font-size-body-sm); }

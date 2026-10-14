@@ -207,6 +207,16 @@
         "$type": "color",
         "$description": "Hairline on the fixed ink surface (footer), which stays ink in every theme."
       },
+      "text-on-ink": {
+        "$value": "{rse.brand.white}",
+        "$type": "color",
+        "$description": "Text on the fixed ink surface (footer), which stays ink in every theme."
+      },
+      "text-on-ink-muted": {
+        "$value": "{rse.brand.gray-400}",
+        "$type": "color",
+        "$description": "Secondary text on the ink surface: 6.0:1 against it. Never a dimmed white."
+      },
       "text-heading": {
         "$value": "{rse.brand.ink}",
         "$type": "color",
@@ -268,7 +278,7 @@
         }
       },
       "text-link": {
-        "$value": "{rse.brand.purple-dark}",
+        "$value": "{rse.color.primary-hover}",
         "$type": "color",
         "$extensions": {
           "rse": {
@@ -277,7 +287,8 @@
               "contrast": "#3a3186"
             }
           }
-        }
+        },
+        "$description": "Link text. The deeper purple, not --rse-color-primary: the primary is 4.50:1 on cream and 4.44:1 on the sunken surface, this is 5.3:1 or more on every light surface."
       },
       "text-link-hover": {
         "$value": "{rse.brand.indigo}",

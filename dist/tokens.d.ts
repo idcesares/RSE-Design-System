@@ -59,6 +59,8 @@ export type TokenName =
   | "--rse-color-border-default"
   | "--rse-color-border-strong"
   | "--rse-color-border-on-ink"
+  | "--rse-color-text-on-ink"
+  | "--rse-color-text-on-ink-muted"
   | "--rse-color-text-heading"
   | "--rse-color-text-body"
   | "--rse-color-text-muted"

@@ -1,0 +1,24 @@
+/* Card — .rse-card. With href, the title is the link and its ::after covers the card, so the
+   whole card is clickable while buttons in the footer stay separate, focusable controls. */
+.rse-card{
+  position:relative;display:flex;flex-direction:column;width:100%;overflow:hidden;
+  background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);
+  border-radius:var(--rse-radius-lg);box-shadow:var(--rse-shadow-sm);font-family:var(--rse-font-family);
+  transition:transform var(--rse-duration-base) var(--rse-ease-out),box-shadow var(--rse-duration-base) var(--rse-ease-standard);
+}
+.rse-card:has(.rse-card__link):hover{transform:translateY(-4px);box-shadow:var(--rse-shadow-md)}
+.rse-card__media{width:100%;aspect-ratio:16/10;overflow:hidden}
+.rse-card__media > *{display:block;width:100%;height:100%;object-fit:cover}
+.rse-card__body{display:flex;flex:1;flex-direction:column;gap:var(--rse-space-2);padding:var(--rse-space-5)}
+.rse-card__eyebrow{
+  font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);
+  letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary);
+}
+.rse-card__title{margin:0;font-size:var(--rse-font-size-h4);color:var(--rse-color-text-heading)}
+.rse-card__link{color:inherit;text-decoration:none}
+.rse-card__link::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.rse-card__link:focus-visible{outline:none}
+.rse-card:has(.rse-card__link:focus-visible){outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset)}
+.rse-card__description{margin:0;font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted)}
+.rse-card__footer{position:relative;z-index:1;margin-top:auto;padding-top:var(--rse-space-3)}
+.rse-card__tag{position:relative;z-index:1}

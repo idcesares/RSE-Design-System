@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon } from '../core/Icon.jsx';
 export function Toast({ tone = 'info', title, message, onClose }) {
   const tones = {
     success: { accent: 'var(--rse-color-success)' },
@@ -20,7 +21,7 @@ export function Toast({ tone = 'info', title, message, onClose }) {
     ),
     onClose ? React.createElement('button', {
       onClick: onClose, 'aria-label': 'Fechar',
-      style: { border: 'none', background: 'transparent', color: 'var(--rse-color-text-muted)', cursor: 'pointer', fontSize: 16, lineHeight: 1, padding: 0 }
-    }, '\u00d7') : null
+      style: { border: 'none', background: 'transparent', color: 'var(--rse-color-text-muted)', cursor: 'pointer', display: 'inline-flex', padding: 0 }
+    }, React.createElement(Icon, { name: 'x', size: 16 })) : null
   );
 }
