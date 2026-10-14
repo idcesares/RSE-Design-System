@@ -105,7 +105,7 @@ field structure. Print rules:
 - Type: headline Extrabold with tight tracking, one uppercase tracked eyebrow, generous margins.
   Poster type sizes are geometry, not the web scale.
 - Logo: use `assets/logos/wordmark-purple.svg` on cream, `wordmark-white.svg` on purple/ink. Respect
-  clearspace (`guidelines/brand-clearspace.card.html`).
+  clearspace ([brand-manual.md](brand-manual.md), shown in `showcase/index.html#selo`).
 - Export to PDF from the browser print dialog at 100% scale, background graphics on.
 
 ## The cube motif and its patterns

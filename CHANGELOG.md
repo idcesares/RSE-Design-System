@@ -1,5 +1,38 @@
 # Changelog
 
+## 2.1.0 — 2026-10-14 — the showcase becomes the documentation
+
+Additive for consumers: no token, class or component API was renamed or removed.
+
+### Showcase: one document for the whole system
+
+- **`showcase/index.html` is rebuilt as a chaptered document** — cover, a door per audience, the
+  same page with and without the system, then Marca, Fundamentos, Componentes, Aplicações and Uso.
+  New interactive pieces: the selo's minimum-size rule running on a slider, the palette with
+  measured text contrast per colour, a type-weight lab, the cube in every hue, a token explorer
+  (role → brand alias in light, dark and contrast), a colour-band lab that refuses pairings under
+  4.5:1, templates in phone/tablet/desktop frames, adoption levels and quality figures read from
+  the CI baselines.
+- **The component gallery shows the HTML.** Every component on the CSS contract has an "HTML" tab
+  with the markup its demo just produced, ready to paste into a CMS.
+- **The 38 specimen cards are gone** (`guidelines/*.card.html`, `components/*/*.card.html`): the
+  showcase covers all of them. Rules that only lived in a card — imagery direction, crops, scrim,
+  motion, theming — moved to **`docs/guidelines.md`**. `rse.manifest.json` → `cards` now lists the
+  showcase. To add a component's demo, see `docs/authoring-components.md`, step 4.
+
+### Fixes the showcase surfaced
+
+- **Themes nest in any order.** Every theme block now declares the full themed set, and
+  `data-rse-theme="light"` exists to bring the default back inside another theme. Before, a light
+  or high-contrast section inside a dark page inherited the dark values it did not mention.
+- **Icons:** `build-icons` dropped `width`/`height` from `<rect>`, so `pause`, `credit-card`,
+  `layout-dashboard` and `video` rendered blank. The build now fails on a `<rect>` without them.
+- **`DataTable`:** the zebra stripe was a fixed light grey (text at 1.05:1 in dark); it is now
+  `--rse-color-surface-page`. The horizontal scroller is focusable, so a keyboard user can scroll it.
+- **`PlatformEntry`:** text on its fixed purple and cream surfaces used themed roles that flipped to
+  dark ink in the dark theme (3.56:1). It now uses fixed brand values (5.02:1 and above).
+- **`test-pages`:** a full run rebuilds the baseline, so pages that no longer exist drop out.
+
 ## 2.0.0 — 2026-10-14 — one source, one name, one package
 
 Breaking, by design: nothing consumed 1.x, so there are no aliases. Every token, the theme

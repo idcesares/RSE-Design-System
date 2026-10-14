@@ -815,7 +815,7 @@
       [`${q.componentsOnCssContract}`, `/${q.componentsTotal}`, 'componentes no contrato CSS', null, pct],
       [fmt(q.componentGlyphIcons ?? 0), null, 'ícones improvisados', 'nenhum caractere fazendo papel de ícone em componente.'],
       [fmt(q.componentPxLiterals ?? 0), null, 'medidas fixas em componentes', 'só pode diminuir: a linha de base recusa qualquer aumento.'],
-      [fmt(q.pagesOverflowingOnPhone), null, 'páginas ainda rolam de lado a 360 px', 'templates e espécimes à espera da etapa responsiva — à vista, não escondidas.'],
+      [fmt(q.pagesOverflowingOnPhone), null, 'páginas ainda rolam de lado a 360 px', 'modelos e pontos de partida à espera da etapa responsiva — à vista, não escondidos.'],
     ];
     return h(F, null, metrics.map(([big, small, label, text, progress]) =>
       h('div', { key: label, className: 'sc-metric' },
