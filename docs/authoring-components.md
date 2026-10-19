@@ -1,6 +1,6 @@
 # Adding or changing a component
 
-The set is deliberately complete for this brand's use case (36 components). Before adding one,
+The set is deliberately complete for this brand's use case (38 components). Before adding one,
 check [components.md](components.md) and the component gallery in `showcase/index.html` — most "missing"
 components are an existing one with a prop you haven't read.
 

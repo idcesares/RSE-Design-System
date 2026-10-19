@@ -10,6 +10,7 @@ export { Avatar } from './components/core/Avatar.jsx';
 export { Badge } from './components/core/Badge.jsx';
 export { Button } from './components/core/Button.jsx';
 export { Card } from './components/core/Card.jsx';
+export { CtaBand } from './components/core/CtaBand.jsx';
 export { Divider } from './components/core/Divider.jsx';
 export { Icon, iconNames } from './components/core/Icon.jsx';
 export { IconButton } from './components/core/IconButton.jsx';
@@ -50,6 +51,7 @@ export { Tooltip } from './components/feedback/Tooltip.jsx';
 // Data
 export { DataTable } from './components/data/DataTable.jsx';
 export { Stat } from './components/data/Stat.jsx';
+export { StatBand } from './components/data/StatBand.jsx';
 
 // Disclosure
 export { Accordion } from './components/disclosure/Accordion.jsx';

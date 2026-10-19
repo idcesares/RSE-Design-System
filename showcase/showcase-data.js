@@ -302,6 +302,57 @@ window.SHOWCASE_DATA = {
       ]
     },
     {
+      "name": "CtaBand",
+      "group": "core",
+      "groupLabel": "Essenciais",
+      "sourcePath": "components/core/CtaBand.jsx",
+      "summary": "A full-bleed call-to-action band: headline, one line of support and the caller's buttons.",
+      "props": [
+        {
+          "name": "tone",
+          "type": "BandTone",
+          "required": false,
+          "notes": "Band colour: primary/indigo (white text), ink (on-ink text), accents (ink text)"
+        },
+        {
+          "name": "eyebrow",
+          "type": "string",
+          "required": false,
+          "notes": "Short uppercase line above the title"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "notes": "The call to action headline"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "notes": "One supporting sentence"
+        },
+        {
+          "name": "align",
+          "type": "'center' | 'left'",
+          "required": false,
+          "notes": "Alignment of the content block"
+        },
+        {
+          "name": "as",
+          "type": "'h1' | 'h2' | 'h3' | 'h4'",
+          "required": false,
+          "notes": "Heading element for the title; pick the level that fits the page outline"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "notes": "Actions: compose Button components here"
+        }
+      ]
+    },
+    {
       "name": "DataTable",
       "group": "data",
       "groupLabel": "Dados",
@@ -390,10 +441,16 @@ window.SHOWCASE_DATA = {
           "notes": ""
         },
         {
+          "name": "helpText",
+          "type": "string",
+          "required": false,
+          "notes": "Alias of hint"
+        },
+        {
           "name": "error",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "Error message — replaces hint, sets aria-invalid and is announced"
         },
         {
           "name": "required",
@@ -411,7 +468,7 @@ window.SHOWCASE_DATA = {
           "name": "id",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "Explicit id; otherwise generated with React.useId"
         },
         {
           "name": "deadline",
@@ -489,13 +546,31 @@ window.SHOWCASE_DATA = {
           "name": "error",
           "type": "string",
           "required": false,
-          "notes": "Error message — replaces hint and turns the border red"
+          "notes": "Error message — replaces hint, turns the border red, sets aria-invalid and is announced"
         },
         {
           "name": "maxSizeLabel",
           "type": "string",
           "required": false,
           "notes": "Size limit shown in the drop zone, e.g. até 5 MB"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "notes": "Explicit id prefix for label/message wiring; otherwise React.useId"
+        },
+        {
+          "name": "dropLabel",
+          "type": "string",
+          "required": false,
+          "notes": "Instruction inside the drop zone. Default: 'Arraste os arquivos ou clique para escolher'"
+        },
+        {
+          "name": "acceptHint",
+          "type": "string",
+          "required": false,
+          "notes": "Format hint shown when neither accept nor maxSizeLabel is set. Default: 'PDF, JPG ou PNG'"
         }
       ]
     },
@@ -1132,6 +1207,39 @@ window.SHOWCASE_DATA = {
           "type": "'sm' | 'md' | 'lg'",
           "required": false,
           "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "StatBand",
+      "group": "data",
+      "groupLabel": "Dados",
+      "sourcePath": "components/data/StatBand.jsx",
+      "summary": "A full-bleed band of 3–4 Stat figures in a fluid grid, announced as a list.",
+      "props": [
+        {
+          "name": "tone",
+          "type": "BandTone",
+          "required": false,
+          "notes": "Band colour: primary/indigo (white text), ink (on-ink text), accents (ink text)"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "notes": "Visible heading, rendered as an uppercase eyebrow; also names the section for screen readers. Without it, pass aria-label."
+        },
+        {
+          "name": "note",
+          "type": "string",
+          "required": false,
+          "notes": "Small text under the figures: source, date, or the placeholder warning"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "notes": "Stat components; each becomes one list item"
         }
       ]
     },
@@ -3049,9 +3157,12 @@ window.SHOWCASE_DATA = {
     "Badge",
     "Button",
     "Card",
+    "CtaBand",
     "Tag",
+    "StatBand",
     "Alert",
     "Checkbox",
+    "FileUpload",
     "Input",
     "Radio",
     "Select",
@@ -4864,10 +4975,10 @@ window.SHOWCASE_DATA = {
     "pagesTested": 8,
     "axeViolations": 0,
     "pagesOverflowingOnPhone": 4,
-    "componentsOnCssContract": 11,
-    "componentsTotal": 36,
+    "componentsOnCssContract": 14,
+    "componentsTotal": 38,
     "componentGlyphIcons": 0,
-    "componentPxLiterals": 81,
+    "componentPxLiterals": 74,
     "componentsWithJsHover": 3
   },
   "package": "@idcesares/rse-design-system",
@@ -5167,6 +5278,18 @@ window.SHOWCASE_DATA = {
       "floor": 4.5
     },
     {
+      "label": "Faixa índigo com texto branco",
+      "fg": "--rse-brand-white",
+      "bg": "--rse-brand-indigo",
+      "floor": 4.5
+    },
+    {
+      "label": "Faixa ink com texto claro",
+      "fg": "--rse-color-text-on-ink",
+      "bg": "--rse-brand-ink",
+      "floor": 4.5
+    },
+    {
       "label": "Texto secundário no rodapé",
       "fg": "--rse-color-text-on-ink-muted",
       "bg": "--rse-brand-ink",
@@ -5180,12 +5303,12 @@ window.SHOWCASE_DATA = {
     }
   ],
   "counts": {
-    "components": 36,
+    "components": 38,
     "tokens": 168,
     "palette": 21,
     "themes": 3,
     "templates": 4,
-    "contrastPairs": 51,
+    "contrastPairs": 53,
     "icons": 97
   }
 };

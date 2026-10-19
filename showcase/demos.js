@@ -37,12 +37,14 @@ window.SC_DEMOS = (DS) => {
     Modal: 'Diálogo centralizado sobre a página — confirmações e etapas de inscrição.',
     Navbar: 'O cabeçalho fixo do site, translúcido, com a assinatura e a ação principal.',
     Pagination: 'Controle de páginas para listagens longas de unidades e programas.',
+    CtaBand: 'A faixa de chamada para ação que fecha a página.',
     PlatformEntry: 'A ponte para a Plataforma Sesc Sab.IA, com as duas marcas juntas.',
     ProgressBar: 'Barra de progresso com percentual — envio de documentos, etapas concluídas.',
     Radio: 'Escolha única dentro de um grupo: turno, categoria, forma de contato.',
     Select: 'Lista suspensa para escolher unidade, programa ou estado.',
     Skeleton: 'O esqueleto que ocupa o lugar do conteúdo enquanto ele carrega.',
     Spinner: 'Indicador de carregamento para ações sem duração previsível.',
+    StatBand: 'Uma faixa de números de impacto sobre uma cor só, lida como lista.',
     Stat: 'Um número de impacto com rótulo — o pilar do resultado, tornado visível.',
     Stepper: 'As etapas de um fluxo, mostrando onde a pessoa está e o que já concluiu.',
     Switch: 'Interruptor de liga e desliga para preferências.',
@@ -358,11 +360,23 @@ window.SC_DEMOS = (DS) => {
           h(DS.Spinner, { size: 24, tone: 'inverse' }))
       ) },
 
+    CtaBand: { block: true, render: () =>
+      h(DS.CtaBand, { tone: 'ink', eyebrow: 'Fale conosco', title: 'Ainda com dúvidas?', description: 'Nossa equipe responde o mais rápido possível.' },
+        h(DS.Button, { variant: 'primary', size: 'lg' }, 'Fale conosco')
+      ) },
+
     Stat: { block: true, render: () =>
       h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(130px,1fr))', gap: 'var(--rse-space-5)' } },
         h(DS.Stat, { value: '000', label: 'Unidades', accent: 'primary' }),
         h(DS.Stat, { value: '00 anos', label: 'De tradição', accent: 'green' }),
         h(DS.Stat, { value: '000 mil', label: 'Estudantes', accent: 'orange' })
+      ) },
+
+    StatBand: { block: true, render: () =>
+      h(DS.StatBand, { tone: 'primary', title: 'A Rede em números', note: 'Números de exemplo: substituir por dados verificados antes de publicar.' },
+        h(DS.Stat, { value: '000', label: 'Unidades', accent: 'inverse', align: 'center' }),
+        h(DS.Stat, { value: '00 anos', label: 'De tradição', accent: 'inverse', align: 'center' }),
+        h(DS.Stat, { value: '000 mil', label: 'Estudantes', accent: 'inverse', align: 'center' })
       ) },
 
     Stepper: { block: true, render: () => {

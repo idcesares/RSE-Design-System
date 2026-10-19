@@ -60,6 +60,8 @@ export const CONTRAST_PAIRS = [
   { where: 'Band: ink on blue light', label: 'Faixa azul clara com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-blue-light', floor: 4.5 },
   { where: 'Band: ink on blue mid', label: 'Faixa azul média com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-blue', floor: 4.5 },
   { where: 'Band: ink on purple light', label: 'Faixa roxa clara com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-purple-light', floor: 4.5 },
+  { where: 'Band: white on indigo', label: 'Faixa índigo com texto branco', fg: '--rse-brand-white', bg: '--rse-brand-indigo', floor: 4.5 },
+  { where: 'Band: on-ink text on ink', label: 'Faixa ink com texto claro', fg: '--rse-color-text-on-ink', bg: '--rse-brand-ink', floor: 4.5 },
   { where: 'Footer secondary text on ink', label: 'Texto secundário no rodapé', fg: '--rse-color-text-on-ink-muted', bg: '--rse-brand-ink', floor: 4.5 },
   { where: 'Sab.IA chrome text on blue', label: 'Texto sobre o azul da Sab.IA', fg: '--rse-color-sabia-on-blue', bg: '--rse-color-sabia-blue', floor: 4.5 },
 ];

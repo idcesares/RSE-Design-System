@@ -1,0 +1,39 @@
+/* StatBand — .rse-stat-band. A full-bleed band of Stat figures (decision D3), same tone set as
+   CtaBand. Stat colours itself with inline styles, so the band re-colours the text inside its
+   items (with !important, the only way past an inline style) to the colour the tone sanctions:
+   whatever `accent` the caller passes, the figures stay readable on the band. */
+.rse-stat-band{
+  box-sizing:border-box;width:100%;padding:var(--rse-section-y-sm) var(--rse-container-padding);
+  background:var(--rse-stat-band-bg);color:var(--rse-stat-band-fg);font-family:var(--rse-font-family);
+}
+.rse-stat-band__inner{display:flex;flex-direction:column;gap:var(--rse-space-6);max-width:var(--rse-container-xl);margin:0 auto}
+.rse-stat-band__title{
+  margin:0;font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);
+  letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-stat-band-fg);
+}
+.rse-stat-band__list{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));
+  gap:var(--rse-space-7);margin:0;padding:0;list-style:none;
+}
+.rse-stat-band__item{margin:0;padding:0;min-width:0}
+.rse-stat-band__item span,.rse-stat-band__item p{color:var(--rse-stat-band-fg) !important}
+.rse-stat-band__note{margin:0;font-size:var(--rse-font-size-caption);line-height:var(--rse-line-height-body);color:var(--rse-stat-band-fg)}
+.rse-stat-band{--rse-stat-band-bg:var(--rse-color-primary);--rse-stat-band-fg:var(--rse-color-text-on-primary);--rse-stat-band-fg-muted:var(--rse-color-text-on-primary)}
+.rse-stat-band--primary{--rse-stat-band-bg:var(--rse-color-primary);--rse-stat-band-fg:var(--rse-color-text-on-primary);--rse-stat-band-fg-muted:var(--rse-color-text-on-primary)}
+.rse-stat-band--indigo{--rse-stat-band-bg:var(--rse-brand-indigo);--rse-stat-band-fg:var(--rse-brand-white);--rse-stat-band-fg-muted:var(--rse-brand-white)}
+.rse-stat-band--ink{--rse-stat-band-bg:var(--rse-brand-ink);--rse-stat-band-fg:var(--rse-color-text-on-ink);--rse-stat-band-fg-muted:var(--rse-color-text-on-ink-muted)}
+.rse-stat-band--pink,.rse-stat-band--pink-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--pink{--rse-stat-band-bg:var(--rse-brand-pink)}
+.rse-stat-band--pink-light{--rse-stat-band-bg:var(--rse-brand-pink-light)}
+.rse-stat-band--orange,.rse-stat-band--orange-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--orange{--rse-stat-band-bg:var(--rse-brand-orange)}
+.rse-stat-band--orange-light{--rse-stat-band-bg:var(--rse-brand-orange-light)}
+.rse-stat-band--yellow,.rse-stat-band--yellow-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--yellow{--rse-stat-band-bg:var(--rse-brand-yellow)}
+.rse-stat-band--yellow-light{--rse-stat-band-bg:var(--rse-brand-yellow-light)}
+.rse-stat-band--green,.rse-stat-band--green-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--green{--rse-stat-band-bg:var(--rse-brand-green)}
+.rse-stat-band--green-light{--rse-stat-band-bg:var(--rse-brand-green-light)}
+.rse-stat-band--blue,.rse-stat-band--blue-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--blue{--rse-stat-band-bg:var(--rse-brand-blue)}
+.rse-stat-band--blue-light{--rse-stat-band-bg:var(--rse-brand-blue-light)}

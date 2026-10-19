@@ -173,7 +173,9 @@ line at `--rse-font-size-body-lg` in `--rse-color-text-muted` → two buttons (`
 at `--rse-radius-xl`.
 
 **Stat band** — solid `--rse-color-primary` full-bleed band, 3–4 `Stat` components in a grid, white
-figures. This is the "resultado" pillar made visible; keep the figures to four at most.
+figures. This is the "resultado" pillar made visible; keep the figures to four at most. Use `StatBand`
+(`tone` primary, indigo, ink or a light/mid accent; `accent="inverse"` on the dark tones) rather than a hand-rolled
+grid. Its closing counterpart is **CTA band**: `CtaBand` with the same tone set, buttons composed as children.
 
 **Program cards** — 3-up grid of `Card` at 16:10 media, each with a coloured `Tag` above the
 eyebrow. Vary the `Tag` colour across the accent families to show the plurality of the rede — this

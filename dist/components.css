@@ -84,6 +84,50 @@
 .rse-card__footer{position:relative;z-index:1;margin-top:auto;padding-top:var(--rse-space-3)}
 .rse-card__tag{position:relative;z-index:1}
 
+/* components/core/CtaBand.css */
+/* CtaBand — .rse-cta-band. A full-bleed call-to-action band (decision D3): brand purple or indigo
+   with white text, the ink surface with on-ink text, or a light/mid accent with ink text. One
+   colour per band, flat, no gradient. Buttons are composed by the caller inside __actions. */
+.rse-cta-band{
+  box-sizing:border-box;width:100%;padding:var(--rse-section-y-sm) var(--rse-container-padding);
+  background:var(--rse-cta-band-bg);color:var(--rse-cta-band-fg);font-family:var(--rse-font-family);
+}
+.rse-cta-band__inner{
+  display:flex;flex-direction:column;align-items:center;gap:var(--rse-space-4);
+  max-width:var(--rse-container-prose);margin:0 auto;text-align:center;
+}
+.rse-cta-band--left .rse-cta-band__inner{align-items:flex-start;text-align:left;margin-inline:0 auto}
+.rse-cta-band__eyebrow{
+  margin:0;font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);
+  letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-cta-band-fg);
+}
+.rse-cta-band__title{
+  margin:0;font-size:var(--rse-font-size-h1);font-weight:var(--rse-font-weight-extrabold);
+  line-height:var(--rse-line-height-heading);letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-cta-band-fg);
+}
+.rse-cta-band__description{margin:0;font-size:var(--rse-font-size-body-lg);line-height:var(--rse-line-height-body);color:var(--rse-cta-band-fg-muted)}
+.rse-cta-band__actions{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--rse-space-3);margin-top:var(--rse-space-2)}
+.rse-cta-band--left .rse-cta-band__actions{justify-content:flex-start}
+.rse-cta-band{--rse-cta-band-bg:var(--rse-color-primary);--rse-cta-band-fg:var(--rse-color-text-on-primary);--rse-cta-band-fg-muted:var(--rse-color-text-on-primary)}
+.rse-cta-band--primary{--rse-cta-band-bg:var(--rse-color-primary);--rse-cta-band-fg:var(--rse-color-text-on-primary);--rse-cta-band-fg-muted:var(--rse-color-text-on-primary)}
+.rse-cta-band--indigo{--rse-cta-band-bg:var(--rse-brand-indigo);--rse-cta-band-fg:var(--rse-brand-white);--rse-cta-band-fg-muted:var(--rse-brand-white)}
+.rse-cta-band--ink{--rse-cta-band-bg:var(--rse-brand-ink);--rse-cta-band-fg:var(--rse-color-text-on-ink);--rse-cta-band-fg-muted:var(--rse-color-text-on-ink-muted)}
+.rse-cta-band--pink,.rse-cta-band--pink-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--pink{--rse-cta-band-bg:var(--rse-brand-pink)}
+.rse-cta-band--pink-light{--rse-cta-band-bg:var(--rse-brand-pink-light)}
+.rse-cta-band--orange,.rse-cta-band--orange-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--orange{--rse-cta-band-bg:var(--rse-brand-orange)}
+.rse-cta-band--orange-light{--rse-cta-band-bg:var(--rse-brand-orange-light)}
+.rse-cta-band--yellow,.rse-cta-band--yellow-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--yellow{--rse-cta-band-bg:var(--rse-brand-yellow)}
+.rse-cta-band--yellow-light{--rse-cta-band-bg:var(--rse-brand-yellow-light)}
+.rse-cta-band--green,.rse-cta-band--green-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--green{--rse-cta-band-bg:var(--rse-brand-green)}
+.rse-cta-band--green-light{--rse-cta-band-bg:var(--rse-brand-green-light)}
+.rse-cta-band--blue,.rse-cta-band--blue-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--blue{--rse-cta-band-bg:var(--rse-brand-blue)}
+.rse-cta-band--blue-light{--rse-cta-band-bg:var(--rse-brand-blue-light)}
+
 /* components/core/Tag.css */
 /* Tag — .rse-tag--<hue>. Pale tint with its paired ink (6.2:1 or more in every theme). */
 .rse-tag{
@@ -101,6 +145,47 @@
   border:none;border-radius:var(--rse-radius-pill);background:transparent;color:inherit;cursor:pointer;
 }
 .rse-tag__remove:hover{background:color-mix(in srgb,currentColor 14%,transparent)}
+
+/* components/data/StatBand.css */
+/* StatBand — .rse-stat-band. A full-bleed band of Stat figures (decision D3), same tone set as
+   CtaBand. Stat colours itself with inline styles, so the band re-colours the text inside its
+   items (with !important, the only way past an inline style) to the colour the tone sanctions:
+   whatever `accent` the caller passes, the figures stay readable on the band. */
+.rse-stat-band{
+  box-sizing:border-box;width:100%;padding:var(--rse-section-y-sm) var(--rse-container-padding);
+  background:var(--rse-stat-band-bg);color:var(--rse-stat-band-fg);font-family:var(--rse-font-family);
+}
+.rse-stat-band__inner{display:flex;flex-direction:column;gap:var(--rse-space-6);max-width:var(--rse-container-xl);margin:0 auto}
+.rse-stat-band__title{
+  margin:0;font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);
+  letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-stat-band-fg);
+}
+.rse-stat-band__list{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));
+  gap:var(--rse-space-7);margin:0;padding:0;list-style:none;
+}
+.rse-stat-band__item{margin:0;padding:0;min-width:0}
+.rse-stat-band__item span,.rse-stat-band__item p{color:var(--rse-stat-band-fg) !important}
+.rse-stat-band__note{margin:0;font-size:var(--rse-font-size-caption);line-height:var(--rse-line-height-body);color:var(--rse-stat-band-fg)}
+.rse-stat-band{--rse-stat-band-bg:var(--rse-color-primary);--rse-stat-band-fg:var(--rse-color-text-on-primary);--rse-stat-band-fg-muted:var(--rse-color-text-on-primary)}
+.rse-stat-band--primary{--rse-stat-band-bg:var(--rse-color-primary);--rse-stat-band-fg:var(--rse-color-text-on-primary);--rse-stat-band-fg-muted:var(--rse-color-text-on-primary)}
+.rse-stat-band--indigo{--rse-stat-band-bg:var(--rse-brand-indigo);--rse-stat-band-fg:var(--rse-brand-white);--rse-stat-band-fg-muted:var(--rse-brand-white)}
+.rse-stat-band--ink{--rse-stat-band-bg:var(--rse-brand-ink);--rse-stat-band-fg:var(--rse-color-text-on-ink);--rse-stat-band-fg-muted:var(--rse-color-text-on-ink-muted)}
+.rse-stat-band--pink,.rse-stat-band--pink-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--pink{--rse-stat-band-bg:var(--rse-brand-pink)}
+.rse-stat-band--pink-light{--rse-stat-band-bg:var(--rse-brand-pink-light)}
+.rse-stat-band--orange,.rse-stat-band--orange-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--orange{--rse-stat-band-bg:var(--rse-brand-orange)}
+.rse-stat-band--orange-light{--rse-stat-band-bg:var(--rse-brand-orange-light)}
+.rse-stat-band--yellow,.rse-stat-band--yellow-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--yellow{--rse-stat-band-bg:var(--rse-brand-yellow)}
+.rse-stat-band--yellow-light{--rse-stat-band-bg:var(--rse-brand-yellow-light)}
+.rse-stat-band--green,.rse-stat-band--green-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--green{--rse-stat-band-bg:var(--rse-brand-green)}
+.rse-stat-band--green-light{--rse-stat-band-bg:var(--rse-brand-green-light)}
+.rse-stat-band--blue,.rse-stat-band--blue-light{--rse-stat-band-fg:var(--rse-brand-ink);--rse-stat-band-fg-muted:var(--rse-brand-ink)}
+.rse-stat-band--blue{--rse-stat-band-bg:var(--rse-brand-blue)}
+.rse-stat-band--blue-light{--rse-stat-band-bg:var(--rse-brand-blue-light)}
 
 /* components/feedback/Alert.css */
 /* Alert — .rse-alert--<tone>. Persistent inline banner; role="status" unless it is urgent. */

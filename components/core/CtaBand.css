@@ -1,0 +1,42 @@
+/* CtaBand — .rse-cta-band. A full-bleed call-to-action band (decision D3): brand purple or indigo
+   with white text, the ink surface with on-ink text, or a light/mid accent with ink text. One
+   colour per band, flat, no gradient. Buttons are composed by the caller inside __actions. */
+.rse-cta-band{
+  box-sizing:border-box;width:100%;padding:var(--rse-section-y-sm) var(--rse-container-padding);
+  background:var(--rse-cta-band-bg);color:var(--rse-cta-band-fg);font-family:var(--rse-font-family);
+}
+.rse-cta-band__inner{
+  display:flex;flex-direction:column;align-items:center;gap:var(--rse-space-4);
+  max-width:var(--rse-container-prose);margin:0 auto;text-align:center;
+}
+.rse-cta-band--left .rse-cta-band__inner{align-items:flex-start;text-align:left;margin-inline:0 auto}
+.rse-cta-band__eyebrow{
+  margin:0;font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);
+  letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-cta-band-fg);
+}
+.rse-cta-band__title{
+  margin:0;font-size:var(--rse-font-size-h1);font-weight:var(--rse-font-weight-extrabold);
+  line-height:var(--rse-line-height-heading);letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-cta-band-fg);
+}
+.rse-cta-band__description{margin:0;font-size:var(--rse-font-size-body-lg);line-height:var(--rse-line-height-body);color:var(--rse-cta-band-fg-muted)}
+.rse-cta-band__actions{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--rse-space-3);margin-top:var(--rse-space-2)}
+.rse-cta-band--left .rse-cta-band__actions{justify-content:flex-start}
+.rse-cta-band{--rse-cta-band-bg:var(--rse-color-primary);--rse-cta-band-fg:var(--rse-color-text-on-primary);--rse-cta-band-fg-muted:var(--rse-color-text-on-primary)}
+.rse-cta-band--primary{--rse-cta-band-bg:var(--rse-color-primary);--rse-cta-band-fg:var(--rse-color-text-on-primary);--rse-cta-band-fg-muted:var(--rse-color-text-on-primary)}
+.rse-cta-band--indigo{--rse-cta-band-bg:var(--rse-brand-indigo);--rse-cta-band-fg:var(--rse-brand-white);--rse-cta-band-fg-muted:var(--rse-brand-white)}
+.rse-cta-band--ink{--rse-cta-band-bg:var(--rse-brand-ink);--rse-cta-band-fg:var(--rse-color-text-on-ink);--rse-cta-band-fg-muted:var(--rse-color-text-on-ink-muted)}
+.rse-cta-band--pink,.rse-cta-band--pink-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--pink{--rse-cta-band-bg:var(--rse-brand-pink)}
+.rse-cta-band--pink-light{--rse-cta-band-bg:var(--rse-brand-pink-light)}
+.rse-cta-band--orange,.rse-cta-band--orange-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--orange{--rse-cta-band-bg:var(--rse-brand-orange)}
+.rse-cta-band--orange-light{--rse-cta-band-bg:var(--rse-brand-orange-light)}
+.rse-cta-band--yellow,.rse-cta-band--yellow-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--yellow{--rse-cta-band-bg:var(--rse-brand-yellow)}
+.rse-cta-band--yellow-light{--rse-cta-band-bg:var(--rse-brand-yellow-light)}
+.rse-cta-band--green,.rse-cta-band--green-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--green{--rse-cta-band-bg:var(--rse-brand-green)}
+.rse-cta-band--green-light{--rse-cta-band-bg:var(--rse-brand-green-light)}
+.rse-cta-band--blue,.rse-cta-band--blue-light{--rse-cta-band-fg:var(--rse-brand-ink);--rse-cta-band-fg-muted:var(--rse-brand-ink)}
+.rse-cta-band--blue{--rse-cta-band-bg:var(--rse-brand-blue)}
+.rse-cta-band--blue-light{--rse-cta-band-bg:var(--rse-brand-blue-light)}

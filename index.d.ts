@@ -9,6 +9,8 @@ export { Button } from './components/core/Button';
 export type { ButtonProps } from './components/core/Button';
 export { Card } from './components/core/Card';
 export type { CardProps } from './components/core/Card';
+export { CtaBand } from './components/core/CtaBand';
+export type { CtaBandProps, BandTone } from './components/core/CtaBand';
 export { Divider } from './components/core/Divider';
 export type { DividerProps } from './components/core/Divider';
 export { Icon, iconNames } from './components/core/Icon';
@@ -80,6 +82,8 @@ export { DataTable } from './components/data/DataTable';
 export type { DataTableColumn, DataTableProps } from './components/data/DataTable';
 export { Stat } from './components/data/Stat';
 export type { StatProps } from './components/data/Stat';
+export { StatBand } from './components/data/StatBand';
+export type { StatBandProps } from './components/data/StatBand';
 
 // Disclosure
 export { Accordion } from './components/disclosure/Accordion';
