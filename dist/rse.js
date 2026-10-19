@@ -732,110 +732,86 @@ return { Checkbox };
 
 // components/forms/DateField.jsx
 define("components/forms/DateField.jsx", ["DateField"], () => {
-function DateField({ label, value, onChange, min, max, hint, error, required, disabled, id, deadline }) {
-  const [focused, setFocused] = React.useState(false);
-  const inputId = id || 'date-' + (label || 'field').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const borderColor = error ? 'var(--rse-color-danger)' : focused ? 'var(--rse-color-primary)' : 'var(--rse-color-border-strong)';
-  return React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-2)', fontFamily: 'var(--rse-font-family)' } },
-    label ? React.createElement('label', {
-      htmlFor: inputId,
-      style: { fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)', color: 'var(--rse-color-text-heading)' }
-    }, label, required ? React.createElement('span', { style: { color: 'var(--rse-color-danger-text)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in Input.css (.rse-field + .rse-input, type=date, plus .rse-field__deadline).
+// Hint/error and the deadline pill are linked with aria-describedby; an error sets aria-invalid.
+// Every other prop (name, value, onChange, min, max, disabled…) goes to the <input>.
+const DateField = React.forwardRef(function DateField({ label, hint, helpText, error, required, id, deadline, className, ...rest }, ref) {
+  const autoId = React.useId();
+  const inputId = id || 'rse-date-' + autoId.replace(/:/g, '');
+  const message = error || helpText || hint;
+  const describedBy = [message ? inputId + '-msg' : null, deadline ? inputId + '-deadline' : null].filter(Boolean).join(' ');
+  return React.createElement('div', { className: cx('rse-field', error && 'rse-field--invalid', className) },
+    label ? React.createElement('label', { className: 'rse-field__label', htmlFor: inputId }, label,
+      required ? React.createElement('span', { className: 'rse-field__required', 'aria-hidden': 'true' }, ' *') : null) : null,
     React.createElement('input', {
-      id: inputId, type: 'date', value, onChange, min, max, required, disabled,
+      ref, id: inputId, type: 'date', required, className: 'rse-input',
       'aria-invalid': error ? 'true' : undefined,
-      onFocus: () => setFocused(true), onBlur: () => setFocused(false),
-      style: {
-        width: '100%', minHeight: 'var(--rse-hit-target-min)', padding: '10px 16px',
-        fontFamily: 'var(--rse-font-family)', fontSize: 'var(--rse-font-size-body-md)', color: 'var(--rse-color-text-heading)',
-        background: disabled ? 'var(--rse-color-surface-sunken)' : 'var(--rse-color-surface-card)',
-        border: '1.5px solid ' + borderColor, borderRadius: 'var(--rse-radius-md)',
-        transition: 'border-color var(--rse-duration-fast) var(--rse-ease-standard)'
-      }
+      'aria-describedby': describedBy || undefined,
+      ...rest
     }),
-    deadline ? React.createElement('span', {
-      style: {
-        display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: 6,
-        background: 'var(--rse-color-warning-surface)', color: 'var(--rse-color-warning-text)', borderRadius: 'var(--rse-radius-pill)',
-        padding: '4px 12px', fontSize: 'var(--rse-font-size-caption)', fontWeight: 'var(--rse-font-weight-bold)'
-      }
-    }, deadline) : null,
-    (hint || error) ? React.createElement('span', {
-      style: { fontSize: 'var(--rse-font-size-caption)', color: error ? 'var(--rse-color-danger-text)' : 'var(--rse-color-text-muted)' }
-    }, error || hint) : null
+    deadline ? React.createElement('span', { className: 'rse-field__deadline', id: inputId + '-deadline' }, deadline) : null,
+    message ? React.createElement('p', { className: 'rse-field__message', id: inputId + '-msg', role: error ? 'alert' : undefined }, message) : null
   );
-}
+});
 return { DateField };
 });
 
 // components/forms/FileUpload.jsx
 define("components/forms/FileUpload.jsx", ["FileUpload"], () => {
 const { Icon } = scope;
-function FileUpload({ label, hint, accept, multiple = false, files = [], onFilesChange, error, maxSizeLabel }) {
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in FileUpload.css (.rse-dropzone) with the shared .rse-field label and
+// message. The dropzone is a role=button wired to the label and message by id; the native file
+// input stays in the DOM, visually hidden. Only the drag highlight is a className toggle.
+const FileUpload = React.forwardRef(function FileUpload({
+  label, hint, accept, multiple = false, files = [], onFilesChange, error, maxSizeLabel, id,
+  dropLabel = 'Arraste os arquivos ou clique para escolher', acceptHint = 'PDF, JPG ou PNG', className, ...rest
+}, ref) {
   const [dragging, setDragging] = React.useState(false);
   const inputRef = React.useRef(null);
-  const uid = React.useId();
+  const autoId = React.useId();
+  const uid = id || 'rse-upload-' + autoId.replace(/:/g, '');
   const labelId = uid + '-label';
   const noteId = uid + '-note';
   const emit = (list) => { if (onFilesChange) onFilesChange(Array.from(list)); };
-  const borderColor = error ? 'var(--rse-color-danger)' : dragging ? 'var(--rse-color-primary)' : 'var(--rse-color-border-strong)';
-  return React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-3)', fontFamily: 'var(--rse-font-family)' } },
-    label ? React.createElement('span', {
-      id: labelId,
-      style: { fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)', color: 'var(--rse-color-text-heading)' }
-    }, label) : null,
+  const open = () => inputRef.current && inputRef.current.click();
+  const message = error || hint;
+  return React.createElement('div', { ref, className: cx('rse-field', error && 'rse-field--invalid', className), ...rest },
+    label ? React.createElement('span', { id: labelId, className: 'rse-field__label' }, label) : null,
     React.createElement('div', {
+      className: cx('rse-dropzone', dragging && 'rse-dropzone--dragging', error && 'rse-dropzone--error'),
       onDragOver: (e) => { e.preventDefault(); setDragging(true); },
       onDragLeave: () => setDragging(false),
       onDrop: (e) => { e.preventDefault(); setDragging(false); emit(e.dataTransfer.files); },
-      onClick: () => inputRef.current && inputRef.current.click(),
+      onClick: open,
       role: 'button', tabIndex: 0,
       'aria-labelledby': label ? labelId : undefined,
-      'aria-describedby': (hint || error) ? noteId : undefined,
-      onKeyDown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inputRef.current && inputRef.current.click(); } },
-      style: {
-        border: '1.5px dashed ' + borderColor, borderRadius: 'var(--rse-radius-md)',
-        background: dragging ? 'var(--rse-color-surface-primary-tint)' : 'var(--rse-color-surface-card)',
-        padding: 'var(--rse-space-6)', textAlign: 'center', cursor: 'pointer',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--rse-space-2)',
-        transition: 'background var(--rse-duration-fast) var(--rse-ease-standard), border-color var(--rse-duration-fast) var(--rse-ease-standard)'
-      }
+      'aria-describedby': message ? noteId : undefined,
+      'aria-invalid': error ? 'true' : undefined,
+      onKeyDown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } }
     },
-      React.createElement('span', {
-        style: { fontSize: 'var(--rse-font-size-body-md)', fontWeight: 'var(--rse-font-weight-bold)', color: 'var(--rse-color-text-heading)' }
-      }, 'Arraste os arquivos ou clique para escolher'),
-      React.createElement('span', {
-        style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)' }
-      }, [accept, maxSizeLabel].filter(Boolean).join(' · ') || 'PDF, JPG ou PNG'),
+      React.createElement('span', { className: 'rse-dropzone__title' }, dropLabel),
+      React.createElement('span', { className: 'rse-dropzone__hint' }, [accept, maxSizeLabel].filter(Boolean).join(' · ') || acceptHint),
       React.createElement('input', {
         ref: inputRef, type: 'file', accept, multiple,
         className: 'rse-control-input', tabIndex: -1, 'aria-hidden': 'true',
         onChange: (e) => emit(e.target.files)
       })
     ),
-    files.length ? React.createElement('ul', { style: { listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-2)' } },
-      files.map((f, i) => React.createElement('li', {
-        key: i,
-        style: {
-          display: 'flex', alignItems: 'center', gap: 'var(--rse-space-3)', padding: '10px 14px',
-          background: 'var(--rse-color-surface-sunken)', borderRadius: 'var(--rse-radius-sm)', fontSize: 'var(--rse-font-size-body-sm)'
-        }
-      },
-        React.createElement('span', { style: { flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--rse-color-text-heading)', fontWeight: 'var(--rse-font-weight-semibold)' } }, f.name || String(f)),
-        f.size ? React.createElement('span', { style: { color: 'var(--rse-color-text-muted)', flex: 'none' } }, Math.max(1, Math.round(f.size / 1024)) + ' KB') : null,
+    files.length ? React.createElement('ul', { className: 'rse-dropzone-list' },
+      files.map((f, i) => React.createElement('li', { key: i, className: 'rse-dropzone-list__item' },
+        React.createElement('span', { className: 'rse-dropzone-list__name' }, f.name || String(f)),
+        f.size ? React.createElement('span', { className: 'rse-dropzone-list__size' }, Math.max(1, Math.round(f.size / 1024)) + ' KB') : null,
         React.createElement('button', {
-          type: 'button', 'aria-label': 'Remover ' + (f.name || 'arquivo'),
-          onClick: () => onFilesChange && onFilesChange(files.filter((_, j) => j !== i)),
-          style: { background: 'none', border: 'none', cursor: 'pointer', color: 'var(--rse-color-text-muted)', display: 'inline-flex', padding: 4 }
+          type: 'button', className: 'rse-dropzone-list__remove', 'aria-label': 'Remover ' + (f.name || 'arquivo'),
+          onClick: () => onFilesChange && onFilesChange(files.filter((_, j) => j !== i))
         }, React.createElement(Icon, { name: 'x', size: 16 }))
       ))
     ) : null,
-    (hint || error) ? React.createElement('span', {
-      id: noteId,
-      style: { fontSize: 'var(--rse-font-size-caption)', color: error ? 'var(--rse-color-danger-text)' : 'var(--rse-color-text-muted)' }
-    }, error || hint) : null
+    message ? React.createElement('p', { className: 'rse-field__message', id: noteId, role: error ? 'alert' : undefined }, message) : null
   );
-}
+});
 return { FileUpload };
 });
 

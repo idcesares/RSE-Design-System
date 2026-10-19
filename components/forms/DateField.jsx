@@ -1,35 +1,24 @@
 'use client';
 import React from 'react';
-export function DateField({ label, value, onChange, min, max, hint, error, required, disabled, id, deadline }) {
-  const [focused, setFocused] = React.useState(false);
-  const inputId = id || 'date-' + (label || 'field').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const borderColor = error ? 'var(--rse-color-danger)' : focused ? 'var(--rse-color-primary)' : 'var(--rse-color-border-strong)';
-  return React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-2)', fontFamily: 'var(--rse-font-family)' } },
-    label ? React.createElement('label', {
-      htmlFor: inputId,
-      style: { fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)', color: 'var(--rse-color-text-heading)' }
-    }, label, required ? React.createElement('span', { style: { color: 'var(--rse-color-danger-text)' }, 'aria-hidden': 'true' }, ' *') : null) : null,
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in Input.css (.rse-field + .rse-input, type=date, plus .rse-field__deadline).
+// Hint/error and the deadline pill are linked with aria-describedby; an error sets aria-invalid.
+// Every other prop (name, value, onChange, min, max, disabled…) goes to the <input>.
+export const DateField = React.forwardRef(function DateField({ label, hint, helpText, error, required, id, deadline, className, ...rest }, ref) {
+  const autoId = React.useId();
+  const inputId = id || 'rse-date-' + autoId.replace(/:/g, '');
+  const message = error || helpText || hint;
+  const describedBy = [message ? inputId + '-msg' : null, deadline ? inputId + '-deadline' : null].filter(Boolean).join(' ');
+  return React.createElement('div', { className: cx('rse-field', error && 'rse-field--invalid', className) },
+    label ? React.createElement('label', { className: 'rse-field__label', htmlFor: inputId }, label,
+      required ? React.createElement('span', { className: 'rse-field__required', 'aria-hidden': 'true' }, ' *') : null) : null,
     React.createElement('input', {
-      id: inputId, type: 'date', value, onChange, min, max, required, disabled,
+      ref, id: inputId, type: 'date', required, className: 'rse-input',
       'aria-invalid': error ? 'true' : undefined,
-      onFocus: () => setFocused(true), onBlur: () => setFocused(false),
-      style: {
-        width: '100%', minHeight: 'var(--rse-hit-target-min)', padding: '10px 16px',
-        fontFamily: 'var(--rse-font-family)', fontSize: 'var(--rse-font-size-body-md)', color: 'var(--rse-color-text-heading)',
-        background: disabled ? 'var(--rse-color-surface-sunken)' : 'var(--rse-color-surface-card)',
-        border: '1.5px solid ' + borderColor, borderRadius: 'var(--rse-radius-md)',
-        transition: 'border-color var(--rse-duration-fast) var(--rse-ease-standard)'
-      }
+      'aria-describedby': describedBy || undefined,
+      ...rest
     }),
-    deadline ? React.createElement('span', {
-      style: {
-        display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: 6,
-        background: 'var(--rse-color-warning-surface)', color: 'var(--rse-color-warning-text)', borderRadius: 'var(--rse-radius-pill)',
-        padding: '4px 12px', fontSize: 'var(--rse-font-size-caption)', fontWeight: 'var(--rse-font-weight-bold)'
-      }
-    }, deadline) : null,
-    (hint || error) ? React.createElement('span', {
-      style: { fontSize: 'var(--rse-font-size-caption)', color: error ? 'var(--rse-color-danger-text)' : 'var(--rse-color-text-muted)' }
-    }, error || hint) : null
+    deadline ? React.createElement('span', { className: 'rse-field__deadline', id: inputId + '-deadline' }, deadline) : null,
+    message ? React.createElement('p', { className: 'rse-field__message', id: inputId + '-msg', role: error ? 'alert' : undefined }, message) : null
   );
-}
+});

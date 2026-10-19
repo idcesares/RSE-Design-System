@@ -27,7 +27,7 @@
 /* IconButton — .rse-icon-button [--primary | --ghost] [--sm | --lg]. Always carries aria-label. */
 .rse-icon-button{
   display:inline-flex;align-items:center;justify-content:center;flex:none;
-  width:2.5rem;height:2.5rem;padding:0;border:none;border-radius:var(--rse-radius-pill);cursor:pointer;
+  width:var(--rse-hit-target-min);height:var(--rse-hit-target-min);padding:0;border:none;border-radius:var(--rse-radius-pill);cursor:pointer;
   background:var(--rse-color-surface-sunken);color:var(--rse-color-text-heading);
   transition:background-color var(--rse-duration-base) var(--rse-ease-standard);
 }

@@ -1,0 +1,28 @@
+/* FileUpload — .rse-dropzone [--dragging | --error] with a visually hidden native file input,
+   then .rse-dropzone-list > .rse-dropzone-list__item. Label and message reuse .rse-field. */
+.rse-dropzone{
+  display:flex;flex-direction:column;align-items:center;gap:var(--rse-space-2);
+  padding:var(--rse-space-6);text-align:center;cursor:pointer;position:relative;
+  background:var(--rse-color-surface-card);border:1.5px dashed var(--rse-color-border-strong);border-radius:var(--rse-radius-md);
+  transition:background-color var(--rse-duration-fast) var(--rse-ease-standard),border-color var(--rse-duration-fast) var(--rse-ease-standard);
+}
+.rse-dropzone:hover{border-color:var(--rse-color-primary)}
+.rse-dropzone--dragging{border-color:var(--rse-color-primary);background:var(--rse-color-surface-primary-tint)}
+.rse-dropzone--error,.rse-dropzone[aria-invalid="true"]{border-color:var(--rse-color-danger)}
+.rse-dropzone__title{font-size:var(--rse-font-size-body-md);font-weight:var(--rse-font-weight-bold);color:var(--rse-color-text-heading)}
+.rse-dropzone__hint{font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted)}
+
+.rse-dropzone-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--rse-space-2)}
+.rse-dropzone-list__item{
+  display:flex;align-items:center;gap:var(--rse-space-3);padding:var(--rse-space-2) var(--rse-space-2) var(--rse-space-2) var(--rse-space-4);
+  background:var(--rse-color-surface-sunken);border-radius:var(--rse-radius-sm);font-size:var(--rse-font-size-body-sm);
+}
+.rse-dropzone-list__name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--rse-color-text-heading);font-weight:var(--rse-font-weight-semibold)}
+.rse-dropzone-list__size{flex:none;color:var(--rse-color-text-muted)}
+.rse-dropzone-list__remove{
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+  min-width:var(--rse-hit-target-min);min-height:var(--rse-hit-target-min);padding:0;
+  background:none;border:none;border-radius:var(--rse-radius-pill);cursor:pointer;color:var(--rse-color-text-muted);
+  transition:background-color var(--rse-duration-fast) var(--rse-ease-standard),color var(--rse-duration-fast) var(--rse-ease-standard);
+}
+.rse-dropzone-list__remove:hover{background:var(--rse-color-border-subtle);color:var(--rse-color-text-heading)}
