@@ -71,5 +71,5 @@ npm run check
 
 - [ ] Told the user which content is placeholder and needs verification.
 - [ ] Named any open caveat the work depends on (motif artwork, vector logos, photography — see
-      [../AGENTS.md](../AGENTS.md#known-gaps--say-these-out-loud-when-they-matter)).
+      [../AGENTS.md](../AGENTS.md#known-gaps)).
 - [ ] Said plainly what was not done, if anything was left out.

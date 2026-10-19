@@ -2,7 +2,7 @@ Content card for programs, schools, or news — image, category tag, eyebrow, ti
 
 ```jsx
 <Card
-  image={<img src="photo.jpg" />}
+  image={<img src="photo.jpg" alt="Estudantes em sala de aula" />}
   tag={<Tag color="green">Educação Infantil</Tag>}
   eyebrow="Rede Sesc"
   title="Colégio Sesc de Ensino Médio"

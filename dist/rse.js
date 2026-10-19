@@ -604,6 +604,7 @@ return { ProgressBar };
 // components/feedback/Skeleton.jsx
 define("components/feedback/Skeleton.jsx", ["Skeleton"], () => {
 function Skeleton({ variant = 'text', width, height, lines = 3, radius }) {
+  // 1.4s kept literal: no duration token fits a continuous loop (slow is 360ms, which shimmers too fast); loops are not transitions.
   const shimmer = {
     background: 'linear-gradient(90deg, var(--rse-brand-gray-100) 25%, var(--rse-brand-gray-200) 37%, var(--rse-brand-gray-100) 63%)',
     backgroundSize: '400% 100%', animation: 'rse-shimmer 1.4s var(--rse-ease-standard) infinite'
@@ -631,7 +632,7 @@ return { Skeleton };
 // components/feedback/Spinner.jsx
 define("components/feedback/Spinner.jsx", ["Spinner"], () => {
 function Spinner({ size = 24, tone = 'primary' }) {
-  const track = tone === 'inverse' ? 'rgba(255,255,255,0.3)' : 'var(--rse-color-surface-primary-tint)';
+  const track = tone === 'inverse' ? 'var(--rse-color-text-on-ink-muted)' : 'var(--rse-color-surface-primary-tint)';
   const head = tone === 'inverse' ? 'var(--rse-brand-white)' : 'var(--rse-color-primary)';
   const thickness = Math.max(2, Math.round(size / 8));
   return React.createElement('span', {
@@ -639,6 +640,7 @@ function Spinner({ size = 24, tone = 'primary' }) {
     style: {
       display: 'inline-block', width: size, height: size, borderRadius: '50%', boxSizing: 'border-box',
       border: `${thickness}px solid ${track}`, borderTopColor: head,
+      // 0.8s kept literal: no duration token fits a continuous loop (slow is 360ms, which spins too fast); loops are not transitions.
       animation: 'rse-spin 0.8s linear infinite'
     }
   });
@@ -1066,7 +1068,7 @@ return { Textarea };
 // components/navigation/Breadcrumb.jsx
 define("components/navigation/Breadcrumb.jsx", ["Breadcrumb"], () => {
 function Breadcrumb({ items = [] }) {
-  return React.createElement('nav', { 'aria-label': 'Breadcrumb', style: { fontFamily: 'var(--rse-font-family)' } },
+  return React.createElement('nav', { 'aria-label': 'Trilha de navegação', style: { fontFamily: 'var(--rse-font-family)' } },
     React.createElement('ol', { style: { display: 'flex', alignItems: 'center', gap: 8, margin: 0, padding: 0, listStyle: 'none', flexWrap: 'wrap' } },
       items.map((it, i) => {
         const last = i === items.length - 1;

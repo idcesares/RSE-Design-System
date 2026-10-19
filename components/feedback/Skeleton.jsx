@@ -1,5 +1,6 @@
 import React from 'react';
 export function Skeleton({ variant = 'text', width, height, lines = 3, radius }) {
+  // 1.4s kept literal: no duration token fits a continuous loop (slow is 360ms, which shimmers too fast); loops are not transitions.
   const shimmer = {
     background: 'linear-gradient(90deg, var(--rse-brand-gray-100) 25%, var(--rse-brand-gray-200) 37%, var(--rse-brand-gray-100) 63%)',
     backgroundSize: '400% 100%', animation: 'rse-shimmer 1.4s var(--rse-ease-standard) infinite'

@@ -217,7 +217,8 @@ showcase/demos.js                  a demo for the showcase gallery (step 4 of do
 static page uses the classes directly, so nothing visual may live only in JavaScript: no inline
 style objects, no hover held in state. Wrappers forward `ref`, pass every other prop to the main
 element (`...rest`), merge `className`, and build ids with `React.useId`. Twelve components are on
-the contract (`npm run audit` → `componentsOnCssContract`); moving the rest is roadmap P2.
+the contract (`npm run audit` → `componentsOnCssContract`; IconButton is styled in `Button.css`, so
+that is 11 `.css` files); moving the rest is roadmap P2.
 
 Then:
 

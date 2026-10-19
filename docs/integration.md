@@ -81,7 +81,7 @@ Inside a site that already has base styles, import `@idcesares/rse-design-system
 `@idcesares/rse-design-system/base-runtime.css` if you use the components, or Spinner, Skeleton and the
 Checkbox/Radio/Switch focus behaviour break silently.
 
-**2. Import components in a Client Component.** The 14 components that use hooks each carry a
+**2. Import components in a Client Component.** The 11 components that use hooks each carry a
 `'use client'` directive, so they cross the boundary on their own:
 
 ```tsx
