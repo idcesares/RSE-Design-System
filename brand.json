@@ -770,23 +770,23 @@
       "kind": "color"
     },
     "--rse-color-data-2": {
-      "value": "#76b3dd",
+      "value": "#4f85b2",
       "kind": "color"
     },
     "--rse-color-data-3": {
-      "value": "#85b73d",
+      "value": "#658e1e",
       "kind": "color"
     },
     "--rse-color-data-4": {
-      "value": "#f4bf2a",
+      "value": "#6b4700",
       "kind": "color"
     },
     "--rse-color-data-5": {
-      "value": "#e17f38",
+      "value": "#c6621e",
       "kind": "color"
     },
     "--rse-color-data-6": {
-      "value": "#e27879",
+      "value": "#cc646a",
       "kind": "color"
     },
     "--rse-color-scrim": {
@@ -1078,7 +1078,7 @@
           "value": "#ad98ea"
         },
         "--rse-color-primary-active": {
-          "value": "#6c62c4"
+          "value": "#ad98ea"
         },
         "--rse-color-surface-page": {
           "value": "#1b1a26"
@@ -1209,6 +1209,21 @@
         "--rse-color-tint-yellow-ink": {
           "value": "#ffd67b"
         },
+        "--rse-color-data-2": {
+          "value": "#76b3dd"
+        },
+        "--rse-color-data-3": {
+          "value": "#85b73d"
+        },
+        "--rse-color-data-4": {
+          "value": "#f4bf2a"
+        },
+        "--rse-color-data-5": {
+          "value": "#e17f38"
+        },
+        "--rse-color-data-6": {
+          "value": "#e27879"
+        },
         "--rse-color-scrim": {
           "value": "rgba(12,11,18,0.68)"
         },
@@ -1313,21 +1328,6 @@
         },
         "--rse-color-tint-yellow": {
           "value": "#f2f1ec"
-        },
-        "--rse-color-data-2": {
-          "value": "#4f85b2"
-        },
-        "--rse-color-data-3": {
-          "value": "#658e1e"
-        },
-        "--rse-color-data-4": {
-          "value": "#6b4700"
-        },
-        "--rse-color-data-5": {
-          "value": "#c6621e"
-        },
-        "--rse-color-data-6": {
-          "value": "#cc646a"
         },
         "--rse-focus-ring-width": {
           "value": "4px"

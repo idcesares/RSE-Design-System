@@ -36,13 +36,12 @@ export const CONTRAST_PAIRS = [
   { where: 'Control border on page', label: 'Borda do campo sobre a página', fg: '--rse-color-border-strong', bg: '--rse-color-surface-page', floor: 3 },
   // Data palette (charts, Stat, legends): non-text marks on the card, WCAG 1.4.11.
   { where: 'Data 1 on card', label: 'Série de dados 1 (roxo) sobre o cartão', fg: '--rse-color-data-1', bg: '--rse-color-surface-card', floor: 3 },
-  // HELD OUT pending a design decision (docs/known-gaps.md, gap 10) — they fail today:
-  // { where: 'Data 2 on card', label: 'Série de dados 2 (azul) sobre o cartão', fg: '--rse-color-data-2', bg: '--rse-color-surface-card', floor: 3 },
-  // { where: 'Data 3 on card', label: 'Série de dados 3 (verde) sobre o cartão', fg: '--rse-color-data-3', bg: '--rse-color-surface-card', floor: 3 },
-  // { where: 'Data 4 on card', label: 'Série de dados 4 (amarelo) sobre o cartão', fg: '--rse-color-data-4', bg: '--rse-color-surface-card', floor: 3 },
-  // { where: 'Data 5 on card', label: 'Série de dados 5 (laranja) sobre o cartão', fg: '--rse-color-data-5', bg: '--rse-color-surface-card', floor: 3 },
-  // { where: 'Data 6 on card', label: 'Série de dados 6 (rosa) sobre o cartão', fg: '--rse-color-data-6', bg: '--rse-color-surface-card', floor: 3 },
-  // { where: 'Primary button label on press', label: 'Texto do botão primário ao pressionar', fg: '--rse-color-text-on-primary', bg: '--rse-color-primary-active', floor: 4.5 },
+  { where: 'Data 2 on card', label: 'Série de dados 2 (azul) sobre o cartão', fg: '--rse-color-data-2', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Data 3 on card', label: 'Série de dados 3 (verde) sobre o cartão', fg: '--rse-color-data-3', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Data 4 on card', label: 'Série de dados 4 (amarelo) sobre o cartão', fg: '--rse-color-data-4', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Data 5 on card', label: 'Série de dados 5 (laranja) sobre o cartão', fg: '--rse-color-data-5', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Data 6 on card', label: 'Série de dados 6 (rosa) sobre o cartão', fg: '--rse-color-data-6', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Primary button label on press', label: 'Texto do botão primário ao pressionar', fg: '--rse-color-text-on-primary', bg: '--rse-color-primary-active', floor: 4.5 },
   // Roles that were measured nowhere before.
   { where: 'Link on card', label: 'Link sobre o cartão', fg: '--rse-color-text-link', bg: '--rse-color-surface-card', floor: 4.5 },
   { where: 'Link hover on page', label: 'Link em foco do mouse sobre a página', fg: '--rse-color-text-link-hover', bg: '--rse-color-surface-page', floor: 4.5 },

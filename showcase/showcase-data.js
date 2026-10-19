@@ -1997,23 +1997,23 @@ window.SHOWCASE_DATA = {
       "kind": "color"
     },
     "--rse-color-data-2": {
-      "value": "#76b3dd",
+      "value": "#4f85b2",
       "kind": "color"
     },
     "--rse-color-data-3": {
-      "value": "#85b73d",
+      "value": "#658e1e",
       "kind": "color"
     },
     "--rse-color-data-4": {
-      "value": "#f4bf2a",
+      "value": "#6b4700",
       "kind": "color"
     },
     "--rse-color-data-5": {
-      "value": "#e17f38",
+      "value": "#c6621e",
       "kind": "color"
     },
     "--rse-color-data-6": {
-      "value": "#e27879",
+      "value": "#cc646a",
       "kind": "color"
     },
     "--rse-color-scrim": {
@@ -2385,7 +2385,7 @@ window.SHOWCASE_DATA = {
           "value": "#ad98ea"
         },
         "--rse-color-primary-active": {
-          "value": "#6c62c4"
+          "value": "#ad98ea"
         },
         "--rse-color-surface-page": {
           "value": "#1b1a26"
@@ -2516,6 +2516,21 @@ window.SHOWCASE_DATA = {
         "--rse-color-tint-yellow-ink": {
           "value": "#ffd67b"
         },
+        "--rse-color-data-2": {
+          "value": "#76b3dd"
+        },
+        "--rse-color-data-3": {
+          "value": "#85b73d"
+        },
+        "--rse-color-data-4": {
+          "value": "#f4bf2a"
+        },
+        "--rse-color-data-5": {
+          "value": "#e17f38"
+        },
+        "--rse-color-data-6": {
+          "value": "#e27879"
+        },
         "--rse-color-scrim": {
           "value": "rgba(12,11,18,0.68)"
         },
@@ -2620,21 +2635,6 @@ window.SHOWCASE_DATA = {
         },
         "--rse-color-tint-yellow": {
           "value": "#f2f1ec"
-        },
-        "--rse-color-data-2": {
-          "value": "#4f85b2"
-        },
-        "--rse-color-data-3": {
-          "value": "#658e1e"
-        },
-        "--rse-color-data-4": {
-          "value": "#6b4700"
-        },
-        "--rse-color-data-5": {
-          "value": "#c6621e"
-        },
-        "--rse-color-data-6": {
-          "value": "#cc646a"
         },
         "--rse-focus-ring-width": {
           "value": "4px"
@@ -3896,8 +3896,8 @@ window.SHOWCASE_DATA = {
           "raw": "#504a92"
         },
         "dark": {
-          "value": "#6c62c4",
-          "raw": "var(--rse-brand-purple-dark)"
+          "value": "#ad98ea",
+          "raw": "var(--rse-brand-purple-light)"
         },
         "contrast": {
           "value": "#2c2566",
@@ -4756,8 +4756,8 @@ window.SHOWCASE_DATA = {
       "derived": false,
       "modes": {
         "light": {
-          "value": "#76b3dd",
-          "raw": "var(--rse-brand-blue)"
+          "value": "#4f85b2",
+          "raw": "var(--rse-brand-blue-dark)"
         },
         "dark": {
           "value": "#76b3dd",
@@ -4774,8 +4774,8 @@ window.SHOWCASE_DATA = {
       "derived": false,
       "modes": {
         "light": {
-          "value": "#85b73d",
-          "raw": "var(--rse-brand-green)"
+          "value": "#658e1e",
+          "raw": "var(--rse-brand-green-dark)"
         },
         "dark": {
           "value": "#85b73d",
@@ -4792,8 +4792,8 @@ window.SHOWCASE_DATA = {
       "derived": false,
       "modes": {
         "light": {
-          "value": "#f4bf2a",
-          "raw": "var(--rse-brand-yellow)"
+          "value": "#6b4700",
+          "raw": "var(--rse-brand-yellow-ink)"
         },
         "dark": {
           "value": "#f4bf2a",
@@ -4810,8 +4810,8 @@ window.SHOWCASE_DATA = {
       "derived": false,
       "modes": {
         "light": {
-          "value": "#e17f38",
-          "raw": "var(--rse-brand-orange)"
+          "value": "#c6621e",
+          "raw": "var(--rse-brand-orange-dark)"
         },
         "dark": {
           "value": "#e17f38",
@@ -4828,8 +4828,8 @@ window.SHOWCASE_DATA = {
       "derived": false,
       "modes": {
         "light": {
-          "value": "#e27879",
-          "raw": "var(--rse-brand-pink)"
+          "value": "#cc646a",
+          "raw": "var(--rse-brand-pink-dark)"
         },
         "dark": {
           "value": "#e27879",
@@ -5035,6 +5035,42 @@ window.SHOWCASE_DATA = {
       "floor": 3
     },
     {
+      "label": "Série de dados 2 (azul) sobre o cartão",
+      "fg": "--rse-color-data-2",
+      "bg": "--rse-color-surface-card",
+      "floor": 3
+    },
+    {
+      "label": "Série de dados 3 (verde) sobre o cartão",
+      "fg": "--rse-color-data-3",
+      "bg": "--rse-color-surface-card",
+      "floor": 3
+    },
+    {
+      "label": "Série de dados 4 (amarelo) sobre o cartão",
+      "fg": "--rse-color-data-4",
+      "bg": "--rse-color-surface-card",
+      "floor": 3
+    },
+    {
+      "label": "Série de dados 5 (laranja) sobre o cartão",
+      "fg": "--rse-color-data-5",
+      "bg": "--rse-color-surface-card",
+      "floor": 3
+    },
+    {
+      "label": "Série de dados 6 (rosa) sobre o cartão",
+      "fg": "--rse-color-data-6",
+      "bg": "--rse-color-surface-card",
+      "floor": 3
+    },
+    {
+      "label": "Texto do botão primário ao pressionar",
+      "fg": "--rse-color-text-on-primary",
+      "bg": "--rse-color-primary-active",
+      "floor": 4.5
+    },
+    {
       "label": "Link sobre o cartão",
       "fg": "--rse-color-text-link",
       "bg": "--rse-color-surface-card",
@@ -5149,7 +5185,7 @@ window.SHOWCASE_DATA = {
     "palette": 21,
     "themes": 3,
     "templates": 4,
-    "contrastPairs": 45,
+    "contrastPairs": 51,
     "icons": 97
   }
 };
