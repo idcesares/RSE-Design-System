@@ -13,7 +13,7 @@ export interface FileUploadProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   /** Currently attached files (controlled) */
   files?: UploadedFile[];
   onFilesChange?: (files: UploadedFile[]) => void;
-  /** Error message — replaces hint, turns the border red, sets aria-invalid and is announced */
+  /** Error message — replaces hint, turns the border red, sets aria-invalid on the file input and is announced */
   error?: string;
   /** Size limit shown in the drop zone, e.g. até 5 MB */
   maxSizeLabel?: string;

@@ -2,7 +2,7 @@
 // Every Rede Sesc de Educação token resolved to a literal, per theme.
 //   import { light, dark, cssVar } from '@idcesares/rse-design-system/tokens';
 //   light['--rse-color-primary'] // '#6c62c4'
-export const version = "2.1.0";
+export const version = "2.2.0";
 export const light = {
   "--rse-brand-cream": "#f2f4e4",
   "--rse-brand-indigo": "#4c549e",

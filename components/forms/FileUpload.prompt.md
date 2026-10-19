@@ -13,18 +13,18 @@ Enrollment documents: RG, CPF, comprovante de residência, histórico escolar, C
 - Keyboard accessible (Enter/Space open the picker); drag-and-drop is an enhancement, never the only route.
 - Pair with `Stepper` in a matrícula flow so progress stays visible.
 
-Texts are props: `dropLabel` (default "Arraste os arquivos ou clique para escolher") and `acceptHint` (default "PDF, JPG ou PNG", shown only when `accept`/`maxSizeLabel` are absent). With `error`, the dropzone gets `aria-invalid` and the message is announced (`role="alert"`).
+Texts are props: `dropLabel` (default "Arraste os arquivos ou clique para escolher") and `acceptHint` (default "PDF, JPG ou PNG", shown only when `accept`/`maxSizeLabel` are absent). With `error`, the file input gets `aria-invalid` and the message is announced (`role="alert"`).
 
 ## HTML (CSS contract)
 
 ```html
 <div class="rse-field">
   <span class="rse-field__label" id="up-label">Documentos do aluno</span>
-  <div class="rse-dropzone" role="button" tabindex="0" aria-labelledby="up-label" aria-describedby="up-note">
-    <span class="rse-dropzone__title">Arraste os arquivos ou clique para escolher</span>
+  <label class="rse-dropzone" for="up-input">
+    <span class="rse-dropzone__title" id="up-title">Arraste os arquivos ou clique para escolher</span>
     <span class="rse-dropzone__hint">PDF, JPG ou PNG</span>
-    <input class="rse-control-input" type="file" tabindex="-1" aria-hidden="true">
-  </div>
+    <input class="rse-control-input" id="up-input" type="file" aria-labelledby="up-label up-title" aria-describedby="up-note">
+  </label>
   <ul class="rse-dropzone-list">
     <li class="rse-dropzone-list__item">
       <span class="rse-dropzone-list__name">rg-frente.pdf</span>

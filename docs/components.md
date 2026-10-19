@@ -251,7 +251,7 @@ Drag-and-drop document upload for enrollment paperwork, with an attached-file li
 | `multiple` | `boolean` | — |  |
 | `files` | `UploadedFile[]` | — | Currently attached files (controlled) |
 | `onFilesChange` | `(files: UploadedFile[]) => void` | — |  |
-| `error` | `string` | — | Error message — replaces hint, turns the border red, sets aria-invalid and is announced |
+| `error` | `string` | — | Error message — replaces hint, turns the border red, sets aria-invalid on the file input and is announced |
 | `maxSizeLabel` | `string` | — | Size limit shown in the drop zone, e.g. até 5 MB |
 | `id` | `string` | — | Explicit id prefix for label/message wiring; otherwise React.useId |
 | `dropLabel` | `string` | — | Instruction inside the drop zone. Default: 'Arraste os arquivos ou clique para escolher' |
