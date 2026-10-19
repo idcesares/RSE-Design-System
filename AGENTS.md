@@ -216,9 +216,9 @@ showcase/demos.js                  a demo for the showcase gallery (step 4 of do
 **The CSS contract is the component; React is a convenience.** A CMS, the enrollment portal or a
 static page uses the classes directly, so nothing visual may live only in JavaScript: no inline
 style objects, no hover held in state. Wrappers forward `ref`, pass every other prop to the main
-element (`...rest`), merge `className`, and build ids with `React.useId`. Twelve components are on
-the contract (`npm run audit` → `componentsOnCssContract`; IconButton is styled in `Button.css`, so
-that is 11 `.css` files); moving the rest is roadmap P2.
+element (`...rest`), merge `className`, and build ids with `React.useId`. Twenty-one components are on
+the contract (`npm run audit` → `componentsOnCssContract`, the live number; IconButton is styled in
+`Button.css`, so some components share a `.css` file); moving the rest is roadmap P2.
 
 Then:
 
