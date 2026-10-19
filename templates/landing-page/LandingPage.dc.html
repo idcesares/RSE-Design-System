@@ -14,21 +14,10 @@
 <div style="max-width:1200px;margin:0 auto;padding:16px 24px 0;box-sizing:border-box">
 <x-import component-from-global-scope="RSE.Alert" tone="info" title="Matrículas abertas" hint-size="100%,64px">Garanta a vaga para o ano letivo de 0000.</x-import>
 </div>
-<div style="max-width:1200px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px;align-items:center;box-sizing:border-box">
-<div style="display:flex;flex-direction:column;gap:20px">
-<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-<span style="font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary)">Rede Sesc de Educação</span>
-<span style="flex-shrink:0"><x-import component-from-global-scope="RSE.Badge" tone="success" hint-size="90px,22px">Vagas abertas</x-import></span>
-</div>
-<h1 style="font-size:var(--rse-font-size-display-2);margin:0">Aprender para a vida acontecer</h1>
-<p style="font-size:var(--rse-font-size-body-lg);color:var(--rse-color-text-muted);margin:0;max-width:480px">Educação que acolhe, forma e transforma — em unidades por todo o Brasil.</p>
-<div style="display:flex;gap:12px;flex-wrap:wrap">
+<x-import component-from-global-scope="RSE.Hero" eyebrow="Rede Sesc de Educação" badge="{{ heroBadge }}" title="Aprender para a vida acontecer" lead="Educação que acolhe, forma e transforma — em unidades por todo o Brasil." media="{{ heroMedia }}" hint-size="100%,440px">
 <x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" hint-size="220px,56px">Quero me inscrever</x-import>
 <x-import component-from-global-scope="RSE.Button" variant="ghost" size="lg" icon="{{ iconPlay }}" on-click="{{ openModal }}" hint-size="200px,56px">Assista a nossa história</x-import>
-</div>
-</div>
-<image-slot id="hero-photo" shape="rounded" radius="32" style="width:100%;height:360px;display:block" placeholder="foto de estudantes, estilo documental"></image-slot>
-</div>
+</x-import>
 <!-- Números de exemplo: substituir por dados verificados antes de publicar. -->
 <x-import component-from-global-scope="RSE.StatBand" tone="primary" note="Números de exemplo: substituir por dados verificados antes de publicar." hint-size="100%,230px">
 <x-import component-from-global-scope="RSE.Stat" value="00" label="unidades no Brasil" accent="inverse" align="center" hint-size="100%,96px"></x-import>
@@ -88,18 +77,8 @@
 </div>
 </div>
 <div style="max-width:900px;margin:0 auto;padding:0 24px 80px;box-sizing:border-box">
-<div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);padding:40px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
-<x-import component-from-global-scope="RSE.Avatar" initials="MS" size="lg" status="online" hint-size="64px,64px"></x-import>
-<div style="display:flex;flex-direction:column;gap:16px;flex:1;min-width:240px">
-<p style="font-size:var(--rse-font-size-h4);margin:0;font-weight:var(--rse-font-weight-medium)">"Minha filha entrou tímida na Educação Infantil e hoje é protagonista do próprio aprendizado. A Rede Sesc transformou a nossa família."</p>
-<x-import component-from-global-scope="RSE.Divider" hint-size="100%,1px"></x-import>
-<div style="display:flex;align-items:center;gap:8px">
-<span style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Nome Sobrenome</span>
-<span style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted)">— responsável, unidade a definir</span>
-<x-import component-from-global-scope="RSE.Tooltip" label="Depoimento de exemplo — substituir por um real e autorizado" hint-size="20px,20px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Sobre este depoimento" icon="{{ iconCheck }}" variant="ghost" hint-size="44px,44px"></x-import></x-import>
-</div>
-</div>
-</div>
+<!-- Depoimento de exemplo: substituir por um relato real e autorizado antes de publicar. -->
+<x-import component-from-global-scope="RSE.Testimonial" example="true" quote="Minha filha entrou tímida na Educação Infantil e hoje é protagonista do próprio aprendizado. A Rede Sesc transformou a nossa família." name="Nome Sobrenome" role="responsável" unit="unidade a definir" avatar="{{ testimonialAvatar }}" hint-size="100%,260px"></x-import>
 </div>
 <div id="unidades" style="max-width:1200px;margin:0 auto;padding:0 24px 80px;display:flex;flex-direction:column;gap:24px;box-sizing:border-box">
 <x-import component-from-global-scope="RSE.Breadcrumb" items="{{ unitBreadcrumbItems }}" hint-size="300px,24px"></x-import>
@@ -252,6 +231,9 @@ class Component extends DCLogic {
       openModal: () => this.setState({ modalOpen: true }),
       closeModal: () => this.setState({ modalOpen: false }),
       onUnitSearch: (e) => { if (e && e.preventDefault) e.preventDefault(); },
+      heroBadge: React.createElement(RSE.Badge, { tone: 'success' }, 'Vagas abertas'),
+      heroMedia: React.createElement('image-slot', { id: 'hero-photo', shape: 'rounded', radius: '32', placeholder: 'foto de estudantes, estilo documental' }),
+      testimonialAvatar: React.createElement(RSE.Avatar, { initials: 'NS', size: 'lg' }),
       iconPlay: React.createElement(RSE.Icon, { name: 'play', size: 18 }),
       iconHeart: React.createElement(RSE.Icon, { name: 'heart', size: 18 }),
       iconCheck: React.createElement(RSE.Icon, { name: 'check', size: 18 }),

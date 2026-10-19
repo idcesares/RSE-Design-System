@@ -8,7 +8,7 @@
 <body>
 <x-dc>
 <!-- @template name="Program detail page" description="Program/unit detail page: sticky header, hero with enrollment window, tabs of content, turmas table, FAQ accordion, unit info and CTA." -->
-<helmet><script src="./ds-base.js"></script></helmet>
+<helmet><script src="./ds-base.js"></script><script src="../../image-slot.js"></script></helmet>
 <div style="min-height:100vh;background:var(--rse-color-surface-page);font-family:var(--rse-font-family);color:var(--rse-color-text-body)">
 <!-- Números de exemplo: substituir por dados verificados antes de publicar. -->
 <div style="background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);padding:10px 24px;text-align:center;font-size:14px;font-weight:600">Inscrições abertas para 0000 · consulte vagas na sua unidade</div>
@@ -24,23 +24,10 @@
 <x-import component-from-global-scope="RSE.Button" variant="primary" href="#inscricao" hint-size="200px,44px">Quero me inscrever</x-import>
 </div>
 </header>
-<section style="max-width:1200px;margin:0 auto;padding:64px 24px 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px;align-items:center">
-<div style="display:flex;flex-direction:column;gap:24px">
-<div style="display:flex;gap:10px;flex-wrap:wrap">
-<span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:13px;font-weight:700;padding:6px 14px;border-radius:var(--rse-radius-pill)">Ensino Médio</span>
-<span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:13px;font-weight:700;padding:6px 14px;border-radius:var(--rse-radius-pill)">Vagas abertas</span>
-</div>
-<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">Rede Sesc de Educação</p>
-<h1 style="margin:0;font-size:clamp(2.25rem,3.4vw,3.5rem);line-height:1.1;font-weight:800;letter-spacing:-0.02em;color:var(--rse-color-text-heading)">Ensino Médio com projeto de vida no centro</h1>
-<p style="margin:0;font-size:19px;line-height:1.6;max-width:56ch">Três anos de formação integral que unem base acadêmica sólida, cultura, esporte e preparação para o mundo do trabalho — com acompanhamento individual de cada estudante.</p>
-<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+<x-import component-from-global-scope="RSE.Hero" eyebrow="Rede Sesc de Educação" badge="{{ heroBadges }}" title="Ensino Médio com projeto de vida no centro" lead="Três anos de formação integral que unem base acadêmica sólida, cultura, esporte e preparação para o mundo do trabalho — com acompanhamento individual de cada estudante." media="{{ heroMedia }}" hint-size="100%,480px">
 <x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" href="#inscricao" hint-size="220px,56px">Quero me inscrever</x-import>
 <x-import component-from-global-scope="RSE.Button" variant="secondary" size="lg" href="#turmas" hint-size="220px,56px">Ver turmas e turnos</x-import>
-</div>
-<div style="display:flex;align-items:center;gap:10px;background:var(--rse-color-warning-surface);color:var(--rse-color-warning-text);border-radius:var(--rse-radius-pill);padding:8px 16px;align-self:flex-start;font-size:13px;font-weight:700">Inscrições até 00/00/0000</div>
-</div>
-<image-slot id="hero-photo" shape="rounded" radius="32" style="width:100%;aspect-ratio:16/10;display:block" placeholder="estudantes em atividade, luz natural, estilo documental"></image-slot>
-</section>
+</x-import>
 <x-import component-from-global-scope="RSE.StatBand" id="programas" tone="primary" aria-label="O programa em números" note="Números de exemplo: substituir por dados verificados antes de publicar." hint-size="100%,230px">
 <x-import component-from-global-scope="RSE.Stat" value="0 anos" label="Duração" accent="inverse" align="center" hint-size="100%,96px"></x-import>
 <x-import component-from-global-scope="RSE.Stat" value="00 alunos" label="Por turma" accent="inverse" align="center" hint-size="100%,96px"></x-import>
@@ -160,6 +147,11 @@ class Component extends DCLogic {
   state = { turnos: [] };
   renderVals() {
     return {
+      heroBadges: React.createElement(React.Fragment, null,
+        React.createElement(RSE.Badge, { tone: 'info' }, 'Ensino Médio'),
+        React.createElement(RSE.Badge, { tone: 'success' }, 'Vagas abertas'),
+        React.createElement(RSE.Badge, { tone: 'warning' }, 'Inscrições até 00/00/0000')),
+      heroMedia: React.createElement('image-slot', { id: 'hero-photo', shape: 'rounded', radius: '32', placeholder: 'estudantes em atividade, luz natural, estilo documental' }),
       turnoOptions: [
         { id: 'manha', label: 'Manhã', count: 2 },
         { id: 'tarde', label: 'Tarde', count: 1 },
