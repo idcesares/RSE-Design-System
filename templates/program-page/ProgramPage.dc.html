@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><title>viewport — Rede Sesc de Educação</title>
+<head><title>Programa — Rede Sesc de Educação</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
@@ -10,7 +10,8 @@
 <!-- @template name="Program detail page" description="Program/unit detail page: sticky header, hero with enrollment window, tabs of content, turmas table, FAQ accordion, unit info and CTA." -->
 <helmet><script src="./ds-base.js"></script></helmet>
 <div style="min-height:100vh;background:var(--rse-color-surface-page);font-family:var(--rse-font-family);color:var(--rse-color-text-body)">
-<div style="background:var(--rse-brand-indigo);color:var(--rse-brand-white);padding:10px 24px;text-align:center;font-size:14px;font-weight:600">Inscrições abertas para 0000 · consulte vagas na sua unidade</div>
+<!-- Números de exemplo: substituir por dados verificados antes de publicar. -->
+<div style="background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);padding:10px 24px;text-align:center;font-size:14px;font-weight:600">Inscrições abertas para 0000 · consulte vagas na sua unidade</div>
 <header style="position:sticky;top:0;z-index:100;background:var(--rse-color-surface-page-translucent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rse-color-border-subtle)">
 <div style="max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px">
 <img src="../../assets/logos/wordmark-purple.svg" alt="Rede Sesc de Educação" style="height:44px;width:auto;object-fit:contain">
@@ -26,8 +27,8 @@
 <section style="max-width:1200px;margin:0 auto;padding:64px 24px 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px;align-items:center">
 <div style="display:flex;flex-direction:column;gap:24px">
 <div style="display:flex;gap:10px;flex-wrap:wrap">
-<span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px">Ensino Médio</span>
-<span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px">Vagas abertas</span>
+<span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:13px;font-weight:700;padding:6px 14px;border-radius:var(--rse-radius-pill)">Ensino Médio</span>
+<span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:13px;font-weight:700;padding:6px 14px;border-radius:var(--rse-radius-pill)">Vagas abertas</span>
 </div>
 <p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">Rede Sesc de Educação</p>
 <h1 style="margin:0;font-size:clamp(2.25rem,3.4vw,3.5rem);line-height:1.1;font-weight:800;letter-spacing:-0.02em;color:var(--rse-color-text-heading)">Ensino Médio com projeto de vida no centro</h1>
@@ -36,18 +37,16 @@
 <x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" href="#inscricao" hint-size="220px,56px">Quero me inscrever</x-import>
 <x-import component-from-global-scope="RSE.Button" variant="secondary" size="lg" href="#turmas" hint-size="220px,56px">Ver turmas e turnos</x-import>
 </div>
-<div style="display:flex;align-items:center;gap:10px;background:var(--rse-color-warning-surface);color:var(--rse-color-warning-text);border-radius:999px;padding:8px 16px;align-self:flex-start;font-size:13px;font-weight:700">Inscrições até 00/00/0000</div>
+<div style="display:flex;align-items:center;gap:10px;background:var(--rse-color-warning-surface);color:var(--rse-color-warning-text);border-radius:var(--rse-radius-pill);padding:8px 16px;align-self:flex-start;font-size:13px;font-weight:700">Inscrições até 00/00/0000</div>
 </div>
-<div style="aspect-ratio:16/10;border-radius:32px;background:repeating-linear-gradient(135deg,var(--rse-brand-gray-200) 0 10px,var(--rse-brand-gray-100) 10px 20px);display:flex;align-items:flex-end;padding:20px">
-<span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;background:var(--rse-color-surface-card);border-radius:8px;padding:6px 10px;color:var(--rse-color-text-muted)">foto · estudantes em atividade · 16:10</span>
-</div>
+<image-slot id="hero-photo" shape="rounded" radius="32" style="width:100%;aspect-ratio:16/10;display:block" placeholder="estudantes em atividade, luz natural, estilo documental"></image-slot>
 </section>
 <section style="max-width:1200px;margin:0 auto;padding:32px 24px 64px" id="programas">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;padding:40px;background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:24px;box-shadow:var(--rse-shadow-sm)">
-<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:clamp(2rem,2.4vw,2.75rem);font-weight:900;line-height:1.08;letter-spacing:-0.02em;color:var(--rse-color-primary)">3 anos</span><span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">Duração</span></div>
-<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:clamp(2rem,2.4vw,2.75rem);font-weight:900;line-height:1.08;letter-spacing:-0.02em;color:var(--rse-brand-green-dark)">00</span><span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">Alunos por turma</span></div>
-<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:clamp(2rem,2.4vw,2.75rem);font-weight:900;line-height:1.08;letter-spacing:-0.02em;color:var(--rse-brand-orange-dark)">0h00</span><span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">Carga diária</span></div>
-<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:clamp(2rem,2.4vw,2.75rem);font-weight:900;line-height:1.08;letter-spacing:-0.02em;color:var(--rse-brand-blue-dark)">00%</span><span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">Com projeto de vida</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:32px;padding:40px;background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);box-shadow:var(--rse-shadow-sm)">
+<x-import component-from-global-scope="RSE.Stat" value="0 anos" label="Duração" accent="primary" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="00 alunos" label="Por turma" accent="green" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="0h00" label="Carga diária" accent="orange" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="00%" label="Com projeto de vida" accent="blue" hint-size="100%,96px"></x-import>
 </div>
 </section>
 <section style="max-width:1200px;margin:0 auto;padding:0 24px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px">
@@ -63,11 +62,11 @@
 </ul>
 </div>
 <div style="display:flex;flex-direction:column;gap:16px">
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--rse-shadow-sm)">
+<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--rse-shadow-sm)">
 <h3 style="margin:0;font-size:1.25rem;font-weight:800;color:var(--rse-color-text-heading)">Quem tem prioridade</h3>
 <p style="margin:0;font-size:16px;line-height:1.6">Trabalhadores do comércio de bens, serviços e turismo e seus dependentes, com condições diferenciadas. Vagas remanescentes ficam abertas à comunidade.</p>
 </div>
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--rse-shadow-sm)">
+<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--rse-shadow-sm)">
 <h3 style="margin:0;font-size:1.25rem;font-weight:800;color:var(--rse-color-text-heading)">Gratuidade</h3>
 <p style="margin:0;font-size:16px;line-height:1.6">Parte das vagas é destinada ao Programa de Comprometimento e Gratuidade, conforme o regulamento nacional do Sesc.</p>
 </div>
@@ -79,7 +78,7 @@
 <h2 style="margin:0;font-size:2rem;font-weight:800;letter-spacing:-0.02em;color:var(--rse-color-text-heading)">Turnos e vagas por unidade</h2>
 </div>
 <x-import component-from-global-scope="RSE.FilterChips" label="Turno" options="{{ turnoOptions }}" value="{{ turnos }}" onChange="{{ setTurnos }}" hint-size="100%,80px"></x-import>
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:24px;overflow:hidden;box-shadow:var(--rse-shadow-sm)">
+<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);overflow:hidden;box-shadow:var(--rse-shadow-sm)">
 <div style="overflow-x:auto">
 <table style="width:100%;border-collapse:collapse">
 <thead><tr>
@@ -90,28 +89,28 @@
 </tr></thead>
 <tbody>
 <tr style="border-bottom:1px solid var(--rse-color-border-subtle)">
-<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade Centro</td>
+<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade exemplo 1</td>
 <td style="padding:16px 20px;font-size:16px">Manhã</td>
 <td style="padding:16px 20px;font-size:16px">00/00/0000</td>
-<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px">Vagas abertas</span></td>
+<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rse-radius-pill)">Vagas abertas</span></td>
 </tr>
 <tr style="border-bottom:1px solid var(--rse-color-border-subtle);background:var(--rse-color-surface-sunken)">
-<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade Norte</td>
+<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade exemplo 2</td>
 <td style="padding:16px 20px;font-size:16px">Manhã</td>
 <td style="padding:16px 20px;font-size:16px">00/00/0000</td>
-<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-warning-surface);color:var(--rse-color-warning-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px">Últimas vagas</span></td>
+<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-warning-surface);color:var(--rse-color-warning-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rse-radius-pill)">Últimas vagas</span></td>
 </tr>
 <tr style="border-bottom:1px solid var(--rse-color-border-subtle)">
-<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade Leste</td>
+<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade exemplo 3</td>
 <td style="padding:16px 20px;font-size:16px">Tarde</td>
 <td style="padding:16px 20px;font-size:16px">00/00/0000</td>
-<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px">Vagas abertas</span></td>
+<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rse-radius-pill)">Vagas abertas</span></td>
 </tr>
 <tr>
-<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade Sul</td>
+<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade exemplo 4</td>
 <td style="padding:16px 20px;font-size:16px">Integral</td>
 <td style="padding:16px 20px;font-size:16px">00/00/0000</td>
-<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-danger-surface);color:var(--rse-color-danger-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px">Encerrado</span></td>
+<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-danger-surface);color:var(--rse-color-danger-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rse-radius-pill)">Encerrado</span></td>
 </tr>
 </tbody>
 </table>
@@ -129,7 +128,7 @@
 <section id="unidade" style="background:var(--rse-color-primary);padding:80px 24px">
 <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px;align-items:center">
 <div style="display:flex;flex-direction:column;gap:24px">
-<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-on-primary)">Unidade Centro</p>
+<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-on-primary)">Unidade exemplo 1</p>
 <h2 style="margin:0;font-size:2.25rem;line-height:1.15;font-weight:800;letter-spacing:-0.02em;color:var(--rse-color-text-on-primary)">Venha conhecer a escola</h2>
 <p style="margin:0;font-size:18px;line-height:1.6;color:var(--rse-color-text-on-primary);max-width:52ch">Visitas guiadas em dias e horários a definir (00h às 00h), com agendamento prévio. Traga o estudante — a decisão é dele também.</p>
 <div style="display:flex;flex-direction:column;gap:8px;font-size:16px;color:var(--rse-color-text-on-primary)">
@@ -137,7 +136,7 @@
 <span>(00) 0000-0000 · unidade@exemplo.sesc.br</span>
 </div>
 </div>
-<div id="inscricao" style="background:var(--rse-color-surface-card);border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:20px;box-shadow:var(--rse-shadow-lg)">
+<div id="inscricao" style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);padding:36px;display:flex;flex-direction:column;gap:20px;box-shadow:var(--rse-shadow-lg)">
 <h3 style="margin:0;font-size:1.5rem;font-weight:800;color:var(--rse-color-text-heading)">Comece sua inscrição</h3>
 <p style="margin:0;font-size:16px;line-height:1.6">Leva poucos minutos. Você pode salvar e continuar depois.</p>
 <x-import component-from-global-scope="RSE.Stepper" steps="{{ steps }}" current="{{ 1 }}" hint-size="100%,120px"></x-import>
@@ -146,7 +145,7 @@
 </div>
 </div>
 </section>
-<footer style="background:var(--rse-brand-ink);color:var(--rse-color-text-on-ink-muted);padding:56px 24px">
+<footer style="background:var(--rse-color-surface-inverse);color:var(--rse-color-text-on-ink-muted);padding:56px 24px">
 <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:48px;justify-content:space-between;align-items:flex-start">
 <img src="../../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação" style="height:52px;width:auto;object-fit:contain">
 <div style="display:flex;gap:56px;flex-wrap:wrap;font-size:15px">
