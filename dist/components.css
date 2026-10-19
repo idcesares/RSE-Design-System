@@ -403,4 +403,110 @@
 /* components/forms/Textarea.css */
 /* Textarea — .rse-input.rse-textarea */
 .rse-textarea{min-height:6rem;line-height:var(--rse-line-height-body);resize:vertical}
+
+/* components/navigation/Footer.css */
+/* Footer — .rse-footer. Ink-surface site footer: brand block (logo + tagline), a responsive grid of
+   link columns and an optional legal note. Columns reflow from one up to as many as fit (160px min). */
+.rse-footer{
+  box-sizing:border-box;width:100%;background:var(--rse-brand-ink);color:var(--rse-color-text-on-ink-muted);
+  font-family:var(--rse-font-family);
+}
+.rse-footer__inner{
+  box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr);gap:var(--rse-space-6);
+  max-width:var(--rse-container-xl);margin:0 auto;padding:var(--rse-section-y-sm) var(--rse-container-padding) var(--rse-space-6);
+}
+.rse-footer__brand{min-width:0}
+.rse-footer__logo{display:block;height:36px;max-width:100%;width:auto;margin-bottom:var(--rse-space-4)}
+.rse-footer__tagline{margin:0;max-width:260px;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-color-text-on-ink-muted)}
+.rse-footer__columns{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:var(--rse-space-6) var(--rse-space-5);min-width:0;
+}
+.rse-footer__column{min-width:0;display:flex;flex-direction:column;gap:var(--rse-space-1)}
+.rse-footer__title{
+  margin:0 0 var(--rse-space-2);font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
+  color:var(--rse-color-text-on-ink);
+}
+.rse-footer__link{
+  display:inline-flex;align-items:center;min-height:var(--rse-hit-target-min);box-sizing:border-box;
+  font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-on-ink-muted);text-decoration:none;overflow-wrap:anywhere;
+}
+.rse-footer__link:hover{color:var(--rse-color-text-on-ink);text-decoration:underline}
+.rse-footer__link:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset)}
+.rse-footer__note{
+  box-sizing:border-box;max-width:var(--rse-container-xl);margin:0 auto;padding:var(--rse-space-5) var(--rse-container-padding);
+  border-top:1px solid var(--rse-color-border-on-ink);font-size:var(--rse-font-size-caption);color:var(--rse-color-text-on-ink-muted);
+}
+@media (min-width:48rem){
+  .rse-footer__inner{grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:var(--rse-space-7)}
+}
+
+/* components/navigation/Navbar.css */
+/* Navbar — .rse-navbar. Sticky translucent site header: logo, link list and one call to action.
+   Wraps instead of overflowing: below 48rem the links drop to their own row under logo + CTA.
+   A hamburger/drawer is out of scope (roadmap P3.2). Current page: aria-current="page" on __link. */
+.rse-navbar{
+  position:sticky;top:0;z-index:var(--rse-z-sticky);box-sizing:border-box;width:100%;
+  background:var(--rse-color-surface-page-translucent);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rse-color-border-subtle);font-family:var(--rse-font-family);
+}
+.rse-navbar__inner{
+  box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:var(--rse-space-2) var(--rse-space-5);max-width:var(--rse-container-xl);margin:0 auto;
+  padding:var(--rse-space-3) var(--rse-container-padding);
+}
+.rse-navbar__logo{display:block;height:34px;max-width:100%;width:auto;flex:0 0 auto}
+.rse-navbar__links{
+  display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--rse-space-5);
+  margin:0;padding:0;min-width:0;order:2;flex:1 1 auto;justify-content:center;
+}
+.rse-navbar__link{
+  display:inline-flex;align-items:center;min-height:var(--rse-hit-target-min);box-sizing:border-box;
+  font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
+  text-decoration:none;color:var(--rse-color-text-body);
+}
+.rse-navbar__link:hover{color:var(--rse-color-primary);text-decoration:underline}
+.rse-navbar__link[aria-current="page"]{color:var(--rse-color-primary)}
+.rse-navbar__link:focus-visible,.rse-navbar__cta:focus-visible{
+  outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset);
+}
+.rse-navbar__cta{
+  display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;order:3;flex:0 0 auto;
+  min-height:var(--rse-hit-target-min);padding:var(--rse-space-2) var(--rse-space-5);border-radius:var(--rse-radius-pill);
+  background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);
+  font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);text-decoration:none;white-space:nowrap;
+}
+.rse-navbar__cta:hover{text-decoration:underline}
+@media (max-width:47.99rem){
+  .rse-navbar__logo{order:1}
+  .rse-navbar__cta{order:2}
+  .rse-navbar__links{order:3;flex:1 1 100%;justify-content:flex-start;column-gap:var(--rse-space-4)}
+}
+
+/* components/navigation/Tabs.css */
+/* Tabs — .rse-tabs > .rse-tabs__list[role=tablist] > .rse-tabs__tab[role=tab][aria-selected]
+   and, wherever you like, .rse-tabs__panel[role=tabpanel] for the content.
+   The list scrolls sideways inside itself when the tabs do not fit (it never widens the page).
+   Its padding is the focus-ring room: overflow clips outlines, so the ring must sit inside it. */
+.rse-tabs{display:block;max-width:100%;font-family:var(--rse-font-family)}
+.rse-tabs__list{
+  --rse-tabs-ring-room:calc(var(--rse-focus-ring-width) + var(--rse-focus-ring-offset));
+  display:flex;gap:var(--rse-space-1);width:fit-content;max-width:100%;box-sizing:border-box;
+  padding:var(--rse-tabs-ring-room);scroll-padding-inline:var(--rse-tabs-ring-room);
+  overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+  background:var(--rse-color-surface-sunken);border-radius:var(--rse-radius-pill);
+}
+.rse-tabs__tab{
+  flex:none;scroll-snap-align:start;white-space:nowrap;
+  min-height:var(--rse-hit-target-min);padding:var(--rse-space-2) var(--rse-space-5);
+  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
+  color:var(--rse-color-text-muted);background:transparent;border:none;border-radius:var(--rse-radius-pill);
+  box-shadow:none;cursor:pointer;
+  transition:background var(--rse-duration-base) var(--rse-ease-standard),color var(--rse-duration-base) var(--rse-ease-standard);
+}
+.rse-tabs__tab:hover{background:color-mix(in srgb,var(--rse-color-surface-card) 60%,transparent);color:var(--rse-color-text-heading)}
+.rse-tabs__tab:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset)}
+.rse-tabs__tab[aria-selected="true"]{background:var(--rse-color-surface-card);color:var(--rse-color-primary);box-shadow:var(--rse-shadow-sm)}
+.rse-tabs__panel{margin-top:var(--rse-space-4)}
+.rse-tabs__panel[hidden]{display:none}
 }

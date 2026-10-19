@@ -1147,23 +1147,25 @@ return { Breadcrumb };
 
 // components/navigation/Footer.jsx
 define("components/navigation/Footer.jsx", ["Footer"], () => {
-function Footer({ logoSrc, logoAlt, tagline, columns = [], note }) {
-  return React.createElement('footer', { style: { background: 'var(--rse-brand-ink)', color: 'var(--rse-brand-gray-300)', fontFamily: 'var(--rse-font-family)' } },
-    React.createElement('div', { style: { maxWidth: 'var(--rse-container-xl)', margin: '0 auto', padding: '64px var(--rse-container-padding) 32px', display: 'grid', gridTemplateColumns: `1.2fr ${columns.map(() => '1fr').join(' ')}`, gap: 40, boxSizing: 'border-box' } },
-      React.createElement('div', null,
-        logoSrc ? React.createElement('img', { src: logoSrc, alt: logoAlt || '', style: { height: 36, marginBottom: 16, display: 'block' } }) : null,
-        tagline ? React.createElement('p', { style: { fontSize: 'var(--rse-font-size-body-sm)', maxWidth: 260, lineHeight: 'var(--rse-line-height-body)', color: 'var(--rse-brand-gray-400)', margin: 0 } }, tagline) : null
-      ),
-      columns.map((c, i) => React.createElement('div', { key: i },
-        React.createElement('div', { style: { fontWeight: 'var(--rse-font-weight-semibold)', color: 'var(--rse-color-text-on-ink)', fontSize: 'var(--rse-font-size-body-sm)', marginBottom: 14 } }, c.title),
-        React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
-          (c.links || []).map((it, j) => React.createElement('a', { key: j, href: it.href || '#', style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-brand-gray-400)', textDecoration: 'none' } }, it.label))
-        )
-      ))
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in Footer.css. Column count follows the `columns` array.
+const Footer = React.forwardRef(function Footer({ logoSrc, logoAlt, tagline, columns = [], note, className, ...rest }, ref) {
+  return React.createElement('footer', { ref, className: cx('rse-footer', className), ...rest },
+    React.createElement('div', { className: 'rse-footer__inner' },
+      (logoSrc || tagline) ? React.createElement('div', { className: 'rse-footer__brand' },
+        logoSrc ? React.createElement('img', { className: 'rse-footer__logo', src: logoSrc, alt: logoAlt || '' }) : null,
+        tagline ? React.createElement('p', { className: 'rse-footer__tagline' }, tagline) : null
+      ) : null,
+      columns.length ? React.createElement('div', { className: 'rse-footer__columns' },
+        columns.map((c, i) => React.createElement('nav', { key: i, className: 'rse-footer__column', 'aria-label': c.title },
+          React.createElement('p', { className: 'rse-footer__title' }, c.title),
+          (c.links || []).map((it, j) => React.createElement('a', { key: j, className: 'rse-footer__link', href: it.href || '#' }, it.label))
+        ))
+      ) : null
     ),
-    note ? React.createElement('div', { style: { borderTop: '1px solid var(--rse-color-border-on-ink)', padding: '20px var(--rse-container-padding)', maxWidth: 'var(--rse-container-xl)', margin: '0 auto', fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-brand-gray-400)', boxSizing: 'border-box' } }, note) : null
+    note ? React.createElement('div', { className: 'rse-footer__note' }, note) : null
   );
-}
+});
 return { Footer };
 });
 
@@ -1243,25 +1245,22 @@ return { Menu };
 
 // components/navigation/Navbar.jsx
 define("components/navigation/Navbar.jsx", ["Navbar"], () => {
-function Navbar({ logoSrc, logoAlt, links = [], activeHref, ctaLabel, ctaHref, onCtaClick }) {
-  return React.createElement('header', {
-    style: { position: 'sticky', top: 0, zIndex: 'var(--rse-z-sticky)', background: 'var(--rse-color-surface-page-translucent)', backdropFilter: 'blur(8px)', borderBottom: '1px solid var(--rse-color-border-subtle)', fontFamily: 'var(--rse-font-family)' }
-  },
-    React.createElement('div', { style: { maxWidth: 'var(--rse-container-xl)', margin: '0 auto', padding: '16px var(--rse-container-padding)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, boxSizing: 'border-box' } },
-      logoSrc ? React.createElement('img', { src: logoSrc, alt: logoAlt || '', style: { height: 34 } }) : null,
-      React.createElement('nav', { style: { display: 'flex', gap: 28, flexWrap: 'wrap' } },
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in Navbar.css. Hover, focus and the current-page colour live in CSS.
+const Navbar = React.forwardRef(function Navbar({ logoSrc, logoAlt, links = [], activeHref, ctaLabel, ctaHref, onCtaClick, className, ...rest }, ref) {
+  return React.createElement('header', { ref, className: cx('rse-navbar', className), ...rest },
+    React.createElement('div', { className: 'rse-navbar__inner' },
+      logoSrc ? React.createElement('img', { className: 'rse-navbar__logo', src: logoSrc, alt: logoAlt || '' }) : null,
+      links.length ? React.createElement('nav', { className: 'rse-navbar__links', 'aria-label': 'Principal' },
         links.map((l, i) => React.createElement('a', {
-          key: i, href: l.href || '#',
-          style: { fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)', textDecoration: 'none', color: l.href === activeHref ? 'var(--rse-color-primary)' : 'var(--rse-color-text-body)' }
+          key: i, className: 'rse-navbar__link', href: l.href || '#',
+          'aria-current': activeHref && l.href === activeHref ? 'page' : undefined
         }, l.label))
-      ),
-      ctaLabel ? React.createElement('a', {
-        href: ctaHref || '#', onClick: onCtaClick,
-        style: { fontWeight: 'var(--rse-font-weight-semibold)', fontSize: 'var(--rse-font-size-body-sm)', padding: '10px 22px', borderRadius: 'var(--rse-radius-pill)', background: 'var(--rse-color-primary)', color: 'var(--rse-color-text-on-primary)', textDecoration: 'none', whiteSpace: 'nowrap' }
-      }, ctaLabel) : null
+      ) : null,
+      ctaLabel ? React.createElement('a', { className: 'rse-navbar__cta', href: ctaHref || '#', onClick: onCtaClick }, ctaLabel) : null
     )
   );
-}
+});
 return { Navbar };
 });
 
@@ -1294,7 +1293,9 @@ return { Pagination };
 
 // components/navigation/Tabs.jsx
 define("components/navigation/Tabs.jsx", ["Tabs"], () => {
-function Tabs({ tabs = [], activeId, onChange, label = 'Seções' }) {
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in Tabs.css.
+const Tabs = React.forwardRef(function Tabs({ tabs = [], activeId, onChange, label = 'Seções', className, ...rest }, ref) {
   const refs = React.useRef({});
   const select = (tab) => {
     if (!tab) return;
@@ -1313,32 +1314,22 @@ function Tabs({ tabs = [], activeId, onChange, label = 'Seções' }) {
     if (i < 0) return select(tabs[0]);
     select(tabs[(i + (k === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length]);
   };
-  return React.createElement('div', {
-    role: 'tablist', 'aria-label': label, onKeyDown,
-    style: { display: 'inline-flex', gap: 4, padding: 4, background: 'var(--rse-color-surface-sunken)', borderRadius: 'var(--rse-radius-pill)', fontFamily: 'var(--rse-font-family)' }
-  },
-    tabs.map(t => {
-      const active = t.id === activeId;
-      return React.createElement('button', {
-        key: t.id, type: 'button', role: 'tab', id: 'tab-' + t.id,
-        'aria-selected': active ? 'true' : 'false',
-        'aria-controls': t.panelId,
-        tabIndex: active ? 0 : -1,
-        ref: el => { refs.current[t.id] = el; },
-        onClick: () => onChange && onChange(t.id),
-        style: {
-          padding: '10px 20px', borderRadius: 'var(--rse-radius-pill)', border: 'none', cursor: 'pointer',
-          fontFamily: 'var(--rse-font-family)',
-          fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)',
-          background: active ? 'var(--rse-color-surface-card)' : 'transparent',
-          color: active ? 'var(--rse-color-primary)' : 'var(--rse-color-text-muted)',
-          boxShadow: active ? 'var(--rse-shadow-sm)' : 'none',
-          transition: 'background var(--rse-duration-base) var(--rse-ease-standard), color var(--rse-duration-base) var(--rse-ease-standard)'
-        }
-      }, t.label);
-    })
+  return React.createElement('div', { ref, className: cx('rse-tabs', className), ...rest },
+    React.createElement('div', { className: 'rse-tabs__list', role: 'tablist', 'aria-label': label, onKeyDown },
+      tabs.map(t => {
+        const active = t.id === activeId;
+        return React.createElement('button', {
+          key: t.id, type: 'button', role: 'tab', className: 'rse-tabs__tab', id: 'tab-' + t.id,
+          'aria-selected': active ? 'true' : 'false',
+          'aria-controls': t.panelId,
+          tabIndex: active ? 0 : -1,
+          ref: el => { refs.current[t.id] = el; },
+          onClick: () => onChange && onChange(t.id)
+        }, t.label);
+      })
+    )
   );
-}
+});
 return { Tabs };
 });
 

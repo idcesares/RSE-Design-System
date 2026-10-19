@@ -360,15 +360,15 @@ Path trail for deep pages — unit detail, program detail, portal sub-pages.
 
 ### Footer
 
-Ink-background site footer — the reusable primitive behind the site ui kit's bespoke `SiteFooter`.
+Ink-surface site footer: brand block, responsive link columns and a legal note.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
-| `logoSrc` | `string` | — |  |
+| `logoSrc` | `string` | — | Logo image URL (use the white wordmark on the ink surface) |
 | `logoAlt` | `string` | — |  |
-| `tagline` | `string` | — |  |
-| `columns` | `FooterColumn[]` | — |  |
-| `note` | `string` | — |  |
+| `tagline` | `string` | — | One line under the logo |
+| `columns` | `FooterColumn[]` | — | Link columns; the grid reflows to as many as fit, one per row on a phone |
+| `note` | `string` | — | Legal line below a divider |
 
 `components/navigation/Footer.jsx` · [props](../components/navigation/Footer.d.ts) · [usage](../components/navigation/Footer.prompt.md)
 
@@ -390,15 +390,15 @@ Dropdown menu for navigation and actions: regional unit pickers, Programas nav s
 
 ### Navbar
 
-Sticky site header — the reusable primitive behind the site ui kit's bespoke `SiteHeader`. Translucent cream, blurred, thin bottom border.
+Sticky site header: logo, text links and one call to action; wraps instead of overflowing (no drawer yet, roadmap P3.2).
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
-| `logoSrc` | `string` | — |  |
-| `logoAlt` | `string` | — |  |
-| `links` | `NavbarLink[]` | — |  |
-| `activeHref` | `string` | — |  |
-| `ctaLabel` | `string` | — |  |
+| `logoSrc` | `string` | — | Logo image URL |
+| `logoAlt` | `string` | — | Alt text for the logo |
+| `links` | `NavbarLink[]` | — | Text links; they wrap onto their own row on narrow screens |
+| `activeHref` | `string` | — | The link whose href matches gets aria-current="page" and the primary colour |
+| `ctaLabel` | `string` | — | Call-to-action label; omit for no button |
 | `ctaHref` | `string` | — |  |
 | `onCtaClick` | `() => void` | — |  |
 
@@ -418,7 +418,7 @@ Page-number control for long unit/program listings.
 
 ### Tabs
 
-Pill tab bar for switching sections. Implements the ARIA tablist pattern: roving tabIndex, `aria-selected`, and Left/Right/Home/End keyboard navigation.
+Pill tab bar for switching sections. Implements the ARIA tablist pattern: roving tabIndex, `aria-selected`, and Left/Right/Home/End keyboard navigation. The tab list scrolls sideways inside itself on narrow screens. Class contract: .rse-tabs, __list, __tab, __panel.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |

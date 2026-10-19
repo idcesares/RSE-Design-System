@@ -1,20 +1,17 @@
 import React from 'react';
-export function Navbar({ logoSrc, logoAlt, links = [], activeHref, ctaLabel, ctaHref, onCtaClick }) {
-  return React.createElement('header', {
-    style: { position: 'sticky', top: 0, zIndex: 'var(--rse-z-sticky)', background: 'var(--rse-color-surface-page-translucent)', backdropFilter: 'blur(8px)', borderBottom: '1px solid var(--rse-color-border-subtle)', fontFamily: 'var(--rse-font-family)' }
-  },
-    React.createElement('div', { style: { maxWidth: 'var(--rse-container-xl)', margin: '0 auto', padding: '16px var(--rse-container-padding)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, boxSizing: 'border-box' } },
-      logoSrc ? React.createElement('img', { src: logoSrc, alt: logoAlt || '', style: { height: 34 } }) : null,
-      React.createElement('nav', { style: { display: 'flex', gap: 28, flexWrap: 'wrap' } },
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in Navbar.css. Hover, focus and the current-page colour live in CSS.
+export const Navbar = React.forwardRef(function Navbar({ logoSrc, logoAlt, links = [], activeHref, ctaLabel, ctaHref, onCtaClick, className, ...rest }, ref) {
+  return React.createElement('header', { ref, className: cx('rse-navbar', className), ...rest },
+    React.createElement('div', { className: 'rse-navbar__inner' },
+      logoSrc ? React.createElement('img', { className: 'rse-navbar__logo', src: logoSrc, alt: logoAlt || '' }) : null,
+      links.length ? React.createElement('nav', { className: 'rse-navbar__links', 'aria-label': 'Principal' },
         links.map((l, i) => React.createElement('a', {
-          key: i, href: l.href || '#',
-          style: { fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)', textDecoration: 'none', color: l.href === activeHref ? 'var(--rse-color-primary)' : 'var(--rse-color-text-body)' }
+          key: i, className: 'rse-navbar__link', href: l.href || '#',
+          'aria-current': activeHref && l.href === activeHref ? 'page' : undefined
         }, l.label))
-      ),
-      ctaLabel ? React.createElement('a', {
-        href: ctaHref || '#', onClick: onCtaClick,
-        style: { fontWeight: 'var(--rse-font-weight-semibold)', fontSize: 'var(--rse-font-size-body-sm)', padding: '10px 22px', borderRadius: 'var(--rse-radius-pill)', background: 'var(--rse-color-primary)', color: 'var(--rse-color-text-on-primary)', textDecoration: 'none', whiteSpace: 'nowrap' }
-      }, ctaLabel) : null
+      ) : null,
+      ctaLabel ? React.createElement('a', { className: 'rse-navbar__cta', href: ctaHref || '#', onClick: onCtaClick }, ctaLabel) : null
     )
   );
-}
+});

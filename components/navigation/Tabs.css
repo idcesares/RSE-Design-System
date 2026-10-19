@@ -1,0 +1,26 @@
+/* Tabs — .rse-tabs > .rse-tabs__list[role=tablist] > .rse-tabs__tab[role=tab][aria-selected]
+   and, wherever you like, .rse-tabs__panel[role=tabpanel] for the content.
+   The list scrolls sideways inside itself when the tabs do not fit (it never widens the page).
+   Its padding is the focus-ring room: overflow clips outlines, so the ring must sit inside it. */
+.rse-tabs{display:block;max-width:100%;font-family:var(--rse-font-family)}
+.rse-tabs__list{
+  --rse-tabs-ring-room:calc(var(--rse-focus-ring-width) + var(--rse-focus-ring-offset));
+  display:flex;gap:var(--rse-space-1);width:fit-content;max-width:100%;box-sizing:border-box;
+  padding:var(--rse-tabs-ring-room);scroll-padding-inline:var(--rse-tabs-ring-room);
+  overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+  background:var(--rse-color-surface-sunken);border-radius:var(--rse-radius-pill);
+}
+.rse-tabs__tab{
+  flex:none;scroll-snap-align:start;white-space:nowrap;
+  min-height:var(--rse-hit-target-min);padding:var(--rse-space-2) var(--rse-space-5);
+  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
+  color:var(--rse-color-text-muted);background:transparent;border:none;border-radius:var(--rse-radius-pill);
+  box-shadow:none;cursor:pointer;
+  transition:background var(--rse-duration-base) var(--rse-ease-standard),color var(--rse-duration-base) var(--rse-ease-standard);
+}
+.rse-tabs__tab:hover{background:color-mix(in srgb,var(--rse-color-surface-card) 60%,transparent);color:var(--rse-color-text-heading)}
+.rse-tabs__tab:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset)}
+.rse-tabs__tab[aria-selected="true"]{background:var(--rse-color-surface-card);color:var(--rse-color-primary);box-shadow:var(--rse-shadow-sm)}
+.rse-tabs__panel{margin-top:var(--rse-space-4)}
+.rse-tabs__panel[hidden]{display:none}

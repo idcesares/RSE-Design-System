@@ -1,6 +1,8 @@
 'use client';
 import React from 'react';
-export function Tabs({ tabs = [], activeId, onChange, label = 'Seções' }) {
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in Tabs.css.
+export const Tabs = React.forwardRef(function Tabs({ tabs = [], activeId, onChange, label = 'Seções', className, ...rest }, ref) {
   const refs = React.useRef({});
   const select = (tab) => {
     if (!tab) return;
@@ -19,29 +21,19 @@ export function Tabs({ tabs = [], activeId, onChange, label = 'Seções' }) {
     if (i < 0) return select(tabs[0]);
     select(tabs[(i + (k === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length]);
   };
-  return React.createElement('div', {
-    role: 'tablist', 'aria-label': label, onKeyDown,
-    style: { display: 'inline-flex', gap: 4, padding: 4, background: 'var(--rse-color-surface-sunken)', borderRadius: 'var(--rse-radius-pill)', fontFamily: 'var(--rse-font-family)' }
-  },
-    tabs.map(t => {
-      const active = t.id === activeId;
-      return React.createElement('button', {
-        key: t.id, type: 'button', role: 'tab', id: 'tab-' + t.id,
-        'aria-selected': active ? 'true' : 'false',
-        'aria-controls': t.panelId,
-        tabIndex: active ? 0 : -1,
-        ref: el => { refs.current[t.id] = el; },
-        onClick: () => onChange && onChange(t.id),
-        style: {
-          padding: '10px 20px', borderRadius: 'var(--rse-radius-pill)', border: 'none', cursor: 'pointer',
-          fontFamily: 'var(--rse-font-family)',
-          fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)',
-          background: active ? 'var(--rse-color-surface-card)' : 'transparent',
-          color: active ? 'var(--rse-color-primary)' : 'var(--rse-color-text-muted)',
-          boxShadow: active ? 'var(--rse-shadow-sm)' : 'none',
-          transition: 'background var(--rse-duration-base) var(--rse-ease-standard), color var(--rse-duration-base) var(--rse-ease-standard)'
-        }
-      }, t.label);
-    })
+  return React.createElement('div', { ref, className: cx('rse-tabs', className), ...rest },
+    React.createElement('div', { className: 'rse-tabs__list', role: 'tablist', 'aria-label': label, onKeyDown },
+      tabs.map(t => {
+        const active = t.id === activeId;
+        return React.createElement('button', {
+          key: t.id, type: 'button', role: 'tab', className: 'rse-tabs__tab', id: 'tab-' + t.id,
+          'aria-selected': active ? 'true' : 'false',
+          'aria-controls': t.panelId,
+          tabIndex: active ? 0 : -1,
+          ref: el => { refs.current[t.id] = el; },
+          onClick: () => onChange && onChange(t.id)
+        }, t.label);
+      })
+    )
   );
-}
+});

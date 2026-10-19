@@ -624,13 +624,13 @@ window.SHOWCASE_DATA = {
       "group": "navigation",
       "groupLabel": "Navegação",
       "sourcePath": "components/navigation/Footer.jsx",
-      "summary": "Ink-background site footer — the reusable primitive behind the site ui kit's bespoke `SiteFooter`.",
+      "summary": "Ink-surface site footer: brand block, responsive link columns and a legal note.",
       "props": [
         {
           "name": "logoSrc",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "Logo image URL (use the white wordmark on the ink surface)"
         },
         {
           "name": "logoAlt",
@@ -642,19 +642,19 @@ window.SHOWCASE_DATA = {
           "name": "tagline",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "One line under the logo"
         },
         {
           "name": "columns",
           "type": "FooterColumn[]",
           "required": false,
-          "notes": ""
+          "notes": "Link columns; the grid reflows to as many as fit, one per row on a phone"
         },
         {
           "name": "note",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "Legal line below a divider"
         }
       ]
     },
@@ -939,37 +939,37 @@ window.SHOWCASE_DATA = {
       "group": "navigation",
       "groupLabel": "Navegação",
       "sourcePath": "components/navigation/Navbar.jsx",
-      "summary": "Sticky site header — the reusable primitive behind the site ui kit's bespoke `SiteHeader`. Translucent cream, blurred, thin bottom border.",
+      "summary": "Sticky site header: logo, text links and one call to action; wraps instead of overflowing (no drawer yet, roadmap P3.2).",
       "props": [
         {
           "name": "logoSrc",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "Logo image URL"
         },
         {
           "name": "logoAlt",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "Alt text for the logo"
         },
         {
           "name": "links",
           "type": "NavbarLink[]",
           "required": false,
-          "notes": ""
+          "notes": "Text links; they wrap onto their own row on narrow screens"
         },
         {
           "name": "activeHref",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "The link whose href matches gets aria-current=\"page\" and the primary colour"
         },
         {
           "name": "ctaLabel",
           "type": "string",
           "required": false,
-          "notes": ""
+          "notes": "Call-to-action label; omit for no button"
         },
         {
           "name": "ctaHref",
@@ -1359,7 +1359,7 @@ window.SHOWCASE_DATA = {
       "group": "navigation",
       "groupLabel": "Navegação",
       "sourcePath": "components/navigation/Tabs.jsx",
-      "summary": "Pill tab bar for switching sections. Implements the ARIA tablist pattern: roving tabIndex, `aria-selected`, and Left/Right/Home/End keyboard navigation.",
+      "summary": "Pill tab bar for switching sections. Implements the ARIA tablist pattern: roving tabIndex, `aria-selected`, and Left/Right/Home/End keyboard navigation. The tab list scrolls sideways inside itself on narrow screens. Class contract: .rse-tabs, __list, __tab, __panel.",
       "props": [
         {
           "name": "tabs",
@@ -3277,7 +3277,10 @@ window.SHOWCASE_DATA = {
     "Radio",
     "Select",
     "Switch",
-    "Textarea"
+    "Textarea",
+    "Footer",
+    "Navbar",
+    "Tabs"
   ],
   "tokenTable": {
     "--rse-brand-cream": {
@@ -5085,10 +5088,10 @@ window.SHOWCASE_DATA = {
     "pagesTested": 8,
     "axeViolations": 0,
     "pagesOverflowingOnPhone": 4,
-    "componentsOnCssContract": 16,
+    "componentsOnCssContract": 19,
     "componentsTotal": 40,
     "componentGlyphIcons": 0,
-    "componentPxLiterals": 74,
+    "componentPxLiterals": 59,
     "componentsWithJsHover": 3
   },
   "package": "@idcesares/rse-design-system",

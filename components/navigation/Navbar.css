@@ -1,0 +1,40 @@
+/* Navbar — .rse-navbar. Sticky translucent site header: logo, link list and one call to action.
+   Wraps instead of overflowing: below 48rem the links drop to their own row under logo + CTA.
+   A hamburger/drawer is out of scope (roadmap P3.2). Current page: aria-current="page" on __link. */
+.rse-navbar{
+  position:sticky;top:0;z-index:var(--rse-z-sticky);box-sizing:border-box;width:100%;
+  background:var(--rse-color-surface-page-translucent);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rse-color-border-subtle);font-family:var(--rse-font-family);
+}
+.rse-navbar__inner{
+  box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:var(--rse-space-2) var(--rse-space-5);max-width:var(--rse-container-xl);margin:0 auto;
+  padding:var(--rse-space-3) var(--rse-container-padding);
+}
+.rse-navbar__logo{display:block;height:34px;max-width:100%;width:auto;flex:0 0 auto}
+.rse-navbar__links{
+  display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--rse-space-5);
+  margin:0;padding:0;min-width:0;order:2;flex:1 1 auto;justify-content:center;
+}
+.rse-navbar__link{
+  display:inline-flex;align-items:center;min-height:var(--rse-hit-target-min);box-sizing:border-box;
+  font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
+  text-decoration:none;color:var(--rse-color-text-body);
+}
+.rse-navbar__link:hover{color:var(--rse-color-primary);text-decoration:underline}
+.rse-navbar__link[aria-current="page"]{color:var(--rse-color-primary)}
+.rse-navbar__link:focus-visible,.rse-navbar__cta:focus-visible{
+  outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset);
+}
+.rse-navbar__cta{
+  display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;order:3;flex:0 0 auto;
+  min-height:var(--rse-hit-target-min);padding:var(--rse-space-2) var(--rse-space-5);border-radius:var(--rse-radius-pill);
+  background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);
+  font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);text-decoration:none;white-space:nowrap;
+}
+.rse-navbar__cta:hover{text-decoration:underline}
+@media (max-width:47.99rem){
+  .rse-navbar__logo{order:1}
+  .rse-navbar__cta{order:2}
+  .rse-navbar__links{order:3;flex:1 1 100%;justify-content:flex-start;column-gap:var(--rse-space-4)}
+}
