@@ -17,9 +17,8 @@ export function DateField({ label, value, onChange, min, max, hint, error, requi
         width: '100%', minHeight: 'var(--rse-hit-target-min)', padding: '10px 16px',
         fontFamily: 'var(--rse-font-family)', fontSize: 'var(--rse-font-size-body-md)', color: 'var(--rse-color-text-heading)',
         background: disabled ? 'var(--rse-color-surface-sunken)' : 'var(--rse-color-surface-card)',
-        border: '1.5px solid ' + borderColor, borderRadius: 'var(--rse-radius-md)', outline: 'none',
-        transition: 'border-color var(--rse-duration-fast) var(--rse-ease-standard), box-shadow var(--rse-duration-fast) var(--rse-ease-standard)',
-        boxShadow: focused && !error ? '0 0 0 3px var(--rse-color-surface-primary-tint)' : 'none'
+        border: '1.5px solid ' + borderColor, borderRadius: 'var(--rse-radius-md)',
+        transition: 'border-color var(--rse-duration-fast) var(--rse-ease-standard)'
       }
     }),
     deadline ? React.createElement('span', {

@@ -747,9 +747,8 @@ function DateField({ label, value, onChange, min, max, hint, error, required, di
         width: '100%', minHeight: 'var(--rse-hit-target-min)', padding: '10px 16px',
         fontFamily: 'var(--rse-font-family)', fontSize: 'var(--rse-font-size-body-md)', color: 'var(--rse-color-text-heading)',
         background: disabled ? 'var(--rse-color-surface-sunken)' : 'var(--rse-color-surface-card)',
-        border: '1.5px solid ' + borderColor, borderRadius: 'var(--rse-radius-md)', outline: 'none',
-        transition: 'border-color var(--rse-duration-fast) var(--rse-ease-standard), box-shadow var(--rse-duration-fast) var(--rse-ease-standard)',
-        boxShadow: focused && !error ? '0 0 0 3px var(--rse-color-surface-primary-tint)' : 'none'
+        border: '1.5px solid ' + borderColor, borderRadius: 'var(--rse-radius-md)',
+        transition: 'border-color var(--rse-duration-fast) var(--rse-ease-standard)'
       }
     }),
     deadline ? React.createElement('span', {
@@ -773,10 +772,14 @@ const { Icon } = scope;
 function FileUpload({ label, hint, accept, multiple = false, files = [], onFilesChange, error, maxSizeLabel }) {
   const [dragging, setDragging] = React.useState(false);
   const inputRef = React.useRef(null);
+  const uid = React.useId();
+  const labelId = uid + '-label';
+  const noteId = uid + '-note';
   const emit = (list) => { if (onFilesChange) onFilesChange(Array.from(list)); };
   const borderColor = error ? 'var(--rse-color-danger)' : dragging ? 'var(--rse-color-primary)' : 'var(--rse-color-border-strong)';
   return React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-3)', fontFamily: 'var(--rse-font-family)' } },
     label ? React.createElement('span', {
+      id: labelId,
       style: { fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)', color: 'var(--rse-color-text-heading)' }
     }, label) : null,
     React.createElement('div', {
@@ -785,6 +788,8 @@ function FileUpload({ label, hint, accept, multiple = false, files = [], onFiles
       onDrop: (e) => { e.preventDefault(); setDragging(false); emit(e.dataTransfer.files); },
       onClick: () => inputRef.current && inputRef.current.click(),
       role: 'button', tabIndex: 0,
+      'aria-labelledby': label ? labelId : undefined,
+      'aria-describedby': (hint || error) ? noteId : undefined,
       onKeyDown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inputRef.current && inputRef.current.click(); } },
       style: {
         border: '1.5px dashed ' + borderColor, borderRadius: 'var(--rse-radius-md)',
@@ -802,8 +807,8 @@ function FileUpload({ label, hint, accept, multiple = false, files = [], onFiles
       }, [accept, maxSizeLabel].filter(Boolean).join(' · ') || 'PDF, JPG ou PNG'),
       React.createElement('input', {
         ref: inputRef, type: 'file', accept, multiple,
-        onChange: (e) => emit(e.target.files),
-        style: { display: 'none' }
+        className: 'rse-control-input', tabIndex: -1, 'aria-hidden': 'true',
+        onChange: (e) => emit(e.target.files)
       })
     ),
     files.length ? React.createElement('ul', { style: { listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-2)' } },
@@ -824,6 +829,7 @@ function FileUpload({ label, hint, accept, multiple = false, files = [], onFiles
       ))
     ) : null,
     (hint || error) ? React.createElement('span', {
+      id: noteId,
       style: { fontSize: 'var(--rse-font-size-caption)', color: error ? 'var(--rse-color-danger-text)' : 'var(--rse-color-text-muted)' }
     }, error || hint) : null
   );

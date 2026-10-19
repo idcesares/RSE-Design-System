@@ -152,8 +152,17 @@ for (const f of allFiles.filter((f) => /^(templates|starters|showcase|docs\/exam
 // ─── 8. A11y guards for the patterns we have already had to fix ─────────────
 for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith('.jsx'))) {
   const text = read(f);
-  if (/createElement\('input'[^)]*display: 'none'/.test(text.replace(/\s+/g, ' '))) {
-    err(`${f}: native input hidden with display:none — it leaves the tab order. Use className 'rse-control-input'.`);
+  const flat = text.replace(/\s+/g, ' ');
+  // Look ahead from each input element rather than matching up to the first ")" — an
+  // arrow function in an earlier prop (onChange: (e) => …) would end the match too soon.
+  for (const m of flat.matchAll(/createElement\('input'/g)) {
+    if (/display: *'none'/.test(flat.slice(m.index, m.index + 600))) {
+      err(`${f}: native input hidden with display:none — it leaves the tab order. Use className 'rse-control-input'.`);
+      break;
+    }
+  }
+  if (/outline: *'none'/.test(flat)) {
+    err(`${f}: inline outline:'none' beats the global :focus-visible ring. Keep the ring (AGENTS.md, accessibility floor).`);
   }
   if (/zIndex: *\d/.test(text)) warn(`${f}: hard-coded zIndex — use the --rse-z-* scale (docs/tokens.md)`);
 }
