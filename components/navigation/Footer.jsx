@@ -1,18 +1,20 @@
 import React from 'react';
-export function Footer({ logoSrc, logoAlt, tagline, columns = [], note }) {
-  return React.createElement('footer', { style: { background: 'var(--rse-brand-ink)', color: 'var(--rse-brand-gray-300)', fontFamily: 'var(--rse-font-family)' } },
-    React.createElement('div', { style: { maxWidth: 'var(--rse-container-xl)', margin: '0 auto', padding: '64px var(--rse-container-padding) 32px', display: 'grid', gridTemplateColumns: `1.2fr ${columns.map(() => '1fr').join(' ')}`, gap: 40, boxSizing: 'border-box' } },
-      React.createElement('div', null,
-        logoSrc ? React.createElement('img', { src: logoSrc, alt: logoAlt || '', style: { height: 36, marginBottom: 16, display: 'block' } }) : null,
-        tagline ? React.createElement('p', { style: { fontSize: 'var(--rse-font-size-body-sm)', maxWidth: 260, lineHeight: 'var(--rse-line-height-body)', color: 'var(--rse-brand-gray-400)', margin: 0 } }, tagline) : null
-      ),
-      columns.map((c, i) => React.createElement('div', { key: i },
-        React.createElement('div', { style: { fontWeight: 'var(--rse-font-weight-semibold)', color: 'var(--rse-color-text-on-ink)', fontSize: 'var(--rse-font-size-body-sm)', marginBottom: 14 } }, c.title),
-        React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
-          (c.links || []).map((it, j) => React.createElement('a', { key: j, href: it.href || '#', style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-brand-gray-400)', textDecoration: 'none' } }, it.label))
-        )
-      ))
+const cx = (...c) => c.filter(Boolean).join(' ');
+// Renders the CSS contract in Footer.css. Column count follows the `columns` array.
+export const Footer = React.forwardRef(function Footer({ logoSrc, logoAlt, tagline, columns = [], note, className, ...rest }, ref) {
+  return React.createElement('footer', { ref, className: cx('rse-footer', className), ...rest },
+    React.createElement('div', { className: 'rse-footer__inner' },
+      (logoSrc || tagline) ? React.createElement('div', { className: 'rse-footer__brand' },
+        logoSrc ? React.createElement('img', { className: 'rse-footer__logo', src: logoSrc, alt: logoAlt || '' }) : null,
+        tagline ? React.createElement('p', { className: 'rse-footer__tagline' }, tagline) : null
+      ) : null,
+      columns.length ? React.createElement('div', { className: 'rse-footer__columns' },
+        columns.map((c, i) => React.createElement('nav', { key: i, className: 'rse-footer__column', 'aria-label': c.title },
+          React.createElement('p', { className: 'rse-footer__title' }, c.title),
+          (c.links || []).map((it, j) => React.createElement('a', { key: j, className: 'rse-footer__link', href: it.href || '#' }, it.label))
+        ))
+      ) : null
     ),
-    note ? React.createElement('div', { style: { borderTop: '1px solid var(--rse-color-border-on-ink)', padding: '20px var(--rse-container-padding)', maxWidth: 'var(--rse-container-xl)', margin: '0 auto', fontSize: 'var(--rse-font-size-caption)', color: 'var(--rse-brand-gray-400)', boxSizing: 'border-box' } }, note) : null
+    note ? React.createElement('div', { className: 'rse-footer__note' }, note) : null
   );
-}
+});

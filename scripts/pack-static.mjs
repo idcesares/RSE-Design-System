@@ -4,7 +4,7 @@
 //
 //   node scripts/pack-static.mjs        # → dist/static/rse-<version>/
 //
-// Upload the folder as-is to a versioned path you control (e.g. /rse/2.1.0/) and link
+// Upload the folder as-is to a versioned path you control (e.g. /rse/2.2.0/) and link
 // rse-<version>/styles.css. The release workflow zips it and attaches it to the GitHub Release.
 // The layout mirrors the repo, so every relative path in it (fonts, starters, bundle) still works.
 

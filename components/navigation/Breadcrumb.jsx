@@ -1,6 +1,6 @@
 import React from 'react';
 export function Breadcrumb({ items = [] }) {
-  return React.createElement('nav', { 'aria-label': 'Breadcrumb', style: { fontFamily: 'var(--rse-font-family)' } },
+  return React.createElement('nav', { 'aria-label': 'Trilha de navegação', style: { fontFamily: 'var(--rse-font-family)' } },
     React.createElement('ol', { style: { display: 'flex', alignItems: 'center', gap: 8, margin: 0, padding: 0, listStyle: 'none', flexWrap: 'wrap' } },
       items.map((it, i) => {
         const last = i === items.length - 1;

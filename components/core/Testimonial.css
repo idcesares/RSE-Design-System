@@ -1,0 +1,25 @@
+/* Testimonial — .rse-testimonial. A static quote: <figure> > <blockquote> + <figcaption>. The
+   typographic quotes are CSS content (text, not icons). The --example modifier and its pill keep demo
+   and template usage visibly placeholder: never ship an invented testimonial. No carousel. */
+.rse-testimonial{
+  box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:var(--rse-space-5);
+  max-width:var(--rse-container-prose);margin:0;padding:var(--rse-space-6);
+  background:var(--rse-color-surface-card);color:var(--rse-color-text-body);
+  border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);
+  box-shadow:var(--rse-shadow-sm);font-family:var(--rse-font-family);
+}
+.rse-testimonial--example{border-style:dashed}
+.rse-testimonial__example{
+  display:inline-flex;align-items:center;padding:0.375rem 0.875rem;border-radius:var(--rse-radius-sm);
+  background:var(--rse-color-tint-purple);color:var(--rse-color-tint-purple-ink);
+  font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-medium);
+}
+.rse-testimonial__quote{
+  margin:0;font-size:var(--rse-font-size-body-lg);line-height:var(--rse-line-height-body);color:var(--rse-color-text-body);
+}
+.rse-testimonial__quote::before{content:"\201C";content:"\201C" / ""}
+.rse-testimonial__quote::after{content:"\201D";content:"\201D" / ""}
+.rse-testimonial__author{display:flex;align-items:center;gap:var(--rse-space-3);margin:0}
+.rse-testimonial__who{display:flex;flex-direction:column;min-width:0}
+.rse-testimonial__name{font-weight:var(--rse-font-weight-bold);color:var(--rse-color-text-heading);letter-spacing:var(--rse-letter-spacing-tight)}
+.rse-testimonial__role,.rse-testimonial__unit{font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted)}

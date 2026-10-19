@@ -2,7 +2,7 @@
 // Every Rede Sesc de Educação token resolved to a literal, per theme.
 //   import { light, dark, cssVar } from '@idcesares/rse-design-system/tokens';
 //   light['--rse-color-primary'] // '#6c62c4'
-export const version = "2.1.0";
+export const version = "2.2.0";
 export const light = {
   "--rse-brand-cream": "#f2f4e4",
   "--rse-brand-indigo": "#4c549e",
@@ -98,11 +98,11 @@ export const light = {
   "--rse-color-tint-purple-ink": "#3a3186",
   "--rse-color-tint-yellow-ink": "#6b4700",
   "--rse-color-data-1": "#6c62c4",
-  "--rse-color-data-2": "#76b3dd",
-  "--rse-color-data-3": "#85b73d",
-  "--rse-color-data-4": "#f4bf2a",
-  "--rse-color-data-5": "#e17f38",
-  "--rse-color-data-6": "#e27879",
+  "--rse-color-data-2": "#4f85b2",
+  "--rse-color-data-3": "#658e1e",
+  "--rse-color-data-4": "#6b4700",
+  "--rse-color-data-5": "#c6621e",
+  "--rse-color-data-6": "#cc646a",
   "--rse-color-scrim": "rgba(43,42,61,0.55)",
   "--rse-font-family": "'Montserrat',-apple-system,'Segoe UI',sans-serif",
   "--rse-font-weight-regular": "400",
@@ -225,7 +225,7 @@ export const dark = {
   "--rse-color-sabia-surface": "#eef0da",
   "--rse-color-primary": "#8e82d8",
   "--rse-color-primary-hover": "#ad98ea",
-  "--rse-color-primary-active": "#6c62c4",
+  "--rse-color-primary-active": "#ad98ea",
   "--rse-color-surface-page": "#1b1a26",
   "--rse-color-surface-card": "#24232f",
   "--rse-color-surface-sunken": "#2e2d3b",
@@ -448,11 +448,11 @@ export const contrast = {
   "--rse-color-tint-purple-ink": "#3a3186",
   "--rse-color-tint-yellow-ink": "#6b4700",
   "--rse-color-data-1": "#6c62c4",
-  "--rse-color-data-2": "#76b3dd",
-  "--rse-color-data-3": "#85b73d",
-  "--rse-color-data-4": "#f4bf2a",
-  "--rse-color-data-5": "#e17f38",
-  "--rse-color-data-6": "#e27879",
+  "--rse-color-data-2": "#4f85b2",
+  "--rse-color-data-3": "#658e1e",
+  "--rse-color-data-4": "#6b4700",
+  "--rse-color-data-5": "#c6621e",
+  "--rse-color-data-6": "#cc646a",
   "--rse-color-scrim": "rgba(43,42,61,0.55)",
   "--rse-font-family": "'Montserrat',-apple-system,'Segoe UI',sans-serif",
   "--rse-font-weight-regular": "400",

@@ -10,8 +10,8 @@ a script can verify, and whether it can start now or waits on a decision.
 | --- | --- |
 | Decisions approved | **D1–D6** (October 2026). D5 without legacy aliases: nothing consumed 1.x, so 2.0.0 is a clean break. |
 | Done in 2.0.0 | **Phase 0** (P0.1–P0.3) · **Phase 1** (P1.1–P1.4) · D6 removals · **P2.4** glyphs → `Icon` · **P2.1–P2.3** for 12 components (Button, IconButton, Card, Tag, Badge, Alert, Input, Select, Textarea, Checkbox, Radio, Switch) · **P2.5** browser tests (errors + axe + 360px) |
-| Measured | axe WCAG 2.2 AA violation nodes across 46 pages: **171 → 0**; contrast pairs gated: **117**, all passing in 3 themes; glyph icons **9 → 0**; px literals in components **133 → 81** |
-| Next | **P2.1/P2.2** for the other 22 components · **P3.1** responsive templates (12 pages still scroll sideways at 360px, ratcheted) · **P3.4** one docs site (see the showcase proposal) |
+| Measured | axe WCAG 2.2 AA violation nodes across 8 pages: **171 → 0**; contrast pairs gated: **117**, all passing in 3 themes; glyph icons **9 → 0**; px literals in components **133 → 81** |
+| Next | **P2.1/P2.2** for the other 24 components · **P3.1** responsive templates (12 pages still scroll sideways at 360px, ratcheted) · **P3.4** one docs site (see the showcase proposal) |
 
 P2.5 landed without screenshot diffs on purpose: baselines of 46 pages × 3 themes churn on every
 intended change and get approved blindly. Runtime errors, axe and phone overflow catch the
@@ -175,7 +175,7 @@ review. Phases overlap; the arrows are real dependencies.
 | **P2.1** CSS contract | `packages/css/components/*.css`, one file per component, in `@layer rse.components`, BEM `.rse-*`, states via `:hover`, `:focus-visible`, `[aria-*]`, `:disabled`; responsive via container queries. Start with the 12 the ecosystem needs first: Button, Link, Field (label/help/error), Input, Select, Checkbox, Radio, Switch, Tag, Badge, Alert, Card. | Each component renders correctly with **no JavaScript** in a plain HTML specimen, in 3 themes × 360/834/1440. | L | D1 |
 | **P2.2** React wrappers | Rewrite `components/*.jsx` to render the P2.1 markup: `forwardRef`, `...rest` spread, `className` merge, `useId`, `href` → `<a>`. No inline style except custom-property pass-through. | `audit` → `componentPxLiterals: 0`, `componentRawColors: 0`, `componentsWithJsHover: 0`, `componentsWithRandomIds: 0`, `componentsWithoutRestProps: 0`. | L | P2.1 |
 | **P2.3** Semantics | Native `<dialog>` for Modal; live region for Toast (`ToastRegion`); Alert `role="status"` unless `urgent`; Menu with roving tabindex + arrows (or downgrade to a disclosure); Card as a container with a stretched primary link, not an `<a>` wrapper; `SkipLink`, `VisuallyHidden`. | axe-core: 0 violations on every specimen; keyboard script (Playwright) walks every interactive specimen. | M | P2.1 |
-| **P2.4** Icons | Replace the 9 glyphs with `Icon` (`x`, `chevron-down`, `chevron-right`, `check`). | `audit` → `componentGlyphIcons: 0`. | S | — (can start now) |
+| **P2.4** Icons | Replace the 9 glyphs with `Icon` (`x`, `chevron-down`, `chevron-right`, `check`). | `audit` → `componentGlyphIcons: 0`. *Done in 2.0.0.* | S | — (can start now) |
 | **P2.5** Tests | Playwright (Chromium is available in CI images): visual snapshots of every specimen × 3 themes × 3 widths; axe on every specimen and template. | Runs in CI; a visual change requires an approved snapshot update. | M | P0.1 |
 
 ### Phase 3 — Patterns, templates and docs (weeks 6–12)

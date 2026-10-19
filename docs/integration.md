@@ -81,7 +81,7 @@ Inside a site that already has base styles, import `@idcesares/rse-design-system
 `@idcesares/rse-design-system/base-runtime.css` if you use the components, or Spinner, Skeleton and the
 Checkbox/Radio/Switch focus behaviour break silently.
 
-**2. Import components in a Client Component.** The 14 components that use hooks each carry a
+**2. Import components in a Client Component.** The 11 components that use hooks each carry a
 `'use client'` directive, so they cross the boundary on their own:
 
 ```tsx
@@ -118,11 +118,11 @@ Every release attaches `rse-<version>.zip` to its GitHub Release (`npm run pack`
 folder locally). Unzip it to a **versioned** path on a server you control and link it:
 
 ```html
-<link rel="stylesheet" href="/rse/2.1.0/styles.css">
+<link rel="stylesheet" href="/rse/2.2.0/styles.css">
 <!-- inside a site with its own typography, instead: -->
-<link rel="stylesheet" href="/rse/2.1.0/tokens/tokens-only.css">
-<link rel="stylesheet" href="/rse/2.1.0/tokens/base-runtime.css">
-<link rel="stylesheet" href="/rse/2.1.0/dist/components.css">
+<link rel="stylesheet" href="/rse/2.2.0/tokens/tokens-only.css">
+<link rel="stylesheet" href="/rse/2.2.0/tokens/base-runtime.css">
+<link rel="stylesheet" href="/rse/2.2.0/dist/components.css">
 ```
 
 Components that are on the CSS contract need no JavaScript at all — write the classes:
@@ -142,9 +142,9 @@ and `dist/components.css`. The rest still need React (below) until roadmap P2 mo
 Then use `var(--rse-…)` in your own theme CSS. Components in an unbuilt page:
 
 ```html
-<script src="/rse/2.1.0/assets/vendor/react.production.min.js"></script>
-<script src="/rse/2.1.0/assets/vendor/react-dom.production.min.js"></script>
-<script src="/rse/2.1.0/dist/rse.js"></script>
+<script src="/rse/2.2.0/assets/vendor/react.production.min.js"></script>
+<script src="/rse/2.2.0/assets/vendor/react-dom.production.min.js"></script>
+<script src="/rse/2.2.0/dist/rse.js"></script>
 <script>const { Button, Card } = window.RSE;</script>
 ```
 

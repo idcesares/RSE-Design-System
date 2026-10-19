@@ -1,14 +1,14 @@
 {
   "componentGlyphIcons": 0,
-  "componentRawColors": 1,
-  "componentPxLiterals": 81,
+  "componentRawColors": 0,
+  "componentPxLiterals": 59,
   "componentsWithJsHover": 3,
   "componentsWithRandomIds": 0,
-  "componentsWithoutRestProps": 22,
-  "pageRawColors": 46,
-  "pageHardWidths": 25,
+  "componentsWithoutRestProps": 17,
+  "pageRawColors": 5,
+  "pageHardWidths": 19,
   "pagesWithoutMediaQueries": 4,
   "docCountDrift": 0,
   "componentsResponsive": 0,
-  "componentsOnCssContract": 12
+  "componentsOnCssContract": 21
 }

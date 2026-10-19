@@ -104,7 +104,7 @@ dist/                     GENERATED. rse.js (every component on window.RSE), tok
 brand.json                GENERATED. The brand contract for non-browser consumers: palette with
                           CMYK, tokens per theme, scales, assets by role, machine-readable rules.
 index.js / index.d.ts     React entry. Import components from here, never from a component file.
-components/<group>/       36 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
+components/<group>/       40 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
                           Icon.jsx and BrandMotif.jsx are GENERATED — edit their sources.
 templates/                Four starting points (deck, program page, enrollment form, landing page).
 starters/                 Blank, dependency-free starting points: page, React page, A3 poster.
@@ -169,7 +169,7 @@ Putting the system into another project — npm, the static kit for CMSs, Python
    new location. That single line is the only wiring.
 3. Compose from existing components before writing new markup. Check
    [docs/components.md](docs/components.md) first — the set is deliberately complete for this
-   use case (36 components), so a "missing" component is usually an existing one with a prop you
+   use case (40 components), so a "missing" component is usually an existing one with a prop you
    haven't read yet.
 4. Structure: page background is cream (`--rse-color-surface-page`), content sits on white cards
    (`--rse-color-surface-card`). A feature or CTA **band** may be brand purple or indigo with white text, or
@@ -216,8 +216,9 @@ showcase/demos.js                  a demo for the showcase gallery (step 4 of do
 **The CSS contract is the component; React is a convenience.** A CMS, the enrollment portal or a
 static page uses the classes directly, so nothing visual may live only in JavaScript: no inline
 style objects, no hover held in state. Wrappers forward `ref`, pass every other prop to the main
-element (`...rest`), merge `className`, and build ids with `React.useId`. Twelve components are on
-the contract (`npm run audit` → `componentsOnCssContract`); moving the rest is roadmap P2.
+element (`...rest`), merge `className`, and build ids with `React.useId`. Twenty-one components are on
+the contract (`npm run audit` → `componentsOnCssContract`, the live number; IconButton is styled in
+`Button.css`, so some components share a `.css` file); moving the rest is roadmap P2.
 
 Then:
 

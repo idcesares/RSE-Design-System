@@ -59,7 +59,7 @@
         "$extensions": {
           "rse": {
             "modes": {
-              "dark": "{rse.brand.purple-dark}",
+              "dark": "{rse.brand.purple-light}",
               "contrast": "#2c2566"
             }
           }
@@ -609,24 +609,59 @@
         "$type": "color"
       },
       "data-2": {
-        "$value": "{rse.brand.blue}",
-        "$type": "color"
+        "$value": "{rse.brand.blue-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.blue}"
+            }
+          }
+        }
       },
       "data-3": {
-        "$value": "{rse.brand.green}",
-        "$type": "color"
+        "$value": "{rse.brand.green-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.green}"
+            }
+          }
+        }
       },
       "data-4": {
-        "$value": "{rse.brand.yellow}",
-        "$type": "color"
+        "$value": "{rse.brand.yellow-ink}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.yellow}"
+            }
+          }
+        }
       },
       "data-5": {
-        "$value": "{rse.brand.orange}",
-        "$type": "color"
+        "$value": "{rse.brand.orange-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.orange}"
+            }
+          }
+        }
       },
       "data-6": {
-        "$value": "{rse.brand.pink}",
-        "$type": "color"
+        "$value": "{rse.brand.pink-dark}",
+        "$type": "color",
+        "$extensions": {
+          "rse": {
+            "modes": {
+              "dark": "{rse.brand.pink}"
+            }
+          }
+        }
       },
       "scrim": {
         "$value": "rgba(43,42,61,0.55)",

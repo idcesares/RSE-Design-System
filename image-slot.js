@@ -284,7 +284,7 @@
     // width instead of letting the slot collapse to zero height.
     // Explicit width/height on the element override all of this.
     ':host{display:block;position:relative;' +
-    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);' +
+    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:var(--rse-color-text-muted, rgba(0,0,0,.55));' +
     '  width:100%;height:100%;aspect-ratio:3/2}' +
     '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}' +
     // .frame img (clipped) and .spill (unclipped ghost + handles) share the

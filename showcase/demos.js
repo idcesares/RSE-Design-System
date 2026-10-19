@@ -37,17 +37,21 @@ window.SC_DEMOS = (DS) => {
     Modal: 'Diálogo centralizado sobre a página — confirmações e etapas de inscrição.',
     Navbar: 'O cabeçalho fixo do site, translúcido, com a assinatura e a ação principal.',
     Pagination: 'Controle de páginas para listagens longas de unidades e programas.',
+    Hero: 'A abertura da página: título único, apoio, botões e imagem lado a lado.',
+    CtaBand: 'A faixa de chamada para ação que fecha a página.',
     PlatformEntry: 'A ponte para a Plataforma Sesc Sab.IA, com as duas marcas juntas.',
     ProgressBar: 'Barra de progresso com percentual — envio de documentos, etapas concluídas.',
     Radio: 'Escolha única dentro de um grupo: turno, categoria, forma de contato.',
     Select: 'Lista suspensa para escolher unidade, programa ou estado.',
     Skeleton: 'O esqueleto que ocupa o lugar do conteúdo enquanto ele carrega.',
     Spinner: 'Indicador de carregamento para ações sem duração previsível.',
+    StatBand: 'Uma faixa de números de impacto sobre uma cor só, lida como lista.',
     Stat: 'Um número de impacto com rótulo — o pilar do resultado, tornado visível.',
     Stepper: 'As etapas de um fluxo, mostrando onde a pessoa está e o que já concluiu.',
     Switch: 'Interruptor de liga e desliga para preferências.',
     Tabs: 'Abas para alternar seções. Andam com as setas do teclado.',
     Tag: 'Etiqueta de categoria em uma das seis cores de acento.',
+    Testimonial: 'Um depoimento estático, com autor e unidade — sempre real e autorizado, nunca inventado.',
     Textarea: 'Campo de texto longo, com contador de caracteres opcional.',
     Toast: 'Aviso passageiro que aparece após uma ação — o que confirma a cópia nesta página.',
     Tooltip: 'Rótulo que aparece ao passar o cursor sobre um ícone ou texto cortado.',
@@ -358,11 +362,41 @@ window.SC_DEMOS = (DS) => {
           h(DS.Spinner, { size: 24, tone: 'inverse' }))
       ) },
 
+    Hero: { block: true, render: () =>
+      h(DS.Hero, {
+        eyebrow: 'Rede Sesc de Educação', title: 'Aprender para a vida acontecer', as: 'h2',
+        lead: 'Educação que acolhe, forma e transforma — em unidades por todo o Brasil.',
+        badge: h(DS.Badge, { tone: 'success' }, 'Vagas abertas'),
+        media: h('image-slot', { id: 'demo-hero-photo', shape: 'rounded', radius: '32', placeholder: 'estudantes em sala, luz natural, estilo documental' })
+      },
+        h(DS.Button, { variant: 'primary', size: 'lg' }, 'Quero me inscrever'),
+        h(DS.Button, { variant: 'ghost', size: 'lg' }, 'Assista a nossa história')
+      ) },
+
+    Testimonial: { render: () =>
+      h(DS.Testimonial, {
+        example: true, quote: 'Depoimento de exemplo: substitua por um relato real e autorizado.',
+        name: 'Nome Sobrenome', role: 'responsável', unit: 'unidade a definir',
+        avatar: h(DS.Avatar, { initials: 'NS', size: 'lg' })
+      }) },
+
+    CtaBand: { block: true, render: () =>
+      h(DS.CtaBand, { tone: 'ink', eyebrow: 'Fale conosco', title: 'Ainda com dúvidas?', description: 'Nossa equipe responde o mais rápido possível.' },
+        h(DS.Button, { variant: 'primary', size: 'lg' }, 'Fale conosco')
+      ) },
+
     Stat: { block: true, render: () =>
       h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(130px,1fr))', gap: 'var(--rse-space-5)' } },
         h(DS.Stat, { value: '000', label: 'Unidades', accent: 'primary' }),
         h(DS.Stat, { value: '00 anos', label: 'De tradição', accent: 'green' }),
         h(DS.Stat, { value: '000 mil', label: 'Estudantes', accent: 'orange' })
+      ) },
+
+    StatBand: { block: true, render: () =>
+      h(DS.StatBand, { tone: 'primary', title: 'A Rede em números', note: 'Números de exemplo: substituir por dados verificados antes de publicar.' },
+        h(DS.Stat, { value: '000', label: 'Unidades', accent: 'inverse', align: 'center' }),
+        h(DS.Stat, { value: '00 anos', label: 'De tradição', accent: 'inverse', align: 'center' }),
+        h(DS.Stat, { value: '000 mil', label: 'Estudantes', accent: 'inverse', align: 'center' })
       ) },
 
     Stepper: { block: true, render: () => {

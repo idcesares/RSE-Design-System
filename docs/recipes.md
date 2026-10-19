@@ -170,10 +170,15 @@ These compositions recur across the network's surfaces; reuse them rather than i
 
 **Hero** — eyebrow (uppercase, `--rse-color-primary`) → `--rse-font-size-display-2` headline → one supporting
 line at `--rse-font-size-body-lg` in `--rse-color-text-muted` → two buttons (`primary` + `ghost`) → an `<image-slot>`
-at `--rse-radius-xl`.
+at `--rse-radius-xl`. Use `Hero` (title is the page's one `h1`, `badge` for a deadline, `media` takes the caller's
+`<image-slot>`, never a default image) rather than hand-rolling it.
 
 **Stat band** — solid `--rse-color-primary` full-bleed band, 3–4 `Stat` components in a grid, white
-figures. This is the "resultado" pillar made visible; keep the figures to four at most.
+figures. This is the "resultado" pillar made visible; keep the figures to four at most. Use `StatBand`
+(`tone` primary, indigo, ink or a light/mid accent; `accent="inverse"` on the dark tones) rather than a hand-rolled
+grid. Its closing counterpart is **CTA band**: `CtaBand` with the same tone set, buttons composed as children.
+
+**Testimonial** — `Testimonial` with `example` while the text is a placeholder (a visible "Depoimento de exemplo" pill); one static quote, an `Avatar` with initials, name, role and unit. Never invent one, never a carousel.
 
 **Program cards** — 3-up grid of `Card` at 16:10 media, each with a coloured `Tag` above the
 eyebrow. Vary the `Tag` colour across the accent families to show the plurality of the rede — this

@@ -12,43 +12,31 @@
 <div style="background:var(--rse-color-surface-page);min-height:100vh;position:relative">
 <x-import component-from-global-scope="RSE.Navbar" logo-src="../../assets/logos/wordmark-purple.svg" logo-alt="Rede Sesc de Educação" links="{{ navLinks }}" active-href="#programas" cta-label="Encontre uma unidade" cta-href="#unidades" hint-size="100%,72px"></x-import>
 <div style="max-width:1200px;margin:0 auto;padding:16px 24px 0;box-sizing:border-box">
-<x-import component-from-global-scope="RSE.Alert" tone="info" title="Matrículas abertas" hint-size="100%,64px">Garanta a vaga para o ano letivo de 2027.</x-import>
+<x-import component-from-global-scope="RSE.Alert" tone="info" title="Matrículas abertas" hint-size="100%,64px">Garanta a vaga para o ano letivo de 0000.</x-import>
 </div>
-<div style="max-width:1200px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;box-sizing:border-box">
-<div style="display:flex;flex-direction:column;gap:20px">
-<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-<span style="font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary)">Rede Sesc de Educação</span>
-<span style="flex-shrink:0"><x-import component-from-global-scope="RSE.Badge" tone="success" hint-size="90px,22px">Vagas abertas</x-import></span>
-</div>
-<h1 style="font-size:var(--rse-font-size-display-2);margin:0">Aprender para a vida acontecer</h1>
-<p style="font-size:var(--rse-font-size-body-lg);color:var(--rse-color-text-muted);margin:0;max-width:480px">Educação que acolhe, forma e transforma — em unidades por todo o Brasil.</p>
-<div style="display:flex;gap:12px;flex-wrap:wrap">
+<x-import component-from-global-scope="RSE.Hero" eyebrow="Rede Sesc de Educação" badge="{{ heroBadge }}" title="Aprender para a vida acontecer" lead="Educação que acolhe, forma e transforma — em unidades por todo o Brasil." media="{{ heroMedia }}" hint-size="100%,440px">
 <x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" hint-size="220px,56px">Quero me inscrever</x-import>
 <x-import component-from-global-scope="RSE.Button" variant="ghost" size="lg" icon="{{ iconPlay }}" on-click="{{ openModal }}" hint-size="200px,56px">Assista a nossa história</x-import>
-</div>
-</div>
-<image-slot id="hero-photo" shape="rounded" radius="32" style="width:100%;height:360px;display:block" placeholder="foto de estudantes, estilo documental"></image-slot>
-</div>
-<div style="background:var(--rse-color-primary);padding:48px 24px">
-<div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;box-sizing:border-box">
-<div><div style="font-size:var(--rse-font-size-h1);font-weight:var(--rse-font-weight-extrabold);color:var(--rse-color-text-on-primary)">470+</div><div style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-on-primary);display:flex;gap:6px;align-items:center;justify-content:center">unidades no Brasil<x-import component-from-global-scope="RSE.Tooltip" label="Fonte: Sesc DN, 2026" hint-size="20px,20px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Fonte do dado" icon="{{ iconInfo }}" variant="ghost" size="sm" hint-size="20px,20px"></x-import></x-import></div></div>
-<div><div style="font-size:var(--rse-font-size-h1);font-weight:var(--rse-font-weight-extrabold);color:var(--rse-color-text-on-primary)">80&nbsp;anos</div><div style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-on-primary)">de tradição em educação</div></div>
-<div><div style="font-size:var(--rse-font-size-h1);font-weight:var(--rse-font-weight-extrabold);color:var(--rse-color-text-on-primary)">200k+</div><div style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-on-primary)">estudantes atendidos</div></div>
-<div><div style="font-size:var(--rse-font-size-h1);font-weight:var(--rse-font-weight-extrabold);color:var(--rse-color-text-on-primary)">26</div><div style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-on-primary)">estados e o DF</div></div>
-</div>
-</div>
+</x-import>
+<!-- Números de exemplo: substituir por dados verificados antes de publicar. -->
+<x-import component-from-global-scope="RSE.StatBand" tone="primary" note="Números de exemplo: substituir por dados verificados antes de publicar." hint-size="100%,230px">
+<x-import component-from-global-scope="RSE.Stat" value="00" label="unidades no Brasil" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="00 anos" label="de tradição em educação" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="000 mil" label="estudantes atendidos" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="00" label="estados e o DF" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+</x-import>
 <div style="max-width:1200px;margin:0 auto;padding:80px 24px;display:flex;flex-direction:column;gap:40px;box-sizing:border-box">
 <div style="display:flex;flex-direction:column;gap:12px;max-width:600px">
 <span style="font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary)">Programas</span>
 <h2 style="font-size:var(--rse-font-size-h1);margin:0">Formação para cada etapa da vida</h2>
 </div>
 <x-import component-from-global-scope="RSE.Tabs" tabs="{{ programTabs }}" active-id="{{ activeProgramTab }}" on-change="{{ setProgramTab }}" hint-size="420px,44px"></x-import>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:24px">
 <sc-if value="{{ showInfantil }}" hint-placeholder-val="{{ true }}">
 <div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);overflow:hidden;display:flex;flex-direction:column">
 <div style="position:relative">
 <image-slot id="program-1" shape="rect" style="width:100%;aspect-ratio:16/10;display:block" placeholder="foto — educação infantil"></image-slot>
-<div style="position:absolute;top:12px;right:12px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar programa" icon="{{ iconHeart }}" variant="ghost" size="sm" hint-size="32px,32px"></x-import></div>
+<div style="position:absolute;top:12px;right:12px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar programa" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import></div>
 </div>
 <div style="padding:24px;display:flex;flex-direction:column;gap:10px">
 <x-import component-from-global-scope="RSE.Tag" color="pink" hint-size="150px,28px">Educação Infantil</x-import>
@@ -61,7 +49,7 @@
 <div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);overflow:hidden;display:flex;flex-direction:column">
 <div style="position:relative">
 <image-slot id="program-2" shape="rect" style="width:100%;aspect-ratio:16/10;display:block" placeholder="foto — ensino fundamental"></image-slot>
-<div style="position:absolute;top:12px;right:12px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar programa" icon="{{ iconHeart }}" variant="ghost" size="sm" hint-size="32px,32px"></x-import></div>
+<div style="position:absolute;top:12px;right:12px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar programa" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import></div>
 </div>
 <div style="padding:24px;display:flex;flex-direction:column;gap:10px">
 <div style="display:flex;gap:8px;align-items:center">
@@ -77,7 +65,7 @@
 <div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);overflow:hidden;display:flex;flex-direction:column">
 <div style="position:relative">
 <image-slot id="program-3" shape="rect" style="width:100%;aspect-ratio:16/10;display:block" placeholder="foto — formação profissional"></image-slot>
-<div style="position:absolute;top:12px;right:12px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar programa" icon="{{ iconHeart }}" variant="ghost" size="sm" hint-size="32px,32px"></x-import></div>
+<div style="position:absolute;top:12px;right:12px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar programa" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import></div>
 </div>
 <div style="padding:24px;display:flex;flex-direction:column;gap:10px">
 <x-import component-from-global-scope="RSE.Tag" color="blue" hint-size="190px,28px">Formação Profissional</x-import>
@@ -89,18 +77,8 @@
 </div>
 </div>
 <div style="max-width:900px;margin:0 auto;padding:0 24px 80px;box-sizing:border-box">
-<div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);padding:40px;display:flex;gap:28px;align-items:flex-start">
-<x-import component-from-global-scope="RSE.Avatar" initials="MS" size="lg" status="online" hint-size="64px,64px"></x-import>
-<div style="display:flex;flex-direction:column;gap:16px;flex:1">
-<p style="font-size:var(--rse-font-size-h4);margin:0;font-weight:var(--rse-font-weight-medium)">"Minha filha entrou tímida na Educação Infantil e hoje é protagonista do próprio aprendizado. A Rede Sesc transformou a nossa família."</p>
-<x-import component-from-global-scope="RSE.Divider" hint-size="100%,1px"></x-import>
-<div style="display:flex;align-items:center;gap:8px">
-<span style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Marina Souza</span>
-<span style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted)">— mãe de aluna, unidade Vila Mariana</span>
-<x-import component-from-global-scope="RSE.Tooltip" label="Depoimento verificado pela unidade" hint-size="20px,20px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Depoimento verificado" icon="{{ iconCheck }}" variant="ghost" size="sm" hint-size="20px,20px"></x-import></x-import>
-</div>
-</div>
-</div>
+<!-- Depoimento de exemplo: substituir por um relato real e autorizado antes de publicar. -->
+<x-import component-from-global-scope="RSE.Testimonial" example="true" quote="Minha filha entrou tímida na Educação Infantil e hoje é protagonista do próprio aprendizado. A Rede Sesc transformou a nossa família." name="Nome Sobrenome" role="responsável" unit="unidade a definir" avatar="{{ testimonialAvatar }}" hint-size="100%,260px"></x-import>
 </div>
 <div id="unidades" style="max-width:1200px;margin:0 auto;padding:0 24px 80px;display:flex;flex-direction:column;gap:24px;box-sizing:border-box">
 <x-import component-from-global-scope="RSE.Breadcrumb" items="{{ unitBreadcrumbItems }}" hint-size="300px,24px"></x-import>
@@ -109,24 +87,24 @@
 <h2 style="font-size:var(--rse-font-size-h1);margin:0">Encontre uma unidade perto de você</h2>
 </div>
 <div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);padding:24px;display:flex;flex-direction:column;gap:20px">
-<div style="display:grid;grid-template-columns:1fr 1fr auto;gap:16px;align-items:end">
+<form role="search" aria-label="Buscar unidade" onsubmit="{{ onUnitSearch }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px;align-items:end">
 <x-import component-from-global-scope="RSE.Select" label="Estado" options="{{ stateOptions }}" value="{{ selectedState }}" on-change="{{ onStateChange }}" placeholder="Selecione o estado" hint-size="100%,64px"></x-import>
-<x-import component-from-global-scope="RSE.Input" label="Cidade" placeholder="Digite sua cidade" value="{{ selectedCity }}" on-change="{{ onCityChange }}" hint-size="100%,64px"></x-import>
-<x-import component-from-global-scope="RSE.Button" variant="primary" icon="{{ iconSearch }}" hint-size="160px,44px">Buscar</x-import>
-</div>
+<x-import component-from-global-scope="RSE.Input" label="Cidade" type="search" placeholder="Digite sua cidade" value="{{ selectedCity }}" on-change="{{ onCityChange }}" hint-size="100%,64px"></x-import>
+<x-import component-from-global-scope="RSE.Button" type="submit" variant="primary" icon="{{ iconSearch }}" hint-size="160px,44px">Buscar</x-import>
+</form>
 <x-import component-from-global-scope="RSE.Divider" hint-size="100%,1px"></x-import>
 <div style="display:flex;flex-direction:column;gap:4px">
 <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 4px;border-bottom:1px solid var(--rse-color-border-subtle)">
-<div><div style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Sesc Vila Mariana</div><div style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">São Paulo, SP</div></div>
-<x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar unidade" icon="{{ iconHeart }}" variant="ghost" size="sm" hint-size="32px,32px"></x-import>
+<div><div style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Unidade exemplo 1</div><div style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">Cidade, UF</div></div>
+<x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar unidade" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import>
 </div>
 <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 4px;border-bottom:1px solid var(--rse-color-border-subtle)">
-<div><div style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Sesc Copacabana</div><div style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">Rio de Janeiro, RJ</div></div>
-<x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar unidade" icon="{{ iconHeart }}" variant="ghost" size="sm" hint-size="32px,32px"></x-import>
+<div><div style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Unidade exemplo 2</div><div style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">Cidade, UF</div></div>
+<x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar unidade" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import>
 </div>
 <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 4px">
-<div><div style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Sesc Savassi</div><div style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">Belo Horizonte, MG</div></div>
-<x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar unidade" icon="{{ iconHeart }}" variant="ghost" size="sm" hint-size="32px,32px"></x-import>
+<div><div style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Unidade exemplo 3</div><div style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">Cidade, UF</div></div>
+<x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar unidade" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import>
 </div>
 </div>
 <div style="display:flex;justify-content:center">
@@ -135,7 +113,7 @@
 </div>
 </div>
 <div style="max-width:1200px;margin:0 auto;padding:0 24px 80px;box-sizing:border-box">
-<div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-md);padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px">
+<div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-md);padding:clamp(24px,5vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px">
 <div style="display:flex;flex-direction:column;gap:16px">
 <span style="font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary)">Interesse em se inscrever</span>
 <h2 style="font-size:var(--rse-font-size-h2);margin:0">Conte pra gente e te ajudamos a começar</h2>
@@ -145,14 +123,14 @@
 <div style="display:flex;flex-direction:column;gap:16px">
 <x-import component-from-global-scope="RSE.Input" label="Nome completo" placeholder="Seu nome" value="{{ name }}" on-change="{{ onNameChange }}" hint-size="100%,64px"></x-import>
 <x-import component-from-global-scope="RSE.Input" label="E-mail" type="email" placeholder="voce@email.com" value="{{ email }}" on-change="{{ onEmailChange }}" hint-size="100%,64px"></x-import>
-<div style="display:flex;flex-direction:column;gap:8px">
-<span style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">Turno de preferência</span>
+<fieldset style="border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
+<legend style="padding:0;margin-bottom:8px;font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Turno de interesse</legend>
 <div style="display:flex;gap:20px;flex-wrap:wrap">
 <x-import component-from-global-scope="RSE.Radio" name="turno" label="Manhã" checked="{{ turnoManha }}" on-change="{{ onTurnoManha }}" hint-size="90px,24px"></x-import>
 <x-import component-from-global-scope="RSE.Radio" name="turno" label="Tarde" checked="{{ turnoTarde }}" on-change="{{ onTurnoTarde }}" hint-size="90px,24px"></x-import>
 <x-import component-from-global-scope="RSE.Radio" name="turno" label="Integral" checked="{{ turnoIntegral }}" on-change="{{ onTurnoIntegral }}" hint-size="90px,24px"></x-import>
 </div>
-</div>
+</fieldset>
 <x-import component-from-global-scope="RSE.Checkbox" label="Li e aceito os termos de uso" checked="{{ acceptTerms }}" on-change="{{ onAcceptChange }}" hint-size="100%,24px"></x-import>
 <x-import component-from-global-scope="RSE.Switch" label="Quero receber novidades da Rede" checked="{{ notifyUpdates }}" on-change="{{ onNotifyChange }}" hint-size="100%,24px"></x-import>
 <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
@@ -167,17 +145,13 @@
 <div style="max-width:1200px;margin:0 auto;padding:0 24px 80px;box-sizing:border-box">
 <x-import component-from-global-scope="RSE.PlatformEntry" href="#" logo-src="../../assets/logos/sabia-wordmark-cream.svg" title="Aprendizagem que acompanha cada estudante" description="Avaliação diagnóstica, trilhas personalizadas e acompanhamento contínuo — o núcleo de inteligência educacional da Rede." cta-label="Acessar a plataforma" note="Acesso para estudantes, famílias e educadores da Rede." hint-size="100%,240px"></x-import>
 </div>
-<div style="background:var(--rse-brand-ink);padding:80px 24px">
-<div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:20px;align-items:center">
-<h2 style="font-size:var(--rse-font-size-h1);color:white;margin:0">Ainda com dúvidas?</h2>
-<p style="color:var(--rse-brand-gray-400);font-size:var(--rse-font-size-body-lg);margin:0">Nossa equipe responde em até 1 dia útil.</p>
+<x-import component-from-global-scope="RSE.CtaBand" tone="ink" title="Ainda com dúvidas?" description="Nossa equipe responde o mais rápido possível." hint-size="100%,340px">
 <x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" hint-size="180px,56px">Fale conosco</x-import>
-</div>
-</div>
+</x-import>
 <x-import component-from-global-scope="RSE.Footer" logo-src="../../assets/logos/wordmark-white.svg" logo-alt="Rede Sesc de Educação" tagline="Aprender para a vida acontecer." columns="{{ footerColumns }}" note="© 2026 Sesc — Serviço Social do Comércio. Todos os direitos reservados." hint-size="100%,320px"></x-import>
 <x-import component-from-global-scope="RSE.Modal" open="{{ modalOpen }}" on-close="{{ closeModal }}" title="Nossa história em vídeo" size="md" hint-size="520px,400px">
 <image-slot id="story-video" shape="rect" radius="12" style="width:100%;aspect-ratio:16/9;display:block" placeholder="vídeo institucional"></image-slot>
-<p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted);margin:16px 0 0">Conheça a trajetória da Rede Sesc de Educação em 80 anos formando estudantes por todo o Brasil.</p>
+<p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted);margin:16px 0 0">Conheça a trajetória da Rede Sesc de Educação formando estudantes por todo o Brasil.</p>
 </x-import>
 <div style="position:fixed;bottom:24px;right:24px;z-index:1000;max-width:340px">
 <sc-if value="{{ toastVisible }}" hint-placeholder-val="{{ false }}">
@@ -193,9 +167,6 @@ class Component extends DCLogic {
     unitPage: 1, selectedState: '', selectedCity: '', name: '', email: '', turno: 'manha',
     acceptTerms: false, notifyUpdates: true
   };
-  mkIcon(children) {
-    return React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' }, children);
-  }
   renderVals() {
     const s = this.state;
     return {
@@ -259,18 +230,14 @@ class Component extends DCLogic {
       modalOpen: s.modalOpen,
       openModal: () => this.setState({ modalOpen: true }),
       closeModal: () => this.setState({ modalOpen: false }),
-      iconPlay: this.mkIcon(React.createElement('path', { d: 'M8 5v14l11-7z', fill: 'currentColor', stroke: 'none' })),
-      iconInfo: this.mkIcon([
-        React.createElement('circle', { key: 'c', cx: 12, cy: 12, r: 9 }),
-        React.createElement('path', { key: 'l', d: 'M12 16v-4' }),
-        React.createElement('circle', { key: 'd', cx: 12, cy: 8, r: 0.6, fill: 'currentColor', stroke: 'none' })
-      ]),
-      iconHeart: this.mkIcon(React.createElement('path', { d: 'M12 21s-7-4.35-9.5-8.5C1 9 2 5.5 5.5 5c2-.3 3.7.8 4.5 2.2C10.8 5.8 12.5 4.7 14.5 5c3.5.5 4.5 4 3 7.5C19 16.65 12 21 12 21z' })),
-      iconCheck: this.mkIcon(React.createElement('path', { d: 'M20 6L9 17l-5-5' })),
-      iconSearch: this.mkIcon([
-        React.createElement('circle', { key: 'c', cx: 11, cy: 11, r: 7 }),
-        React.createElement('path', { key: 'l', d: 'M21 21l-4.35-4.35' })
-      ])
+      onUnitSearch: (e) => { if (e && e.preventDefault) e.preventDefault(); },
+      heroBadge: React.createElement(RSE.Badge, { tone: 'success' }, 'Vagas abertas'),
+      heroMedia: React.createElement('image-slot', { id: 'hero-photo', shape: 'rounded', radius: '32', placeholder: 'foto de estudantes, estilo documental' }),
+      testimonialAvatar: React.createElement(RSE.Avatar, { initials: 'NS', size: 'lg' }),
+      iconPlay: React.createElement(RSE.Icon, { name: 'play', size: 18 }),
+      iconHeart: React.createElement(RSE.Icon, { name: 'heart', size: 18 }),
+      iconCheck: React.createElement(RSE.Icon, { name: 'check', size: 18 }),
+      iconSearch: React.createElement(RSE.Icon, { name: 'search', size: 18 })
     };
   }
 }

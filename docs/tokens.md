@@ -67,7 +67,7 @@ a value that differs per theme shows all three.
 | `--rse-color-sabia-surface` | `#eef0da` | — | — | *derived* |
 | `--rse-color-primary` | `#6c62c4` | `#8e82d8` | `#4a3fa8` |  |
 | `--rse-color-primary-hover` | `#5e56ab` | `#ad98ea` | `#3a3186` |  |
-| `--rse-color-primary-active` | `#504a92` | `#6c62c4` | `#2c2566` |  |
+| `--rse-color-primary-active` | `#504a92` | `#ad98ea` | `#2c2566` |  |
 | `--rse-color-surface-page` | `#f2f4e4` | `#1b1a26` | `#ffffff` |  |
 | `--rse-color-surface-card` | `#ffffff` | `#24232f` | — |  |
 | `--rse-color-surface-sunken` | `#f2f1ec` | `#2e2d3b` | — |  |
@@ -115,11 +115,11 @@ a value that differs per theme shows all three.
 | `--rse-color-tint-purple-ink` | `#3a3186` | `#ad98ea` | — |  |
 | `--rse-color-tint-yellow-ink` | `#6b4700` | `#ffd67b` | — |  |
 | `--rse-color-data-1` | `#6c62c4` | — | — |  |
-| `--rse-color-data-2` | `#76b3dd` | — | — |  |
-| `--rse-color-data-3` | `#85b73d` | — | — |  |
-| `--rse-color-data-4` | `#f4bf2a` | — | — |  |
-| `--rse-color-data-5` | `#e17f38` | — | — |  |
-| `--rse-color-data-6` | `#e27879` | — | — |  |
+| `--rse-color-data-2` | `#4f85b2` | `#76b3dd` | — |  |
+| `--rse-color-data-3` | `#658e1e` | `#85b73d` | — |  |
+| `--rse-color-data-4` | `#6b4700` | `#f4bf2a` | — |  |
+| `--rse-color-data-5` | `#c6621e` | `#e17f38` | — |  |
+| `--rse-color-data-6` | `#cc646a` | `#e27879` | — |  |
 | `--rse-color-scrim` | `rgba(43,42,61,0.55)` | `rgba(12,11,18,0.68)` | — |  |
 
 ## rse.font

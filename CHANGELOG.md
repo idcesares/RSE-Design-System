@@ -1,5 +1,66 @@
 # Changelog
 
+## 2.2.0 — 2026-10-19 — bands, hero, testimonial, and a system that fits a phone
+
+No token, prop or class was renamed or removed, so this is a minor. Three components changed their
+DOM (see **Markup changes**): check any CSS of your own that targets them.
+
+### New components (36 → 40)
+
+- **`CtaBand`** and **`StatBand`** — full-bleed bands in the sanctioned tones (primary, indigo, ink,
+  and the ink-text accents). `StatBand` is a labelled list of `Stat`s with a `note` for sourcing.
+- **`Hero`** — eyebrow, one `h1`, lead, actions and optional media. It never renders an image of its
+  own: pass an `<image-slot>`. Collapses to one column without media queries.
+- **`Testimonial`** — static `figure`/`blockquote`. `example` adds a visible "Depoimento de exemplo"
+  pill so a placeholder quote cannot pass as a real one.
+
+### Accessibility fixes
+
+- **`DateField`** lost its focus indicator (inline `outline: none` plus a 1.1:1 halo; nothing at all
+  in the error state). It now uses the global focus ring, a `useId` id (two fields no longer
+  collide) and `aria-describedby`/`aria-invalid` like `Input`.
+- **`FileUpload`** hid its native input with `display: none`. The drop zone is now a `<label>`
+  around a focusable, visually hidden input: Tab, Enter and Space work natively, the name includes
+  the visible text, and the ring shows on the whole zone.
+- **`IconButton`** default size is now `--rse-hit-target-min` (44 px; it was 40). `sm` stays 32 px
+  for dense desktop UI only.
+- **`Breadcrumb`** announces "Trilha de navegação" (it was English).
+- **Contrast:** the light-theme data palette (`--rse-color-data-2..6`) was 1.70–2.92:1 on the card;
+  it now uses the `-dark` tones (3.75–8.31:1) and the bright tones move to the dark theme. Dark
+  `primary-active` was 3.56:1 under its label; it now reaches 7.2:1. Pairs measured by the gate
+  went from 117 to 168.
+- **Gate:** the check missed `FileUpload` because its pattern stopped at the first `)`. It now looks
+  ahead from each input and also fails on an inline `outline: 'none'`.
+
+### Markup changes
+
+- **`Tabs`** renders a root `.rse-tabs` around a scrolling `.rse-tabs__list`; `className`, `style` and
+  other props land on the root. The tab row scrolls inside itself instead of widening the page.
+- **`Navbar`** and **`Footer`** are on the CSS contract and wrap on narrow screens (Footer columns are
+  now `<nav aria-label>` landmarks). A mobile drawer is still roadmap P3.2.
+
+### Responsive and templates
+
+- Landing, program, starter and showcase pages are exactly 360 px wide at a 360 px viewport in all
+  three themes (the landing page was 519 px).
+- Templates use `Hero`, `StatBand`, `CtaBand`, `Stat` and `Testimonial`, and system `Icon`s. Every
+  figure, unit, date and quote that looked like a real Sesc fact is now an obvious placeholder.
+  The deck editor's strings are pt-BR.
+- `image-slot` placeholder text follows the theme. The program page title no longer reads "viewport".
+
+### Package and docs
+
+- `motifHues` is exported from the package root. The package now ships `templates/`, `starters/` and
+  `rse.manifest.json`.
+- Components on the CSS contract: 12 → 21. Raw colours in components: 1 → 0. Doc counts corrected.
+
+### Known gaps carried forward
+
+- `StatBand` re-colours `Stat` with a scoped `!important` because `Stat` styles itself inline.
+- 17 components still do not pass `...rest` to their main element (`Avatar` among them); 59 px literals remain (audit baseline).
+- Loop durations (`0.8s`, `1.4s`) and the Spinner's inverse track are not tokens yet.
+- Every figure, quote and policy line in the templates still needs verification before going public.
+
 ## 2.1.0 — 2026-10-14 — the showcase becomes the documentation
 
 Additive for consumers: no token, class or component API was renamed or removed.

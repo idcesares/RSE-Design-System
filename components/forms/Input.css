@@ -19,3 +19,12 @@
 .rse-input:focus{border-color:var(--rse-color-primary)}
 .rse-input[aria-invalid="true"]{border-color:var(--rse-color-danger)}
 .rse-input:disabled{background:var(--rse-color-surface-sunken);color:var(--rse-color-text-muted);cursor:not-allowed}
+
+/* DateField — an <input type="date" class="rse-input"> inside .rse-field, plus an optional
+   deadline pill (warning tokens) between the control and the message. */
+.rse-field__deadline{
+  display:inline-flex;align-self:flex-start;align-items:center;gap:var(--rse-space-2);
+  padding:var(--rse-space-1) var(--rse-space-3);border-radius:var(--rse-radius-pill);
+  background:var(--rse-color-warning-surface);color:var(--rse-color-warning-text);
+  font-size:var(--rse-font-size-caption);font-weight:var(--rse-font-weight-bold);
+}

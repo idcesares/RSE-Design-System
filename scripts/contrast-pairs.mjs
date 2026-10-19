@@ -34,6 +34,24 @@ export const CONTRAST_PAIRS = [
   { where: 'Focus ring on card', label: 'Anel de foco sobre o cartão', fg: '--rse-color-focus-ring', bg: '--rse-color-surface-card', floor: 3 },
   { where: 'Control border on card', label: 'Borda do campo de formulário', fg: '--rse-color-border-strong', bg: '--rse-color-surface-card', floor: 3 },
   { where: 'Control border on page', label: 'Borda do campo sobre a página', fg: '--rse-color-border-strong', bg: '--rse-color-surface-page', floor: 3 },
+  // Data palette (charts, Stat, legends): non-text marks on the card, WCAG 1.4.11.
+  { where: 'Data 1 on card', label: 'Série de dados 1 (roxo) sobre o cartão', fg: '--rse-color-data-1', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Data 2 on card', label: 'Série de dados 2 (azul) sobre o cartão', fg: '--rse-color-data-2', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Data 3 on card', label: 'Série de dados 3 (verde) sobre o cartão', fg: '--rse-color-data-3', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Data 4 on card', label: 'Série de dados 4 (amarelo) sobre o cartão', fg: '--rse-color-data-4', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Data 5 on card', label: 'Série de dados 5 (laranja) sobre o cartão', fg: '--rse-color-data-5', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Data 6 on card', label: 'Série de dados 6 (rosa) sobre o cartão', fg: '--rse-color-data-6', bg: '--rse-color-surface-card', floor: 3 },
+  { where: 'Primary button label on press', label: 'Texto do botão primário ao pressionar', fg: '--rse-color-text-on-primary', bg: '--rse-color-primary-active', floor: 4.5 },
+  // Roles that were measured nowhere before.
+  { where: 'Link on card', label: 'Link sobre o cartão', fg: '--rse-color-text-link', bg: '--rse-color-surface-card', floor: 4.5 },
+  { where: 'Link hover on page', label: 'Link em foco do mouse sobre a página', fg: '--rse-color-text-link-hover', bg: '--rse-color-surface-page', floor: 4.5 },
+  { where: 'Link hover on card', label: 'Link em foco do mouse sobre o cartão', fg: '--rse-color-text-link-hover', bg: '--rse-color-surface-card', floor: 4.5 },
+  { where: 'Inverse text on inverse surface', label: 'Texto invertido sobre superfície invertida', fg: '--rse-color-text-inverse', bg: '--rse-color-surface-inverse', floor: 4.5 },
+  { where: 'Primary button label on hover', label: 'Texto do botão primário em foco do mouse', fg: '--rse-color-text-on-primary', bg: '--rse-color-primary-hover', floor: 4.5 },
+  // Hero and Testimonial: heading on card, and the Hero eyebrow in the primary role.
+  { where: 'Heading on card', label: 'Título sobre o cartão', fg: '--rse-color-text-heading', bg: '--rse-color-surface-card', floor: 4.5 },
+  { where: 'Hero eyebrow on page', label: 'Sobretítulo da abertura sobre a página', fg: '--rse-color-primary', bg: '--rse-color-surface-page', floor: 4.5 },
+  { where: 'Hero eyebrow on card', label: 'Sobretítulo da abertura sobre o cartão', fg: '--rse-color-primary', bg: '--rse-color-surface-card', floor: 4.5 },
   // Accent bands (decision D3): ink text on every light and mid accent sanctioned as a band.
   { where: 'Band: ink on pink light', label: 'Faixa rosa clara com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-pink-light', floor: 4.5 },
   { where: 'Band: ink on pink mid', label: 'Faixa rosa média com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-pink', floor: 4.5 },
@@ -46,6 +64,8 @@ export const CONTRAST_PAIRS = [
   { where: 'Band: ink on blue light', label: 'Faixa azul clara com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-blue-light', floor: 4.5 },
   { where: 'Band: ink on blue mid', label: 'Faixa azul média com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-blue', floor: 4.5 },
   { where: 'Band: ink on purple light', label: 'Faixa roxa clara com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-purple-light', floor: 4.5 },
+  { where: 'Band: white on indigo', label: 'Faixa índigo com texto branco', fg: '--rse-brand-white', bg: '--rse-brand-indigo', floor: 4.5 },
+  { where: 'Band: on-ink text on ink', label: 'Faixa ink com texto claro', fg: '--rse-color-text-on-ink', bg: '--rse-brand-ink', floor: 4.5 },
   { where: 'Footer secondary text on ink', label: 'Texto secundário no rodapé', fg: '--rse-color-text-on-ink-muted', bg: '--rse-brand-ink', floor: 4.5 },
   { where: 'Sab.IA chrome text on blue', label: 'Texto sobre o azul da Sab.IA', fg: '--rse-color-sabia-on-blue', bg: '--rse-color-sabia-blue', floor: 4.5 },
 ];
