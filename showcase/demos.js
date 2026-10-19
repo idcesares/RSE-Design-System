@@ -37,6 +37,7 @@ window.SC_DEMOS = (DS) => {
     Modal: 'Diálogo centralizado sobre a página — confirmações e etapas de inscrição.',
     Navbar: 'O cabeçalho fixo do site, translúcido, com a assinatura e a ação principal.',
     Pagination: 'Controle de páginas para listagens longas de unidades e programas.',
+    Hero: 'A abertura da página: título único, apoio, botões e imagem lado a lado.',
     CtaBand: 'A faixa de chamada para ação que fecha a página.',
     PlatformEntry: 'A ponte para a Plataforma Sesc Sab.IA, com as duas marcas juntas.',
     ProgressBar: 'Barra de progresso com percentual — envio de documentos, etapas concluídas.',
@@ -50,6 +51,7 @@ window.SC_DEMOS = (DS) => {
     Switch: 'Interruptor de liga e desliga para preferências.',
     Tabs: 'Abas para alternar seções. Andam com as setas do teclado.',
     Tag: 'Etiqueta de categoria em uma das seis cores de acento.',
+    Testimonial: 'Um depoimento estático, com autor e unidade — sempre real e autorizado, nunca inventado.',
     Textarea: 'Campo de texto longo, com contador de caracteres opcional.',
     Toast: 'Aviso passageiro que aparece após uma ação — o que confirma a cópia nesta página.',
     Tooltip: 'Rótulo que aparece ao passar o cursor sobre um ícone ou texto cortado.',
@@ -359,6 +361,24 @@ window.SC_DEMOS = (DS) => {
         h('span', { style: { background: 'var(--rse-color-primary)', padding: 'var(--rse-space-3)', borderRadius: 'var(--rse-radius-md)', display: 'inline-flex' } },
           h(DS.Spinner, { size: 24, tone: 'inverse' }))
       ) },
+
+    Hero: { block: true, render: () =>
+      h(DS.Hero, {
+        eyebrow: 'Rede Sesc de Educação', title: 'Aprender para a vida acontecer', as: 'h2',
+        lead: 'Educação que acolhe, forma e transforma — em unidades por todo o Brasil.',
+        badge: h(DS.Badge, { tone: 'success' }, 'Vagas abertas'),
+        media: h('image-slot', { id: 'demo-hero-photo', shape: 'rounded', radius: '32', placeholder: 'estudantes em sala, luz natural, estilo documental' })
+      },
+        h(DS.Button, { variant: 'primary', size: 'lg' }, 'Quero me inscrever'),
+        h(DS.Button, { variant: 'ghost', size: 'lg' }, 'Assista a nossa história')
+      ) },
+
+    Testimonial: { render: () =>
+      h(DS.Testimonial, {
+        example: true, quote: 'Depoimento de exemplo: substitua por um relato real e autorizado.',
+        name: 'Nome Sobrenome', role: 'responsável', unit: 'unidade a definir',
+        avatar: h(DS.Avatar, { initials: 'NS', size: 'lg' })
+      }) },
 
     CtaBand: { block: true, render: () =>
       h(DS.CtaBand, { tone: 'ink', eyebrow: 'Fale conosco', title: 'Ainda com dúvidas?', description: 'Nossa equipe responde o mais rápido possível.' },

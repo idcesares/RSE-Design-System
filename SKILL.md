@@ -1,6 +1,6 @@
 ---
 name: rede-sesc-educacao-design
-description: Use this skill to generate well-branded interfaces and assets for the Rede Sesc de Educação and its learning platform, the Plataforma Sesc Sab.IA — production code or throwaway prototypes, mocks, decks and print pieces. Contains the official vector logos, the cubo impossível motif and cube patterns, the brand palette in RGB and CMYK as published in the official brand manual, type, fonts, an icon set, 38 UI components and ready-made templates.
+description: Use this skill to generate well-branded interfaces and assets for the Rede Sesc de Educação and its learning platform, the Plataforma Sesc Sab.IA — production code or throwaway prototypes, mocks, decks and print pieces. Contains the official vector logos, the cubo impossível motif and cube patterns, the brand palette in RGB and CMYK as published in the official brand manual, type, fonts, an icon set, 40 UI components and ready-made templates.
 user-invocable: true
 ---
 

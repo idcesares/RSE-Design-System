@@ -6,9 +6,9 @@
   "componentsWithRandomIds": 0,
   "componentsWithoutRestProps": 20,
   "pageRawColors": 5,
-  "pageHardWidths": 25,
+  "pageHardWidths": 22,
   "pagesWithoutMediaQueries": 4,
   "docCountDrift": 0,
   "componentsResponsive": 0,
-  "componentsOnCssContract": 16
+  "componentsOnCssContract": 18
 }

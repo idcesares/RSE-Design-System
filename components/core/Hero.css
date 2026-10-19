@@ -1,0 +1,53 @@
+/* Hero — .rse-hero. The opening block of a page: eyebrow (with an optional Badge/Tag), the page's one
+   h1, a lead, the caller's Buttons and an optional media node (an <image-slot>, never a default image).
+   Two columns that collapse to one without a media query; with no media it is a single column.
+   Tones: page (default, no fill), card, and the band tones of CtaBand (decision D3). */
+.rse-hero{
+  box-sizing:border-box;width:100%;padding:var(--rse-section-y-sm) var(--rse-container-padding);
+  background:var(--rse-hero-bg);font-family:var(--rse-font-family);
+}
+.rse-hero__inner{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:center;
+  gap:var(--rse-space-8);max-width:var(--rse-container-xl);margin:0 auto;
+}
+.rse-hero--no-media .rse-hero__inner{grid-template-columns:minmax(0,1fr)}
+.rse-hero__content{display:flex;flex-direction:column;align-items:flex-start;gap:var(--rse-space-5);min-width:0}
+.rse-hero--no-media .rse-hero__content{max-width:var(--rse-container-prose)}
+.rse-hero__meta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--rse-space-3)}
+.rse-hero__eyebrow{
+  margin:0;font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);
+  letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-hero-eyebrow);
+}
+.rse-hero__title{
+  margin:0;font-size:var(--rse-font-size-display-2);font-weight:var(--rse-font-weight-extrabold);
+  line-height:var(--rse-line-height-heading);letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-hero-title);
+}
+.rse-hero__lead{
+  margin:0;max-width:var(--rse-container-prose);font-size:var(--rse-font-size-body-lg);
+  line-height:var(--rse-line-height-body);color:var(--rse-hero-lead);
+}
+.rse-hero__actions{display:flex;flex-wrap:wrap;gap:var(--rse-space-3)}
+.rse-hero__media{min-width:0}
+.rse-hero__media > *{display:block;width:100%;aspect-ratio:16/10}
+.rse-hero--media-start .rse-hero__media{order:-1}
+.rse-hero{--rse-hero-bg:transparent;--rse-hero-eyebrow:var(--rse-color-primary);--rse-hero-title:var(--rse-color-text-heading);--rse-hero-lead:var(--rse-color-text-muted)}
+.rse-hero--page{--rse-hero-bg:transparent}
+.rse-hero--card{--rse-hero-bg:var(--rse-color-surface-card)}
+.rse-hero--primary{--rse-hero-bg:var(--rse-color-primary);--rse-hero-eyebrow:var(--rse-color-text-on-primary);--rse-hero-title:var(--rse-color-text-on-primary);--rse-hero-lead:var(--rse-color-text-on-primary)}
+.rse-hero--indigo{--rse-hero-bg:var(--rse-brand-indigo);--rse-hero-eyebrow:var(--rse-brand-white);--rse-hero-title:var(--rse-brand-white);--rse-hero-lead:var(--rse-brand-white)}
+.rse-hero--ink{--rse-hero-bg:var(--rse-brand-ink);--rse-hero-eyebrow:var(--rse-color-text-on-ink);--rse-hero-title:var(--rse-color-text-on-ink);--rse-hero-lead:var(--rse-color-text-on-ink-muted)}
+.rse-hero--pink,.rse-hero--pink-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--pink{--rse-hero-bg:var(--rse-brand-pink)}
+.rse-hero--pink-light{--rse-hero-bg:var(--rse-brand-pink-light)}
+.rse-hero--orange,.rse-hero--orange-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--orange{--rse-hero-bg:var(--rse-brand-orange)}
+.rse-hero--orange-light{--rse-hero-bg:var(--rse-brand-orange-light)}
+.rse-hero--yellow,.rse-hero--yellow-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--yellow{--rse-hero-bg:var(--rse-brand-yellow)}
+.rse-hero--yellow-light{--rse-hero-bg:var(--rse-brand-yellow-light)}
+.rse-hero--green,.rse-hero--green-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--green{--rse-hero-bg:var(--rse-brand-green)}
+.rse-hero--green-light{--rse-hero-bg:var(--rse-brand-green-light)}
+.rse-hero--blue,.rse-hero--blue-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--blue{--rse-hero-bg:var(--rse-brand-blue)}
+.rse-hero--blue-light{--rse-hero-bg:var(--rse-brand-blue-light)}

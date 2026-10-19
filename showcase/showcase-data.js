@@ -659,6 +659,69 @@ window.SHOWCASE_DATA = {
       ]
     },
     {
+      "name": "Hero",
+      "group": "core",
+      "groupLabel": "Essenciais",
+      "sourcePath": "components/core/Hero.jsx",
+      "summary": "The opening block of a page: eyebrow, the one h1, a lead, buttons and optional media in two columns that collapse to one.",
+      "props": [
+        {
+          "name": "tone",
+          "type": "'page' | 'card' | BandTone",
+          "required": false,
+          "notes": "Surface: page (default, no fill), card (white), or a band tone (primary/indigo white text, ink on-ink text, accents ink text)"
+        },
+        {
+          "name": "eyebrow",
+          "type": "string",
+          "required": false,
+          "notes": "Short uppercase line above the title"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "notes": "The page headline"
+        },
+        {
+          "name": "lead",
+          "type": "string",
+          "required": false,
+          "notes": "One supporting paragraph, capped at the prose width"
+        },
+        {
+          "name": "badge",
+          "type": "React.ReactNode",
+          "required": false,
+          "notes": "Node beside the eyebrow, e.g. a Badge or Tag with the enrollment deadline"
+        },
+        {
+          "name": "media",
+          "type": "React.ReactNode",
+          "required": false,
+          "notes": "Media node, e.g. <image-slot placeholder=\"…\">. Hero never renders a default image; without it the layout is one column"
+        },
+        {
+          "name": "mediaPosition",
+          "type": "'end' | 'start'",
+          "required": false,
+          "notes": "Which side the media sits on when there are two columns"
+        },
+        {
+          "name": "as",
+          "type": "'h1' | 'h2'",
+          "required": false,
+          "notes": "Heading element for the title. Default h1: a page has exactly one, so use h2 if the page already has one"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "notes": "Actions: compose Button components here"
+        }
+      ]
+    },
+    {
       "name": "Icon",
       "group": "core",
       "groupLabel": "Essenciais",
@@ -1354,6 +1417,51 @@ window.SHOWCASE_DATA = {
           "type": "string",
           "required": false,
           "notes": "Accessible label of the remove button (default \"Remover\")"
+        }
+      ]
+    },
+    {
+      "name": "Testimonial",
+      "group": "core",
+      "groupLabel": "Essenciais",
+      "sourcePath": "components/core/Testimonial.jsx",
+      "summary": "A single static testimonial as figure, blockquote and figcaption. Never invent one: use example while the text is a placeholder.",
+      "props": [
+        {
+          "name": "quote",
+          "type": "React.ReactNode",
+          "required": true,
+          "notes": "The quoted text, without quotation marks (the CSS adds the pt-BR ones)"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "notes": "Who said it"
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": false,
+          "notes": "Role or relationship, e.g. \"responsável\", \"ex-estudante\""
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "notes": "Unit or programme the person is tied to"
+        },
+        {
+          "name": "avatar",
+          "type": "React.ReactNode",
+          "required": false,
+          "notes": "Avatar node; the caller passes an <Avatar>"
+        },
+        {
+          "name": "example",
+          "type": "boolean",
+          "required": false,
+          "notes": "Marks the testimonial as a placeholder: shows a visible \"Depoimento de exemplo\" pill (read by screen readers too). Default false"
         }
       ]
     },
@@ -3158,7 +3266,9 @@ window.SHOWCASE_DATA = {
     "Button",
     "Card",
     "CtaBand",
+    "Hero",
     "Tag",
+    "Testimonial",
     "StatBand",
     "Alert",
     "Checkbox",
@@ -4975,8 +5085,8 @@ window.SHOWCASE_DATA = {
     "pagesTested": 8,
     "axeViolations": 0,
     "pagesOverflowingOnPhone": 4,
-    "componentsOnCssContract": 14,
-    "componentsTotal": 38,
+    "componentsOnCssContract": 16,
+    "componentsTotal": 40,
     "componentGlyphIcons": 0,
     "componentPxLiterals": 74,
     "componentsWithJsHover": 3
@@ -5212,6 +5322,24 @@ window.SHOWCASE_DATA = {
       "floor": 4.5
     },
     {
+      "label": "Título sobre o cartão",
+      "fg": "--rse-color-text-heading",
+      "bg": "--rse-color-surface-card",
+      "floor": 4.5
+    },
+    {
+      "label": "Sobretítulo da abertura sobre a página",
+      "fg": "--rse-color-primary",
+      "bg": "--rse-color-surface-page",
+      "floor": 4.5
+    },
+    {
+      "label": "Sobretítulo da abertura sobre o cartão",
+      "fg": "--rse-color-primary",
+      "bg": "--rse-color-surface-card",
+      "floor": 4.5
+    },
+    {
       "label": "Faixa rosa clara com texto ink",
       "fg": "--rse-brand-ink",
       "bg": "--rse-brand-pink-light",
@@ -5303,12 +5431,12 @@ window.SHOWCASE_DATA = {
     }
   ],
   "counts": {
-    "components": 38,
+    "components": 40,
     "tokens": 168,
     "palette": 21,
     "themes": 3,
     "templates": 4,
-    "contrastPairs": 53,
+    "contrastPairs": 56,
     "icons": 97
   }
 };

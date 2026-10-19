@@ -48,6 +48,10 @@ export const CONTRAST_PAIRS = [
   { where: 'Link hover on card', label: 'Link em foco do mouse sobre o cartão', fg: '--rse-color-text-link-hover', bg: '--rse-color-surface-card', floor: 4.5 },
   { where: 'Inverse text on inverse surface', label: 'Texto invertido sobre superfície invertida', fg: '--rse-color-text-inverse', bg: '--rse-color-surface-inverse', floor: 4.5 },
   { where: 'Primary button label on hover', label: 'Texto do botão primário em foco do mouse', fg: '--rse-color-text-on-primary', bg: '--rse-color-primary-hover', floor: 4.5 },
+  // Hero and Testimonial: heading on card, and the Hero eyebrow in the primary role.
+  { where: 'Heading on card', label: 'Título sobre o cartão', fg: '--rse-color-text-heading', bg: '--rse-color-surface-card', floor: 4.5 },
+  { where: 'Hero eyebrow on page', label: 'Sobretítulo da abertura sobre a página', fg: '--rse-color-primary', bg: '--rse-color-surface-page', floor: 4.5 },
+  { where: 'Hero eyebrow on card', label: 'Sobretítulo da abertura sobre o cartão', fg: '--rse-color-primary', bg: '--rse-color-surface-card', floor: 4.5 },
   // Accent bands (decision D3): ink text on every light and mid accent sanctioned as a band.
   { where: 'Band: ink on pink light', label: 'Faixa rosa clara com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-pink-light', floor: 4.5 },
   { where: 'Band: ink on pink mid', label: 'Faixa rosa média com texto ink', fg: '--rse-brand-ink', bg: '--rse-brand-pink', floor: 4.5 },

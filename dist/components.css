@@ -128,6 +128,61 @@
 .rse-cta-band--blue{--rse-cta-band-bg:var(--rse-brand-blue)}
 .rse-cta-band--blue-light{--rse-cta-band-bg:var(--rse-brand-blue-light)}
 
+/* components/core/Hero.css */
+/* Hero — .rse-hero. The opening block of a page: eyebrow (with an optional Badge/Tag), the page's one
+   h1, a lead, the caller's Buttons and an optional media node (an <image-slot>, never a default image).
+   Two columns that collapse to one without a media query; with no media it is a single column.
+   Tones: page (default, no fill), card, and the band tones of CtaBand (decision D3). */
+.rse-hero{
+  box-sizing:border-box;width:100%;padding:var(--rse-section-y-sm) var(--rse-container-padding);
+  background:var(--rse-hero-bg);font-family:var(--rse-font-family);
+}
+.rse-hero__inner{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:center;
+  gap:var(--rse-space-8);max-width:var(--rse-container-xl);margin:0 auto;
+}
+.rse-hero--no-media .rse-hero__inner{grid-template-columns:minmax(0,1fr)}
+.rse-hero__content{display:flex;flex-direction:column;align-items:flex-start;gap:var(--rse-space-5);min-width:0}
+.rse-hero--no-media .rse-hero__content{max-width:var(--rse-container-prose)}
+.rse-hero__meta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--rse-space-3)}
+.rse-hero__eyebrow{
+  margin:0;font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);
+  letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-hero-eyebrow);
+}
+.rse-hero__title{
+  margin:0;font-size:var(--rse-font-size-display-2);font-weight:var(--rse-font-weight-extrabold);
+  line-height:var(--rse-line-height-heading);letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-hero-title);
+}
+.rse-hero__lead{
+  margin:0;max-width:var(--rse-container-prose);font-size:var(--rse-font-size-body-lg);
+  line-height:var(--rse-line-height-body);color:var(--rse-hero-lead);
+}
+.rse-hero__actions{display:flex;flex-wrap:wrap;gap:var(--rse-space-3)}
+.rse-hero__media{min-width:0}
+.rse-hero__media > *{display:block;width:100%;aspect-ratio:16/10}
+.rse-hero--media-start .rse-hero__media{order:-1}
+.rse-hero{--rse-hero-bg:transparent;--rse-hero-eyebrow:var(--rse-color-primary);--rse-hero-title:var(--rse-color-text-heading);--rse-hero-lead:var(--rse-color-text-muted)}
+.rse-hero--page{--rse-hero-bg:transparent}
+.rse-hero--card{--rse-hero-bg:var(--rse-color-surface-card)}
+.rse-hero--primary{--rse-hero-bg:var(--rse-color-primary);--rse-hero-eyebrow:var(--rse-color-text-on-primary);--rse-hero-title:var(--rse-color-text-on-primary);--rse-hero-lead:var(--rse-color-text-on-primary)}
+.rse-hero--indigo{--rse-hero-bg:var(--rse-brand-indigo);--rse-hero-eyebrow:var(--rse-brand-white);--rse-hero-title:var(--rse-brand-white);--rse-hero-lead:var(--rse-brand-white)}
+.rse-hero--ink{--rse-hero-bg:var(--rse-brand-ink);--rse-hero-eyebrow:var(--rse-color-text-on-ink);--rse-hero-title:var(--rse-color-text-on-ink);--rse-hero-lead:var(--rse-color-text-on-ink-muted)}
+.rse-hero--pink,.rse-hero--pink-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--pink{--rse-hero-bg:var(--rse-brand-pink)}
+.rse-hero--pink-light{--rse-hero-bg:var(--rse-brand-pink-light)}
+.rse-hero--orange,.rse-hero--orange-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--orange{--rse-hero-bg:var(--rse-brand-orange)}
+.rse-hero--orange-light{--rse-hero-bg:var(--rse-brand-orange-light)}
+.rse-hero--yellow,.rse-hero--yellow-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--yellow{--rse-hero-bg:var(--rse-brand-yellow)}
+.rse-hero--yellow-light{--rse-hero-bg:var(--rse-brand-yellow-light)}
+.rse-hero--green,.rse-hero--green-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--green{--rse-hero-bg:var(--rse-brand-green)}
+.rse-hero--green-light{--rse-hero-bg:var(--rse-brand-green-light)}
+.rse-hero--blue,.rse-hero--blue-light{--rse-hero-eyebrow:var(--rse-brand-ink);--rse-hero-title:var(--rse-brand-ink);--rse-hero-lead:var(--rse-brand-ink)}
+.rse-hero--blue{--rse-hero-bg:var(--rse-brand-blue)}
+.rse-hero--blue-light{--rse-hero-bg:var(--rse-brand-blue-light)}
+
 /* components/core/Tag.css */
 /* Tag — .rse-tag--<hue>. Pale tint with its paired ink (6.2:1 or more in every theme). */
 .rse-tag{
@@ -145,6 +200,33 @@
   border:none;border-radius:var(--rse-radius-pill);background:transparent;color:inherit;cursor:pointer;
 }
 .rse-tag__remove:hover{background:color-mix(in srgb,currentColor 14%,transparent)}
+
+/* components/core/Testimonial.css */
+/* Testimonial — .rse-testimonial. A static quote: <figure> > <blockquote> + <figcaption>. The
+   typographic quotes are CSS content (text, not icons). The --example modifier and its pill keep demo
+   and template usage visibly placeholder: never ship an invented testimonial. No carousel. */
+.rse-testimonial{
+  box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:var(--rse-space-5);
+  max-width:var(--rse-container-prose);margin:0;padding:var(--rse-space-6);
+  background:var(--rse-color-surface-card);color:var(--rse-color-text-body);
+  border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);
+  box-shadow:var(--rse-shadow-sm);font-family:var(--rse-font-family);
+}
+.rse-testimonial--example{border-style:dashed}
+.rse-testimonial__example{
+  display:inline-flex;align-items:center;padding:0.375rem 0.875rem;border-radius:var(--rse-radius-sm);
+  background:var(--rse-color-tint-purple);color:var(--rse-color-tint-purple-ink);
+  font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-medium);
+}
+.rse-testimonial__quote{
+  margin:0;font-size:var(--rse-font-size-body-lg);line-height:var(--rse-line-height-body);color:var(--rse-color-text-body);
+}
+.rse-testimonial__quote::before{content:"\201C";content:"\201C" / ""}
+.rse-testimonial__quote::after{content:"\201D";content:"\201D" / ""}
+.rse-testimonial__author{display:flex;align-items:center;gap:var(--rse-space-3);margin:0}
+.rse-testimonial__who{display:flex;flex-direction:column;min-width:0}
+.rse-testimonial__name{font-weight:var(--rse-font-weight-bold);color:var(--rse-color-text-heading);letter-spacing:var(--rse-letter-spacing-tight)}
+.rse-testimonial__role,.rse-testimonial__unit{font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted)}
 
 /* components/data/StatBand.css */
 /* StatBand — .rse-stat-band. A full-bleed band of Stat figures (decision D3), same tone set as

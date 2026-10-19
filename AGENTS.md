@@ -104,7 +104,7 @@ dist/                     GENERATED. rse.js (every component on window.RSE), tok
 brand.json                GENERATED. The brand contract for non-browser consumers: palette with
                           CMYK, tokens per theme, scales, assets by role, machine-readable rules.
 index.js / index.d.ts     React entry. Import components from here, never from a component file.
-components/<group>/       38 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
+components/<group>/       40 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
                           Icon.jsx and BrandMotif.jsx are GENERATED — edit their sources.
 templates/                Four starting points (deck, program page, enrollment form, landing page).
 starters/                 Blank, dependency-free starting points: page, React page, A3 poster.
@@ -169,7 +169,7 @@ Putting the system into another project — npm, the static kit for CMSs, Python
    new location. That single line is the only wiring.
 3. Compose from existing components before writing new markup. Check
    [docs/components.md](docs/components.md) first — the set is deliberately complete for this
-   use case (38 components), so a "missing" component is usually an existing one with a prop you
+   use case (40 components), so a "missing" component is usually an existing one with a prop you
    haven't read yet.
 4. Structure: page background is cream (`--rse-color-surface-page`), content sits on white cards
    (`--rse-color-surface-card`). A feature or CTA **band** may be brand purple or indigo with white text, or

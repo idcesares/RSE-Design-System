@@ -13,12 +13,16 @@ export { CtaBand } from './components/core/CtaBand';
 export type { CtaBandProps, BandTone } from './components/core/CtaBand';
 export { Divider } from './components/core/Divider';
 export type { DividerProps } from './components/core/Divider';
+export { Hero } from './components/core/Hero';
+export type { HeroProps } from './components/core/Hero';
 export { Icon, iconNames } from './components/core/Icon';
 export type { IconName, IconProps } from './components/core/Icon';
 export { IconButton } from './components/core/IconButton';
 export type { IconButtonProps } from './components/core/IconButton';
 export { Tag } from './components/core/Tag';
 export type { TagProps } from './components/core/Tag';
+export { Testimonial } from './components/core/Testimonial';
+export type { TestimonialProps } from './components/core/Testimonial';
 
 // Brand
 export { BrandMotif, motifVariants, motifHues } from './components/brand/BrandMotif';
