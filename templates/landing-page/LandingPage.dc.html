@@ -29,15 +29,13 @@
 </div>
 <image-slot id="hero-photo" shape="rounded" radius="32" style="width:100%;height:360px;display:block" placeholder="foto de estudantes, estilo documental"></image-slot>
 </div>
-<div style="background:var(--rse-color-primary);padding:48px 24px">
-<div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:32px;box-sizing:border-box">
 <!-- Números de exemplo: substituir por dados verificados antes de publicar. -->
+<x-import component-from-global-scope="RSE.StatBand" tone="primary" note="Números de exemplo: substituir por dados verificados antes de publicar." hint-size="100%,230px">
 <x-import component-from-global-scope="RSE.Stat" value="00" label="unidades no Brasil" accent="inverse" align="center" hint-size="100%,96px"></x-import>
 <x-import component-from-global-scope="RSE.Stat" value="00 anos" label="de tradição em educação" accent="inverse" align="center" hint-size="100%,96px"></x-import>
 <x-import component-from-global-scope="RSE.Stat" value="000 mil" label="estudantes atendidos" accent="inverse" align="center" hint-size="100%,96px"></x-import>
 <x-import component-from-global-scope="RSE.Stat" value="00" label="estados e o DF" accent="inverse" align="center" hint-size="100%,96px"></x-import>
-</div>
-</div>
+</x-import>
 <div style="max-width:1200px;margin:0 auto;padding:80px 24px;display:flex;flex-direction:column;gap:40px;box-sizing:border-box">
 <div style="display:flex;flex-direction:column;gap:12px;max-width:600px">
 <span style="font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary)">Programas</span>
@@ -168,13 +166,9 @@
 <div style="max-width:1200px;margin:0 auto;padding:0 24px 80px;box-sizing:border-box">
 <x-import component-from-global-scope="RSE.PlatformEntry" href="#" logo-src="../../assets/logos/sabia-wordmark-cream.svg" title="Aprendizagem que acompanha cada estudante" description="Avaliação diagnóstica, trilhas personalizadas e acompanhamento contínuo — o núcleo de inteligência educacional da Rede." cta-label="Acessar a plataforma" note="Acesso para estudantes, famílias e educadores da Rede." hint-size="100%,240px"></x-import>
 </div>
-<div style="background:var(--rse-brand-ink);padding:80px 24px">
-<div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:20px;align-items:center">
-<h2 style="font-size:var(--rse-font-size-h1);color:var(--rse-color-text-on-ink);margin:0">Ainda com dúvidas?</h2>
-<p style="color:var(--rse-color-text-on-ink-muted);font-size:var(--rse-font-size-body-lg);margin:0">Nossa equipe responde o mais rápido possível.</p>
+<x-import component-from-global-scope="RSE.CtaBand" tone="ink" title="Ainda com dúvidas?" description="Nossa equipe responde o mais rápido possível." hint-size="100%,340px">
 <x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" hint-size="180px,56px">Fale conosco</x-import>
-</div>
-</div>
+</x-import>
 <x-import component-from-global-scope="RSE.Footer" logo-src="../../assets/logos/wordmark-white.svg" logo-alt="Rede Sesc de Educação" tagline="Aprender para a vida acontecer." columns="{{ footerColumns }}" note="© 2026 Sesc — Serviço Social do Comércio. Todos os direitos reservados." hint-size="100%,320px"></x-import>
 <x-import component-from-global-scope="RSE.Modal" open="{{ modalOpen }}" on-close="{{ closeModal }}" title="Nossa história em vídeo" size="md" hint-size="520px,400px">
 <image-slot id="story-video" shape="rect" radius="12" style="width:100%;aspect-ratio:16/9;display:block" placeholder="vídeo institucional"></image-slot>

@@ -41,14 +41,12 @@
 </div>
 <image-slot id="hero-photo" shape="rounded" radius="32" style="width:100%;aspect-ratio:16/10;display:block" placeholder="estudantes em atividade, luz natural, estilo documental"></image-slot>
 </section>
-<section style="max-width:1200px;margin:0 auto;padding:32px 24px 64px" id="programas">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:32px;padding:40px;background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);box-shadow:var(--rse-shadow-sm)">
-<x-import component-from-global-scope="RSE.Stat" value="0 anos" label="Duração" accent="primary" hint-size="100%,96px"></x-import>
-<x-import component-from-global-scope="RSE.Stat" value="00 alunos" label="Por turma" accent="green" hint-size="100%,96px"></x-import>
-<x-import component-from-global-scope="RSE.Stat" value="0h00" label="Carga diária" accent="orange" hint-size="100%,96px"></x-import>
-<x-import component-from-global-scope="RSE.Stat" value="00%" label="Com projeto de vida" accent="blue" hint-size="100%,96px"></x-import>
-</div>
-</section>
+<x-import component-from-global-scope="RSE.StatBand" id="programas" tone="primary" aria-label="O programa em números" note="Números de exemplo: substituir por dados verificados antes de publicar." hint-size="100%,230px">
+<x-import component-from-global-scope="RSE.Stat" value="0 anos" label="Duração" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="00 alunos" label="Por turma" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="0h00" label="Carga diária" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="00%" label="Com projeto de vida" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+</x-import>
 <section style="max-width:1200px;margin:0 auto;padding:0 24px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px">
 <div style="display:flex;flex-direction:column;gap:20px">
 <p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">O programa</p>
