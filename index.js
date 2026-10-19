@@ -16,7 +16,7 @@ export { IconButton } from './components/core/IconButton.jsx';
 export { Tag } from './components/core/Tag.jsx';
 
 // Brand
-export { BrandMotif, motifVariants } from './components/brand/BrandMotif.jsx';
+export { BrandMotif, motifVariants, motifHues } from './components/brand/BrandMotif.jsx';
 export { PlatformEntry } from './components/brand/PlatformEntry.jsx';
 
 // Forms

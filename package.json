@@ -24,6 +24,9 @@
     "assets",
     "!assets/logos/source",
     "brand.json",
+    "rse.manifest.json",
+    "templates",
+    "starters",
     "image-slot.js",
     "RULES.md",
     "LICENSE"

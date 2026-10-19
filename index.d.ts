@@ -19,8 +19,8 @@ export { Tag } from './components/core/Tag';
 export type { TagProps } from './components/core/Tag';
 
 // Brand
-export { BrandMotif, motifVariants } from './components/brand/BrandMotif';
-export type { MotifVariant } from './components/brand/BrandMotif';
+export { BrandMotif, motifVariants, motifHues } from './components/brand/BrandMotif';
+export type { MotifVariant, MotifHue } from './components/brand/BrandMotif';
 export { PlatformEntry } from './components/brand/PlatformEntry';
 export type { PlatformEntryProps } from './components/brand/PlatformEntry';
 export type { BrandMotifProps } from './components/brand/BrandMotif';
