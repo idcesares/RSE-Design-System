@@ -2621,6 +2621,21 @@ window.SHOWCASE_DATA = {
         "--rse-color-tint-yellow": {
           "value": "#f2f1ec"
         },
+        "--rse-color-data-2": {
+          "value": "#4f85b2"
+        },
+        "--rse-color-data-3": {
+          "value": "#658e1e"
+        },
+        "--rse-color-data-4": {
+          "value": "#6b4700"
+        },
+        "--rse-color-data-5": {
+          "value": "#c6621e"
+        },
+        "--rse-color-data-6": {
+          "value": "#cc646a"
+        },
         "--rse-focus-ring-width": {
           "value": "4px"
         },
@@ -4749,8 +4764,8 @@ window.SHOWCASE_DATA = {
           "raw": "var(--rse-brand-blue)"
         },
         "contrast": {
-          "value": "#76b3dd",
-          "raw": "var(--rse-brand-blue)"
+          "value": "#4f85b2",
+          "raw": "var(--rse-brand-blue-dark)"
         }
       }
     },
@@ -4767,8 +4782,8 @@ window.SHOWCASE_DATA = {
           "raw": "var(--rse-brand-green)"
         },
         "contrast": {
-          "value": "#85b73d",
-          "raw": "var(--rse-brand-green)"
+          "value": "#658e1e",
+          "raw": "var(--rse-brand-green-dark)"
         }
       }
     },
@@ -4785,8 +4800,8 @@ window.SHOWCASE_DATA = {
           "raw": "var(--rse-brand-yellow)"
         },
         "contrast": {
-          "value": "#f4bf2a",
-          "raw": "var(--rse-brand-yellow)"
+          "value": "#6b4700",
+          "raw": "var(--rse-brand-yellow-ink)"
         }
       }
     },
@@ -4803,8 +4818,8 @@ window.SHOWCASE_DATA = {
           "raw": "var(--rse-brand-orange)"
         },
         "contrast": {
-          "value": "#e17f38",
-          "raw": "var(--rse-brand-orange)"
+          "value": "#c6621e",
+          "raw": "var(--rse-brand-orange-dark)"
         }
       }
     },
@@ -4821,8 +4836,8 @@ window.SHOWCASE_DATA = {
           "raw": "var(--rse-brand-pink)"
         },
         "contrast": {
-          "value": "#e27879",
-          "raw": "var(--rse-brand-pink)"
+          "value": "#cc646a",
+          "raw": "var(--rse-brand-pink-dark)"
         }
       }
     },
@@ -5014,6 +5029,42 @@ window.SHOWCASE_DATA = {
       "floor": 3
     },
     {
+      "label": "Série de dados 1 (roxo) sobre o cartão",
+      "fg": "--rse-color-data-1",
+      "bg": "--rse-color-surface-card",
+      "floor": 3
+    },
+    {
+      "label": "Link sobre o cartão",
+      "fg": "--rse-color-text-link",
+      "bg": "--rse-color-surface-card",
+      "floor": 4.5
+    },
+    {
+      "label": "Link em foco do mouse sobre a página",
+      "fg": "--rse-color-text-link-hover",
+      "bg": "--rse-color-surface-page",
+      "floor": 4.5
+    },
+    {
+      "label": "Link em foco do mouse sobre o cartão",
+      "fg": "--rse-color-text-link-hover",
+      "bg": "--rse-color-surface-card",
+      "floor": 4.5
+    },
+    {
+      "label": "Texto invertido sobre superfície invertida",
+      "fg": "--rse-color-text-inverse",
+      "bg": "--rse-color-surface-inverse",
+      "floor": 4.5
+    },
+    {
+      "label": "Texto do botão primário em foco do mouse",
+      "fg": "--rse-color-text-on-primary",
+      "bg": "--rse-color-primary-hover",
+      "floor": 4.5
+    },
+    {
       "label": "Faixa rosa clara com texto ink",
       "fg": "--rse-brand-ink",
       "bg": "--rse-brand-pink-light",
@@ -5098,7 +5149,7 @@ window.SHOWCASE_DATA = {
     "palette": 21,
     "themes": 3,
     "templates": 4,
-    "contrastPairs": 39,
+    "contrastPairs": 45,
     "icons": 97
   }
 };

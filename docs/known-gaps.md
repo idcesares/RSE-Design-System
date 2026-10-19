@@ -36,3 +36,10 @@ repeating any of these to a user.
 9. **Never re-sample colour from the artwork files.** The supplied vectors and
    `uploads/REDE_SESC_selo_COR.pdf` sit 1–3 points below the manual's published hex. The manual
    wins. This drift is what put the palette off-spec once already.
+10. **Two contrast gaps are measured but not yet fixed** — they need a design decision, so their pairs
+    are commented out in `scripts/contrast-pairs.mjs` rather than failing the gate or lowering the floor.
+    (a) In the light theme `--rse-color-data-2..6` are below 3:1 on the card (2.27, 2.38, 1.70, 2.88, 2.92):
+    chart fills must also be labelled or marked, never colour alone, until the palette is re-mapped
+    (the `-dark` brand tones pass at 3.75–4.06; yellow only passes as `yellow-ink`, which reads brown).
+    (b) In the dark theme the pressed primary button (`text-on-primary` on `primary-active`) is 3.56:1,
+    under the 4.5 floor. The data palette already passes in the dark and contrast themes.

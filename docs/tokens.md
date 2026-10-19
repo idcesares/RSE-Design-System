@@ -115,11 +115,11 @@ a value that differs per theme shows all three.
 | `--rse-color-tint-purple-ink` | `#3a3186` | `#ad98ea` | — |  |
 | `--rse-color-tint-yellow-ink` | `#6b4700` | `#ffd67b` | — |  |
 | `--rse-color-data-1` | `#6c62c4` | — | — |  |
-| `--rse-color-data-2` | `#76b3dd` | — | — |  |
-| `--rse-color-data-3` | `#85b73d` | — | — |  |
-| `--rse-color-data-4` | `#f4bf2a` | — | — |  |
-| `--rse-color-data-5` | `#e17f38` | — | — |  |
-| `--rse-color-data-6` | `#e27879` | — | — |  |
+| `--rse-color-data-2` | `#76b3dd` | — | `#4f85b2` |  |
+| `--rse-color-data-3` | `#85b73d` | — | `#658e1e` |  |
+| `--rse-color-data-4` | `#f4bf2a` | — | `#6b4700` |  |
+| `--rse-color-data-5` | `#e17f38` | — | `#c6621e` |  |
+| `--rse-color-data-6` | `#e27879` | — | `#cc646a` |  |
 | `--rse-color-scrim` | `rgba(43,42,61,0.55)` | `rgba(12,11,18,0.68)` | — |  |
 
 ## rse.font

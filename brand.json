@@ -1314,6 +1314,21 @@
         "--rse-color-tint-yellow": {
           "value": "#f2f1ec"
         },
+        "--rse-color-data-2": {
+          "value": "#4f85b2"
+        },
+        "--rse-color-data-3": {
+          "value": "#658e1e"
+        },
+        "--rse-color-data-4": {
+          "value": "#6b4700"
+        },
+        "--rse-color-data-5": {
+          "value": "#c6621e"
+        },
+        "--rse-color-data-6": {
+          "value": "#cc646a"
+        },
         "--rse-focus-ring-width": {
           "value": "4px"
         },
