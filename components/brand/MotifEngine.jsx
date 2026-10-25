@@ -4,7 +4,8 @@
 // A pure-function library, not a React component: no JSX, no React, no hooks. It is registered in
 // rse.manifest.json only so build-bundle copies it onto window.RSE; MotifLoader and MotifPattern
 // build on it. Every export is a named `export function` / `export const` (the only forms the
-// bundle sees) and is prefixed, because window.RSE is one flat namespace.
+// bundle sees). Most are prefixed motif / makeMotif / renderMotif, and the rest (isoPoint,
+// MAX_PATTERN_CELLS) have names no other component uses, because window.RSE is one flat namespace.
 //
 // Model (see the spec, "Motif engine"):
 // - Lattice. A point [x, y, z] projects with x at +30°, y at −30° (screen y points down, so +30°
@@ -109,7 +110,7 @@ const motifBoxes = (shape) => {
       { index, half: 1, axis: part.axis, at: part.at.map((v, i) => (i === k ? v + cut : v)), size: part.size.map((s, i) => (i === k ? s - cut : s)), skip: null },
     );
   });
-  boxes.forEach((b, i) => { b.id = i; b.spans = motifSpans(b); b.after = new Set(); });
+  boxes.forEach((b) => { b.spans = motifSpans(b); b.after = new Set(); });
 
   const reaches = (from, to) => {
     const stack = [from];
