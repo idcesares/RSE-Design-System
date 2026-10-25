@@ -19,7 +19,7 @@
   .cell .cap { margin: 12px 0 0; font-size: 22px; font-weight: var(--rse-font-weight-bold); letter-spacing: var(--rse-letter-spacing-eyebrow); text-transform: uppercase; color: var(--rse-color-text-muted); height: 32px; }
   .cell .cap b { color: var(--rse-color-text-heading); font-weight: var(--rse-font-weight-extrabold); }
   .thumb { position: relative; width: 640px; height: 360px; overflow: hidden; border: 1px solid var(--rse-color-border-default); }
-  .thumb > .slide { transform: scale(.3333); transform-origin: 0 0; }
+  .thumb > .slide { --m: calc(var(--S) * .09); transform: scale(.3333); transform-origin: 0 0; }
   .tile { position: relative; width: 440px; height: 300px; overflow: hidden; border: 1px solid var(--rse-color-border-default); background: var(--rse-color-surface-card); }
   .tile > .stage { display: flex; flex-direction: column; justify-content: center; position: absolute; left: 0; top: 0; width: 1320px; height: 900px; transform: scale(.3333); transform-origin: 0 0; padding: 90px; box-sizing: border-box; --S: 1080px; font-family: var(--rse-font-family); font-size: calc(var(--S) * .028); line-height: 1.45; color: var(--rse-color-text-body); }
   .tile .stage * { box-sizing: border-box; }

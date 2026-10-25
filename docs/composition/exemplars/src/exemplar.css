@@ -35,7 +35,7 @@
 .slide.tint-pink { background: var(--rse-color-tint-pink); --fg: var(--rse-color-tint-pink-ink); --fg-heading: var(--rse-color-tint-pink-ink); --fg-muted: var(--rse-color-tint-pink-ink); --accent: var(--rse-color-tint-pink-ink); }
 
 /* Placement by fraction of the canvas. */
-.at { position: absolute; left: calc(var(--x, 0) * 1920px); top: calc(var(--y, 0) * 1080px); width: calc(var(--w, .5) * 1920px); }
+.at { --x: 0; --y: 0; --w: .5; --h: .5; position: absolute; left: calc(var(--x, 0) * 1920px); top: calc(var(--y, 0) * 1080px); width: calc(var(--w, .5) * 1920px); }
 .at.h { height: calc(var(--h, .5) * 1080px); }
 .at.r { left: auto; right: calc(var(--x, 0) * 1920px); }
 .at.b { top: auto; bottom: calc(var(--y, 0) * 1080px); }
@@ -81,7 +81,7 @@
 .tbl td { padding: calc(var(--S) * .02) 0; border-bottom: 2px solid var(--rse-color-border-default); }
 .tbl td:last-child, .tbl th:last-child { text-align: right; }
 .chart { position: absolute; display: flex; align-items: flex-end; gap: calc(var(--S) * .035); border-bottom: 2px solid var(--fg); }
-.bar { flex: 1; position: relative; height: calc(var(--v) * 100%); background: var(--c, var(--rse-color-data-1)); }
+.bar { --v: .5; --c: var(--rse-color-data-1); flex: 1; position: relative; height: calc(var(--v) * 100%); background: var(--c, var(--rse-color-data-1)); }
 .bar b { position: absolute; left: 0; right: 0; top: calc(var(--S) * -.05); font-size: var(--t-body); font-weight: var(--rse-font-weight-extrabold); color: var(--fg-heading); }
 .bar i { position: absolute; left: 0; right: 0; top: 100%; padding-top: calc(var(--S) * .012); font-style: normal; font-size: var(--t-caption); font-weight: var(--rse-font-weight-semibold); color: var(--fg-muted); }
 .axis { position: absolute; border-top: 4px solid var(--fg); }
