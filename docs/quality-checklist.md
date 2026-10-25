@@ -58,7 +58,7 @@ npm run check
 - [ ] Renders correctly with `data-rse-theme="dark"` and `data-rse-theme="contrast"` on `<html>`.
 - [ ] Reflows at 375px, 834px and 1440px without horizontal scroll.
 - [ ] Wide content (tables, deck stages) scrolls inside its own container, not the page body.
-- [ ] Managed components implement both forms (`data-rse-motion="reduced"` keeps opacity and colour changes; travel, spinning, looping and parallax go); no
+- [ ] Managed components implement both forms (`data-rse-motion="reduced"` keeps opacity and colour changes; travel, spinning, looping and parallax go, except that `MotifLoader` keeps looping as a slowed, opacity-only fade); no
       unmanaged animation.
 
 ## Print (decks, forms, posters)

@@ -77,7 +77,8 @@ UI state changes stay capped at 360 ms. Brand motion has its own tier.
 - Motion setting: `data-rse-motion="full" | "reduced"` on `<html>` or on any section; it nests like
   `data-rse-theme`. The initial value is the stored choice (`RSE.motion`, key `rse-motion`), else
   the OS `prefers-reduced-motion`, else `full`. Reduced keeps opacity and colour changes and drops
-  travel, spinning, looping and parallax.
+  travel, spinning, looping and parallax (the one exception is `MotifLoader`, which keeps looping as a
+  slowed, opacity-only fade; ambient `MotifPattern` becomes static).
 - Components that implement both forms carry `.rse-motion-managed`. Everything else is flattened
   in the reduced state by the safety net in `tokens/base-runtime.css`; never add unmanaged motion
   inline in a way that escapes it.
