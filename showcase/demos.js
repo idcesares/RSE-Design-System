@@ -45,6 +45,7 @@ window.SC_DEMOS = (DS) => {
     Radio: 'Escolha única dentro de um grupo: turno, categoria, forma de contato.',
     Select: 'Lista suspensa para escolher unidade, programa ou estado.',
     Skeleton: 'O esqueleto que ocupa o lugar do conteúdo enquanto ele carrega.',
+    MotifPattern: 'Um campo de formas impossíveis para preencher faixas e fundos: parado, revelado ao rolar ou respirando devagar, sempre com botão de pausa.',
     Spinner: 'Indicador de carregamento para ações sem duração previsível.',
     MotifLoader: 'O carregamento de página e de seção: uma forma impossível se monta peça por peça.',
     StatBand: 'Uma faixa de números de impacto sobre uma cor só, lida como lista.',
@@ -370,6 +371,18 @@ window.SC_DEMOS = (DS) => {
         h(DS.MotifLoader, { shape: 'triangle', hue: 'blue', size: 56, label: 'Carregando programas' }),
         h(DS.MotifLoader, { shape: 'twin', hues: ['green', 'blue', 'pink'], size: 64, label: 'Carregando unidades' })
       ) },
+
+    MotifPattern: { block: true, render: () => {
+      const cell = (caption, props) => h('figure', { style: { margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-2)' } },
+        h('div', { style: { height: '220px', borderRadius: 'var(--rse-radius-lg)', overflow: 'hidden', background: 'var(--rse-color-surface-card)' } },
+          h(DS.MotifPattern, props)),
+        h('figcaption', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)' } }, caption));
+      return h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 'var(--rse-space-5)' } },
+        cell('Parado: grade de cubos em roxo.', { shape: 'cube', hue: 'purple', width: 640, height: 440, cell: 72 }),
+        cell('Revela ao rolar: os triângulos aparecem em onda.', { shape: 'triangle', hue: 'blue', layout: 'brick', animate: 'reveal', width: 640, height: 440, cell: 84 }),
+        cell('Ambiente: respira devagar. O botão pausa.', { shape: 'twin', hue: 'green', layout: 'isometric', animate: 'ambient', width: 640, height: 440, cell: 96 }),
+        cell('Espectro: seis cores, só como arte.', { shape: ['cube', 'stair', 'loop'], hues: ['green', 'blue', 'pink', 'purple', 'orange', 'yellow'], sequence: 'diagonal', width: 640, height: 440, cell: 72 }));
+    } },
 
     Spinner: { render: () =>
       h(F, null,

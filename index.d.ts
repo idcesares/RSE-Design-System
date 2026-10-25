@@ -29,6 +29,8 @@ export { BrandMotif, motifVariants, motifHues } from './components/brand/BrandMo
 export type { MotifVariant, MotifHue } from './components/brand/BrandMotif';
 export { MotifEngine, isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, motifShapeNames, motifShapes, renderMotifPattern, MAX_PATTERN_CELLS } from './components/brand/MotifEngine';
 export type { Axis, Vec, Role, Part, Crossing, Shape, Face, PieceFace, Piece, MotifSvgOptions, MotifShapeName, MotifPatternLayout, MotifPatternSequence, MotifPatternAnimate, MotifPatternOptions } from './components/brand/MotifEngine';
+export { MotifPattern } from './components/brand/MotifPattern';
+export type { MotifPatternProps } from './components/brand/MotifPattern';
 export { PlatformEntry } from './components/brand/PlatformEntry';
 export type { PlatformEntryProps } from './components/brand/PlatformEntry';
 export type { BrandMotifProps } from './components/brand/BrandMotif';

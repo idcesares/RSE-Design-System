@@ -982,6 +982,33 @@ window.SHOWCASE_DATA = {
       ]
     },
     {
+      "name": "MotifPattern",
+      "group": "brand",
+      "groupLabel": "Marca",
+      "sourcePath": "components/brand/MotifPattern.jsx",
+      "summary": "A field of impossible shapes that fills its container (display:block, width and height 100%: the host sets the size). `animate` is 'none' (static, default), 'reveal' (cells fade in by --d stagger when the pattern scrolls into view; needs motion.js, never hidden without it) or 'ambient' (a slow breathing loop with a mandatory pause button). Text never sits on the cells: put it on a solid panel. An unknown shape or hue renders nothing. Follows the motion setting: reveal is opacity only and ambient is static when reduced.",
+      "props": [
+        {
+          "name": "width",
+          "type": "number",
+          "required": false,
+          "notes": "Width of the drawing box, px (default 1920). Only the proportion matters: the art is scaled to fill the host"
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "notes": "Height of the drawing box, px (default 1080)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "notes": "Extra class on the root, e.g. one that gives the host its size"
+        }
+      ]
+    },
+    {
       "name": "Navbar",
       "group": "navigation",
       "groupLabel": "Navegação",
@@ -3325,6 +3352,7 @@ window.SHOWCASE_DATA = {
     }
   ],
   "contractComponents": [
+    "MotifPattern",
     "Badge",
     "Button",
     "Card",
@@ -5152,8 +5180,8 @@ window.SHOWCASE_DATA = {
     "pagesTested": 8,
     "axeViolations": 0,
     "pagesOverflowingOnPhone": 4,
-    "componentsOnCssContract": 20,
-    "componentsTotal": 42,
+    "componentsOnCssContract": 21,
+    "componentsTotal": 43,
     "componentGlyphIcons": 0,
     "componentPxLiterals": 59,
     "componentsWithJsHover": 3
@@ -5498,7 +5526,7 @@ window.SHOWCASE_DATA = {
     }
   ],
   "counts": {
-    "components": 42,
+    "components": 43,
     "tokens": 172,
     "palette": 21,
     "themes": 3,

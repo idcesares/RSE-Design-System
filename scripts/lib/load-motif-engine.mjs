@@ -13,12 +13,20 @@ import { exportedNames, toBundleForm } from './bundle-form.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 // Evaluated in this order: a file may import what the files before it export.
-const SOURCES = ['components/brand/BrandMotif.jsx', 'components/brand/MotifEngine.jsx', 'components/feedback/MotifLoader.jsx'];
+const SOURCES = ['components/brand/BrandMotif.jsx', 'components/brand/MotifEngine.jsx', 'components/feedback/MotifLoader.jsx', 'components/core/Icon.jsx', 'components/brand/MotifPattern.jsx'];
 
 const React = {
   createElement: (type, props, ...children) => ({ type, props, children }),
   // A forwardRef component is its render function: tests call it as (props, ref).
   forwardRef: (render) => render,
+  // Hooks for a render outside React: state never changes, memo runs once, and effects are recorded
+  // (React.effects) so a test can run them against a fake window.
+  effects: [],
+  useState: (init) => [typeof init === 'function' ? init() : init, () => {}],
+  useRef: (init = null) => ({ current: init }),
+  useMemo: (fn) => fn(),
+  useCallback: (fn) => fn,
+  useEffect: (fn) => { React.effects.push(fn); },
 };
 
 export async function loadMotifEngine() {
@@ -29,5 +37,6 @@ export async function loadMotifEngine() {
     const factory = new Function('React', 'scope', `${toBundleForm(src)}\nreturn { ${names.join(', ')} };`);
     Object.assign(scope, factory(React, scope));
   }
+  scope.React = React;
   return scope;
 }

@@ -107,7 +107,7 @@ dist/                     GENERATED. rse.js (every component on window.RSE), tok
 brand.json                GENERATED. The brand contract for non-browser consumers: palette with
                           CMYK, tokens per theme, scales, assets by role, machine-readable rules.
 index.js / index.d.ts     React entry. Import components from here, never from a component file.
-components/<group>/       42 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
+components/<group>/       43 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
                           Icon.jsx and BrandMotif.jsx are GENERATED — edit their sources.
                           MotifEngine.jsx is a function library (motif geometry to SVG), no markup.
 templates/                Four starting points (deck, program page, enrollment form, landing page). Working
@@ -175,7 +175,7 @@ Putting the system into another project — npm, the static kit for CMSs, Python
    new location. That single line is the only wiring.
 3. Compose from existing components before writing new markup. Check
    [docs/components.md](docs/components.md) first — the set is deliberately complete for this
-   use case (42 components), so a "missing" component is usually an existing one with a prop you
+   use case (43 components), so a "missing" component is usually an existing one with a prop you
    haven't read yet.
 4. Structure: page background is cream (`--rse-color-surface-page`), content sits on white cards
    (`--rse-color-surface-card`). A feature or CTA **band** may be brand purple or indigo with white text, or

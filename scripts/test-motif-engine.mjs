@@ -652,3 +652,90 @@ test('1920x1080 at cell 96 renders quickly', () => {
   assert.equal(cellCount(svg), 22 * 14);
   assert.ok(ms < 250, `${ms} ms`);
 });
+
+// ─── MotifPattern (components/brand/MotifPattern.jsx) ───────────────────────
+const patternRoot = (props = {}) => engine.MotifPattern({ shape: 'cube', ...props }, null);
+const patternButtons = (tree) => find(tree, (n) => n.type === 'button');
+
+test('renders aria-hidden art and a non-hidden root', () => {
+  const tree = patternRoot({ hue: 'green' });
+  assert.equal(tree.type, 'div');
+  assert.match(tree.props.className, /\brse-motif-pattern\b/);
+  assert.match(tree.props.className, /\brse-motion-managed\b/);
+  assert.equal(tree.props['aria-hidden'], undefined, 'the root is not hidden (the pause button lives in it)');
+  const art = find(tree, (n) => /\brse-motif-pattern__art\b/.test(n.props.className ?? ''));
+  assert.equal(art.length, 1);
+  assert.equal(art[0].props['aria-hidden'], 'true');
+  const html = art[0].props.dangerouslySetInnerHTML.__html;
+  assert.match(html, /^<svg /);
+  assert.match(html, /rse-motif-pattern__cell/);
+  assert.match(html, /viewBox="0 0 1920 1080"/);
+  assert.match(html, /preserveAspectRatio="xMidYMid slice"/);
+  assert.equal(engine.MotifPattern({ shape: 'cube', width: 640, height: 360, className: 'hero' }, null).props.className.includes('hero'), true);
+  assert.match(engine.MotifPattern({ shape: 'cube', width: 640, height: 360 }, null).children.flat(Infinity)[0].props.dangerouslySetInnerHTML.__html, /viewBox="0 0 640 360"/);
+});
+
+test('ambient renders exactly one pause button, none/reveal render none', () => {
+  const ambient = patternRoot({ animate: 'ambient' });
+  const buttons = patternButtons(ambient);
+  assert.equal(buttons.length, 1);
+  const b = buttons[0];
+  assert.equal(b.props.type, 'button');
+  assert.match(b.props.className, /\brse-motif-pattern__pause\b/);
+  assert.equal(b.props['aria-pressed'], 'false');
+  assert.equal(b.props['aria-label'], 'Pausar animação');
+  assert.equal(ambient.props['data-animate'], 'ambient');
+  // The button is not inside the aria-hidden art.
+  const art = find(ambient, (n) => /rse-motif-pattern__art/.test(n.props.className ?? ''))[0];
+  assert.equal(find(art, (n) => n.type === 'button').length, 0);
+  // Both icon states are in the markup; CSS swaps them on [aria-pressed].
+  assert.equal(find(b, (n) => /rse-motif-pattern__icon--pause/.test(n.props.className ?? '')).length, 1);
+  assert.equal(find(b, (n) => /rse-motif-pattern__icon--play/.test(n.props.className ?? '')).length, 1);
+  for (const animate of [undefined, 'none', 'reveal']) {
+    const t = patternRoot({ animate });
+    assert.equal(patternButtons(t).length, 0, String(animate));
+    assert.equal(t.props['data-animate'], animate === 'reveal' ? 'reveal' : undefined, String(animate));
+  }
+});
+
+test('the pause click handler stops propagation so the delegated handler never double-toggles', () => {
+  const tree = patternRoot({ animate: 'ambient' });
+  let stopped = 0;
+  patternButtons(tree)[0].props.onClick({ stopPropagation: () => { stopped++; } });
+  assert.equal(stopped, 1);
+});
+
+test('unknown hue returns null', () => {
+  assert.equal(patternRoot({ hue: 'chartreuse' }), null);
+  assert.equal(patternRoot({ hues: ['green', 'chartreuse'] }), null);
+  assert.equal(engine.MotifPattern({ shape: 'dodecahedron' }, null), null);
+  assert.equal(engine.MotifPattern({}, null), null);
+});
+
+test('server render without window does not throw', () => {
+  assert.equal(typeof globalThis.window, 'undefined');
+  assert.equal(typeof globalThis.document, 'undefined');
+  assert.doesNotThrow(() => patternRoot({ animate: 'ambient' }));
+  assert.doesNotThrow(() => patternRoot({ animate: 'reveal' }));
+  // The reveal effect is a no-op without window.RSE.motion.
+  engine.React.effects.length = 0;
+  patternRoot({ animate: 'reveal' });
+  assert.ok(engine.React.effects.length >= 1);
+  for (const fx of engine.React.effects) assert.doesNotThrow(() => fx());
+});
+
+test('the reveal effect calls RSE.motion.reveal with the root when it exists, and imports nothing from motion.js', () => {
+  const src = readFileSync(join(HERE, '..', 'components', 'brand', 'MotifPattern.jsx'), 'utf8');
+  assert.match(src, /^'use client';/);
+  assert.ok(!/from ['"][^'"]*motion/.test(src));
+  assert.match(src, /rse-motion-managed/);
+  const seen = [];
+  globalThis.window = { RSE: { motion: { reveal: (el) => seen.push(el) } } };
+  try {
+    engine.React.effects.length = 0;
+    patternRoot({ animate: 'reveal' });
+    // The stub ref holds null, so the effect has no element yet and must skip rather than reveal the document.
+    for (const fx of engine.React.effects) fx();
+    assert.deepEqual(seen, []);
+  } finally { delete globalThis.window; }
+});
