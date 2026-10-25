@@ -44,4 +44,5 @@ stand-in) as the only typeface?
 
 ## R12
 Is the selo official artwork, unmodified, clear of other elements by X on all sides, and above its
-minimum size (45 mm in print, 150 px on screen), without the Sesc signature next to it?
+minimum size (45 mm in print, 150 px on screen), without the Sesc signature next to it? The wordmark
+files are about 2.3 : 1, so a wordmark 100 px high is about 230 px wide.

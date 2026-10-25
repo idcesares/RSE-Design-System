@@ -15,7 +15,7 @@ Fails when: the headline exceeds the format's `maxHeadlineChars`, runs past thre
 on a multi-line block, or the eyebrow is not the only uppercase on the canvas.
 
 ## M-bignumber
-A figure at `display` size in `--rse-color-primary` (or in ink on a coloured band), a one-line
+A figure at `display` size (a solo figure may go up to 0.46 of the short side) in `--rse-color-primary` (or in ink on a coloured band), a one-line
 label at `body`, and a source line at `caption`. The strongest way to carry a fact.
 Variants: solo, pair, row
 Fails when: more than three figures share a canvas, a figure is smaller than the headline, the

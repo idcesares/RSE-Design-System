@@ -26,9 +26,9 @@ HTML rendered to PDF or PNG is the path of least resistance and the one the exem
 The full list, with reasons, is [AGENTS.md → Non-negotiables](AGENTS.md#non-negotiables). The ones
 that are easiest to break by accident in a non-web piece:
 
-- Colours come from the palette in [brand.json](brand.json). Flat fields only: no gradients, no textures, no effects.
+- Colours come from the palette in [brand.json](brand.json). On artwork you may use the `--rse-brand-*` palette directly (`AGENTS.md` keeps it off web components). Flat fields only: no gradients, no textures, no effects.
 - Montserrat only, weights 400–900. Headings 800, tight tracking. Eyebrows 700 uppercase, wide tracking. That is the only uppercase.
-- The selo and the cube motif are official artwork in [assets/](assets/): never redraw, rotate, stretch or recolour outside the sanctioned combinations. One motif per composition.
+- The selo and the cube motif are official artwork in [assets/](assets/): never redraw, rotate, stretch or recolour outside the sanctioned combinations. One motif per composition. Wordmark files: purple on cream or white, white on purple, indigo or ink, black on the light accents.
 - No emoji, no hand-drawn icons, no stock or generated photography. Use a labelled placeholder that says what shot is needed.
 - Never invent Sesc facts (counts, addresses, fees, dates, quotes). Placeholders look like placeholders (`000`).
 - Contrast: 4.5:1 for body text, 3:1 for large text. White text never goes on an accent hue; the accents take ink text.
@@ -37,7 +37,8 @@ that are easiest to break by accident in a non-web piece:
 ## Route by intent
 
 Read [principles](docs/composition/principles.md) and [rubric](docs/composition/rubric.md) every
-time. Then read the row for what you are making. Canvas sizes, margins and type scale are in
+time. Type for artwork comes from the fractions in `formats.json`; the rem scales in `brand.json`
+are for web pages. Then read the row for what you are making. Canvas sizes, margins and type scale are in
 [formats.json](docs/composition/formats.json), as fractions of the short side, so they convert to
 any unit.
 
@@ -64,7 +65,18 @@ data; it does not check your output. Check your output against the rubric.
 ## Fonts and fallbacks
 
 Montserrat ships as a variable font in [assets/fonts/](assets/fonts/) (`Montserrat-Variable.woff2`,
-weights 100–900). Embed or install it wherever your stack allows. If your stack cannot embed it
+weights 100–900). A browser uses that file directly. Most other stacks need a TTF: install
+Montserrat from Google Fonts (SIL Open Font License), or convert the shipped file, which is what a
+Python tool needs. With `pip install fonttools brotli`:
+
+```python
+from fontTools.ttLib import TTFont
+f = TTFont('assets/fonts/Montserrat-Variable.woff2'); f.flavor = None; f.save('Montserrat-Variable.ttf')
+# Pillow: font = ImageFont.truetype('Montserrat-Variable.ttf', size); font.set_variation_by_axes([800])
+```
+
+The last line picks the weight: 800 for headings, 700 for eyebrows, 400 for body. Embed or install the
+font wherever your stack allows. If your stack cannot embed it
 (some PPTX and Figma paths), use Montserrat if it is installed on the viewer's machine, and
 otherwise a geometric sans with the same proportions, and **tell the user** the piece uses a
 stand-in so they can fix it. Never fall back to a serif or a condensed face.
@@ -74,7 +86,16 @@ stand-in so they can fix it. Never fall back to a serif or a condensed face.
 Use the numbers the user gives you and label them as theirs (provenance: where each figure came
 from). Where they gave you none, write a placeholder (`000`, `00%`) and list it in your reply. Never
 fill a gap with a plausible number, and never describe a real student, unit or testimonial you were
-not given.
+not given. Mark placeholders in the piece itself, in a footer or caption that says "exemplo" (the
+exemplars do), so a printout cannot pass for the real thing.
+
+## Exporting
+
+The repo ships no export tool; use what your stack has. A browser can screenshot a page or print it to
+PDF with one canvas per page (`@page` set to the canvas size). From Python, [docs/examples/social_post.py](docs/examples/social_post.py)
+writes an SVG, which `rsvg-convert`, Inkscape or `cairosvg` turn into a PNG; the official logos and
+motifs are plain polygons and paths, so you can also draw them yourself. Whatever you export, look at
+the result before you hand it over.
 
 ## When asked for something the brand forbids
 
