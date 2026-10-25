@@ -78,8 +78,11 @@ const RAW_COLOR = /#[0-9a-fA-F]{3,8}\b|['"](?:white|black)['"]|rgba?\(/g;
 const PX_LITERAL = /\b(?:padding|margin|gap|width|height|fontSize|borderRadius|top|left|right|bottom)\s*:\s*(?:\d+\b|'[^'v]*\d+px[^']*')/g;
 
 const generated = new Set(['components/core/Icon.jsx', 'components/brand/BrandMotif.jsx']);
+// Registered in the manifest so the bundle carries them, but function libraries, not rendered
+// components: they take no props and emit no markup of their own, so these checks do not apply.
+const libraries = new Set(['components/brand/MotifEngine.jsx']);
 const components = walk('components')
-  .filter((f) => f.endsWith('.jsx') && !generated.has(f))
+  .filter((f) => f.endsWith('.jsx') && !generated.has(f) && !libraries.has(f))
   .map((f) => {
     const src = read(f);
     return {

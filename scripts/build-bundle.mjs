@@ -12,6 +12,7 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { INTERNAL_IMPORT, exportedNames, toBundleForm } from './lib/bundle-form.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const checkOnly = process.argv.includes('--check');
@@ -23,18 +24,8 @@ const pkg = JSON.parse(read('package.json'));
 const hasJsx = (src) =>
   src.split('\n').some((l) => /^\s*(return\s*\(|<[A-Z])/.test(l) && /<[A-Za-z][\w.]*[\s/>]/.test(l));
 
-// 'use client' must sit above the imports in the source (Next.js App Router); inside the bundle's
-// IIFE it is meaningless and a bare `import` is a syntax error, so both go.
-// A component may import another (Modal uses Icon): `import { Icon } from '../core/Icon.jsx'`
-// becomes a read from the shared scope, and blocks are ordered so dependencies come first.
-const INTERNAL_IMPORT = /^import \{([^}]+)\} from '\.\.?\/(?:[a-z]+\/)?([A-Za-z]+)\.jsx';\r?\n/gm;
-const toBundleForm = (src) =>
-  src
-    .replace(/^(['"])use client\1;?\r?\n/, '')
-    .replace(/^import React from 'react';\n/, '')
-    .replace(INTERNAL_IMPORT, (_, names) => `const {${names}} = scope;\n`)
-    .replace(/^export (function|const) /gm, '$1 ')
-    .trimEnd();
+// The transform (strip 'use client' and the React import, turn internal imports into scope reads,
+// drop `export`) lives in lib/bundle-form.mjs, shared with the node loader for the motif engine.
 
 let failed = false;
 const exported = [];
@@ -55,7 +46,7 @@ for (const c of ordered) {
   if (!existsSync(join(ROOT, c.sourcePath))) { console.error(`missing source ${c.sourcePath}`); failed = true; continue; }
   const src = read(c.sourcePath);
   if (hasJsx(src)) { console.error(`${c.sourcePath}: written with JSX — use React.createElement form.`); failed = true; continue; }
-  const names = [...src.matchAll(/^export (?:function|const) ([A-Za-z_$][\w$]*)/gm)].map((m) => m[1]);
+  const names = exportedNames(src);
   exported.push(...names);
   body += `\n// ${c.sourcePath}\ndefine(${JSON.stringify(c.sourcePath)}, ${JSON.stringify(names)}, () => {\n${toBundleForm(src)}\nreturn { ${names.join(', ')} };\n});\n`;
 }

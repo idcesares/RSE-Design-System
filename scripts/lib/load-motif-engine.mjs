@@ -1,35 +1,31 @@
-// Node cannot import .jsx, so evaluate the motif sources the way build-bundle.mjs does: strip
-// the module syntax (see toBundleForm there), then run them in one shared scope with a stub
-// React whose createElement returns a plain, comparable tree.
+// Node cannot import .jsx, so evaluate the motif sources the way build-bundle.mjs does: the same
+// transform (lib/bundle-form.mjs: strip the module syntax, turn `import { x } from './Name.jsx'`
+// into a read from the shared scope), each file in its own function scope, exports published on
+// one shared `scope` object. React is a stub whose createElement returns a plain, comparable tree.
+//
+// Only `export function` / `export const` are seen (see lib/bundle-form.mjs); the engine sources
+// must not use `export async function` or any other export form.
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { exportedNames, toBundleForm } from './bundle-form.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
-// Evaluated in this order, in one scope: a file may use what the files before it export.
-const SOURCES = ['components/brand/BrandMotif.jsx'];
-
-const EXPORT_DECL = /^export (?:function|const) (\w+)/gm;
-
-const toEvalForm = (src) =>
-  src
-    .replace(/^(['"])use client\1;?\r?\n/, '')
-    .replace(/^import React from 'react';\n/, '')
-    .replace(/^export (function|const) /gm, '$1 ')
-    .trimEnd();
+// Evaluated in this order: a file may import what the files before it export.
+const SOURCES = ['components/brand/BrandMotif.jsx', 'components/brand/MotifEngine.jsx'];
 
 const React = {
   createElement: (type, props, ...children) => ({ type, props, children }),
 };
 
 export async function loadMotifEngine() {
-  const names = [];
-  let body = '';
+  const scope = {};
   for (const path of SOURCES) {
     const src = readFileSync(join(ROOT, path), 'utf8');
-    for (const m of src.matchAll(EXPORT_DECL)) names.push(m[1]);
-    body += `${toEvalForm(src)}\n`;
+    const names = exportedNames(src);
+    const factory = new Function('React', 'scope', `${toBundleForm(src)}\nreturn { ${names.join(', ')} };`);
+    Object.assign(scope, factory(React, scope));
   }
-  return new Function('React', `${body}\nreturn { ${names.join(', ')} };`)(React);
+  return scope;
 }

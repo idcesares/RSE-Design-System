@@ -935,6 +935,14 @@ window.SHOWCASE_DATA = {
       ]
     },
     {
+      "name": "MotifEngine",
+      "group": "brand",
+      "groupLabel": "Marca",
+      "sourcePath": "components/brand/MotifEngine.jsx",
+      "summary": "The motif engine: builds impossible isometric shapes from lattice bars and cubes with declared crossings, and renders them as flat-filled SVG in any of the six palette families. A function library with no visual output of its own; MotifLoader and MotifPattern build on it. Also exported one function at a time.",
+      "props": []
+    },
+    {
       "name": "Navbar",
       "group": "navigation",
       "groupLabel": "Navegação",
@@ -5105,7 +5113,7 @@ window.SHOWCASE_DATA = {
     "axeViolations": 0,
     "pagesOverflowingOnPhone": 4,
     "componentsOnCssContract": 19,
-    "componentsTotal": 40,
+    "componentsTotal": 41,
     "componentGlyphIcons": 0,
     "componentPxLiterals": 59,
     "componentsWithJsHover": 3
@@ -5450,7 +5458,7 @@ window.SHOWCASE_DATA = {
     }
   ],
   "counts": {
-    "components": 40,
+    "components": 41,
     "tokens": 172,
     "palette": 21,
     "themes": 3,

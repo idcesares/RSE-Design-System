@@ -20,6 +20,7 @@ window.SC_DEMOS = (DS) => {
     Avatar: 'Foto ou iniciais de uma pessoa — depoimentos, equipe, área do estudante.',
     Badge: 'Selinho de estado com um ponto colorido: vagas abertas, encerrado, novo.',
     BrandMotif: 'O cubo impossível oficial, em suas seis construções. Obra da marca, não enfeite.',
+    MotifEngine: 'O motor que gera formas impossíveis com as regras do cubo, em qualquer das seis cores da paleta. Não desenha nada sozinho: é a base do carregador e dos padrões.',
     Breadcrumb: 'Trilha de onde a pessoa está em páginas profundas de unidade ou programa.',
     Button: 'A ação principal. Três variações e três tamanhos, sempre em formato de pílula.',
     Card: 'O cartão de programa ou unidade — imagem, categoria, título e descrição.',
@@ -105,6 +106,14 @@ window.SC_DEMOS = (DS) => {
         h(DS.BrandMotif, { variant: 'interlock', size: 96 }),
         h(DS.BrandMotif, { variant: 'frame', size: 96 })
       ) },
+
+    MotifEngine: { render: () => {
+      const shape = DS.makeMotifShape('cube', [DS.motifCube([0, 0, 0])]);
+      /* Our own engine output (flat polygons from the palette ramp), so injecting it is safe. */
+      return h(F, null, DS.motifHues.map((hue) =>
+        h('span', { key: hue, style: { display: 'inline-flex' },
+          dangerouslySetInnerHTML: { __html: DS.motifToSvg(shape, { hue, size: 64 }) } })));
+    } },
 
     Breadcrumb: { block: true, render: () =>
       h(DS.Breadcrumb, { items: [

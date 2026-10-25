@@ -20,6 +20,7 @@ export { Testimonial } from './components/core/Testimonial.jsx';
 
 // Brand
 export { BrandMotif, motifVariants, motifHues } from './components/brand/BrandMotif.jsx';
+export { MotifEngine, isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg } from './components/brand/MotifEngine.jsx';
 export { PlatformEntry } from './components/brand/PlatformEntry.jsx';
 
 // Forms
