@@ -204,7 +204,7 @@ for (const name of exemplarNames) {
 // Which format each exemplar is built to. The specimen sheet is a contact sheet, not a format.
 const EXEMPLAR_FORMAT = { 'institutional-deck': 'slide-16x9', 'pitch-deck': 'slide-16x9', 'poster-a3': 'print-a3', 'social-card': 'social-4x5' };
 // Grows as the plan lands each exemplar; every one listed must exist.
-const REQUIRED_EXEMPLARS = ['specimen-sheet', 'institutional-deck', 'pitch-deck'];
+const REQUIRED_EXEMPLARS = ['specimen-sheet', 'institutional-deck', 'pitch-deck', 'poster-a3', 'social-card'];
 for (const n of REQUIRED_EXEMPLARS) if (!exemplarNames.includes(n)) err(`${EX}/src/${n}.html missing — required exemplar`);
 
 const groupOf = new Map();
@@ -230,6 +230,7 @@ for (const name of exemplarNames) {
     if (!arch) err(`${at}: no data-archetype`);
     else if (!archetypeIds.has(arch)) err(`${at}: unknown archetype "${arch}"`);
     else seenGroups.add(groupOf.get(arch));
+    if ((m[0].match(/class="motif"/g) ?? []).length > 1) err(`${at}: more than one cube motif — one per composition`);
     const words = textOf(m[1]).split(' ').filter(Boolean).length;
     if (words > fmt.maxWords) err(`${at}: ${words} words; ${fmt.id} allows ${fmt.maxWords}`);
     const head = m[1].match(/class="[^"]*\b(?:display|h1)\b[^"]*"[^>]*>([\s\S]*?)<\/(?:h\d|p|div)>/);

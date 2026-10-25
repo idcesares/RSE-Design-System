@@ -3,6 +3,7 @@
    with the same fractions the archetypes specify: style="--x:.05;--y:.45;--w:.5". */
 
 .slide {
+  --W: 1920px; --H: 1080px;            /* canvas */
   --S: 1080px;                         /* short side */
   --m: calc(var(--S) * .09);           /* margin */
   --t-display: calc(var(--S) * .14);
@@ -15,7 +16,7 @@
   --fg-heading: var(--rse-color-text-heading);
   --fg-muted: var(--rse-color-text-muted);
   --accent: var(--rse-color-primary);
-  position: relative; box-sizing: border-box; width: 1920px; height: 1080px; overflow: hidden;
+  position: relative; box-sizing: border-box; width: var(--W); height: var(--H); overflow: hidden;
   background: var(--rse-color-surface-page); color: var(--fg);
   font-family: var(--rse-font-family); font-size: var(--t-body); line-height: 1.45;
 }
@@ -35,11 +36,19 @@
 .slide.tint-purple { background: var(--rse-color-tint-purple); --fg: var(--rse-color-tint-purple-ink); --fg-heading: var(--rse-color-tint-purple-ink); --fg-muted: var(--rse-color-tint-purple-ink); --accent: var(--rse-color-tint-purple-ink); }
 .slide.tint-pink { background: var(--rse-color-tint-pink); --fg: var(--rse-color-tint-pink-ink); --fg-heading: var(--rse-color-tint-pink-ink); --fg-muted: var(--rse-color-tint-pink-ink); --accent: var(--rse-color-tint-pink-ink); }
 
+/* Other formats: the same classes, with the format's numbers from formats.json. */
+.slide.fmt-a3 { --W: 1485px; --H: 2100px; --S: 1485px; --m: calc(var(--S) * .08);
+  --t-display: calc(var(--S) * .12); --t-h1: calc(var(--S) * .07); --t-h2: calc(var(--S) * .04);
+  --t-body: calc(var(--S) * .02); --t-caption: calc(var(--S) * .015); --t-eyebrow: calc(var(--S) * .018); }
+.slide.fmt-social45 { --W: 1080px; --H: 1350px; --S: 1080px; --m: calc(var(--S) * .08);
+  --t-display: calc(var(--S) * .16); --t-h1: calc(var(--S) * .12); --t-h2: calc(var(--S) * .07);
+  --t-body: calc(var(--S) * .038); --t-caption: calc(var(--S) * .028); --t-eyebrow: calc(var(--S) * .03); }
+
 /* Placement by fraction of the canvas. */
-.at { --x: 0; --y: 0; --w: .5; --h: .5; position: absolute; left: calc(var(--x, 0) * 1920px); top: calc(var(--y, 0) * 1080px); width: calc(var(--w, .5) * 1920px); }
-.at.h { height: calc(var(--h, .5) * 1080px); }
-.at.r { left: auto; right: calc(var(--x, 0) * 1920px); }
-.at.b { top: auto; bottom: calc(var(--y, 0) * 1080px); }
+.at { --x: 0; --y: 0; --w: .5; --h: .5; position: absolute; left: calc(var(--x, 0) * var(--W)); top: calc(var(--y, 0) * var(--H)); width: calc(var(--w, .5) * var(--W)); }
+.at.h { height: calc(var(--h, .5) * var(--H)); }
+.at.r { left: auto; right: calc(var(--x, 0) * var(--W)); }
+.at.b { top: auto; bottom: calc(var(--y, 0) * var(--H)); }
 
 /* Type roles. */
 .eyebrow { margin: 0 0 calc(var(--S) * .02); font-size: var(--t-eyebrow); font-weight: var(--rse-font-weight-bold); text-transform: uppercase; letter-spacing: var(--rse-letter-spacing-eyebrow); color: var(--fg-muted); }
