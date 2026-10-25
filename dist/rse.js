@@ -99,7 +99,7 @@ return { motifRamp, BrandMotif, motifVariants, motifHues };
 });
 
 // components/brand/MotifEngine.jsx
-define("components/brand/MotifEngine.jsx", ["isoPoint","motifBar","motifCube","makeMotifShape","motifFaces","motifPieces","motifToSvg","MotifEngine"], () => {
+define("components/brand/MotifEngine.jsx", ["isoPoint","motifBar","motifCube","makeMotifShape","motifFaces","motifPieces","motifToSvg","motifShapeNames","motifShapes","MotifEngine"], () => {
 // Motif engine: builds impossible isometric shapes from the parts the official cubo impossível is
 // made of, and renders them as flat-filled SVG in any of the six palette families.
 //
@@ -309,9 +309,93 @@ function motifToSvg(shape, opts = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${size}" height="${size}" ${a11y}>${head}${body}</svg>`;
 }
 
+// ─── Shape library ───────────────────────────────────────────────────────────
+// Six generated shapes, system work (not artwork supplied by Sesc). Each was tuned by rendering it
+// in all six hues and looking: the test suite cannot tell whether a figure reads as impossible.
+// Two tricks make them impossible:
+// - Depth shift. A point and the point (k, k, k) further along the view direction land on the same
+//   screen spot, so a path of bars may "close" on screen while it is k units apart in space. The
+//   seam is declared as a crossing so the far end paints over the near one and the join looks solid.
+// - Escher crossing. A bar that is behind another is declared to pass in front of it at one end.
+
+// The 12 edges of a box frame W (x) by D (y) by H (z), bars 1 thick, low corner at `o`. Columns run
+// the full height; the rings fit between them. Order: columns far, right, left, near; x-bars far
+// bottom, near bottom, far top, near top; y-bars far bottom, near bottom, far top, near top.
+const motifFrame = (W, D, H, o = [0, 0, 0]) => {
+  const at = (p) => p.map((v, i) => v + o[i]);
+  return [
+    ...[[0, 0], [W - 1, 0], [0, D - 1], [W - 1, D - 1]].map(([x, y]) => motifBar('z', at([x, y, 0]), H)),
+    ...[[0, 0], [D - 1, 0], [0, H - 1], [D - 1, H - 1]].map(([y, z]) => motifBar('x', at([1, y, z]), W - 2)),
+    ...[[0, 0], [W - 1, 0], [0, H - 1], [W - 1, H - 1]].map(([x, z]) => motifBar('y', at([x, 1, z]), D - 2)),
+  ];
+};
+
+/** Names of the generated shapes, in showcase order. */
+const motifShapeNames = Object.freeze(['cube', 'triangle', 'stair', 'loop', 'tower', 'twin']);
+
+/** The generated shape library, keyed by name. */
+const motifShapes = Object.freeze({
+  // The grammar's own cube: a 4-unit box frame of 12 bars, the family of the supplied cube-frame.
+  // A plain (possible) cube; it anchors the set and is the loader's default.
+  cube: makeMotifShape('cube', motifFrame(4, 4, 4)),
+
+  // Penrose triangle. x bar, then y bar from its far end, then z bar standing on that one's far end.
+  // The z bar's top lands, on screen, exactly on the x bar's start (depth shift 4). Crossing 1 puts
+  // the x bar's start over it, so the join reads as a corner; crossing 2 keeps the z bar over the y
+  // bar it stands on (without it the paint-order cycle breaks at the wrong joint).
+  triangle: makeMotifShape('triangle', [
+    motifBar('x', [0, 0, 0], 5),
+    motifBar('y', [4, 1, 0], 4),
+    motifBar('z', [4, 4, 1], 4),
+  ], [{ over: 0, under: 2, overAt: 'start' }, { over: 2, under: 1, overAt: 'start' }]),
+
+  // Endless stair. Walk the far flat (x) and the near flat (y) on one level, climb two steps away
+  // along -x and two along -y, step onto a flat bar one level up... which is, on screen, the far
+  // flat you started on (depth shift 5). The stairs climb away from the viewer so their risers show
+  // (a stair climbing toward the viewer projects onto a straight line). Steps are 2-tall columns.
+  // The seam sits inside the top flat: the closing bar (6) and the far flat (0) read as one bar.
+  stair: makeMotifShape('stair', [
+    motifBar('x', [3, 0, 0], 5),
+    motifBar('y', [7, 1, 0], 8),
+    motifBar('z', [6, 8, 0], 2),
+    motifBar('z', [5, 8, 1], 2),
+    motifBar('z', [5, 7, 2], 2),
+    motifBar('z', [5, 6, 3], 2),
+    motifBar('x', [5, 5, 5], 3),
+  ], [{ over: 0, under: 6, overAt: 'start' }]),
+
+  // Impossible pentagon: a flat U on the floor (x, y, -x), a post up (z), a bar back along -y and a
+  // bar along x that meets the floor bar it started from (depth shift 3). Bars x, y, z with nothing
+  // coming back down: the eye sees a loop that cannot close. Seam inside the first x bar.
+  loop: makeMotifShape('loop', [
+    motifBar('x', [0, 0, 0], 4),
+    motifBar('y', [3, 1, 0], 5),
+    motifBar('x', [1, 5, 0], 2),
+    motifBar('z', [1, 5, 1], 3),
+    motifBar('y', [1, 3, 3], 2),
+    motifBar('x', [2, 3, 3], 2),
+  ], [{ over: 0, under: 5, overAt: 'start' }]),
+
+  // Escher's impossible box, tall: a 6 x 4 x 8 frame whose back column passes in front of the front
+  // top bar (crossing 1). The far top y bar is split too (crossing 2), so the three-way cycle
+  // column > front bar > far bar > column resolves where each pair actually overlaps.
+  tower: makeMotifShape('tower', motifFrame(6, 4, 8), [
+    { over: 0, under: 7, overAt: 'end' },
+    { over: 10, under: 7, overAt: 'start' },
+  ]),
+
+  // Two frame cubes, the second one step down the view diagonal (3, 3, 0), sharing one column: the
+  // first cube's front column is the second's back column. The first cube's left column passes in
+  // front of the second cube's front top bar, which is nearer: the two cubes interlock impossibly.
+  twin: makeMotifShape('twin', [
+    ...motifFrame(4, 4, 4),
+    ...motifFrame(4, 4, 4, [3, 3, 0]).filter((_, i) => i !== 0),
+  ], [{ over: 2, under: 18, overAt: 'start' }]),
+});
+
 /** The whole engine as one object, for consumers that prefer a namespace. */
-const MotifEngine = Object.freeze({ isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg });
-return { isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, MotifEngine };
+const MotifEngine = Object.freeze({ isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, motifShapeNames, motifShapes });
+return { isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, motifShapeNames, motifShapes, MotifEngine };
 });
 
 // components/brand/PlatformEntry.jsx

@@ -17,6 +17,25 @@ Exported functions (also grouped on the `MotifEngine` object):
 - `motifPieces(shape, hue)` — faces grouped per piece and filled from the palette ramp; `null` for
   an unknown hue.
 - `motifToSvg(shape, { hue, size?, title? })` — one `<svg>` string; `''` for an unknown hue.
+- `motifShapes` and `motifShapeNames` — the generated shape library, ready to pass to
+  `motifToSvg` (and the default source of shapes for `MotifLoader` and `MotifPattern`).
+
+Generated shapes — **gerados pelo sistema, não fornecidos pelo Sesc**; the six official
+constructions stay in `BrandMotif`:
+
+| Name | Descrição |
+| --- | --- |
+| `cube` | O cubo da gramática, em moldura de doze barras. |
+| `triangle` | Triângulo de Penrose: três barras que se fecham sem poder. |
+| `stair` | Escada sem fim: sobe dois lances e volta ao começo. |
+| `loop` | Laço de cinco barras que sobe e nunca desce. |
+| `tower` | Torre de Escher: a coluna de trás passa pela frente. |
+| `twin` | Dois cubos gêmeos encaixados de um jeito impossível. |
+
+```js
+import { motifShapes, motifToSvg } from '@idcesares/rse-design-system';
+const svg = motifToSvg(motifShapes.triangle, { hue: 'purple', size: 96 });
+```
 
 ```js
 import { motifBar, motifCube, makeMotifShape, motifToSvg } from '@idcesares/rse-design-system';

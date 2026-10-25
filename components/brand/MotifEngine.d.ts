@@ -110,6 +110,21 @@ export function motifPieces(shape: Shape, hue: MotifHue): Piece[] | null;
 /** The shape as one SVG string with a `.rse-motif__piece` group per piece; '' for an unknown hue. */
 export function motifToSvg(shape: Shape, opts: MotifSvgOptions): string;
 
+/** Name of a shape in the generated library. */
+export type MotifShapeName = 'cube' | 'triangle' | 'stair' | 'loop' | 'tower' | 'twin';
+
+/** Names of the generated shapes, in showcase order. */
+export const motifShapeNames: readonly MotifShapeName[];
+
+/**
+ * The generated shape library (system work, not artwork supplied by Sesc): `cube` the grammar's own
+ * cube as a 12-bar frame; `triangle` a Penrose triangle of three bars; `stair` an endless stair;
+ * `loop` an impossible five-bar loop; `tower` a tall Escher box whose back column passes in front;
+ * `twin` two frame cubes interlocked impossibly. Every shape with an impossible join declares it as
+ * a Crossing.
+ */
+export const motifShapes: Readonly<Record<MotifShapeName, Shape>>;
+
 /**
  * The motif engine: builds impossible isometric shapes from lattice bars and cubes with declared
  * crossings, and renders them as flat-filled SVG in any of the six palette families. A function
@@ -124,4 +139,6 @@ export const MotifEngine: {
   readonly motifFaces: typeof motifFaces;
   readonly motifPieces: typeof motifPieces;
   readonly motifToSvg: typeof motifToSvg;
+  readonly motifShapeNames: typeof motifShapeNames;
+  readonly motifShapes: typeof motifShapes;
 };

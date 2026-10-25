@@ -108,11 +108,11 @@ window.SC_DEMOS = (DS) => {
       ) },
 
     MotifEngine: { render: () => {
-      const shape = DS.makeMotifShape('cube', [DS.motifCube([0, 0, 0])]);
-      /* Our own engine output (flat polygons from the palette ramp), so injecting it is safe. */
-      return h(F, null, DS.motifHues.map((hue) =>
-        h('span', { key: hue, style: { display: 'inline-flex' },
-          dangerouslySetInnerHTML: { __html: DS.motifToSvg(shape, { hue, size: 64 }) } })));
+      /* The six generated shapes, one hue each. Our own engine output (flat polygons from the
+         palette ramp), so injecting it is safe. */
+      return h(F, null, DS.motifShapeNames.map((name, i) =>
+        h('span', { key: name, style: { display: 'inline-flex' },
+          dangerouslySetInnerHTML: { __html: DS.motifToSvg(DS.motifShapes[name], { hue: DS.motifHues[i % DS.motifHues.length], size: 64, title: name }) } })));
     } },
 
     Breadcrumb: { block: true, render: () =>

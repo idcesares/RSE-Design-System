@@ -269,3 +269,35 @@ test('motifPieces unknown hue returns null', () => {
   assert.equal(engine.motifPieces(crossShape(), 'chartreuse'), null);
   assert.equal(engine.motifPieces(crossShape(), undefined), null);
 });
+
+// ─── Shape library (motifShapes) ────────────────────────────────────────────
+const SHAPE_NAMES = ['cube', 'triangle', 'stair', 'loop', 'tower', 'twin'];
+
+test('all six shapes exist and render in all six hues', () => {
+  assert.deepEqual(engine.motifShapeNames, SHAPE_NAMES);
+  assert.deepEqual(Object.keys(engine.motifShapes).sort(), [...SHAPE_NAMES].sort());
+  for (const name of SHAPE_NAMES) {
+    const shape = engine.motifShapes[name];
+    assert.equal(shape.name, name);
+    for (const hue of HUES6) {
+      const svg = engine.motifToSvg(shape, { hue, size: 96 });
+      assert.match(svg, /^<svg [^>]*viewBox="[-\d. ]+"/, `${name}/${hue}`);
+      assert.ok((svg.match(/<polygon /g) || []).length >= 3, `${name}/${hue}`);
+      const ramp = engine.motifRamp(hue, 3);
+      for (const [, f] of svg.matchAll(/fill="([^"]*)"/g)) assert.ok(ramp.includes(f), `${name}/${hue}: ${f}`);
+    }
+  }
+});
+
+test('triangle, stair and loop declare at least one crossing', () => {
+  for (const name of ['triangle', 'stair', 'loop']) {
+    assert.ok(engine.motifShapes[name].crossings.length >= 1, name);
+  }
+});
+
+test('piece count per shape is between 3 and 24', () => {
+  for (const name of SHAPE_NAMES) {
+    const n = engine.motifPieces(engine.motifShapes[name], 'purple').length;
+    assert.ok(n >= 3 && n <= 24, `${name}: ${n} pieces`);
+  }
+});
