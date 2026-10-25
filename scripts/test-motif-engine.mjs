@@ -425,3 +425,230 @@ test('server render without window does not throw', () => {
     if (saved.document !== undefined) globalThis.document = saved.document;
   }
 });
+
+// ─── renderMotifPattern (components/brand/MotifEngine.jsx) ──────────────────
+// Cell markup: <g class="rse-motif-pattern__cell" style="--d:N"><use href="#rse-motif-pattern-<shape>-<hue>"
+// transform="translate(x y) scale(s)"/></g>; geometry lives once per (shape, hue) in <defs>.
+const CELL_RE = /<g class="rse-motif-pattern__cell" style="--d:(\d+)"><use href="#rse-motif-pattern-([a-z]+)-([a-z]+)" transform="translate\((-?[\d.]+) (-?[\d.]+)\) scale\(([\d.]+)\)"\/><\/g>/g;
+const patternCells = (svg) => [...svg.matchAll(CELL_RE)].map((m) => ({
+  d: Number(m[1]), shape: m[2], hue: m[3], x: Number(m[4]), y: Number(m[5]), s: Number(m[6]),
+}));
+const cellCount = (svg) => (svg.match(/class="rse-motif-pattern__cell"/g) ?? []).length;
+// FNV-1a, 32 bit, over UTF-16 code units: a stable fingerprint of the whole output string.
+const fnv1a = (str) => {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+  return h.toString(16).padStart(8, '0');
+};
+const rowsOf = (cells) => {
+  const map = new Map();
+  for (const c of cells) map.set(c.y, [...(map.get(c.y) ?? []), c]);
+  return [...map.entries()].sort((a, b) => a[0] - b[0]).map(([, cs]) => cs.sort((a, b) => a.x - b.x));
+};
+const isValidSvg = (svg) => /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg"[^>]*>[\s\S]*<\/svg>$/.test(svg);
+
+test('same options give identical output', () => {
+  const opts = { shape: ['triangle', 'cube', 'loop'], width: 800, height: 600, layout: 'brick', fill: 0.6, seed: 7, hues: ['blue', 'pink', 'yellow'], sequence: 'seeded', opacity: 0.3 };
+  const a = engine.renderMotifPattern(opts);
+  const b = engine.renderMotifPattern({ ...opts });
+  assert.ok(a.length > 0);
+  assert.equal(a, b);
+  // Pinned: any change to the output for these options must be deliberate.
+  assert.equal(fnv1a(a), 'd30fd6ec');
+});
+
+test('different seeds differ at fill 0.5', () => {
+  const opts = { shape: 'cube', width: 960, height: 540, fill: 0.5 };
+  const a = engine.renderMotifPattern({ ...opts, seed: 1 });
+  const b = engine.renderMotifPattern({ ...opts, seed: 2 });
+  assert.notEqual(a, b);
+  const total = patternCells(engine.renderMotifPattern({ ...opts, fill: 1 })).length;
+  for (const svg of [a, b]) {
+    const n = patternCells(svg).length;
+    assert.ok(n > total * 0.3 && n < total * 0.7, `${n} of ${total} cells at fill 0.5`);
+  }
+});
+
+test('fill 0 returns a valid svg with no cells', () => {
+  const svg = engine.renderMotifPattern({ shape: 'triangle', width: 400, height: 300, fill: 0 });
+  assert.ok(isValidSvg(svg), svg);
+  assert.equal(cellCount(svg), 0);
+  assert.match(svg, /viewBox="0 0 400 300"/);
+  assert.match(svg, /preserveAspectRatio="xMidYMid slice"/);
+  assert.match(svg, /aria-hidden="true"/);
+  assert.match(svg, /focusable="false"/);
+});
+
+test('cell count never exceeds MAX_PATTERN_CELLS (width 4000, height 4000, cell 8)', () => {
+  assert.equal(engine.MAX_PATTERN_CELLS, 1500);
+  const t0 = performance.now();
+  const svg = engine.renderMotifPattern({ shape: 'twin', width: 4000, height: 4000, cell: 8 });
+  const ms = performance.now() - t0;
+  assert.ok(isValidSvg(svg));
+  const n = cellCount(svg);
+  assert.ok(n > 0 && n <= engine.MAX_PATTERN_CELLS, `${n} cells`);
+  assert.ok(ms < 1000, `${ms} ms`);
+  for (const opts of [{ width: 4000, height: 1, cell: 1 }, { width: 1e7, height: 1e7 }, { width: 3000, height: 3000, cell: 1, layout: 'isometric' }]) {
+    const out = engine.renderMotifPattern({ shape: 'cube', ...opts });
+    assert.ok(isValidSvg(out), JSON.stringify(opts));
+    assert.ok(cellCount(out) <= engine.MAX_PATTERN_CELLS, JSON.stringify(opts));
+  }
+});
+
+test('brick rows are offset by half a cell', () => {
+  const svg = engine.renderMotifPattern({ shape: 'cube', width: 480, height: 480, cell: 96, layout: 'brick' });
+  const rows = rowsOf(patternCells(svg));
+  assert.ok(rows.length >= 4);
+  for (let r = 1; r < rows.length; r++) {
+    assert.ok(close(rows[r][0].y - rows[r - 1][0].y, 96), `row pitch ${rows[r][0].y - rows[r - 1][0].y}`);
+    assert.ok(close(Math.abs(rows[r][0].x - rows[r - 1][0].x), 48), `row ${r} offset ${rows[r][0].x - rows[r - 1][0].x}`);
+    for (let c = 1; c < rows[r].length; c++) assert.ok(close(rows[r][c].x - rows[r][c - 1].x, 96));
+  }
+  // grid rows are not offset
+  const grid = rowsOf(patternCells(engine.renderMotifPattern({ shape: 'cube', width: 480, height: 480, cell: 96 })));
+  for (let r = 1; r < grid.length; r++) assert.equal(grid[r][0].x, grid[0][0].x);
+});
+
+test('isometric layout produces interlocking offsets', () => {
+  // Documented lattice: hex radius R = cell / 2; column pitch 2·R·cos30 = cell·cos30, row pitch
+  // 1.5·R = 0.75·cell, every other row shifted by R·cos30 = cell·cos30 / 2.
+  const cell = 96;
+  const cos30 = Math.sqrt(3) / 2;
+  const svg = engine.renderMotifPattern({ shape: 'cube', width: 960, height: 540, cell, layout: 'isometric' });
+  const rows = rowsOf(patternCells(svg));
+  assert.ok(rows.length >= 4);
+  for (let r = 1; r < rows.length; r++) {
+    assert.ok(close(rows[r][0].y - rows[r - 1][0].y, 0.75 * cell), `row pitch ${rows[r][0].y - rows[r - 1][0].y}`);
+    assert.ok(close(Math.abs(rows[r][0].x - rows[r - 1][0].x), (cell * cos30) / 2), `row ${r} offset`);
+    for (let c = 1; c < rows[r].length; c++) assert.ok(close(rows[r][c].x - rows[r][c - 1].x, cell * cos30, 0.02));
+  }
+  // The cube's hexagon spans the full cell height (gap 0), so vertically neighbouring rows overlap
+  // by a quarter cell: the hexagons interlock instead of stacking.
+  const s = rows[0][0].s;
+  assert.ok(close(s * 8, cell, 0.05), `cube height ${s * 8}`);
+});
+
+test('hues with sequence "row" cycles hue per row', () => {
+  const hues = ['blue', 'green', 'pink'];
+  const svg = engine.renderMotifPattern({ shape: 'triangle', width: 600, height: 600, cell: 100, hues, sequence: 'row' });
+  const rows = rowsOf(patternCells(svg));
+  assert.ok(rows.length >= 6);
+  // The first row is the bleed ring above the top edge (row index -1).
+  rows.forEach((row, i) => {
+    const want = hues[(((i - 1) % 3) + 3) % 3];
+    for (const c of row) assert.equal(c.hue, want, `row ${i}`);
+  });
+  const diag = patternCells(engine.renderMotifPattern({ shape: 'triangle', width: 600, height: 600, cell: 100, hues, sequence: 'diagonal' }));
+  for (const c of diag) {
+    const col = Math.round((c.x - 50) / 100), row = Math.round((c.y - 50) / 100);
+    assert.equal(c.hue, hues[(((col + row) % 3) + 3) % 3], `cell ${col},${row}`);
+  }
+  // a list of one behaves like hue; an empty list falls back to purple
+  assert.equal(
+    engine.renderMotifPattern({ shape: 'cube', width: 200, height: 200, hues: ['orange'] }),
+    engine.renderMotifPattern({ shape: 'cube', width: 200, height: 200, hue: 'orange' }),
+  );
+  assert.equal(
+    engine.renderMotifPattern({ shape: 'cube', width: 200, height: 200, hues: [] }),
+    engine.renderMotifPattern({ shape: 'cube', width: 200, height: 200, hue: 'purple' }),
+  );
+  assert.equal(
+    engine.renderMotifPattern({ shape: 'cube', width: 200, height: 200 }),
+    engine.renderMotifPattern({ shape: 'cube', width: 200, height: 200, hue: 'purple' }),
+  );
+});
+
+test('unknown shape returns \'\'', () => {
+  assert.equal(engine.renderMotifPattern({ shape: 'hexagon', width: 400, height: 300 }), '');
+  assert.equal(engine.renderMotifPattern({ shape: ['cube', 'hexagon'], width: 400, height: 300 }), '');
+  assert.equal(engine.renderMotifPattern({ shape: [], width: 400, height: 300 }), '');
+  assert.equal(engine.renderMotifPattern({ width: 400, height: 300 }), '');
+  assert.equal(engine.renderMotifPattern({ shape: 'toString', width: 400, height: 300 }), '');
+  assert.equal(engine.renderMotifPattern(), '');
+});
+
+test('unknown hue returns \'\'', () => {
+  assert.equal(engine.renderMotifPattern({ shape: 'cube', width: 400, height: 300, hue: 'chartreuse' }), '');
+  assert.equal(engine.renderMotifPattern({ shape: 'cube', width: 400, height: 300, hues: ['blue', 'chartreuse'] }), '');
+  assert.equal(engine.renderMotifPattern({ shape: 'cube', width: 400, height: 300, hues: ['chartreuse'] }), '');
+});
+
+test('fills come only from ramps', () => {
+  const allowed = new Set(HUES6.flatMap((h) => engine.motifRamp(h, 3)));
+  const svg = engine.renderMotifPattern({ shape: [...SHAPE_NAMES], width: 1200, height: 800, hues: HUES6, sequence: 'seeded', seed: 3 });
+  const fills = [...svg.matchAll(/fill="([^"]*)"/g)].map((m) => m[1]);
+  assert.ok(fills.length > 0);
+  for (const f of fills) assert.ok(allowed.has(f), f);
+  assert.doesNotMatch(svg, /gradient|filter|stroke|style="(?!--d:\d+")/i);
+  // every def holds exactly its own hue's ramp
+  for (const m of svg.matchAll(/<g id="rse-motif-pattern-([a-z]+)-([a-z]+)">(.*?)<\/g>/g)) {
+    const ramp = new Set(engine.motifRamp(m[2], 3));
+    for (const f of m[3].matchAll(/fill="([^"]*)"/g)) assert.ok(ramp.has(f[1]), `${m[1]}-${m[2]}: ${f[1]}`);
+  }
+  // single hue: only that ramp
+  const single = engine.renderMotifPattern({ shape: 'stair', width: 600, height: 400, hue: 'green' });
+  const green = new Set(engine.motifRamp('green', 3));
+  for (const m of single.matchAll(/fill="([^"]*)"/g)) assert.ok(green.has(m[1]), m[1]);
+});
+
+test('a list of shapes is chosen deterministically by seed', () => {
+  const opts = { shape: ['cube', 'triangle', 'twin'], width: 960, height: 540 };
+  const a = patternCells(engine.renderMotifPattern({ ...opts, seed: 5 }));
+  const b = patternCells(engine.renderMotifPattern({ ...opts, seed: 5 }));
+  const c = patternCells(engine.renderMotifPattern({ ...opts, seed: 6 }));
+  assert.deepEqual(a.map((x) => x.shape), b.map((x) => x.shape));
+  assert.notDeepEqual(a.map((x) => x.shape), c.map((x) => x.shape));
+  assert.deepEqual(new Set(a.map((x) => x.shape)), new Set(opts.shape));
+  // one shape geometry per (shape, hue) in defs, never per cell
+  const svg = engine.renderMotifPattern({ ...opts, seed: 5 });
+  assert.equal((svg.match(/<g id="rse-motif-pattern-/g) ?? []).length, 3);
+});
+
+test('no -0, no NaN, no Infinity in output', () => {
+  const cases = [
+    { shape: 'twin', width: 1920, height: 1080, layout: 'isometric', hues: HUES6, sequence: 'diagonal', gap: 12 },
+    { shape: ['loop', 'stair'], width: 333, height: 777, cell: 37, layout: 'brick', fill: 0.4, seed: -3, opacity: 0.25 },
+    { shape: 'cube', width: 0, height: 0 },
+    { shape: 'cube', width: NaN, height: Infinity, cell: -5, gap: 1e9, fill: NaN, seed: NaN, opacity: -1 },
+    { shape: 'tower', width: '640', height: '480', cell: '64', layout: 'nope', sequence: 'nope', hues: ['blue', 'pink'] },
+  ];
+  for (const opts of cases) {
+    const svg = engine.renderMotifPattern(opts);
+    assert.ok(isValidSvg(svg), JSON.stringify(opts));
+    assert.doesNotMatch(svg, /NaN|Infinity|(?<![\d.])-0(?![\d.])|-0\.0*(?!\d)/, JSON.stringify(opts));
+    for (const m of svg.matchAll(/-?\d+\.\d+/g)) assert.ok(m[0].split('.')[1].length <= 2, `${m[0]} has more than 2 decimals`);
+  }
+});
+
+test('animate none emits no data-animate and reveal/ambient do', () => {
+  const base = { shape: 'cube', width: 400, height: 300 };
+  const none = engine.renderMotifPattern(base);
+  assert.equal(none, engine.renderMotifPattern({ ...base, animate: 'none' }));
+  assert.doesNotMatch(none, /data-animate/);
+  for (const animate of ['reveal', 'ambient']) {
+    const svg = engine.renderMotifPattern({ ...base, animate });
+    assert.match(svg, new RegExp(`^<svg [^>]*data-animate="${animate}"`));
+    assert.equal((svg.match(/data-animate/g) ?? []).length, 1);
+  }
+  assert.doesNotMatch(engine.renderMotifPattern({ ...base, animate: 'spin' }), /data-animate/);
+  // --d is the stagger step by distance from the top-left: 0 at the corner, growing outward.
+  const cells = patternCells(none);
+  const at = (x, y) => cells.reduce((best, c) => (Math.hypot(c.x - x, c.y - y) < Math.hypot(best.x - x, best.y - y) ? c : best));
+  assert.equal(at(0, 0).d, 0);
+  assert.ok(at(400, 300).d > at(200, 150).d);
+  assert.ok(cells.every((c) => Number.isInteger(c.d) && c.d >= 0 && c.d < 100));
+});
+
+test('opacity applies on the root group', () => {
+  assert.match(engine.renderMotifPattern({ shape: 'cube', width: 400, height: 300, opacity: 0.3 }), /<g class="rse-motif-pattern__cells" opacity="0.3">/);
+  assert.match(engine.renderMotifPattern({ shape: 'cube', width: 400, height: 300 }), /<g class="rse-motif-pattern__cells">/);
+});
+
+test('1920x1080 at cell 96 renders quickly', () => {
+  engine.renderMotifPattern({ shape: 'twin', width: 1920, height: 1080 });
+  const t0 = performance.now();
+  const svg = engine.renderMotifPattern({ shape: [...SHAPE_NAMES], width: 1920, height: 1080, cell: 96, hues: HUES6, sequence: 'seeded' });
+  const ms = performance.now() - t0;
+  assert.equal(cellCount(svg), 22 * 14);
+  assert.ok(ms < 250, `${ms} ms`);
+});

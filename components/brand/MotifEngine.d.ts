@@ -125,6 +125,51 @@ export const motifShapeNames: readonly MotifShapeName[];
  */
 export const motifShapes: Readonly<Record<MotifShapeName, Shape>>;
 
+/** How renderMotifPattern places cells: a square grid, brick rows (every other row shifted half a cell) or the isometric lattice (tumbling-blocks hexagons). */
+export type MotifPatternLayout = 'grid' | 'brick' | 'isometric';
+
+/** How `hues` are spread over cells: by row, by diagonal (column + row), or by the seeded PRNG. */
+export type MotifPatternSequence = 'row' | 'diagonal' | 'seeded';
+
+/** Marks the SVG for the MotifPattern animation (data-animate); 'none' adds nothing. */
+export type MotifPatternAnimate = 'none' | 'reveal' | 'ambient';
+
+/** Options for renderMotifPattern. Numbers may be numeric strings; out-of-range values are clamped, never thrown on. */
+export interface MotifPatternOptions {
+  /** Library shape, or a list the seed picks from per cell */
+  shape: MotifShapeName | MotifShapeName[];
+  /** Width of the area to fill, px (the SVG's viewBox width) */
+  width: number;
+  /** Height of the area to fill, px */
+  height: number;
+  /** Cell size, px (default 96); enlarged until the pattern fits MAX_PATTERN_CELLS */
+  cell?: number;
+  /** Space taken from each cell, px (default 0) */
+  gap?: number;
+  /** Cell placement (default 'grid') */
+  layout?: MotifPatternLayout;
+  /** Fraction of cells drawn, 0–1 (default 1); the seed decides which */
+  fill?: number;
+  /** PRNG seed (default 1): the same options always give the same SVG */
+  seed?: number;
+  /** Palette family for every cell (default 'purple' when neither hue nor hues is given) */
+  hue?: MotifHue;
+  /** Several palette families, spread by `sequence`; a list of one acts as `hue`, an empty list as no list */
+  hues?: MotifHue[];
+  /** How `hues` are spread (default 'row') */
+  sequence?: MotifPatternSequence;
+  /** Opacity of the whole field, 0–1 (default 1) */
+  opacity?: number;
+  /** Animation marker for MotifPattern (default 'none') */
+  animate?: MotifPatternAnimate;
+}
+
+/** The most cells a pattern draws, the bleed ring included (1500). */
+export const MAX_PATTERN_CELLS: number;
+
+/** One full-bleed, aria-hidden SVG (viewBox 0 0 width height, slice) of library shapes tiled per the options; '' for an unknown shape or hue. Deterministic, never throws. */
+export function renderMotifPattern(opts: MotifPatternOptions): string;
+
 /**
  * The motif engine: builds impossible isometric shapes from lattice bars and cubes with declared
  * crossings, and renders them as flat-filled SVG in any of the six palette families. A function
@@ -141,4 +186,6 @@ export const MotifEngine: {
   readonly motifToSvg: typeof motifToSvg;
   readonly motifShapeNames: typeof motifShapeNames;
   readonly motifShapes: typeof motifShapes;
+  readonly renderMotifPattern: typeof renderMotifPattern;
+  readonly MAX_PATTERN_CELLS: typeof MAX_PATTERN_CELLS;
 };

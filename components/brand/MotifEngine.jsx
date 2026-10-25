@@ -291,5 +291,177 @@ export const motifShapes = Object.freeze({
   ], [{ over: 2, under: 18, overAt: 'start' }]),
 });
 
+// ─── Pattern renderer ────────────────────────────────────────────────────────
+// Tiles library shapes into one full-bleed SVG. Same options, same string, byte for byte: every
+// number goes through r2 and the only randomness is a seeded mulberry32 (integer maths, identical
+// on every JS engine). Geometry is emitted once per (shape, hue) in <defs>, centred on the origin
+// in shape units, and each cell is a <use> of it, so motifPieces runs once per pair and a pattern
+// near the cell cap stays small. The def ids are content addressed (`rse-motif-pattern-<shape>-
+// <hue>` names one fixed geometry), so two patterns on one page that share an id share the same
+// drawing.
+
+/** The most cells a pattern draws, bleed ring included; a larger request enlarges `cell`. */
+export const MAX_PATTERN_CELLS = 1500;
+
+const PATTERN_LAYOUTS = ['grid', 'brick', 'isometric'];
+const PATTERN_SEQUENCES = ['row', 'diagonal', 'seeded'];
+const PATTERN_ANIMATE = ['reveal', 'ambient'];
+
+const own = (obj, key) => typeof key === 'string' && Object.prototype.hasOwnProperty.call(obj, key);
+const toNumber = (v, fallback) => {
+  const n = typeof v === 'number' || typeof v === 'string' ? Number(v) : NaN;
+  return Number.isFinite(n) ? n : fallback;
+};
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+
+// mulberry32: a 32-bit seeded PRNG built from integer ops only, so it is exact everywhere.
+const mulberry32 = (seed) => {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
+// A shape's screen bounds in shape units, for fitting it to a cell: the centre of its bounding box
+// (what the def is centred on), the box's size, and its hexagon extent: the circumradius of the
+// smallest pointy-top hexagon about that centre that holds every vertex. A point (x, y) is inside
+// the hexagon of circumradius R when |x| <= cos30·R and |y| + |x|·tan30 <= R.
+const motifBounds = (shape) => {
+  const pts = motifFaces(shape).flatMap((f) => f.points);
+  const xs = pts.map((p) => p[0]);
+  const ys = pts.map((p) => p[1]);
+  const [minX, maxX, minY, maxY] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+  const cx = r2((minX + maxX) / 2);
+  const cy = r2((minY + maxY) / 2);
+  // Rounded to 2 decimals like the vertices themselves, so their rounding (0.87 for cos30) does not
+  // shrink a cube that fills its hexagon exactly.
+  const hex = r2(Math.max(...pts.map(([x, y]) => {
+    const ax = Math.abs(x - cx);
+    return Math.max(ax / COS30, Math.abs(y - cy) + ax / (2 * COS30));
+  })));
+  return { cx, cy, w: maxX - minX, h: maxY - minY, hex };
+};
+
+// One <g id> per (shape, hue): the shape's faces in paint order, moved so its bounds centre on 0,0.
+const patternDef = (name, hue, bounds) => {
+  const body = motifPieces(motifShapes[name], hue).flatMap((p) => p.faces).map((f) => {
+    const points = f.points.split(' ').map((pt) => {
+      const [x, y] = pt.split(',').map(Number);
+      return `${r2(x - bounds.cx)},${r2(y - bounds.cy)}`;
+    }).join(' ');
+    return `<polygon points="${points}" fill="${f.fill}"/>`;
+  }).join('');
+  return `<g id="rse-motif-pattern-${name}-${hue}">${body}</g>`;
+};
+
+// Cell centres per layout. Rows and columns run from -1 (a bleed ring past the top/left edge) to one
+// past the bottom/right edge, so shapes fill the box edge to edge and the SVG clips them.
+//
+// isometric: the lattice of the motif itself. Its projected axes are x = (cos30, 1/2) and
+// y = (-cos30, 1/2), z = (0, -1). Take a lattice unit R = cell / 2, the circumradius of the
+// hexagon (a cube's silhouette) inscribed in the cell's height. Two lattice moves keep hexagons
+// side by side without hiding one another:
+//   x - y = (2·cos30·R, 0)    -> column pitch  2·cos30·R = cos30·cell  (≈ 0.866 cell)
+//   x - z = (cos30·R, 1.5·R)  -> row pitch     1.5·R     = 0.75·cell, and every odd row shifted
+//                                 right by     cos30·R   = cos30·cell / 2 (half a column)
+// That is the tumbling-blocks tiling: the hexagons of one row nest into the notches of the next,
+// overlapping a quarter cell vertically, so neighbouring shapes interlock instead of stacking.
+const patternPitch = (layout, cell) => (layout === 'isometric'
+  ? { px: cell * COS30, py: cell * 0.75, shift: (cell * COS30) / 2 }
+  : { px: cell, py: cell, shift: layout === 'brick' ? cell / 2 : 0 });
+const patternGrid = (layout, cell, width, height) => {
+  const { px, py } = patternPitch(layout, cell);
+  const cols = Math.ceil(width / px) + 2;
+  const rows = Math.ceil(height / py) + 2;
+  return { cols, rows, count: cols * rows };
+};
+
+/** One full-bleed SVG of library shapes tiled on a grid, brick or isometric layout; '' for an unknown shape or hue. Never throws. */
+export function renderMotifPattern(opts = {}) {
+  const o = opts && typeof opts === 'object' ? opts : {};
+  const names = Array.isArray(o.shape) ? o.shape : [o.shape];
+  if (!names.length || !names.every((n) => own(motifShapes, n))) return '';
+
+  const huesIn = Array.isArray(o.hues) ? o.hues : [];
+  if (o.hue !== undefined && !motifRamp(o.hue, 3)) return '';
+  if (!huesIn.every((h) => motifRamp(h, 3))) return '';
+  const hues = huesIn.length > 1 ? huesIn : [huesIn[0] ?? o.hue ?? 'purple'];
+  const sequence = PATTERN_SEQUENCES.includes(o.sequence) ? o.sequence : 'row';
+
+  const width = r2(Math.max(0, toNumber(o.width, 0)));
+  const height = r2(Math.max(0, toNumber(o.height, 0)));
+  const layout = PATTERN_LAYOUTS.includes(o.layout) ? o.layout : 'grid';
+  const fill = clamp(toNumber(o.fill, 1), 0, 1);
+  const seed = Math.trunc(toNumber(o.seed, 1)) >>> 0;
+  const opacity = r2(clamp(toNumber(o.opacity, 1), 0, 1));
+  const animate = PATTERN_ANIMATE.includes(o.animate) ? o.animate : null;
+
+  // Too many cells: grow the cell (5% at a time, whole px) until the grid fits the cap.
+  let cell = Math.max(1, toNumber(o.cell, 96));
+  while (patternGrid(layout, cell, width, height).count > MAX_PATTERN_CELLS) cell = Math.max(cell + 1, Math.ceil(cell * 1.05));
+  const gap = clamp(toNumber(o.gap, 0), 0, cell * 0.9);
+  const { px, py, shift } = patternPitch(layout, cell);
+
+  // Fit, per shape. grid and brick: the bounding box fits (cell - gap) square. isometric: the shape
+  // fits the hexagon of circumradius (cell - gap) / 2 around its cell centre, so it stays inside
+  // its own tile of the tumbling-blocks tiling (a cube fills it exactly; its box then is
+  // (cell - gap) tall and cos30·(cell - gap) wide, inside the cell) and never covers a neighbour.
+  const inner = cell - gap;
+  const fit = {};
+  for (const n of names) {
+    if (fit[n]) continue;
+    const b = motifBounds(motifShapes[n]);
+    fit[n] = { bounds: b, scale: r2(layout === 'isometric' ? inner / 2 / b.hex : Math.min(inner / b.w, inner / b.h)) };
+  }
+
+  // Independent streams, so changing `fill` never reshuffles shapes or hues.
+  const keep = mulberry32(seed);
+  const pickShape = mulberry32(seed ^ 0x9e3779b9);
+  const pickHue = mulberry32(seed ^ 0x85ebca6b);
+  const mod = (v, n) => ((v % n) + n) % n;
+
+  const defs = new Map();
+  const cells = [];
+  const { cols, rows } = width > 0 && height > 0 ? patternGrid(layout, cell, width, height) : { cols: 0, rows: 0 };
+  for (let row = -1; row < rows - 1; row++) {
+    for (let col = -1; col < cols - 1; col++) {
+      const drawn = keep() < fill;
+      const name = names.length > 1 ? names[Math.floor(pickShape() * names.length)] : names[0];
+      let hue = hues[0];
+      if (hues.length > 1) {
+        const roll = pickHue();
+        if (sequence === 'row') hue = hues[mod(row, hues.length)];
+        else if (sequence === 'diagonal') hue = hues[mod(col + row, hues.length)];
+        else hue = hues[Math.floor(roll * hues.length)];
+      }
+      if (!drawn) continue;
+      const x = r2(col * px + px / 2 + (mod(row, 2) === 1 ? shift : 0));
+      const y = r2(row * py + py / 2);
+      const key = `${name}-${hue}`;
+      if (!defs.has(key)) defs.set(key, patternDef(name, hue, fit[name].bounds));
+      // Stagger step: the cell centre's distance from the top-left corner, in cells.
+      const d = Math.round(Math.hypot(Math.max(0, x), Math.max(0, y)) / cell);
+      cells.push(`<g class="rse-motif-pattern__cell" style="--d:${d}"><use href="#rse-motif-pattern-${key}" transform="translate(${x} ${y}) scale(${fit[name].scale})"/></g>`);
+    }
+  }
+
+  const attrs = [
+    'xmlns="http://www.w3.org/2000/svg"',
+    `viewBox="0 0 ${width} ${height}"`,
+    `width="${width}"`,
+    `height="${height}"`,
+    'preserveAspectRatio="xMidYMid slice"',
+    'aria-hidden="true"',
+    'focusable="false"',
+    animate ? `data-animate="${animate}"` : '',
+  ].filter(Boolean).join(' ');
+  const group = opacity === 1 ? '<g class="rse-motif-pattern__cells">' : `<g class="rse-motif-pattern__cells" opacity="${opacity}">`;
+  const defsOut = defs.size ? `<defs>${[...defs.values()].join('')}</defs>` : '';
+  return `<svg ${attrs}>${defsOut}${group}${cells.join('')}</g></svg>`;
+}
+
 /** The whole engine as one object, for consumers that prefer a namespace. */
-export const MotifEngine = Object.freeze({ isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, motifShapeNames, motifShapes });
+export const MotifEngine = Object.freeze({ isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, motifShapeNames, motifShapes, renderMotifPattern, MAX_PATTERN_CELLS });

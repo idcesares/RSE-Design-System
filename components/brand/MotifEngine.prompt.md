@@ -19,6 +19,12 @@ Exported functions (also grouped on the `MotifEngine` object):
 - `motifToSvg(shape, { hue, size?, title? })` — one `<svg>` string; `''` for an unknown hue.
 - `motifShapes` and `motifShapeNames` — the generated shape library, ready to pass to
   `motifToSvg` (and the default source of shapes for `MotifLoader` and `MotifPattern`).
+- `renderMotifPattern(opts)` — library shapes tiled into one full-bleed `<svg>` string (the
+  engine behind `MotifPattern`): `shape` (a name or a list), `width`, `height`, `cell` (96),
+  `gap` (0), `layout` (`grid`, `brick`, `isometric`), `fill` (0–1), `seed` (1), `hue` or `hues`
+  with `sequence` (`row`, `diagonal`, `seeded`), `opacity` (1), `animate` (`none`, `reveal`,
+  `ambient`). `''` for an unknown shape or hue; never throws. At most `MAX_PATTERN_CELLS` (1500)
+  cells: a smaller `cell` is enlarged until it fits.
 
 Generated shapes — **gerados pelo sistema, não fornecidos pelo Sesc**; the six official
 constructions stay in `BrandMotif`:
@@ -51,6 +57,30 @@ const svg = motifToSvg(shape, { hue: 'orange', size: 160 });
 // Carrying meaning: the title is read out, in pt-BR.
 const named = motifToSvg(shape, { hue: 'blue', size: 160, title: 'Forma impossível da Rede' });
 ```
+
+A pattern field — decorative, so it is `aria-hidden`; text goes on a solid panel beside or over
+it, never on the cells:
+
+```js
+import { renderMotifPattern } from '@idcesares/rse-design-system';
+
+// Faixa de fundo do hero "Matrículas abertas": cubos no reticulado isométrico, três cores em diagonal.
+const fundo = renderMotifPattern({
+  shape: 'cube', width: 1440, height: 480, cell: 96, gap: 8,
+  layout: 'isometric', hues: ['blue', 'green', 'yellow'], sequence: 'diagonal',
+  fill: 0.7, seed: 12, opacity: 0.3,
+});
+```
+
+Same options, same SVG (seeded, coordinates rounded to 2 decimals). The SVG fills its box like
+`background-size: cover` (`preserveAspectRatio="xMidYMid slice"`) and draws one ring of cells past
+every edge, so shapes run off the edges instead of stopping short. Each shape's geometry is
+emitted once in `<defs>` (`id="rse-motif-pattern-<shape>-<hue>"`, the same drawing wherever that id
+appears) and every cell is `<g class="rse-motif-pattern__cell" style="--d:N">` around a `<use>`;
+`--d` is the cell's stagger step (its distance from the top-left, in cells) and `animate` only adds
+`data-animate` on the `<svg>`: the motion itself is `MotifPattern`'s CSS. `grid` and `brick` fit
+each shape's box to `cell − gap`; `isometric` fits it to the hexagon of its tile, so a cube field
+locks together like tumbling blocks and other shapes never cover a neighbour.
 
 In a static page, the same functions are on `window.RSE`:
 
