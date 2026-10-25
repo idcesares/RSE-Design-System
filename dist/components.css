@@ -288,6 +288,133 @@
   background:transparent;color:var(--rse-alert-ink);cursor:pointer;
 }
 
+/* components/feedback/MotifLoader.css */
+/* MotifLoader — an impossible shape that assembles piece by piece, holds, comes apart and loops.
+   Markup:  <span class="rse-motif-loader rse-motion-managed" role="status" aria-label="Carregando"
+                  style="--n:12">
+              <svg viewBox="…" width="48" height="48" aria-hidden="true">
+                <g class="rse-motif-loader__piece" style="--i:0;--ax:0;--ay:-1"><polygon points="…" fill="…"/>…</g>
+                …
+            With `hues` the root also has .rse-motif-loader--hues-2 / -3 / -4 and every polygon
+            carries --c0..--c3, its fill for that role in each hue.
+   Custom properties are data, never look: --n is the piece count, --i the piece's position in
+   paint order, --ax/--ay the unit vector of the piece's lattice axis on screen, --c0..--c3 the
+   fills. The geometry never changes: pieces only fade and slide along their own axis.
+
+   Timing (one cycle = --rse-duration-loop, doubled under reduced motion). Piece i of n starts at
+   (i / n) x 20% of the cycle, so the last piece starts before 20% for every shape, whatever its
+   piece count (a fixed step per index would overrun the window for the 24-piece twin). Each piece
+   then builds in 10% of the cycle, so the last one finishes by 30%. All pieces hold until 75%,
+   release over 75-96% (the way they came) and stay hidden until the cycle ends. The animation
+   fills `backwards`, so a delayed piece is hidden (the 0% keyframe) before its start, and nothing
+   holds a frame after the end: the underlying style is the assembled shape, so a viewer that
+   flattens or stops animation shows the whole shape, never an empty or half-built one.
+
+   Motion setting: this component is .rse-motion-managed, so the safety net in base-runtime.css
+   leaves it alone and it implements both forms itself. Travel is multiplied by
+   --rse-motion-travel (0 when reduced), so reduced is an opacity-only build, and the cycle doubles
+   (a gentler loop). Nested [data-rse-motion] sections follow the nearest ancestor.
+
+   Hues: with `hues` the fills step through the families, one hue per cycle (a cycle of n x
+   --rse-duration-loop). Each step happens in the last 3% of a piece's own cycle, when the piece is
+   hidden, so a colour never changes under the eye. */
+
+/* Travel distance is SVG user space (1 unit = one lattice step of the shape), so it is geometry,
+   not a length token: 2 units, about a third of the shape's width. */
+@keyframes rse-motif-build {
+  0% { opacity: 0; transform: translate(calc(var(--rse-motion-travel) * var(--ax) * -2px), calc(var(--rse-motion-travel) * var(--ay) * -2px)); }
+  10% { opacity: 1; transform: none; }
+  75% { opacity: 1; transform: none; }
+  96%, 100% { opacity: 0; transform: translate(calc(var(--rse-motion-travel) * var(--ax) * -2px), calc(var(--rse-motion-travel) * var(--ay) * -2px)); }
+}
+
+/* The colour changes in the last 3% of each cycle, while the piece is hidden. */
+@keyframes rse-motif-hue-2 {
+  0%, 48.5% { fill: var(--c0); }
+  50%, 98.5% { fill: var(--c1); }
+  100% { fill: var(--c0); }
+}
+@keyframes rse-motif-hue-3 {
+  0%, 32.33% { fill: var(--c0); }
+  33.33%, 65.67% { fill: var(--c1); }
+  66.67%, 99% { fill: var(--c2); }
+  100% { fill: var(--c0); }
+}
+@keyframes rse-motif-hue-4 {
+  0%, 24.25% { fill: var(--c0); }
+  25%, 49.25% { fill: var(--c1); }
+  50%, 74.25% { fill: var(--c2); }
+  75%, 99.25% { fill: var(--c3); }
+  100% { fill: var(--c0); }
+}
+
+.rse-motif-loader {
+  /* Cycle multiplier for the stagger: 1 in full, 2 in reduced (set below, with the durations). */
+  --rse-motif-k: 1;
+  /* Defaults for the data the markup sets inline: one piece, and a fallback fill per hue step. */
+  --n: 1;
+  --c0: var(--rse-color-primary);
+  --c1: var(--rse-color-primary);
+  --c2: var(--rse-color-primary);
+  --c3: var(--rse-color-primary);
+  display: inline-flex;
+  line-height: 0;
+  vertical-align: middle;
+}
+.rse-motif-loader svg { display: block; overflow: visible; }
+
+.rse-motif-loader__piece {
+  --i: 0;
+  --ax: 0;
+  --ay: 0;
+  animation-name: rse-motif-build;
+  animation-duration: var(--rse-duration-loop);
+  animation-timing-function: var(--rse-ease-assemble);
+  animation-delay: calc(var(--i) * var(--rse-duration-loop) * var(--rse-motif-k) * 0.2 / var(--n));
+  animation-iteration-count: infinite;
+  animation-fill-mode: backwards;
+}
+
+.rse-motif-loader--hues-2 polygon,
+.rse-motif-loader--hues-3 polygon,
+.rse-motif-loader--hues-4 polygon {
+  fill: var(--c0);
+  animation-timing-function: linear;
+  animation-delay: calc(var(--i) * var(--rse-duration-loop) * var(--rse-motif-k) * 0.2 / var(--n));
+  animation-fill-mode: backwards;
+}
+.rse-motif-loader--hues-2 polygon { animation-name: rse-motif-hue-2; animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+.rse-motif-loader--hues-3 polygon { animation-name: rse-motif-hue-3; animation-duration: calc(var(--rse-duration-loop) * 3); animation-iteration-count: infinite; }
+.rse-motif-loader--hues-4 polygon { animation-name: rse-motif-hue-4; animation-duration: calc(var(--rse-duration-loop) * 4); animation-iteration-count: infinite; }
+
+/* Reduced: the cycle doubles. Written out per context (a literal duration, so scripts/check-motion
+   can resolve it); each rule repeats animation-iteration-count so the checker reads it too. */
+[data-rse-motion="reduced"] .rse-motif-loader { --rse-motif-k: 2; }
+[data-rse-motion="reduced"] .rse-motif-loader__piece { animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+[data-rse-motion="reduced"] .rse-motif-loader--hues-2 polygon { animation-duration: calc(var(--rse-duration-loop) * 4); animation-iteration-count: infinite; }
+[data-rse-motion="reduced"] .rse-motif-loader--hues-3 polygon { animation-duration: calc(var(--rse-duration-loop) * 6); animation-iteration-count: infinite; }
+[data-rse-motion="reduced"] .rse-motif-loader--hues-4 polygon { animation-duration: calc(var(--rse-duration-loop) * 8); animation-iteration-count: infinite; }
+/* A full section nested inside a reduced one is back to the full cycle. */
+[data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-loader { --rse-motif-k: 1; }
+[data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-loader__piece { animation-duration: var(--rse-duration-loop); animation-iteration-count: infinite; }
+[data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-loader--hues-2 polygon { animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+[data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-loader--hues-3 polygon { animation-duration: calc(var(--rse-duration-loop) * 3); animation-iteration-count: infinite; }
+[data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-loader--hues-4 polygon { animation-duration: calc(var(--rse-duration-loop) * 4); animation-iteration-count: infinite; }
+
+/* No attribute set: the OS preference decides, as in base-runtime.css. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-rse-motion]) .rse-motif-loader { --rse-motif-k: 2; }
+  :root:not([data-rse-motion]) .rse-motif-loader__piece { animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) .rse-motif-loader--hues-2 polygon { animation-duration: calc(var(--rse-duration-loop) * 4); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) .rse-motif-loader--hues-3 polygon { animation-duration: calc(var(--rse-duration-loop) * 6); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) .rse-motif-loader--hues-4 polygon { animation-duration: calc(var(--rse-duration-loop) * 8); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-loader { --rse-motif-k: 1; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-loader__piece { animation-duration: var(--rse-duration-loop); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-loader--hues-2 polygon { animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-loader--hues-3 polygon { animation-duration: calc(var(--rse-duration-loop) * 3); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-loader--hues-4 polygon { animation-duration: calc(var(--rse-duration-loop) * 4); animation-iteration-count: infinite; }
+}
+
 /* components/forms/Checkbox.css */
 /* Choice controls — Checkbox, Radio and Switch share .rse-choice. The native input is visually
    hidden (.rse-control-input, tokens/base-runtime.css) and drives every state through :checked,

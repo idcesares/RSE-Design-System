@@ -72,6 +72,8 @@ export type { TabItem, TabsProps } from './components/navigation/Tabs';
 // Feedback
 export { Alert } from './components/feedback/Alert';
 export type { AlertProps } from './components/feedback/Alert';
+export { MotifLoader } from './components/feedback/MotifLoader';
+export type { MotifLoaderProps } from './components/feedback/MotifLoader';
 export { ProgressBar } from './components/feedback/ProgressBar';
 export type { ProgressBarProps } from './components/feedback/ProgressBar';
 export { Skeleton } from './components/feedback/Skeleton';

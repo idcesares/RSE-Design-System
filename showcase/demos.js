@@ -46,6 +46,7 @@ window.SC_DEMOS = (DS) => {
     Select: 'Lista suspensa para escolher unidade, programa ou estado.',
     Skeleton: 'O esqueleto que ocupa o lugar do conteúdo enquanto ele carrega.',
     Spinner: 'Indicador de carregamento para ações sem duração previsível.',
+    MotifLoader: 'O carregamento de página e de seção: uma forma impossível se monta peça por peça.',
     StatBand: 'Uma faixa de números de impacto sobre uma cor só, lida como lista.',
     Stat: 'Um número de impacto com rótulo — o pilar do resultado, tornado visível.',
     Stepper: 'As etapas de um fluxo, mostrando onde a pessoa está e o que já concluiu.',
@@ -361,6 +362,13 @@ window.SC_DEMOS = (DS) => {
       h('div', { style: { display: 'flex', gap: 'var(--rse-space-5)', alignItems: 'flex-start' } },
         h(DS.Skeleton, { variant: 'circle' }),
         h('div', { style: { flex: 1 } }, h(DS.Skeleton, { variant: 'text', lines: 3 }))
+      ) },
+
+    MotifLoader: { render: () =>
+      h(F, null,
+        h(DS.MotifLoader, { shape: 'cube', hue: 'purple', size: 56 }),
+        h(DS.MotifLoader, { shape: 'triangle', hue: 'blue', size: 56, label: 'Carregando programas' }),
+        h(DS.MotifLoader, { shape: 'twin', hues: ['green', 'blue', 'pink'], size: 64, label: 'Carregando unidades' })
       ) },
 
     Spinner: { render: () =>

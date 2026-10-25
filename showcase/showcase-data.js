@@ -943,6 +943,45 @@ window.SHOWCASE_DATA = {
       "props": []
     },
     {
+      "name": "MotifLoader",
+      "group": "feedback",
+      "groupLabel": "Retorno ao usuário",
+      "sourcePath": "components/feedback/MotifLoader.jsx",
+      "summary": "Animated loader: an impossible shape assembles piece by piece, holds, comes apart and loops. For page and section loading at 48 px or larger; use Spinner for buttons. Follows the motion setting: reduced is a slower, opacity-only build.",
+      "props": [
+        {
+          "name": "shape",
+          "type": "MotifShapeName",
+          "required": false,
+          "notes": "Which shape assembles (default 'cube', the 12-bar frame). An unknown name renders nothing"
+        },
+        {
+          "name": "hue",
+          "type": "MotifHue",
+          "required": false,
+          "notes": "Palette family (default 'purple'). An unknown name renders nothing"
+        },
+        {
+          "name": "hues",
+          "type": "MotifHue[]",
+          "required": false,
+          "notes": "2 to 4 families to step through, one per cycle. Any other length uses `hue`"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "required": false,
+          "notes": "Width and height in px (default 48). Below 32 the facets blur and a console warning is logged once"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "notes": "Accessible name announced to screen readers, in pt-BR (default 'Carregando')"
+        }
+      ]
+    },
+    {
       "name": "Navbar",
       "group": "navigation",
       "groupLabel": "Navegação",
@@ -3295,6 +3334,7 @@ window.SHOWCASE_DATA = {
     "Testimonial",
     "StatBand",
     "Alert",
+    "MotifLoader",
     "Checkbox",
     "FileUpload",
     "Input",
@@ -5112,8 +5152,8 @@ window.SHOWCASE_DATA = {
     "pagesTested": 8,
     "axeViolations": 0,
     "pagesOverflowingOnPhone": 4,
-    "componentsOnCssContract": 19,
-    "componentsTotal": 41,
+    "componentsOnCssContract": 20,
+    "componentsTotal": 42,
     "componentGlyphIcons": 0,
     "componentPxLiterals": 59,
     "componentsWithJsHover": 3
@@ -5458,7 +5498,7 @@ window.SHOWCASE_DATA = {
     }
   ],
   "counts": {
-    "components": 41,
+    "components": 42,
     "tokens": 172,
     "palette": 21,
     "themes": 3,

@@ -38,6 +38,19 @@ function keyframes(css) {
   return out;
 }
 
+// Split at top-level `sep` (a character, or whitespace when sep is ' '), ignoring nested parentheses.
+function splitTop(str, sep) {
+  const out = [];
+  let depth = 0, cur = '';
+  for (const ch of str) {
+    if (ch === '(') depth++;
+    else if (ch === ')') depth--;
+    if (depth === 0 && (sep === ' ' ? /\s/.test(ch) : ch === sep)) { out.push(cur); cur = ''; } else cur += ch;
+  }
+  out.push(cur);
+  return out.map((x) => x.trim()).filter((x) => x !== '');
+}
+
 const toMs = (v, unit) => (unit === 's' ? parseFloat(v) * 1000 : parseFloat(v));
 
 function resolveTime(token, durations) {
@@ -45,7 +58,19 @@ function resolveTime(token, durations) {
   const v = t.match(/^var\(\s*(--rse-duration-[\w-]+)\s*\)$/);
   if (v) return durations[v[1]] ?? null;
   const n = t.match(/^(-?[\d.]+)(ms|s)$/);
-  return n ? toMs(n[1], n[2]) : null;
+  if (n) return toMs(n[1], n[2]);
+  // calc(<time> * N) or calc(N * <time>): the one product form a multi-cycle loop needs.
+  const c = t.match(/^calc\(\s*(.+?)\s*\)$/);
+  if (c) {
+    const parts = splitTop(c[1], '*');
+    if (parts.length === 2) {
+      const num = (x) => (/^-?[\d.]+$/.test(x) ? parseFloat(x) : null);
+      const [a, b] = parts;
+      if (num(b) !== null) { const ms = resolveTime(a, durations); return ms === null ? null : ms * num(b); }
+      if (num(a) !== null) { const ms = resolveTime(b, durations); return ms === null ? null : ms * num(a); }
+    }
+  }
+  return null;
 }
 
 // Every `animation` / `animation-name` declaration: the first time value is the duration.
@@ -55,10 +80,10 @@ function animations(css) {
   let m;
   while ((m = re.exec(css))) {
     const value = m[1];
-    const parts = value.split(/,(?![^(]*\))/);
+    const parts = splitTop(value, ',');
     for (const part of parts) {
-      const tokens = part.trim().split(/\s+(?![^(]*\))/);
-      const time = tokens.find((t) => /^(-?[\d.]+(ms|s)|var\(\s*--rse-duration-[\w-]+\s*\))$/.test(t));
+      const tokens = splitTop(part, ' ');
+      const time = tokens.find((t) => /^(-?[\d.]+(ms|s)|var\(\s*--rse-duration-[\w-]+\s*\)|calc\(.*\))$/.test(t));
       const name = tokens.find((t) => /^rse-[\w-]+$/.test(t) || (/^[a-zA-Z_][\w-]*$/.test(t) && !/^(infinite|linear|ease|ease-in|ease-out|ease-in-out|both|forwards|backwards|none|normal|reverse|alternate|alternate-reverse|running|paused)$/.test(t)));
       out.push({ name, time, infinite: tokens.includes('infinite') });
     }
@@ -69,7 +94,7 @@ function animations(css) {
 // (a) infinite animations whose cycle is under the floor.
 export function ruleCycle(css, durations, label = '') {
   const errors = [];
-  const list = (v) => v.split(/,(?![^(]*\))/).map((x) => x.trim());
+  const list = (v) => splitTop(v, ',');
   // Longhands: within each innermost block, pair iteration-count and duration by list index.
   for (const [, body] of stripComments(css).matchAll(/\{([^{}]*)\}/g)) {
     const decl = (prop) => body.match(new RegExp('(?:^|[;\\s])' + prop + '\\s*:\\s*([^;}]+)'))?.[1];
@@ -122,6 +147,9 @@ if (process.argv.includes('--selftest')) {
     ['cycle', ruleCycle('@keyframes x{to{opacity:0}} .a{animation:x 200ms linear infinite}', durations, 'self')],
     ['cycle (token)', ruleCycle('.a{animation:x var(--rse-duration-base) linear infinite}', durations, 'self')],
     ['cycle (longhand)', ruleCycle('.a{animation-name:x;animation-duration:100ms;animation-iteration-count:infinite}', durations, 'self')],
+    ['cycle (calc product)', ruleCycle('.a{animation:x calc(var(--rse-duration-fast) * 2) linear infinite}', durations, 'self')],
+    ['cycle (calc product, longhand)', ruleCycle('.a{animation-name:x;animation-duration:calc(var(--rse-duration-fast) * 2);animation-iteration-count:infinite}', durations, 'self')],
+    ['cycle (calc product, unknown token)', ruleCycle('.a{animation-duration:calc(var(--rse-duration-nope) * 2);animation-iteration-count:infinite}', durations, 'self')],
     ['cycle (longhand token)', ruleCycle('.a{animation-duration:var(--rse-duration-fast);animation-iteration-count:infinite}', durations, 'self')],
     ['travel', ruleTravel('@keyframes rse-motif-drift{from{transform:translate(8px, 0)}to{transform:none}}', 'self')],
     ['managed', ruleManaged('@keyframes rse-motif-drift{to{opacity:1}}', "createElement('div', { className: 'x' })", 'self')],
@@ -129,6 +157,7 @@ if (process.argv.includes('--selftest')) {
   const clean = [
     ['cycle ok', ruleCycle('.a{animation:x 1.4s linear infinite}', durations, 'self')],
     ['cycle ok (longhand)', ruleCycle('.a{animation-name:x;animation-duration:1.4s;animation-iteration-count:infinite}.b{animation-duration:var(--rse-duration-slow);animation-iteration-count:infinite}', durations, 'self')],
+    ['cycle ok (calc product)', ruleCycle('.a{animation-duration:calc(var(--rse-duration-slow) * 2);animation-iteration-count:infinite}.b{animation:x calc(2 * var(--rse-duration-slow)) linear infinite}', durations, 'self')],
     ['travel ok', ruleTravel('@keyframes rse-motif-drift{to{transform:translate(calc(8px * var(--rse-motion-travel)), 0)}}', 'self')],
     ['managed ok', ruleManaged('@keyframes rse-motif-drift{to{opacity:1}}', "className: 'rse-motion-managed'", 'self')],
   ];

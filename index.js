@@ -45,6 +45,7 @@ export { Tabs } from './components/navigation/Tabs.jsx';
 
 // Feedback
 export { Alert } from './components/feedback/Alert.jsx';
+export { MotifLoader } from './components/feedback/MotifLoader.jsx';
 export { ProgressBar } from './components/feedback/ProgressBar.jsx';
 export { Skeleton } from './components/feedback/Skeleton.jsx';
 export { Spinner } from './components/feedback/Spinner.jsx';

@@ -327,3 +327,101 @@ test('every library shape renders identically twice in every hue', () => {
     assert.equal(a, b, `${name}/${hue}`);
   }
 });
+
+// ─── MotifLoader (components/feedback/MotifLoader.jsx) ──────────────────────
+// The stub React returns { type, props, children } trees; these helpers read them.
+const flat = (children) => children.flat(Infinity).filter((c) => c && typeof c === 'object');
+const find = (node, pred, out = []) => {
+  if (!node || typeof node !== 'object') return out;
+  if (pred(node)) out.push(node);
+  for (const c of flat(node.children ?? [])) find(c, pred, out);
+  return out;
+};
+const loaderPieces = (tree) => find(tree, (n) => n.type === 'g' && /rse-motif-loader__piece/.test(n.props.className));
+const loaderPolys = (tree) => find(tree, (n) => n.type === 'polygon');
+
+test('renders role=status with the pt-BR label', () => {
+  const tree = engine.MotifLoader({});
+  assert.equal(tree.type, 'span');
+  assert.equal(tree.props.role, 'status');
+  assert.equal(tree.props['aria-label'], 'Carregando');
+  assert.match(tree.props.className, /\brse-motif-loader\b/);
+  assert.match(tree.props.className, /\brse-motion-managed\b/);
+  const svg = find(tree, (n) => n.type === 'svg')[0];
+  assert.equal(svg.props['aria-hidden'], 'true');
+  assert.equal(svg.props.width, 48);
+  assert.equal(engine.MotifLoader({ label: 'Carregando matrículas' }).props['aria-label'], 'Carregando matrículas');
+  // One piece group per engine piece, each carrying --i/--ax/--ay; --n on the root.
+  const pieces = engine.motifPieces(engine.motifShapes.cube, 'purple');
+  const groups = loaderPieces(tree);
+  assert.equal(groups.length, pieces.length);
+  assert.equal(tree.props.style['--n'], pieces.length);
+  groups.forEach((g, i) => {
+    assert.equal(g.props.style['--i'], i);
+    assert.equal(g.props.style['--ax'], pieces[i].axis.x);
+    assert.equal(g.props.style['--ay'], pieces[i].axis.y);
+  });
+  // Fills are the engine's ramp, nothing else.
+  const ramp = engine.motifRamp('purple', 3);
+  for (const p of loaderPolys(tree)) assert.ok(ramp.includes(p.props.fill), p.props.fill);
+});
+
+test('unknown hue and unknown shape return null', () => {
+  assert.equal(engine.MotifLoader({ hue: 'chartreuse' }), null);
+  assert.equal(engine.MotifLoader({ shape: 'dodecahedron' }), null);
+  assert.equal(engine.MotifLoader({ hues: ['green', 'chartreuse'] }), null);
+});
+
+test('hues length 1 or 5 falls back to hue', () => {
+  const single = engine.MotifLoader({ hue: 'green' });
+  for (const hues of [['blue'], ['green', 'blue', 'pink', 'purple', 'orange']]) {
+    const t = engine.MotifLoader({ hue: 'green', hues });
+    assert.doesNotMatch(t.props.className, /--hues/);
+    assert.deepEqual(JSON.parse(JSON.stringify(t)), JSON.parse(JSON.stringify(single)));
+  }
+  for (const n of [2, 3, 4]) {
+    const t = engine.MotifLoader({ hues: ['green', 'blue', 'pink', 'orange'].slice(0, n) });
+    assert.match(t.props.className, new RegExp(`rse-motif-loader--hues-${n}\\b`));
+    const polys = loaderPolys(t);
+    for (const p of polys) {
+      for (let k = 0; k < n; k++) assert.match(p.props.style[`--c${k}`], /^#[0-9a-f]{6}$/);
+      assert.equal(p.props.style[`--c${n}`], undefined);
+    }
+    // Each face role takes its colour from the matching ramp step of every hue.
+    const ramps = ['green', 'blue', 'pink', 'orange'].slice(0, n).map((h) => engine.motifRamp(h, 3));
+    for (const p of polys) {
+      const step = ramps[0].indexOf(p.props.style['--c0']);
+      assert.ok(step >= 0);
+      ramps.forEach((r, k) => assert.equal(p.props.style[`--c${k}`], r[step]));
+    }
+  }
+});
+
+test('size 24 warns once and renders', () => {
+  const warn = console.warn;
+  const calls = [];
+  console.warn = (...a) => calls.push(a);
+  try {
+    const a = engine.MotifLoader({ size: 24 });
+    const b = engine.MotifLoader({ size: 20 });
+    assert.ok(a && b);
+    assert.equal(find(a, (n) => n.type === 'svg')[0].props.width, 24);
+    assert.equal(calls.length, 1);
+    engine.MotifLoader({ size: 48 });
+    assert.equal(calls.length, 1);
+  } finally {
+    console.warn = warn;
+  }
+});
+
+test('server render without window does not throw', () => {
+  const saved = { window: globalThis.window, document: globalThis.document };
+  delete globalThis.window;
+  delete globalThis.document;
+  try {
+    for (const shape of engine.motifShapeNames) assert.doesNotThrow(() => engine.MotifLoader({ shape }), shape);
+  } finally {
+    if (saved.window !== undefined) globalThis.window = saved.window;
+    if (saved.document !== undefined) globalThis.document = saved.document;
+  }
+});

@@ -13,10 +13,12 @@ import { exportedNames, toBundleForm } from './bundle-form.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 // Evaluated in this order: a file may import what the files before it export.
-const SOURCES = ['components/brand/BrandMotif.jsx', 'components/brand/MotifEngine.jsx'];
+const SOURCES = ['components/brand/BrandMotif.jsx', 'components/brand/MotifEngine.jsx', 'components/feedback/MotifLoader.jsx'];
 
 const React = {
   createElement: (type, props, ...children) => ({ type, props, children }),
+  // A forwardRef component is its render function: tests call it as (props, ref).
+  forwardRef: (render) => render,
 };
 
 export async function loadMotifEngine() {
