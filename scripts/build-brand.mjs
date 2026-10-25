@@ -189,7 +189,12 @@ const motifHues = new Map(
   [...read('components/brand/BrandMotif.jsx').matchAll(/'([a-z]+)':\s*\{[^}]*?hue:\s*'([a-z]+)'/g)].map((m) => [m[1], m[2]])
 );
 
-const motifShapeNames = [...readFileSync(join(ROOT, 'components/brand/MotifEngine.jsx'), 'utf8').match(/motifShapeNames = Object\.freeze\(\[([^\]]+)\]/)[1].matchAll(/'([a-z]+)'/g)].map((x) => x[1]);
+const motifShapeMatch = readFileSync(join(ROOT, 'components/brand/MotifEngine.jsx'), 'utf8').match(/motifShapeNames = Object\.freeze\(\[([^\]]+)\]/);
+const motifShapeNames = motifShapeMatch ? [...motifShapeMatch[1].matchAll(/'([a-z]+)'/g)].map((x) => x[1]) : [];
+if (!motifShapeNames.length) {
+  console.error('build-brand: could not read motifShapeNames from components/brand/MotifEngine.jsx');
+  process.exit(1);
+}
 const motifs = readdirSync(join(ROOT, 'assets/motifs'))
   .filter((f) => /^cube-.*\.svg$/.test(f))
   .sort()
