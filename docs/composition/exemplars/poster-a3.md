@@ -20,18 +20,18 @@ an A3 sheet, 297 × 420 mm). Source: [src/poster-a3.html](src/poster-a3.html). F
 
 ## Spec
 
-- Format `print-a3`: margin 8% of the short side (119 px), six columns.
+- Format `print-a3`: margin 8% of the short side (119 px), twelve columns, bleed 0.01 (3 mm, 15 px).
 - Type: display 0.12, h1 0.07, h2 0.04, body 0.02, caption 0.015 of the short side.
-- Under 60 words (it has about 16) and a headline under 50 characters (it has 30).
+- Under 60 words (it has about 16) and a display headline under 38 characters (it has 30).
 - Archetype: `cover`. One motif: `assets/motifs/cube-cube.svg`, official fills.
-- Print at 100% with background graphics on. For A4 reuse the same fractions on 210 mm.
+- This PNG is the trimmed size. For a print file extend the purple band and the cube 15 px past each edge, so a cut never leaves a white sliver. Print at 100% with background graphics on. For A4 reuse the same fractions on 210 mm.
 
 ## Rubric
 
 - R1: yes — the slogan reads first and the wordmark says who it is from
 - R2: yes — the headline is about 178 px against 30 px body copy, close to 6 to 1
 - R3: yes — one 119 px left margin; headline, deadline and address share it
-- R4: yes — more than a third of the sheet is empty, and all text is inside the safe area
+- R4: yes — more than a third of the sheet is empty; the text stays out of the safe-area band and only the band and the cube bleed into it
 - R5: yes — ink on cream and white on brand purple, both gated pairs
 - R6: yes — one cube, cropped, clear of all text
 - R7: yes — one band, brand purple, with white text

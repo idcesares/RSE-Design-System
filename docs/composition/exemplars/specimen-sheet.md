@@ -42,7 +42,7 @@ at a third of their size, and the 12 [modules](../modules.md) beneath them. Sour
 - R9: yes — flat fields and hairlines only
 - R10: yes — all figures are `000`/`0000`, every image slot names the shot, and the legend says so
 - R11: yes — copy is pt-BR sentence case, no emoji, Montserrat throughout
-- R12: yes — the wordmark appears only inside the cover and contact thumbnails, official files, unmodified, at 108 px high on a 1080 px slide with clear space
+- R12: yes — the wordmark appears in the cover and contact thumbnails and in the folio module tile, official files, unmodified, at 108 px high on a 1080 px slide with clear space
 
 ## Placeholders
 

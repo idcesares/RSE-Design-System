@@ -22,14 +22,19 @@ How every piece for the Rede looks, whatever the stack or format. Numbers live i
 6. **The cube motif appears once, large, and cropped.** It bleeds off an edge at a scale that makes it
    architecture, not ornament, and it never sits behind text that must be read. The supplied cubes
    come in green, blue and pink: put a cube of one family on a field of another (green on purple or
-   cream, pink on blue or green, blue on orange), never on its own hue. *Generic:* small
+   cream, pink on blue, green or indigo, blue on orange), never on its own hue. The `BrandMotif`
+   component can derive purple, orange and yellow; say so when you use them. A composition is one
+   canvas, so a deck may use a different construction on each. *Generic:* small
    cubes scattered as bullets or dividers.
 7. **One hue per composition.** The page is cream (`--rse-color-surface-page` / `--rse-brand-cream`)
-   or white. A single band or accent takes one palette hue: brand purple or indigo with white text,
-   or a light or mid accent with ink text (`--rse-brand-ink`). Use the paired tint and its ink
+   or white. A single band or field takes one palette hue: the brand purple (`--rse-color-primary`)
+   or indigo with white text, or a light or mid accent with ink text (`--rse-brand-ink`). The
+   brand purple used as text or line colour (a big figure, a rule, a step number) is the brand
+   itself and does not count as a second hue. Use the paired tint and its ink
    (`--rse-color-tint-<hue>` with `-ink`) for small labels. These pairings are measured and gated by
-   the repo (ink on the light accents is 4.8–10:1). Never white on an accent, never a `-dark`
-   accent as a band. *Generic:* a rainbow of six hues across one slide.
+   the repo (ink on the light accents is 4.8–10:1). Never white on an accent, never the mid
+   `--rse-brand-purple` or any other `-dark` accent as a band (the primary purple is the one dark tone
+   that works). *Generic:* a rainbow of six hues across one slide.
 8. **Flat colour, honest edges.** Rectangles with square or token-radius corners, hairline rules, no
    shadows beyond the system's, no gradients, no textures. *Generic:* gradient banners and glow.
 9. **Numbers are the picture.** A figure set at display size, with a short label, is stronger than a
@@ -44,8 +49,9 @@ How every piece for the Rede looks, whatever the stack or format. Numbers live i
 12. **Set headlines tight, body loose.** Headlines at line-height 1.04–1.1 with tracking −0.02em
     (`--rse-letter-spacing-tight`); body at 1.5; eyebrows at +0.14em (`--rse-letter-spacing-eyebrow`).
     *Generic:* default line-height everywhere.
-13. **Cut copy before shrinking type.** If text overflows, shorten it to the format's
-    `maxWords` and `maxHeadlineChars`; do not reduce the type below `minText`.
+13. **Cut copy before shrinking type.** If text overflows, shorten it to the format's `maxWords` and
+    to `maxHeadlineChars` (headline at h1) or `maxDisplayChars` (headline at display), which hold about
+    three lines; do not reduce the type below `minText`.
 
 ## Reading order test
 

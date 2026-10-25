@@ -2,7 +2,7 @@
 
 An archetype is a composition of [modules](modules.md) on a grid. **Grid** gives regions as
 fractions of the canvas width × height, inside the format's `margin` (written *m*) and on its
-`gridColumns`. **Colour** names tokens from [brand.json](../../brand.json); *page* is
+`gridColumns`, which is twelve on every format. **Colour** names tokens from [brand.json](../../brand.json); *page* is
 `--rse-color-surface-page` (cream) and *band* is any one palette hue with ink text, or brand
 purple / indigo with white text. Nothing here is tied to a stack: translate the regions into
 whatever your tool uses.
@@ -116,6 +116,6 @@ Fails when: there are two asks, or the action has no concrete next step (a date,
 ## A-contact
 Who to talk to, and where.
 Modules: headline, list, folio
-Grid: headline columns 1–6 (y 0.25–0.45); contacts in columns 7–12 as a ruled list (y 0.25–0.75); selo at the bottom left with its clearspace.
+Grid: headline columns 1–6 (y 0.25–0.45); contacts in columns 7–12 as a ruled list (y 0.25–0.75); selo at the bottom left with its clearspace (a set may carry it on the cover and the closing canvases only).
 Colour: page.
 Fails when: the details are invented rather than flagged placeholders, or the Sesc signature sits next to the selo.

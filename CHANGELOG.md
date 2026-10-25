@@ -19,9 +19,12 @@ a print pipeline), can now make non-web artwork that looks like the Rede.
   and a written spec and rubric result for agents that cannot see images.
 - **`brand.json`** gains `formats` and `composition`.
 - **`npm run check`** now runs `scripts/check-composition.mjs`: format invariants (scale jump of at
-  least 3:1, text above the minimum, safe area inside the margin), cross-references between the
-  docs, and the exemplars' own limits (words, headline length, one motif, no raw colour, no
-  gradient, no emoji). `scripts/render-exemplars.mjs` re-renders the images (author tool).
+  least 3:1, text above the minimum, safe area inside the margin, twelve columns, a print bleed),
+  cross-references between the docs including anchors, and the exemplars' own limits (words,
+  headline length at h1 and at display size, type roles, one motif, no raw colour, no gradient, no
+  emoji, `exemplar.css` in step with `formats.json`). `scripts/test-composition.mjs` plants 22 defects
+  in a scratch copy and requires the validator to catch each one. `scripts/render-exemplars.mjs`
+  re-renders the images (author tool).
 - `templates/institutional-deck/` is now labelled a working starter; the exemplars are the quality
   reference.
 

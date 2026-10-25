@@ -36,7 +36,7 @@ rendering. The constraint was mine, to test the claim that the layer does not de
 **Stack the agent chose:** Python and Pillow, with a rasteriser the agent wrote for the logo and
 cube SVGs (no SVG library was installed).
 
-**Result:** a 1080 × 1350 PNG that holds up: ink on orange-light, official wordmark and cube-hollow
+**Result:** a 1080 × 1350 PNG that is on brand apart from the font: ink on orange-light, official wordmark and cube-hollow
 unmodified, headline at the format's size, everything inside the safe area, one cube cropped by the
 corner, placeholders flagged. One rubric item is only partly met: R11. The agent could not read the shipped WOFF2, used Inter as a
 stand-in and said so, which `DESIGN.md` and R11 allow, but the card is not set in Montserrat and its
@@ -64,4 +64,6 @@ headline wraps differently from the exemplar.
   hard-codes some sizes. It is existing code outside this change.
 - Run 1's agent did not run the repo's own check, and neither agent could measure contrast. Both are
   expected for a URL-only consumer: the rubric is meant to be applied by eye and by count.
+- The fixes in the table above were applied after the runs and not re-run with a fresh agent; only
+  the font recipe was checked by hand (it renders real Montserrat in Pillow).
 - Two runs are a small sample. The next real use of the layer is the better test.

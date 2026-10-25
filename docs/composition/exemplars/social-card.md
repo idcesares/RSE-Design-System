@@ -21,10 +21,10 @@ Source: [src/social-card.html](src/social-card.html). Format `social-4x5`.
 
 ## Spec
 
-- Format `social-4x5`: margin 8% (86 px), safe area 7% (76 px), six columns.
+- Format `social-4x5`: margin 8% (86 px), safe area 7% (76 px), twelve columns.
 - Type: h1 0.12 for the headline (the scale jump against body at 0.038 is 3.2 to 1), h2 0.07 for the
   date, body 0.038 for the time and link.
-- Under 30 words (it has about 14) and a headline under 44 characters (it has 29).
+- Under 30 words (it has about 14) and a headline under 36 characters at h1 (it has 29).
 - Archetype: `ask`. One motif: `assets/motifs/cube-hollow.svg`, official fills.
 
 ## Rubric

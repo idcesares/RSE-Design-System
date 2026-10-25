@@ -15,7 +15,9 @@ Do headline, body and image edges sit on the format's grid and shared margins, w
 room (more at the top and reading side than at the bottom)?
 
 ## R4
-Is at least a third of the canvas empty, and are all elements outside the format's `safeArea` margin?
+Is at least a third of the canvas empty, and do text, the selo and the folio stay outside the format's
+`safeArea` band, with only fields, the motif and image slots bleeding into it (and past the trim by
+the format's `bleed` in print)?
 
 ## R5
 Is every text pair readable: at least 4.5:1 for body, 3:1 for large text, and no white text on an

@@ -14,7 +14,7 @@ close.
 - **Whitespace is a feature.** Most slides leave more than half the canvas empty. The pillars slide
   keeps its three columns low on the page so the headline has air above it.
 - **Colour changes the rhythm, not the story.** Cream, brand purple, indigo, yellow and a purple tint
-  alternate; each slide uses exactly one of them, always with the text colour its pairing allows:
+  alternate; each slide has one background hue (the closing slide adds one yellow band to cream), always with the text colour its pairing allows:
   white on purple and indigo, ink on yellow, tint-ink on the tint.
 - **The cube is architecture.** It appears twice, never together: large on the cover and cropped by
   the top-right corner on the section divider, with the text well clear of it.
@@ -41,7 +41,7 @@ close.
 
 - Format `slide-16x9`: 1920 × 1080, margin 9% of the short side (97 px), twelve columns.
 - Type at the format's fractions: display 0.14, h1 0.09, h2 0.055, body 0.028, caption 0.022.
-- Every slide is under 40 words and every headline under 60 characters (the validator checks it).
+- Every slide is under 40 words, every h1 headline under 60 characters and every display headline under 54 (the validator checks all three).
 
 ## Rubric
 
@@ -51,8 +51,8 @@ close.
 - R4: yes — at least a third of every canvas is empty and nothing sits inside the 5% safe margin
 - R5: yes — white on purple and indigo, ink on yellow and the tint-ink on the tint are all gated pairs; no white on an accent
 - R6: yes — one cube per slide where used (cover, divider), cropped, clear of the text
-- R7: yes — one band or accent hue per slide
-- R8: yes — each slide is at most 40 words, each headline at most 60 characters, nothing below 22 px (0.022 of the short side, above the 0.02 minimum)
+- R7: yes — one band or field hue per slide; the brand purple as text or line colour (slide 10's date, the pillar numbers) is the brand itself, not a second hue
+- R8: yes — each slide is at most 40 words, each headline within the format's limit, nothing below about 24 px (0.022 of the short side, above the 0.02 minimum)
 - R9: yes — flat fields, hairlines and the official artwork only
 - R10: yes — figures are `000`/`0000`/`00/00`, imagery is labelled slots and the placeholders are listed below
 - R11: yes — pt-BR, sentence case, no emoji, Montserrat only

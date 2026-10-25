@@ -11,7 +11,7 @@ The eyebrow (Bold, uppercase, `eyebrow` size, `--rse-color-text-muted`) above an
 (`h1`, or `display` on a cover) in `--rse-color-text-heading`, with tight tracking and at most one
 line of support at `h2`–`body`. It is the first thing read on every canvas.
 Variants: stacked, oversized, numbered
-Fails when: the headline exceeds the format's `maxHeadlineChars`, runs past three lines, is centred
+Fails when: the headline exceeds the format's `maxHeadlineChars` (at h1) or `maxDisplayChars` (at display), runs past three lines, is centred
 on a multi-line block, or the eyebrow is not the only uppercase on the canvas.
 
 ## M-bignumber
@@ -85,9 +85,9 @@ used as a band.
 
 ## M-folio
 The quiet frame: page number and section at `caption`, the selo or wordmark in one corner, a source
-line where figures appear. It sits inside the format's `safeArea`.
+line where figures appear. It stays outside the format's `safeArea` band.
 Variants: minimal, sectioned, sourced
-Fails when: it is larger than `caption` size, the selo is below its minimum size (45 mm print,
+Fails when: it enters the `safeArea` band, it is larger than `caption` size, the selo is below its minimum size (45 mm print,
 150 px screen), it breaks the selo's clearspace, or it sits beside the Sesc signature.
 
 ## M-imageslot

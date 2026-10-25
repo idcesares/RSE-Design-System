@@ -11,7 +11,7 @@ import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = process.env.COMPOSITION_ROOT ?? join(dirname(fileURLToPath(import.meta.url)), '..');
 const quiet = process.argv.includes('--quiet');
 const errors = [];
 const err = (m) => errors.push(m);
@@ -25,11 +25,14 @@ const MEDIA = ['screen', 'print', 'social'];
 // ─── formats.json ──────────────────────────────────────────────────────────
 const FORMATS = 'docs/composition/formats.json';
 let formats = [];
+let formatsDefs = {};
 if (!exists(FORMATS)) {
   err(`${FORMATS} missing`);
 } else {
   try {
-    formats = JSON.parse(read(FORMATS)).formats ?? [];
+    const doc = JSON.parse(read(FORMATS));
+    formats = doc.formats ?? [];
+    formatsDefs = doc.definitions ?? {};
   } catch (e) {
     err(`${FORMATS} does not parse: ${e.message}`);
   }
@@ -45,7 +48,7 @@ for (const f of formats) {
   if (!Array.isArray(f.aspect) || f.aspect.length !== 2 || !f.aspect.every(isPosInt)) bad('aspect must be two positive integers');
   if (!MEDIA.includes(f.medium)) bad(`medium must be one of ${MEDIA.join(', ')}`);
   if (!(f.margin >= 0.04 && f.margin <= 0.12)) bad('margin must be between 0.04 and 0.12');
-  if (!isPosInt(f.gridColumns)) bad('gridColumns must be a positive integer');
+  if (f.gridColumns !== 12) bad('gridColumns must be 12: the archetypes are written on twelve columns');
   const t = f.type ?? {};
   for (const r of TYPE_ROLES) if (!(t[r] > 0)) bad(`type.${r} must be a positive fraction`);
   if (TYPE_ROLES.every((r) => t[r] > 0)) {
@@ -53,13 +56,19 @@ for (const f of formats) {
     if (t.display < t.h1 || t.h1 < t.h2 || t.h2 < t.body || t.body < t.caption) bad('type scale must descend: display ≥ h1 ≥ h2 ≥ body ≥ caption');
     if (!(f.minText > 0) || t.body < f.minText) bad('type.body must be at least minText');
     if (t.eyebrow > t.body) bad('type.eyebrow must not exceed type.body');
+    for (const r of ['caption', 'eyebrow']) if (t[r] < f.minText) bad(`type.${r} must be at least minText`);
   }
   if (!(f.safeArea > 0) || f.safeArea > f.margin) bad('safeArea must be positive and no larger than margin');
   if (!isPosInt(f.maxWords)) bad('maxWords must be a positive integer');
   if (!isPosInt(f.maxHeadlineChars)) bad('maxHeadlineChars must be a positive integer');
+  if (!isPosInt(f.maxDisplayChars) || f.maxDisplayChars > f.maxHeadlineChars) bad('maxDisplayChars must be a positive integer no larger than maxHeadlineChars');
+  if (f.medium === 'print' && !(f.bleed > 0)) bad('print formats need a bleed (a positive fraction of the short side)');
   if (!f.note || typeof f.note !== 'string') bad('note (why these numbers fit the medium) is required');
 }
 if (formats.length) {
+  for (const k of ['safeArea', 'bleed', 'maxHeadlineChars', 'maxDisplayChars', 'gridColumns']) {
+    if (!formatsDefs[k]) err(`${FORMATS}: definitions.${k} missing`);
+  }
   for (const id of FORMAT_IDS) if (!seen.has(id)) err(`${FORMATS}: missing format "${id}"`);
 }
 
@@ -76,7 +85,12 @@ function checkLinks(file) {
     const href = m[1];
     if (/^(https?:|mailto:|#)/.test(href)) continue;
     const target = href.split('#')[0];
-    if (target && !existsSync(join(ROOT, dir, target))) err(`${file}: broken link "${href}"`);
+    if (target && !existsSync(join(ROOT, dir, target))) { err(`${file}: broken link "${href}"`); continue; }
+    const frag = href.split('#')[1];
+    if (target && frag && target.endsWith('.md')) {
+      const slugs = new Set(readFileSync(join(ROOT, dir, target), 'utf8').split('\n').filter((l) => /^#{1,6}\s/.test(l)).map((l) => l.replace(/^#{1,6}\s+/, '').trim().toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s/g, '-')));
+      if (!slugs.has(frag)) err(`${file}: anchor "#${frag}" not found in ${target}`);
+    }
   }
 }
 
@@ -99,8 +113,11 @@ if (!exists('DESIGN.md')) {
   // Review Focus 1, 3, 5: the three behaviours an agent must not have to guess.
   const section = (h) => design.match(new RegExp(`^## ${h}\\s*$([\\s\\S]*?)(?=^## |(?![\\s\\S]))`, 'm'))?.[1] ?? '';
   if (!/assets\/fonts\//.test(section('Fonts and fallbacks'))) err('DESIGN.md: "Fonts and fallbacks" must say where Montserrat lives (assets/fonts/)');
+  if (!/instantiateVariableFont/.test(section('Fonts and fallbacks')) || !/Thin/.test(section('Fonts and fallbacks'))) err('DESIGN.md: "Fonts and fallbacks" must show how to make static weights (instantiateVariableFont) and warn that the variable file defaults to Thin');
+  if (/draw (them|it) yourself/i.test(design)) err('DESIGN.md: invites you to redraw official artwork; say to rasterise the path data unchanged');
+  if (!/No report exemplar/.test(design)) err('DESIGN.md: must say plainly that no report exemplar exists yet');
   if (!/geometric sans/i.test(section('Fonts and fallbacks'))) err('DESIGN.md: "Fonts and fallbacks" must name the allowed fallback (a geometric sans)');
-  if (!/provenance|label.*as (theirs|the user)|never fill/i.test(design)) err('DESIGN.md: missing the figures provenance rule (use the user\'s numbers, label them, never fill gaps)');
+  if (!/provenance/i.test(design) || !/never\s+fill/i.test(design)) err('DESIGN.md: missing the figures provenance rule (use the user\'s numbers, label them, never fill gaps)');
   for (const word of ['gradient', 'stock photo', 'emoji']) {
     if (!new RegExp(word, 'i').test(section('When asked for something the brand forbids'))) err(`DESIGN.md: forbidden-request section must cover "${word}"`);
   }
@@ -108,8 +125,11 @@ if (!exists('DESIGN.md')) {
 for (const f of ['DESIGN.md', ...COMPOSITION_DOCS]) checkLinks(f);
 for (const f of COMPOSITION_DOCS) if (!exists(f)) err(`${f} missing`);
 
+if (exists('docs/composition/principles.md') && !/--rse-color-primary/.test(read('docs/composition/principles.md'))) err('principles.md: must name --rse-color-primary as the brand purple band');
 if (exists('docs/composition/rubric.md')) {
   const rubric = read('docs/composition/rubric.md');
+  const r4 = rubric.match(/^## R4\s*$([\s\S]*?)(?=^## |(?![\s\S]))/m)?.[1] ?? '';
+  if (!/bleed/.test(r4)) err('rubric.md: R4 must say which elements may bleed into the safe area');
   const ids = [...rubric.matchAll(/^## R(\d+)\b/gm)].map((m) => Number(m[1]));
   if (ids.join() !== Array.from({ length: 12 }, (_, i) => i + 1).join()) err(`rubric.md: expected checks R1–R12 in order, found [${ids.join(', ')}]`);
 }
@@ -145,9 +165,9 @@ for (const m of modules) {
 const chart = modules.find((m) => m.id === 'chart');
 if (chart) {
   const cap = Number(chart.body.match(/^Maximum series:\s*(\d+)/m)?.[1]);
-  const hueFamilies = new Set(JSON.parse(read('brand.json')).palette.map((p) => p.family).filter((f) => !['cream', 'black'].includes(f)));
+  const dataColours = Object.keys(JSON.parse(read('brand.json')).tokens).filter((k) => /^--rse-color-data-\d+$/.test(k)).length;
   if (!cap) err('modules.md: M-chart has no "Maximum series: <n>" line');
-  else if (cap > hueFamilies.size) err(`modules.md: M-chart allows ${cap} series but the palette has only ${hueFamilies.size} hues`);
+  else if (cap > dataColours) err(`modules.md: M-chart allows ${cap} series but the system defines only ${dataColours} data colours`);
   if (chart && !/Outros/.test(chart.body)) err('modules.md: M-chart must say what to do beyond the cap (group the rest as "Outros" or split the chart)');
 }
 
@@ -175,7 +195,7 @@ if (exists('docs/composition/archetypes.md')) {
 const EX = 'docs/composition/exemplars';
 const EX_SECTIONS = ['Why it works', 'Spec', 'Rubric', 'Placeholders'];
 const exemplarNames = exists(`${EX}/src`) ? readdirSync(join(ROOT, EX, 'src')).filter((f) => f.endsWith('.html')).map((f) => f.replace(/\.html$/, '')) : [];
-const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u;
+const EMOJI = /\p{Extended_Pictographic}|[\u{1F1E6}-\u{1F1FF}]/u;
 const RAW_HEX = /[:"'(,\s]#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?(?:[0-9a-fA-F]{2})?(?![\w-])/;
 
 for (const name of exemplarNames) {
@@ -197,6 +217,7 @@ for (const name of exemplarNames) {
   const html = read(src);
   if (RAW_HEX.test(html)) err(`${src}: raw hex colour — use --rse-* tokens`);
   if (/gradient\(/i.test(html)) err(`${src}: gradient — the brand is flat colour`);
+  if (/\b(?:rgba?|hsla?)\(/i.test(html)) err(`${src}: rgb()/hsl() colour — use --rse-* tokens`);
   if (EMOJI.test(html)) err(`${src}: emoji`);
   if (!/<meta\s+name="canvas"\s+content="\d+x\d+"/.test(html)) err(`${src}: missing <meta name="canvas" content="WxH">`);
 }
@@ -219,6 +240,7 @@ const textOf = (h) => h.replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').repla
 
 for (const name of exemplarNames) {
   const fmt = formats.find((f) => f.id === EXEMPLAR_FORMAT[name]);
+  if (!fmt && name !== 'specimen-sheet') err(`${EX}/src/${name}.html: no format mapping — add it to EXEMPLAR_FORMAT so its density is checked`);
   if (!fmt) continue;
   const html = read(`${EX}/src/${name}.html`);
   const slides = [...html.matchAll(/<section\b[^>]*data-slide[^>]*>([\s\S]*?)<\/section>/g)];
@@ -230,13 +252,20 @@ for (const name of exemplarNames) {
     if (!arch) err(`${at}: no data-archetype`);
     else if (!archetypeIds.has(arch)) err(`${at}: unknown archetype "${arch}"`);
     else seenGroups.add(groupOf.get(arch));
-    if ((m[0].match(/class="motif"/g) ?? []).length > 1) err(`${at}: more than one cube motif — one per composition`);
+    if ((m[0].match(/class="[^"]*\bmotif\b[^"]*"/g) ?? []).length > 1) err(`${at}: more than one cube motif — one per composition`);
     const words = textOf(m[1]).split(' ').filter(Boolean).length;
     if (words > fmt.maxWords) err(`${at}: ${words} words; ${fmt.id} allows ${fmt.maxWords}`);
-    const head = m[1].match(/class="[^"]*\b(?:display|h1)\b[^"]*"[^>]*>([\s\S]*?)<\/(?:h\d|p|div)>/);
-    if (head && textOf(head[1]).length > fmt.maxHeadlineChars) err(`${at}: headline is ${textOf(head[1]).length} characters; ${fmt.id} allows ${fmt.maxHeadlineChars}`);
+    for (const h of m[1].matchAll(/<(\w+)\b[^>]*\bclass="([^"]*\b(?:display|h1)\b[^"]*)"[^>]*>([\s\S]*?)<\/\1>/g)) {
+      const display = /\bdisplay\b/.test(h[2]);
+      const max = display ? fmt.maxDisplayChars : fmt.maxHeadlineChars;
+      const n = textOf(h[3]).length;
+      if (n > max) err(`${at}: ${display ? 'display ' : ''}headline is ${n} characters; ${fmt.id} allows ${max}${display ? ' at display size' : ''}`);
+    }
+    if (/font-size:\s*[\d.]+px/.test(m[0])) err(`${at}: literal px font-size — use one of the format's type roles`);
+    const roles = Object.values(fmt.type);
     for (const f of m[1].matchAll(/font-size:\s*calc\(var\(--S\)\s*\*\s*(\.\d+)\)/g)) {
-      if (Number(f[1]) < fmt.minText) err(`${at}: font-size ${f[1]} of the short side is below minText ${fmt.minText}`);
+      const v = Number(f[1]);
+      if (v <= fmt.type.display && !roles.some((r) => Math.abs(r - v) < 1e-9)) err(`${at}: font-size ${f[1]} of the short side is not a type role of ${fmt.id}`);
     }
   });
   if (name === 'pitch-deck') {
@@ -252,6 +281,20 @@ for (const f of exists(`${EX}/src`) ? readdirSync(join(ROOT, EX, 'src')).filter(
   const css = read(`${EX}/src/${f}`);
   if (RAW_HEX.test(css)) err(`${EX}/src/${f}: raw hex colour — use --rse-* tokens`);
   if (/gradient\(/i.test(css)) err(`${EX}/src/${f}: gradient — the brand is flat colour`);
+}
+
+if (exists(`${EX}/src/exemplar.css`) && formats.length) {
+  const css = read(`${EX}/src/exemplar.css`);
+  const wanted = [['slide-16x9', /^\.slide\s*\{([\s\S]*?)\n\}/m], ['print-a3', /^\.slide\.fmt-a3\s*\{([\s\S]*?)\}/m], ['social-4x5', /^\.slide\.fmt-social45\s*\{([\s\S]*?)\}/m]];
+  for (const [id, re] of wanted) {
+    const f = formats.find((x) => x.id === id);
+    const body = css.match(re)?.[1];
+    if (!f || !body) { err(`${EX}/src/exemplar.css: no block for ${id}`); continue; }
+    for (const r of TYPE_ROLES) {
+      const got = body.match(new RegExp(`--t-${r}:\\s*calc\\(var\\(--S\\)\\s*\\*\\s*(\\.\\d+)\\)`))?.[1];
+      if (!got || Math.abs(Number(got) - f.type[r]) > 1e-9) err(`${EX}/src/exemplar.css: --t-${r} for ${id} is ${got}; formats.json says ${f.type[r]}`);
+    }
+  }
 }
 
 // ─── link-up ───────────────────────────────────────────────────────────────

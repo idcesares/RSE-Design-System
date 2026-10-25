@@ -120,7 +120,7 @@ docs/known-gaps.md        Open caveats to say out loud.
 docs/roadmap/             The assessment and the plan; read before improving the system itself.
 docs/                     Generated component + token references, recipes, authoring, QA checklist.
 scripts/                  build-tokens, build-icons, build-motifs, build-bundle, build-brand, gen-docs,
-                          build-showcase, check-ds, check-composition, render-exemplars (author tool),
+                          build-showcase, check-ds, check-composition (+ test-composition), render-exemplars (author tool),
                           audit (+ contrast-pairs), pack-static.
 rse.manifest.json         Machine index: components, the showcase card, templates, tokens, themes, fonts.
 assets/logos/             Official vector lockups (Rede + Sab.IA); originals in source/. Read its README.

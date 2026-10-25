@@ -1804,7 +1804,8 @@
       "safeArea": 0.05,
       "maxWords": 40,
       "maxHeadlineChars": 60,
-      "note": "Read from the back of a room: body never below 2% of the short side, one idea per slide, so the word cap is low."
+      "note": "Read from the back of a room: body never below 2% of the short side, one idea per slide, so the word cap is low.",
+      "maxDisplayChars": 54
     },
     {
       "id": "slide-4x3",
@@ -1828,7 +1829,8 @@
       "safeArea": 0.05,
       "maxWords": 40,
       "maxHeadlineChars": 60,
-      "note": "Same short side as 16:9, so the same type fractions; the narrower canvas favours one column over a split."
+      "note": "Same short side as 16:9, so the same type fractions; the narrower canvas favours one column over a split.",
+      "maxDisplayChars": 40
     },
     {
       "id": "print-a4",
@@ -1839,7 +1841,7 @@
       ],
       "medium": "print",
       "margin": 0.1,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.09,
         "h1": 0.055,
@@ -1852,7 +1854,9 @@
       "safeArea": 0.07,
       "maxWords": 220,
       "maxHeadlineChars": 70,
-      "note": "Read at arm's length: body ≈10 pt, caption ≈8 pt is the floor. Generous 21 mm margins keep trim and binding safe."
+      "note": "Read at arm's length: body ≈10 pt, caption ≈8 pt is the floor. Generous 21 mm margins keep trim and binding safe.",
+      "maxDisplayChars": 48,
+      "bleed": 0.014
     },
     {
       "id": "print-a3",
@@ -1863,7 +1867,7 @@
       ],
       "medium": "print",
       "margin": 0.08,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.12,
         "h1": 0.07,
@@ -1876,7 +1880,9 @@
       "safeArea": 0.05,
       "maxWords": 60,
       "maxHeadlineChars": 50,
-      "note": "Read from a few metres: body ≈17 pt and a headline near 60 pt. A poster is a headline and one supporting block, not a page."
+      "note": "Read from a few metres: body ≈17 pt and a headline near 60 pt. A poster is a headline and one supporting block, not a page.",
+      "maxDisplayChars": 38,
+      "bleed": 0.01
     },
     {
       "id": "social-1x1",
@@ -1887,7 +1893,7 @@
       ],
       "medium": "social",
       "margin": 0.08,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.16,
         "h1": 0.12,
@@ -1899,8 +1905,9 @@
       "minText": 0.028,
       "safeArea": 0.06,
       "maxWords": 30,
-      "maxHeadlineChars": 48,
-      "note": "Read on a phone in a feed: type is large relative to the canvas and copy is a headline plus one line."
+      "maxHeadlineChars": 36,
+      "note": "Read on a phone in a feed: type is large relative to the canvas and copy is a headline plus one line.",
+      "maxDisplayChars": 28
     },
     {
       "id": "social-4x5",
@@ -1911,7 +1918,7 @@
       ],
       "medium": "social",
       "margin": 0.08,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.16,
         "h1": 0.12,
@@ -1923,8 +1930,9 @@
       "minText": 0.028,
       "safeArea": 0.07,
       "maxWords": 30,
-      "maxHeadlineChars": 44,
-      "note": "Same as the square, with a deeper safe area because feeds crop and overlay the top and bottom edges."
+      "maxHeadlineChars": 36,
+      "note": "Same as the square, with a deeper safe area because feeds crop and overlay the top and bottom edges.",
+      "maxDisplayChars": 28
     },
     {
       "id": "report-cover",
@@ -1935,7 +1943,7 @@
       ],
       "medium": "print",
       "margin": 0.1,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.11,
         "h1": 0.07,
@@ -1948,7 +1956,9 @@
       "safeArea": 0.07,
       "maxWords": 40,
       "maxHeadlineChars": 60,
-      "note": "A cover is a title, a subtitle and the selo: oversized display type with the page left mostly empty."
+      "note": "A cover is a title, a subtitle and the selo: oversized display type with the page left mostly empty.",
+      "maxDisplayChars": 38,
+      "bleed": 0.014
     }
   ],
   "web": {

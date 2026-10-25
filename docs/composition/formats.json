@@ -1,5 +1,12 @@
 {
   "unit": "fraction of the canvas short side",
+  "definitions": {
+    "safeArea": "The edge band, as a fraction of the short side, that text, the selo and the folio stay out of, because a feed, a trim or a projector can cover it. Only fields of colour, the cube motif and image slots enter it, and bleed off the edge.",
+    "bleed": "Print only: how far, as a fraction of the short side, a full-bleed field, motif or image must extend past the trim edge so a cut never leaves a white sliver (3 mm on A4 and A3 is 0.014 and 0.01). A screen render is the trimmed size.",
+    "maxHeadlineChars": "The most characters a headline set at the h1 size may have: about three lines of Montserrat 800 (0.56 em per character) across the text measure, which is the canvas width minus both margins. Shorten the copy; never shrink the type.",
+    "maxDisplayChars": "The same limit for a headline set at the display size, which is larger and so holds fewer characters per line.",
+    "gridColumns": "Every format uses a twelve-column grid. The archetypes place things in columns of twelve."
+  },
   "formats": [
     {
       "id": "slide-16x9",
@@ -23,7 +30,8 @@
       "safeArea": 0.05,
       "maxWords": 40,
       "maxHeadlineChars": 60,
-      "note": "Read from the back of a room: body never below 2% of the short side, one idea per slide, so the word cap is low."
+      "note": "Read from the back of a room: body never below 2% of the short side, one idea per slide, so the word cap is low.",
+      "maxDisplayChars": 54
     },
     {
       "id": "slide-4x3",
@@ -47,7 +55,8 @@
       "safeArea": 0.05,
       "maxWords": 40,
       "maxHeadlineChars": 60,
-      "note": "Same short side as 16:9, so the same type fractions; the narrower canvas favours one column over a split."
+      "note": "Same short side as 16:9, so the same type fractions; the narrower canvas favours one column over a split.",
+      "maxDisplayChars": 40
     },
     {
       "id": "print-a4",
@@ -58,7 +67,7 @@
       ],
       "medium": "print",
       "margin": 0.1,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.09,
         "h1": 0.055,
@@ -71,7 +80,9 @@
       "safeArea": 0.07,
       "maxWords": 220,
       "maxHeadlineChars": 70,
-      "note": "Read at arm's length: body ≈10 pt, caption ≈8 pt is the floor. Generous 21 mm margins keep trim and binding safe."
+      "note": "Read at arm's length: body ≈10 pt, caption ≈8 pt is the floor. Generous 21 mm margins keep trim and binding safe.",
+      "maxDisplayChars": 48,
+      "bleed": 0.014
     },
     {
       "id": "print-a3",
@@ -82,7 +93,7 @@
       ],
       "medium": "print",
       "margin": 0.08,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.12,
         "h1": 0.07,
@@ -95,7 +106,9 @@
       "safeArea": 0.05,
       "maxWords": 60,
       "maxHeadlineChars": 50,
-      "note": "Read from a few metres: body ≈17 pt and a headline near 60 pt. A poster is a headline and one supporting block, not a page."
+      "note": "Read from a few metres: body ≈17 pt and a headline near 60 pt. A poster is a headline and one supporting block, not a page.",
+      "maxDisplayChars": 38,
+      "bleed": 0.01
     },
     {
       "id": "social-1x1",
@@ -106,7 +119,7 @@
       ],
       "medium": "social",
       "margin": 0.08,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.16,
         "h1": 0.12,
@@ -118,8 +131,9 @@
       "minText": 0.028,
       "safeArea": 0.06,
       "maxWords": 30,
-      "maxHeadlineChars": 48,
-      "note": "Read on a phone in a feed: type is large relative to the canvas and copy is a headline plus one line."
+      "maxHeadlineChars": 36,
+      "note": "Read on a phone in a feed: type is large relative to the canvas and copy is a headline plus one line.",
+      "maxDisplayChars": 28
     },
     {
       "id": "social-4x5",
@@ -130,7 +144,7 @@
       ],
       "medium": "social",
       "margin": 0.08,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.16,
         "h1": 0.12,
@@ -142,8 +156,9 @@
       "minText": 0.028,
       "safeArea": 0.07,
       "maxWords": 30,
-      "maxHeadlineChars": 44,
-      "note": "Same as the square, with a deeper safe area because feeds crop and overlay the top and bottom edges."
+      "maxHeadlineChars": 36,
+      "note": "Same as the square, with a deeper safe area because feeds crop and overlay the top and bottom edges.",
+      "maxDisplayChars": 28
     },
     {
       "id": "report-cover",
@@ -154,7 +169,7 @@
       ],
       "medium": "print",
       "margin": 0.1,
-      "gridColumns": 6,
+      "gridColumns": 12,
       "type": {
         "display": 0.11,
         "h1": 0.07,
@@ -167,7 +182,9 @@
       "safeArea": 0.07,
       "maxWords": 40,
       "maxHeadlineChars": 60,
-      "note": "A cover is a title, a subtitle and the selo: oversized display type with the page left mostly empty."
+      "note": "A cover is a title, a subtitle and the selo: oversized display type with the page left mostly empty.",
+      "maxDisplayChars": 38,
+      "bleed": 0.014
     }
   ]
 }

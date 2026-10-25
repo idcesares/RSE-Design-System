@@ -12,7 +12,7 @@ archetypes are new (process, evidence, data-table, contact).
 
 - **A pitch is an argument.** Each slide advances one step of it, and the two statement slides
   (problem, solution) sit on either side of the numbers so the claim and the answer are never
-  buried. The solution headline takes the brand purple, the one place colour carries meaning.
+  buried. The solution headline takes the brand purple, which marks the answer.
 - **The number is the picture.** "Por que agora" is a single figure at about 450 px with a label,
   not a chart; the chart appears only where the point is a trend, with direct labels and one series.
 - **One light hue.** Blue-light carries the cover, the "why now" figure and the closing band, always
@@ -38,7 +38,7 @@ archetypes are new (process, evidence, data-table, contact).
 
 - Format `slide-16x9`: 1920 × 1080, margin 97 px, twelve columns; type at display 0.14, h1 0.09,
   h2 0.055, body 0.028, caption 0.022 of the short side.
-- Every slide is under 40 words and every headline under 60 characters (checked by
+- Every slide is under 40 words, every h1 headline under 60 characters and every display headline under 54 (checked by
   `scripts/check-composition.mjs`).
 - One cube, on the cover, in pink on blue; no other slide has one.
 
@@ -50,8 +50,8 @@ archetypes are new (process, evidence, data-table, contact).
 - R4: yes — at least a third of every canvas is empty and everything sits inside the safe margin
 - R5: yes — ink on blue-light and cream, white-free accents, purple headline on cream is large text above 4.5:1
 - R6: yes — one cube, on the cover, cropped, clear of the headline
-- R7: yes — blue-light is the only band hue in the deck
-- R8: yes — at most 40 words and 60-character headlines per slide, nothing below 24 px
+- R7: yes — blue-light is the only band hue in the deck; the brand purple as text, rule or marker colour is the brand itself, not a second hue
+- R8: yes — at most 40 words and headlines within the format's limits on every slide, nothing below about 24 px
 - R9: yes — flat fields, hairlines and the official cube only
 - R10: yes — every figure is `00`/`000`/`00/00`, imagery is a labelled slot, placeholders are listed below
 - R11: yes — pt-BR, sentence case, no emoji, Montserrat only
