@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // check-motion: enforces the motion contract in CSS.
-//   (a) no infinite animation with a resolved cycle under 334 ms (3 flashes per second);
+//   (a) no infinite animation with a resolved cycle under 334 ms (3 flashes per second), whether
+//       written as the `animation` shorthand or as longhands (animation-duration +
+//       animation-iteration-count: infinite) in one rule block;
 //   (b) every translate in an rse-motif* @keyframes goes through var(--rse-motion-travel;
 //   (c) a component CSS file that declares rse-motif animations has .rse-motion-managed in its .jsx.
 // `--selftest` runs the three rules against inline fixtures and exits 1 unless each one fires.
@@ -67,6 +69,21 @@ function animations(css) {
 // (a) infinite animations whose cycle is under the floor.
 export function ruleCycle(css, durations, label = '') {
   const errors = [];
+  const list = (v) => v.split(/,(?![^(]*\))/).map((x) => x.trim());
+  // Longhands: within each innermost block, pair iteration-count and duration by list index.
+  for (const [, body] of stripComments(css).matchAll(/\{([^{}]*)\}/g)) {
+    const decl = (prop) => body.match(new RegExp('(?:^|[;\\s])' + prop + '\\s*:\\s*([^;}]+)'))?.[1];
+    const iter = decl('animation-iteration-count');
+    if (!iter) continue;
+    const iters = list(iter), times = list(decl('animation-duration') ?? ''), names = list(decl('animation-name') ?? '');
+    iters.forEach((it, i) => {
+      if (it !== 'infinite') return;
+      const t = times[i % times.length], n = names[i % names.length] || '?';
+      const ms = t ? resolveTime(t, durations) : null;
+      if (ms === null) errors.push(`${label}: infinite animation "${n}" has an unresolvable duration (${t || 'none'})`);
+      else if (ms < MIN_CYCLE_MS) errors.push(`${label}: infinite animation "${n}" cycles in ${ms} ms, under ${MIN_CYCLE_MS} ms`);
+    });
+  }
   for (const a of animations(stripComments(css))) {
     if (!a.infinite) continue;
     const ms = a.time ? resolveTime(a.time, durations) : null;
@@ -104,11 +121,14 @@ if (process.argv.includes('--selftest')) {
   const cases = [
     ['cycle', ruleCycle('@keyframes x{to{opacity:0}} .a{animation:x 200ms linear infinite}', durations, 'self')],
     ['cycle (token)', ruleCycle('.a{animation:x var(--rse-duration-base) linear infinite}', durations, 'self')],
+    ['cycle (longhand)', ruleCycle('.a{animation-name:x;animation-duration:100ms;animation-iteration-count:infinite}', durations, 'self')],
+    ['cycle (longhand token)', ruleCycle('.a{animation-duration:var(--rse-duration-fast);animation-iteration-count:infinite}', durations, 'self')],
     ['travel', ruleTravel('@keyframes rse-motif-drift{from{transform:translate(8px, 0)}to{transform:none}}', 'self')],
     ['managed', ruleManaged('@keyframes rse-motif-drift{to{opacity:1}}', "createElement('div', { className: 'x' })", 'self')],
   ];
   const clean = [
     ['cycle ok', ruleCycle('.a{animation:x 1.4s linear infinite}', durations, 'self')],
+    ['cycle ok (longhand)', ruleCycle('.a{animation-name:x;animation-duration:1.4s;animation-iteration-count:infinite}.b{animation-duration:var(--rse-duration-slow);animation-iteration-count:infinite}', durations, 'self')],
     ['travel ok', ruleTravel('@keyframes rse-motif-drift{to{transform:translate(calc(8px * var(--rse-motion-travel)), 0)}}', 'self')],
     ['managed ok', ruleManaged('@keyframes rse-motif-drift{to{opacity:1}}', "className: 'rse-motion-managed'", 'self')],
   ];
