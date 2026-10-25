@@ -301,3 +301,29 @@ test('piece count per shape is between 3 and 24', () => {
     assert.ok(n >= 3 && n <= 24, `${name}: ${n} pieces`);
   }
 });
+
+test('every library shape has all face vertices on the lattice', () => {
+  for (const name of SHAPE_NAMES) {
+    const shape = engine.motifShapes[name];
+    // Integer lattice points spanning the shape's parts (with a margin), projected once.
+    const lo = [0, 1, 2].map((k) => Math.min(...shape.parts.map((p) => p.at[k])) - 1);
+    const hi = [0, 1, 2].map((k) => Math.max(...shape.parts.map((p) => p.at[k] + p.size[k])) + 1);
+    const lattice = new Set();
+    for (let a = lo[0]; a <= hi[0]; a++) for (let b = lo[1]; b <= hi[1]; b++) for (let c = lo[2]; c <= hi[2]; c++) {
+      lattice.add(engine.isoPoint([a, b, c]).join(','));
+    }
+    for (const part of shape.parts) for (const v of [...part.at, ...part.size]) assert.ok(Number.isInteger(v), `${name}: part off the lattice`);
+    const faces = engine.motifFaces(shape);
+    assert.ok(faces.length > 0, name);
+    for (const f of faces) for (const p of f.points) assert.ok(lattice.has(p.join(',')), `${name}: ${f.role} vertex ${p} is off the lattice`);
+  }
+});
+
+test('every library shape renders identically twice in every hue', () => {
+  for (const name of SHAPE_NAMES) for (const hue of HUES6) {
+    const a = engine.motifToSvg(engine.motifShapes[name], { hue, size: 96 });
+    const b = engine.motifToSvg(engine.motifShapes[name], { hue, size: 96 });
+    assert.ok(a.length > 0, `${name}/${hue}`);
+    assert.equal(a, b, `${name}/${hue}`);
+  }
+});
