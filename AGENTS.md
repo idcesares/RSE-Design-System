@@ -10,7 +10,7 @@ You are almost always doing one of four things. Jump straight to the one you're 
 | Task | Start at |
 | --- | --- |
 | Build a page, site or prototype | [Building a page](#building-a-page) |
-| Build a deck, poster or other artwork | [Building artwork](#building-artwork) |
+| Build a deck, pitch, poster, social card or other artwork, in any stack | [DESIGN.md](DESIGN.md), then [Building artwork](#building-artwork) |
 | Add or change a component | [Changing a component](#changing-a-component) |
 | Change tokens / brand foundations | [Changing tokens](#changing-tokens) |
 | Put this system into another project | [docs/integration.md](docs/integration.md) |
@@ -86,6 +86,9 @@ and not like a generic template.
 
 ```
 AGENTS.md                 You are here: rules, routing, recipes, definition of done.
+DESIGN.md                 Entry for decks, pitches, posters, social cards and other non-web artwork, in any
+                          stack. Routes by intent to docs/composition/ (principles, modules, archetypes,
+                          formats.json, rubric, exemplars).
 RULES.md                  The short rules that ship inside the package, for consuming projects.
 readme.md                 Brand brief, voice, visual foundations. Read it once.
 SKILL.md                  Claude Skill entry point (this system as a portable skill).
@@ -106,7 +109,8 @@ brand.json                GENERATED. The brand contract for non-browser consumer
 index.js / index.d.ts     React entry. Import components from here, never from a component file.
 components/<group>/       40 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
                           Icon.jsx and BrandMotif.jsx are GENERATED — edit their sources.
-templates/                Four starting points (deck, program page, enrollment form, landing page).
+templates/                Four starting points (deck, program page, enrollment form, landing page). Working
+                          HTML starters; the quality reference for artwork is docs/composition/exemplars/.
 starters/                 Blank, dependency-free starting points: page, React page, A3 poster.
 showcase/index.html       The system as one page, for leadership and newcomers. Opens offline.
 docs/brand-manual.md      What the official manual specifies. Settle brand questions here.
@@ -116,7 +120,8 @@ docs/known-gaps.md        Open caveats to say out loud.
 docs/roadmap/             The assessment and the plan; read before improving the system itself.
 docs/                     Generated component + token references, recipes, authoring, QA checklist.
 scripts/                  build-tokens, build-icons, build-motifs, build-bundle, build-brand, gen-docs,
-                          build-showcase, check-ds, audit (+ contrast-pairs), pack-static.
+                          build-showcase, check-ds, check-composition, render-exemplars (author tool),
+                          audit (+ contrast-pairs), pack-static.
 rse.manifest.json         Machine index: components, the showcase card, templates, tokens, themes, fonts.
 assets/logos/             Official vector lockups (Rede + Sab.IA); originals in source/. Read its README.
 assets/motifs/            Official cubo impossível artwork and its six constructions.
@@ -187,10 +192,12 @@ Details and worked examples: [docs/recipes.md](docs/recipes.md).
 
 ## Building artwork
 
-Decks, posters, social cards and print pieces are static HTML — no React needed unless you want
-the components.
+Start at [DESIGN.md](DESIGN.md). It is written for any stack (HTML, PPTX, SVG, a print pipeline) and
+routes to the composition rules, the formats and the exemplars. What follows is the HTML path in
+this repo: static pages, no React needed unless you want the components.
 
-- Deck: copy `templates/institutional-deck/` (1920×1080 slides, print/PPTX-ready via `deck-stage.js`).
+- Deck: copy `templates/institutional-deck/` (1920×1080 slides, print/PPTX-ready via `deck-stage.js`). It is
+  a working starter, not the reference: look at `docs/composition/exemplars/` for what good looks like.
 - Poster / print piece: `starters/poster.html` (A3 at 300dpi-equivalent scale, print CSS included).
 - Any static page: `starters/page.html`.
 
@@ -299,6 +306,7 @@ npm run audit -- --update-baseline   # after lowering a debt count, lock it in (
 npm run icons    # rebuild Icon.jsx after vendoring a new Lucide SVG
 npm run motifs   # rebuild BrandMotif.jsx from assets/motifs/cubes-official.svg
 npm run pack     # build the static kit dist/static/rse-<version>/ (CMS and offline use)
+node scripts/render-exemplars.mjs [name]   # re-render docs/composition/exemplars/*.png (author tool, Playwright)
 ```
 
 Generated, never edited by hand: `tokens/tokens.css`, `dist/*`, `brand.json`, `docs/components.md`,

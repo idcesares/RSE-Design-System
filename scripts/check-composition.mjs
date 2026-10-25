@@ -254,6 +254,23 @@ for (const f of exists(`${EX}/src`) ? readdirSync(join(ROOT, EX, 'src')).filter(
   if (/gradient\(/i.test(css)) err(`${EX}/src/${f}: gradient — the brand is flat colour`);
 }
 
+// ─── link-up ───────────────────────────────────────────────────────────────
+// One route in: the docs an agent or a person lands on all point at DESIGN.md, DESIGN.md reaches
+// every exemplar, and the changelog carries the package version.
+for (const f of ['SKILL.md', 'AGENTS.md', 'readme.md', 'docs/recipes.md']) {
+  if (exists(f) && !/\]\((?:\.\.\/)?DESIGN\.md(?:#[^)]*)?\)/.test(read(f))) err(`${f}: does not link to DESIGN.md`);
+}
+if (exists('DESIGN.md')) {
+  const design = read('DESIGN.md');
+  for (const n of ['specimen-sheet', ...Object.keys(EXEMPLAR_FORMAT)]) {
+    if (exists(`${EX}/${n}.md`) && !design.includes(`docs/composition/exemplars/${n}.md`)) err(`DESIGN.md: does not link to the ${n} exemplar`);
+  }
+}
+{
+  const version = JSON.parse(read('package.json')).version;
+  if (!new RegExp(`^## ${version.replace(/\./g, '\\.')}\\b`, 'm').test(read('CHANGELOG.md'))) err(`CHANGELOG.md: no "## ${version}" section for the package version`);
+}
+
 // ─── report ────────────────────────────────────────────────────────────────
 if (!quiet) console.log(`formats     ${formats.length}`);
 for (const e of errors) console.log(`ERROR  ${e}`);

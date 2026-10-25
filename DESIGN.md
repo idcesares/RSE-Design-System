@@ -43,13 +43,17 @@ any unit.
 
 | Intent | Read next |
 | --- | --- |
-| deck | [archetypes](docs/composition/archetypes.md), [modules](docs/composition/modules.md), [formats](docs/composition/formats.json) |
-| pitch | [archetypes](docs/composition/archetypes.md), [modules](docs/composition/modules.md), [formats](docs/composition/formats.json) |
-| report | [archetypes](docs/composition/archetypes.md), [modules](docs/composition/modules.md), [formats](docs/composition/formats.json) |
-| poster | [archetypes](docs/composition/archetypes.md), [formats](docs/composition/formats.json), [patterns](assets/patterns/) |
-| social | [archetypes](docs/composition/archetypes.md), [formats](docs/composition/formats.json), [motifs](assets/motifs/) |
-| one-pager | [archetypes](docs/composition/archetypes.md), [modules](docs/composition/modules.md), [formats](docs/composition/formats.json) |
+| deck | [archetypes](docs/composition/archetypes.md), [modules](docs/composition/modules.md), [formats](docs/composition/formats.json), [exemplar](docs/composition/exemplars/institutional-deck.md) |
+| pitch | [archetypes](docs/composition/archetypes.md), [modules](docs/composition/modules.md), [formats](docs/composition/formats.json), [exemplar](docs/composition/exemplars/pitch-deck.md) |
+| report | [archetypes](docs/composition/archetypes.md), [modules](docs/composition/modules.md), [formats](docs/composition/formats.json), [exemplar](docs/composition/exemplars/institutional-deck.md) |
+| poster | [archetypes](docs/composition/archetypes.md), [formats](docs/composition/formats.json), [exemplar](docs/composition/exemplars/poster-a3.md), [patterns](assets/patterns/) |
+| social | [archetypes](docs/composition/archetypes.md), [formats](docs/composition/formats.json), [exemplar](docs/composition/exemplars/social-card.md), [motifs](assets/motifs/) |
+| one-pager | [archetypes](docs/composition/archetypes.md), [modules](docs/composition/modules.md), [formats](docs/composition/formats.json), [specimen sheet](docs/composition/exemplars/specimen-sheet.md) |
 | web page | [AGENTS.md](AGENTS.md#building-a-page), [recipes](docs/recipes.md), [components](docs/components.md) |
+
+The [specimen sheet](docs/composition/exemplars/specimen-sheet.md) shows every module and archetype on one image: look at it
+before you design anything. The exemplars are the quality bar, and each has a written spec for
+agents that cannot see images.
 
 For colour, CMYK values, the selo versions and the Sab.IA platform, read
 [brand.json](brand.json) and [the brand manual extract](docs/brand-manual.md).

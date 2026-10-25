@@ -7,6 +7,7 @@ print and social pieces that all read as one national network.
 | You are… | Start at |
 | --- | --- |
 | Building something in this repo, or an agent | [AGENTS.md](AGENTS.md) |
+| Making a deck, pitch, report, poster or social card, in any stack | [DESIGN.md](DESIGN.md) |
 | Using the system from another project | [docs/integration.md](docs/integration.md) and [RULES.md](RULES.md) |
 | Settling a brand question | [docs/brand-manual.md](docs/brand-manual.md) |
 | Showing the system to someone | [showcase/index.html](showcase/index.html) (opens offline) |
