@@ -116,7 +116,7 @@ field structure. Print rules:
 
 Two different things, used differently.
 
-**One construction** — `BrandMotif`, as a quiet accent in negative space:
+**One focal construction** — `BrandMotif`, as a quiet accent in negative space:
 
 ```jsx
 <BrandMotif variant="interlock" size={220} />          // beside a hero
