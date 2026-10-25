@@ -8,6 +8,8 @@ import { loadMotifEngine } from './lib/load-motif-engine.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const engine = await loadMotifEngine();
+const palette = JSON.parse(readFileSync(join(HERE, '..', 'tokens', 'src', 'brand.tokens.json'), 'utf8')).rse.brand;
+const hex = (name) => palette[name].$value.toLowerCase();
 const luminance = (hex) => {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
     .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
@@ -20,6 +22,12 @@ test('motifRamp returns 3 palette hexes per hue and null for unknown', () => {
     const ramp = engine.motifRamp(hue, 3);
     assert.equal(ramp.length, 3, hue);
     for (const c of ramp) assert.match(c, /^#[0-9a-f]{6}$/, hue);
+  }
+  for (const hue of ['green', 'blue', 'pink', 'purple', 'orange', 'yellow']) {
+    const light = hex(`${hue}-light`), base = hex(hue), dark = hex(`${hue}-dark`);
+    assert.deepEqual(engine.motifRamp(hue, 3), [light, base, dark], hue);
+    assert.deepEqual(engine.motifRamp(hue, 2), [light, dark], hue);
+    assert.deepEqual(engine.motifRamp(hue, 1), [base], hue);
   }
   assert.equal(engine.motifRamp('chartreuse', 3), null);
   assert.equal(engine.motifRamp(undefined, 3), null);
