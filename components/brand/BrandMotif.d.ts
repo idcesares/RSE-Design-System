@@ -47,3 +47,6 @@ export const motifVariants: MotifVariant[];
 
 /** All palette families a construction can be restated in */
 export const motifHues: MotifHue[];
+
+/** N palette shades of a hue, lightest first; null for an unknown hue. */
+export function motifRamp(hue: MotifHue, steps: number): string[] | null;
