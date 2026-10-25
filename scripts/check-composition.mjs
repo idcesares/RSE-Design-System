@@ -204,7 +204,7 @@ for (const name of exemplarNames) {
 // Which format each exemplar is built to. The specimen sheet is a contact sheet, not a format.
 const EXEMPLAR_FORMAT = { 'institutional-deck': 'slide-16x9', 'pitch-deck': 'slide-16x9', 'poster-a3': 'print-a3', 'social-card': 'social-4x5' };
 // Grows as the plan lands each exemplar; every one listed must exist.
-const REQUIRED_EXEMPLARS = ['specimen-sheet', 'institutional-deck'];
+const REQUIRED_EXEMPLARS = ['specimen-sheet', 'institutional-deck', 'pitch-deck'];
 for (const n of REQUIRED_EXEMPLARS) if (!exemplarNames.includes(n)) err(`${EX}/src/${n}.html missing — required exemplar`);
 
 const groupOf = new Map();
@@ -238,6 +238,12 @@ for (const name of exemplarNames) {
       if (Number(f[1]) < fmt.minText) err(`${at}: font-size ${f[1]} of the short side is below minText ${fmt.minText}`);
     }
   });
+  if (name === 'pitch-deck') {
+    const used = (n) => new Set([...read(`${EX}/src/${n}.html`).matchAll(/data-archetype="([^"]+)"/g)].map((x) => x[1]));
+    const other = exemplarNames.includes('institutional-deck') ? used('institutional-deck') : new Set();
+    const fresh = [...used(name)].filter((a) => !other.has(a));
+    if (fresh.length < 3) err(`${name}: only ${fresh.length} archetypes not used by institutional-deck; expected at least 3`);
+  }
   if (name === 'institutional-deck') for (const g of GROUPS) if (!seenGroups.has(g)) err(`${name}: no archetype from the "${g}" group`);
 }
 
