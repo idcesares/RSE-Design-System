@@ -159,7 +159,7 @@ places a `MotifPattern`, loads `motion.js` early in `<head>` (so a stored choice
 paint, with no flash) and calls `init()`:
 
 ```html
-<script src="/rse/2.2.0/motion.js"></script>
+<script src="/rse/2.4.0/motion.js"></script>
 <script>RSE.motion.init();</script>
 ```
 

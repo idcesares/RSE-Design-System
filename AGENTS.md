@@ -335,6 +335,7 @@ Packages and attaches the static kit to a GitHub Release. Breaking a token or pr
 ## Definition of done
 
 - [ ] `npm run check` passes — it includes the contrast gate and the debt ratchet (`npm run audit`).
+- [ ] Touched motion (`tokens/base-runtime.css`, a `.rse-motion-managed` component, `motion.js`)? `npm run test:motion` passes (CI runs it).
 - [ ] Lowered a debt count? `npm run audit -- --update-baseline` in the same change.
 - [ ] No raw hex, font stack, radius, shadow or duration outside `tokens/`.
 - [ ] Copy is pt-BR, sentence case, no emoji, no invented Sesc figures.
