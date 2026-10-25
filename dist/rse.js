@@ -1217,8 +1217,9 @@ function viewBoxOf(pieces) {
 }
 
 const MotifLoader = React.forwardRef(function MotifLoader({ shape = 'cube', hue = 'purple', hues, size = 48, label = 'Carregando', className, style, ...rest }, ref) {
+  // Own property only: 'constructor', 'toString' and '__proto__' are not shapes.
+  if (typeof shape !== 'string' || !Object.prototype.hasOwnProperty.call(motifShapes, shape)) return null;
   const def = motifShapes[shape];
-  if (!def) return null;
   const set = Array.isArray(hues) && hues.length >= 2 && hues.length <= 4 ? hues : null;
   const byHue = (set || [hue]).map((h) => motifPieces(def, h));
   if (byHue.some((p) => !p)) return null;

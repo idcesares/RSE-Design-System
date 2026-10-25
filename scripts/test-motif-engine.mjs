@@ -372,6 +372,14 @@ test('unknown hue and unknown shape return null', () => {
   assert.equal(engine.MotifLoader({ hues: ['green', 'chartreuse'] }), null);
 });
 
+test('prototype property names are not shapes or hues: null, never a throw', () => {
+  for (const name of ['constructor', 'toString', '__proto__']) {
+    assert.equal(engine.MotifLoader({ shape: name }), null, `shape ${name}`);
+    assert.equal(engine.MotifLoader({ hue: name }), null, `hue ${name}`);
+    assert.equal(engine.MotifLoader({ hues: ['green', name] }), null, `hues ${name}`);
+  }
+});
+
 test('hues length 1 or 5 falls back to hue', () => {
   const single = engine.MotifLoader({ hue: 'green' });
   for (const hues of [['blue'], ['green', 'blue', 'pink', 'purple', 'orange']]) {
