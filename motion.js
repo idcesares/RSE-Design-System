@@ -7,6 +7,9 @@
    A no-op when window is undefined (server render). */
 (function (window) {
   if (typeof window === 'undefined') return;
+  // Loaded twice (a tag plus a bundler, the showcase plus a host page): the first copy stays, so the
+  // stored state, the document listener and RSE.motion are never duplicated or replaced.
+  if (window.RSE && window.RSE.motion && typeof window.RSE.motion.bindPause === 'function') return;
   var KEY = 'rse-motion';
   var current = null;
 
@@ -68,13 +71,17 @@
   // swap is CSS ([aria-pressed]); this only toggles the state the CSS and assistive tech read.
   function bindPause() {
     var doc = window.document;
-    if (bound || !doc || !doc.addEventListener) return;
+    // The flag lives on the document so it survives another execution of this file.
+    if (bound || !doc || !doc.addEventListener || doc.__rsePauseBound) return;
     bound = true;
+    doc.__rsePauseBound = true;
     doc.addEventListener('click', function (event) {
+      if (event.__rsePauseHandled) return;
       var target = event.target;
       var btn = target && target.closest ? target.closest(PAUSE) : null;
       var root = btn && btn.closest('.rse-motif-pattern');
       if (!btn || !root) return;
+      event.__rsePauseHandled = true;
       var paused = !root.hasAttribute('data-paused');
       if (paused) root.setAttribute('data-paused', ''); else root.removeAttribute('data-paused');
       btn.setAttribute('aria-pressed', paused ? 'true' : 'false');

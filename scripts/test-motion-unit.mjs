@@ -181,3 +181,40 @@ test('bindPause is a no-op without a document', () => {
   new Function('window', src)(win);
   assert.doesNotThrow(() => win.RSE.motion.bindPause());
 });
+
+test('executing motion.js twice against the same window and document adds one listener: one click, one toggle', () => {
+  const dom = makeDom();
+  new Function('window', src)(dom.win); // second execution, same window and document
+  new Function('window', src)(dom.win);
+  assert.equal(dom.listeners.filter((l) => l.type === 'click').length, 1);
+  const pattern = el('rse-motif-pattern');
+  const btn = el('rse-motif-pattern__pause', { 'aria-pressed': 'false' }, pattern);
+  dom.click(btn);
+  assert.equal(pattern.hasAttribute('data-paused'), true);
+  assert.equal(btn.getAttribute('aria-pressed'), 'true');
+  dom.click(btn);
+  assert.equal(pattern.hasAttribute('data-paused'), false);
+});
+
+test('a click already handled is not toggled again, even by a second listener', () => {
+  const dom = makeDom();
+  const pattern = el('rse-motif-pattern');
+  const btn = el('rse-motif-pattern__pause', { 'aria-pressed': 'false' }, pattern);
+  const event = { target: btn };
+  const handler = dom.listeners.find((l) => l.type === 'click').fn;
+  handler(event);
+  handler(event);
+  assert.equal(pattern.hasAttribute('data-paused'), true);
+});
+
+test('loading twice keeps get/set working and keeps the first RSE.motion', () => {
+  const { win, attrs } = makeWindow();
+  const first = win.RSE.motion;
+  win.RSE.motion.set('reduced');
+  new Function('window', src)(win);
+  assert.equal(win.RSE.motion, first);
+  assert.equal(win.RSE.motion.get(), 'reduced');
+  win.RSE.motion.set('full');
+  assert.equal(win.RSE.motion.get(), 'full');
+  assert.equal(attrs['data-rse-motion'], 'full');
+});
