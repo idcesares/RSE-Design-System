@@ -482,6 +482,8 @@
 
   const Motion = () => {
     const [on, setOn] = React.useState(false);
+    const motion = window.RSE && window.RSE.motion;
+    const [reducedSetting, setReducedSetting] = React.useState(() => !!motion && motion.get() === 'reduced');
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     return h(F, null,
       h('h3', { className: 'sc-h3' }, 'Movimento'),
@@ -489,7 +491,8 @@
       ['fast', 'base', 'slow'].map((d) => h('div', { className: 'sc-motion-row', key: d },
         h('code', null, `${d} · ${D.tokens[`--rse-duration-${d}`].value}`),
         h('div', { className: `sc-motion-track${on ? ' is-on' : ''}` }, h('span', { className: 'sc-motion-dot', style: { transitionDuration: `var(--rse-duration-${d})` } })))),
-      h(DS.Button, { variant: 'secondary', size: 'sm', icon: icon(on ? 'refresh-cw' : 'play', 16), onClick: () => setOn(!on) }, on ? 'Voltar' : 'Reproduzir'));
+      h(DS.Button, { variant: 'secondary', size: 'sm', icon: icon(on ? 'refresh-cw' : 'play', 16), onClick: () => setOn(!on) }, on ? 'Voltar' : 'Reproduzir'),
+      motion && h(DS.Switch, { label: 'Reduzir animações', checked: reducedSetting, onChange: (e) => { setReducedSetting(e.target.checked); motion.set(e.target.checked ? 'reduced' : 'full'); } }));
   };
   mount('mount-motion', h(Motion));
 

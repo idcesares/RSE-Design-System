@@ -165,6 +165,50 @@ Never put body text on top of a cube field — split the composition, or reserve
 column that carries no copy. Text goes on a solid panel, never directly on the pattern, generated
 or official. One field per page, and never behind a form.
 
+## A "Reduzir animações" switch
+
+The motion setting is `data-rse-motion="full" | "reduced"`, and the host product renders the
+control. Use the existing `Switch`: it is checked when `RSE.motion.get() === 'reduced'`, and a change
+calls `RSE.motion.set(checked ? 'reduced' : 'full')`. React:
+
+```jsx
+function MotionSwitch() {
+  const [reduced, setReduced] = React.useState(() => RSE.motion.get() === 'reduced');
+  return (
+    <Switch
+      label="Reduzir animações"
+      checked={reduced}
+      onChange={(e) => {
+        setReduced(e.target.checked);
+        RSE.motion.set(e.target.checked ? 'reduced' : 'full');
+      }}
+    />
+  );
+}
+```
+
+Static HTML, with the markup `Switch` renders, and `motion.js` loaded:
+
+```html
+<label class="rse-choice rse-switch">
+  <input type="checkbox" role="switch" class="rse-control-input" id="reduzir-animacoes">
+  <span class="rse-choice__box rse-control-box" aria-hidden="true"></span>
+  <span class="rse-choice__label">Reduzir animações</span>
+</label>
+<script>
+  var box = document.getElementById('reduzir-animacoes');
+  box.checked = RSE.motion.get() === 'reduced';
+  box.addEventListener('change', function () {
+    RSE.motion.set(box.checked ? 'reduced' : 'full');
+  });
+</script>
+```
+
+The host persists nothing itself: `RSE.motion.set` stores the choice and writes the attribute on
+`<html>`. Run `RSE.motion.init()` early in `<head>` (right after `motion.js`) so a stored choice
+applies before first paint, with no flash of full motion. The choice can also be set on one section
+with `data-rse-motion`; the nearest ancestor wins.
+
 ## Linking to the Plataforma Sesc Sab.IA
 
 ```jsx
