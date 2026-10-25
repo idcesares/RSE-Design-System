@@ -13,7 +13,7 @@ Brazil. It is an institution: credibility first, warmth second, never loud. Its 
 person ("você"), verbs of transformation.
 
 The look is **editorial and type-led**. Montserrat Extrabold at a scale that does the work, a strict
-grid with asymmetric margins, generous empty space, flat fields of colour, and one oversized cube
+grid with asymmetric margins, generous empty space, flat fields of colour, and one oversized focal cube
 motif per composition instead of decoration everywhere. A piece should read in three seconds and
 look designed, not assembled.
 
@@ -26,10 +26,10 @@ HTML rendered to PDF or PNG is the path of least resistance and the one the exem
 The full list, with reasons, is [AGENTS.md → Non-negotiables](AGENTS.md#non-negotiables). The ones
 that are easiest to break by accident in a non-web piece:
 
-- Colours come from the palette in [brand.json](brand.json). On artwork you may use the `--rse-brand-*` palette directly (`AGENTS.md` keeps it off web components). Flat fields only: no gradients, no textures, no effects.
+- Colours come from the palette in [brand.json](brand.json). On artwork you may use the `--rse-brand-*` palette directly (`AGENTS.md` keeps it off web components). Flat fields only: no gradients, glows, noise or effects. A generated pattern is a flat colour field too.
 - Montserrat only, weights 400–900. Headings 800, tight tracking. Eyebrows 700 uppercase, wide tracking. That is the only uppercase.
 - The brand purple is `--rse-color-primary`, never the mid `--rse-brand-purple` (3.3:1 with white).
-- The selo and the cube motif are official artwork in [assets/](assets/): never redraw, rotate, stretch or recolour outside the sanctioned combinations. One motif per composition. Wordmark files: purple on cream or white, white on purple, indigo or ink, black on the light accents.
+- The selo is official artwork in [assets/](assets/): never redraw, rotate, stretch or recolour it outside the sanctioned combinations. The six signature cube constructions render exactly as supplied (never redraw, rotate, stretch or distort); generated shapes and motion come only from the motif engine (`MotifLoader`, `MotifPattern`). Any of the six palette families, ramps from the palette only. One focal construction per composition, at most 25%, about 0.3 opacity behind content, no text on faces or cells; a pattern is a field and the loader is exempt. Text never sits directly on pattern cells. Purple, orange, yellow and all generated shapes are derived, not supplied. Wordmark files: purple on cream or white, white on purple, indigo or ink, black on the light accents.
 - No emoji, no hand-drawn icons, no stock or generated photography. Use a labelled placeholder that says what shot is needed.
 - Never invent Sesc facts (counts, addresses, fees, dates, quotes). Placeholders look like placeholders (`000`).
 - Contrast: 4.5:1 for body text, 3:1 for large text. White text never goes on an accent hue; the accents take ink text.

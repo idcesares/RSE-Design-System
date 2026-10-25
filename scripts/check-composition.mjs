@@ -252,7 +252,11 @@ for (const name of exemplarNames) {
     if (!arch) err(`${at}: no data-archetype`);
     else if (!archetypeIds.has(arch)) err(`${at}: unknown archetype "${arch}"`);
     else seenGroups.add(groupOf.get(arch));
-    if ((m[0].match(/class="[^"]*\bmotif\b[^"]*"/g) ?? []).length > 1) err(`${at}: more than one cube motif — one per composition`);
+    // Only a focal construction counts: the class token is exactly `motif`. A hyphen is a regex word
+    // boundary, so `rse-motif-pattern` / `rse-motif-loader` would match \bmotif\b; a pattern is a
+    // field and the loader is transient (AGENTS.md rule 10), so neither is a second motif.
+    const focal = [...m[0].matchAll(/class="([^"]*)"/g)].filter((c) => c[1].split(/\s+/).includes('motif'));
+    if (focal.length > 1) err(`${at}: more than one cube motif — one per composition`);
     const words = textOf(m[1]).split(' ').filter(Boolean).length;
     if (words > fmt.maxWords) err(`${at}: ${words} words; ${fmt.id} allows ${fmt.maxWords}`);
     for (const h of m[1].matchAll(/<(\w+)\b[^>]*\bclass="([^"]*\b(?:display|h1)\b[^"]*)"[^>]*>([\s\S]*?)<\/\1>/g)) {

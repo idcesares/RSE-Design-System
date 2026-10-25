@@ -35,6 +35,7 @@ const mutations = [
   ['exemplar.css out of step with formats.json', `${EX}/src/exemplar.css`, swap('--t-body: calc(var(--S) * .028);', '--t-body: calc(var(--S) * .03);'), /exemplar\.css.*body/],
   ['a later headline is too long', SLIDE, inFirstSlide(`<h2 class="h1">${'Um título muito longo '.repeat(4)}</h2>`), /headline is \d+ characters/],
   ['a second motif with extra classes', SLIDE, inFirstSlide('<img class="motif big" src="../../../../assets/motifs/cube-bar.svg" alt="">'), /more than one cube motif/],
+  ['two focal motifs plus a pattern', `${EX}/src/social-card.html`, inFirstSlide('<div class="rse-motif-pattern" aria-hidden="true"></div><img class="motif" src="../../../../assets/motifs/cube-bar.svg" alt="">'), /more than one cube motif/],
   ['rgb() colour', PITCH, inFirstSlide('<p style="color:rgb(255,0,0)">x</p>'), /rgb|hsl/],
   ['literal px font size', PITCH, inFirstSlide('<p style="font-size:12px">x</p>'), /literal px font-size/],
   ['font size that is not a type role', PITCH, inFirstSlide('<p style="font-size:calc(var(--S) * .036)">x</p>'), /not a type role/],
@@ -82,6 +83,18 @@ for (const [name, file, mutate, expect] of mutations) {
   for (const f of [`${EX}/src/extra.html`, `${EX}/extra.md`, `${EX}/extra.png`]) rmSync(join(TMP, f));
 }
 
+// A pattern is a field and the loader is transient, so neither counts as a focal motif: a slide
+// with one motif plus a pattern and a loader must still pass (positive control for the matcher).
+{
+  const f = `${EX}/src/social-card.html`;
+  const original = rd(f);
+  wr(f, inFirstSlide('<div class="rse-motif-pattern" aria-hidden="true"></div><span class="rse-motif-loader"></span><div class="rse-motif-pattern rse-motif-pattern--blue"></div>')(original));
+  const r = validate();
+  if (r.code === 0) console.log('ok   one motif plus a pattern and a loader passes');
+  else { console.log(`FAIL one motif plus a pattern and a loader passes: miscounted\n${r.out.split('\n').filter((l) => l.startsWith('ERROR')).join('\n')}`); failed++; }
+  wr(f, original);
+}
+
 rmSync(TMP, { recursive: true, force: true });
-console.log(failed ? `\n${failed} FAILED` : `\nall ${mutations.length + 2} checks behave`);
+console.log(failed ? `\n${failed} FAILED` : `\nall ${mutations.length + 3} checks behave`);
 process.exit(failed ? 1 : 0);

@@ -24,7 +24,7 @@ Is every text pair readable: at least 4.5:1 for body, 3:1 for large text, and no
 accent hue?
 
 ## R6
-Is there exactly one cube motif (or one pattern field), used large and cropped, and not behind text?
+Is there exactly one focal cube motif (or one pattern field; a loader is exempt), used large and cropped, and not behind text?
 
 ## R7
 Is there one band or accent hue per section, with ink text or the paired tint-ink?
@@ -34,7 +34,7 @@ Is the density within the format's limit: words per canvas at or below `maxWords
 below `maxHeadlineChars`, no text below `minText`?
 
 ## R9
-Is it all flat: no gradients, textures, glows, or shadows beyond the system's?
+Is it all flat: no gradients, textures, glows, noise or shadows beyond the system's? A pattern is a flat colour field, and text never sits directly on its cells.
 
 ## R10
 Is every figure the user's own or a visible placeholder, every image a labelled placeholder naming

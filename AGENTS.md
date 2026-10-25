@@ -67,15 +67,23 @@ and not like a generic template.
    the height of the stem of the E; minimum size 45 mm print / 150 px digital. Never lock it up with
    the Sesc signature — they sit at a distance. Details:
    `docs/brand-manual.md`, `assets/logos/README.md`.
-10. **The motif is artwork. Its geometry is untouchable; its hue is not.** `BrandMotif` renders the
-   official *cubo impossível* constructions — never redraw, rotate, stretch or distort one, and it
-   never re-maps per theme. It **does** take a `hue`, authorised by the design owner: the supplied
-   sheet ships green, blue and pink only, so that prop is how the other three palette families are
-   reached. Omit it and the artwork renders in the exact fills Sesc supplied. Ramps derive from the
-   manual's published palette, never from sampling the artwork (see known gap 9), and the remap
-   holds each shade's luminance rank — reorder those and the impossible cube stops reading as a
-   solid. One construction per composition. Full-bleed cube fields come from `assets/patterns/`.
-   Sanctioned treatments, per the manual: small, blown up, in outline, or tiled as a pattern.
+10. **The motif has two kinds of artwork: signature constructions and generated shapes.** The six
+   SIGNATURE constructions (`BrandMotif`, `assets/motifs/`, the four official `assets/patterns/`)
+   render exactly as supplied — never redraw, rotate, stretch or distort one, and they never re-map
+   per theme. GENERATED shapes and motion come only from the motif engine (`MotifEngine`, through
+   `MotifLoader` and `MotifPattern`, and the baked presets in `assets/patterns/generated/`); never
+   hand-draw one. Any of the six palette families may be used (`BrandMotif` takes a `hue`, the
+   engine takes a hue), with ramps from the palette only, never sampled from the artwork (see known
+   gap 9); the remap keeps each shade's luminance rank, and reordering those stops the impossible
+   cube reading as a solid. Purple, orange and yellow signature artwork and ALL generated shapes
+   are derived, not supplied by Sesc — say so when it matters. One FOCAL construction per
+   composition, at most 25% of it, about 0.3 opacity behind content, no text on faces or cells. A
+   pattern is a FIELD, not a construction, and the loader is exempt (transient). Patterns are flat
+   colour fields (no gradients, glows or noise). A multi-hue pattern is allowed only as the artwork
+   itself (a hero field or a standalone spectrum piece); page text and bands stay in one hue. Text
+   never sits directly on pattern cells — use a solid panel. Full-bleed cube fields come from
+   `assets/patterns/` or `MotifPattern`. Sanctioned treatments, per the manual: small, blown up, in
+   outline, or tiled as a pattern.
 11. **Sab.IA is the platform, the Rede is the network.** Learning lives in Sab.IA; enrollment and
    records live in the TOTVS portal. Never route an enrollment task to the platform. Link to it
    with `PlatformEntry` — see [docs/sabia-platform.md](docs/sabia-platform.md).
@@ -205,8 +213,9 @@ this repo: static pages, no React needed unless you want the components.
 Artwork rules on top of the non-negotiables: flat colour fields only — no gradients, no textures,
 no drop shadows beyond `--rse-shadow-sm/md/lg`, no photographic full-bleeds until real photography
 exists. `BrandMotif` renders the official *cubo impossível* constructions (rule 10): one
-construction per composition; if you use the purple, orange or yellow `hue`, tell the user those
-are derived, not supplied.
+focal construction per composition. Generated shapes and motion exist too (`MotifEngine` through
+`MotifPattern` and `MotifLoader`; a pattern is a field, not a construction). If you use the purple,
+orange or yellow `hue`, or any generated shape, tell the user those are derived, not supplied.
 
 ## Changing a component
 

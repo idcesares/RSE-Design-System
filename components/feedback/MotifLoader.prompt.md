@@ -39,6 +39,8 @@ It is `.rse-motion-managed` and implements both forms of the motion setting (`da
 
 ## Contrast
 
+Contrast is measured on the base shade of each hue only; the lighter facets have less contrast against the cream page.
+
 The shape is a graphic, so WCAG 1.4.11 asks 3:1 between its base colour and the surface behind it. These combinations fall short (`npm run check` verifies this list in both directions). Put the loader on a surface that clears the floor, or pick another hue:
 
 Evite: green sobre page

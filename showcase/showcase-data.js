@@ -3271,8 +3271,43 @@ window.SHOWCASE_DATA = {
         "pink"
       ],
       "perComposition": 1,
-      "recolour": "hue-prop-only",
-      "recolourNote": "Never edit the SVG fills. BrandMotif's hue prop restates a construction in any palette family, keeping each shade's luminance rank; purple, orange and yellow are derived, not supplied.",
+      "perCompositionScope": "focal construction; a pattern is a field and the loader is transient, so neither counts",
+      "maxShare": 0.25,
+      "opacityBehindContent": 0.3,
+      "textOnFacesOrCells": false,
+      "signature": {
+        "list": [
+          "bar",
+          "chain",
+          "cube",
+          "frame",
+          "hollow",
+          "interlock",
+          "cubes-pattern-1",
+          "cubes-pattern-2",
+          "cubes-pattern-3",
+          "cubes-pattern-4"
+        ],
+        "rule": "Render exactly as supplied. Never redraw, rotate, stretch or distort.",
+        "derivedHues": [
+          "purple",
+          "orange",
+          "yellow"
+        ]
+      },
+      "generatedShapes": [
+        "cube",
+        "triangle",
+        "stair",
+        "loop",
+        "tower",
+        "twin"
+      ],
+      "loader": "MotifLoader: transient loading feedback built from a generated shape; exempt from the one-focal rule.",
+      "pattern": "MotifPattern and assets/patterns/generated/: a flat colour field, not a construction. No gradients, glows or noise. A multi-hue pattern is allowed only as the artwork itself (hero field or standalone spectrum piece); page text and bands stay in one hue. Text never sits directly on pattern cells; use a solid panel.",
+      "recolour": "palette-families-only",
+      "recolourNote": "Any of the six palette families may be used; ramps come from the palette only, never sampled from artwork, and the remap keeps each shade's luminance rank so the shape reads as a solid. Never edit the SVG fills. Purple, orange and yellow signature artwork and all generated shapes are derived, not supplied by Sesc.",
+      "generatedBy": "Generated shapes and motion come only from the motif engine (MotifEngine, through MotifLoader and MotifPattern).",
       "treatments": [
         "small",
         "blown up",

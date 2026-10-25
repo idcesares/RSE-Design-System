@@ -24,7 +24,7 @@ the geometric placeholder that shipped earlier.
 
 **Rules**
 
-- One construction per composition, in negative space (corner of a band, beside a section eyebrow),
+- One focal construction per composition, in negative space (corner of a band, beside a section eyebrow),
   at 25% or less of the composition. Two competing motifs read as decoration and lose the meaning.
 - **The geometry belongs to the artwork; the hue is a choice.** A motif never re-maps per theme,
   exactly like the logo. Left alone it renders the exact fills Sesc supplied. Sesc's sheet only
@@ -32,8 +32,13 @@ the geometric placeholder that shipped earlier.
   from the manual's published palette, never from sampling the artwork, and the remap keeps each
   face's luminance rank so the solid still reads as a solid. Say "derived" when it matters: those
   three hues are ours, not supplied, and official artwork should replace them if it arrives.
-- Never redraw, rotate, distort or animate a construction.
-- Drop `opacity` to ~0.3 when it sits behind content, and never place text on the cube faces.
+- The signature constructions render exactly as supplied: never redraw, rotate, stretch, distort or
+  animate one. Generated shapes and motion are not drawn here; they come only from the motif
+  engine, through `MotifPattern` (fields) and `MotifLoader` (transient loading). A pattern is a
+  field, not a construction, and the loader is exempt from the one-focal rule. Generated shapes are
+  derived, not supplied by Sesc.
+- Drop `opacity` to ~0.3 when it sits behind content, and never place text on the cube faces or
+  on pattern cells (use a solid panel).
 - It is not a logo: it never substitutes for the selo, nor sits beside it in a lockup.
 - For a full-bleed field of cubes rather than one construction, use the official pattern
   backgrounds in `assets/patterns/` as a CSS background image — see `docs/recipes.md`.
