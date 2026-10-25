@@ -170,9 +170,13 @@ export type TokenName =
   | "--rse-shadow-lg"
   | "--rse-ease-standard"
   | "--rse-ease-out"
+  | "--rse-ease-assemble"
+  | "--rse-ease-settle"
   | "--rse-duration-fast"
   | "--rse-duration-base"
-  | "--rse-duration-slow";
+  | "--rse-duration-slow"
+  | "--rse-duration-reveal"
+  | "--rse-duration-loop";
 export type TokenMap = Record<TokenName, string>;
 export declare const version: string;
 export declare const light: TokenMap;

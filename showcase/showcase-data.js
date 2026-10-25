@@ -2496,6 +2496,14 @@ window.SHOWCASE_DATA = {
       "value": "cubic-bezier(0,0,.2,1)",
       "kind": "other"
     },
+    "--rse-ease-assemble": {
+      "value": "cubic-bezier(.65,0,.35,1)",
+      "kind": "other"
+    },
+    "--rse-ease-settle": {
+      "value": "cubic-bezier(.22,1,.36,1)",
+      "kind": "other"
+    },
     "--rse-duration-fast": {
       "value": "150ms",
       "kind": "other"
@@ -2506,6 +2514,14 @@ window.SHOWCASE_DATA = {
     },
     "--rse-duration-slow": {
       "value": "360ms",
+      "kind": "other"
+    },
+    "--rse-duration-reveal": {
+      "value": "600ms",
+      "kind": "other"
+    },
+    "--rse-duration-loop": {
+      "value": "2400ms",
       "kind": "other"
     }
   },
@@ -5435,7 +5451,7 @@ window.SHOWCASE_DATA = {
   ],
   "counts": {
     "components": 40,
-    "tokens": 168,
+    "tokens": 172,
     "palette": 21,
     "themes": 3,
     "templates": 4,

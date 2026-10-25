@@ -24,4 +24,16 @@
 @keyframes rse-spin{to{transform:rotate(360deg)}}
 @keyframes rse-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Motion setting. data-rse-motion on <html> is "full" or "reduced" (motion.js sets it from the
+   stored choice, else the OS preference). --rse-motion-travel multiplies every travelled
+   distance in managed motion, so reduced keeps the opacity change and drops the movement.
+   Absent the attribute, the OS preference decides. */
+:root{--rse-motion-travel:1}
+[data-rse-motion="reduced"]{--rse-motion-travel:0}
+@media (prefers-reduced-motion:reduce){:root:not([data-rse-motion]){--rse-motion-travel:0}}
+
+/* Safety net: unmanaged animation (Spinner, Skeleton, a host's own CSS) is flattened when
+   motion is reduced. Components marked .rse-motion-managed implement their own reduced form,
+   and a nested [data-rse-motion="full"] opts its subtree out. */
+[data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *),[data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *)::before,[data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *)::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+@media (prefers-reduced-motion:reduce){:root:not([data-rse-motion]) :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *),:root:not([data-rse-motion]) :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *)::before,:root:not([data-rse-motion]) :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *)::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
