@@ -10,4 +10,4 @@ Loading state for program lists, unit search results and dashboards. Prefer it t
 
 - Match the real content shape and count; three card skeletons for a 3-up card grid.
 - Shimmer is neutral grey only — never tint it with brand purple.
-- Respects `prefers-reduced-motion` (animation is suppressed globally).
+- Unmanaged by the motion setting (it is not `.rse-motion-managed`): when `data-rse-motion` is reduced, the safety net in `tokens/base-runtime.css` suppresses the shimmer.

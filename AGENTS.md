@@ -290,8 +290,11 @@ students, families and Sesc staff across the whole country.
   with arrow keys, menus and dialogs close with Escape, dialogs trap focus and return it to the
   trigger.
 - **Hit targets** ≥ `--rse-hit-target-min` (44px) on touch surfaces.
-- **Motion** stays inside `--rse-duration-fast/base/slow` with standard easing. `prefers-reduced-motion`
-  is already honoured globally — don't reintroduce animation that ignores it.
+- **Motion**: state changes stay inside `--rse-duration-fast/base/slow` (360 ms cap) with standard
+  easing; brand motion uses `--rse-duration-reveal/loop` with assemble/settle easing. The
+  `data-rse-motion` setting (stored choice, else OS, else `full`) decides full or reduced; managed
+  components (`.rse-motion-managed`) implement both forms, and the safety net flattens the rest —
+  don't add unmanaged animation.
 - **Images** carry real `alt` text in pt-BR, or `alt=""` when decorative. `<image-slot>` placeholders
   describe the shot needed.
 - Full rules: [docs/guidelines.md](docs/guidelines.md#accessibility).

@@ -64,7 +64,7 @@ The Rede Sesc de Educação is Sesc's (Serviço Social do Comércio) national ne
 
 **Photography:** the manual's own plates set the direction — documentary, natural light, real classrooms, candid, wide or overhead framing, students in Sesc uniform, visibly plural and inclusive, no filters or gradients. No usable photographs exist for this repo, so the UI kit uses `<image-slot>` placeholders whose `placeholder` text is the shot brief, per the "never invent imagery" rule.
 
-**Animation:** none specified in the source. Components use short, standard-ease transitions only (150–360ms, `--rse-ease-*`) — no bounces, no scroll-triggered motion.
+**Animation:** none specified in the source. UI state changes use short, standard-ease transitions (150–360ms, `--rse-ease-*`); brand motion (reveals 600ms, loaders and ambient loops 2.4s) uses `--rse-duration-reveal/loop` with assemble/settle easing. No bounces and no parallax; scroll-triggered reveals play once, and ambient loops carry a pause control. The `data-rse-motion` setting switches everything to a reduced form.
 
 **Hover/press states:** hover shifts to a slightly darker/tinted variant of the same color (never a totally different hue); press states scale buttons down subtly (0.97) rather than changing color further. Cards lift (translateY + shadow increase) on hover rather than changing background.
 

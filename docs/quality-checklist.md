@@ -23,8 +23,9 @@ npm run check
 - [ ] Radii follow the system: pill for buttons/badges/tags, `--rse-radius-md` for fields,
       `--rse-radius-lg/xl` for cards and media. No square corners in UI chrome.
 - [ ] Logo unmodified, correct lockup for the background, clearspace respected.
-- [ ] Motion is limited to hover/press state changes at `--rse-duration-fast/base`. No scroll-triggered
-      animation, no bounce.
+- [ ] Motion is one of four categories (state, reveal, loading, ambient). State changes stay within
+      360 ms; reveals are opacity plus small travel, played once; ambient loops have a pause control.
+      No parallax, no bounce.
 
 ## Content
 
@@ -57,7 +58,8 @@ npm run check
 - [ ] Renders correctly with `data-rse-theme="dark"` and `data-rse-theme="contrast"` on `<html>`.
 - [ ] Reflows at 375px, 834px and 1440px without horizontal scroll.
 - [ ] Wide content (tables, deck stages) scrolls inside its own container, not the page body.
-- [ ] `prefers-reduced-motion` still calms everything — no animation added outside the token system.
+- [ ] Managed components implement both forms (`data-rse-motion="reduced"` keeps opacity only); no
+      unmanaged animation.
 
 ## Print (decks, forms, posters)
 
