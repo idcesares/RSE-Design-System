@@ -7,10 +7,11 @@
 //
 // docs/composition/exemplars/src/<name>.html declares its canvas in
 // <meta name="canvas" content="WxH">. A page holding several slides marks each one with
-// [data-slide]; those render to exemplars/<name>/<nn>.png and a contact sheet to exemplars/<name>.png.
+// <section data-slide>; several render to exemplars/<name>/<nn>.png plus a contact sheet at
+// exemplars/<name>.png, a single one straight to exemplars/<name>.png.
 // Needs the pre-installed Playwright + Chromium (require('playwright'); no install step).
 
-import { readFileSync, readdirSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
@@ -38,15 +39,24 @@ for (const name of names) {
   await page.goto(pathToFileURL(file).href);
   await page.evaluate(() => document.fonts.ready);
   const slides = await page.$$('[data-slide]');
-  if (slides.length) {
+  if (slides.length > 1) {
     mkdirSync(join(DIR, name), { recursive: true });
     for (const [i, el] of slides.entries()) {
       await el.screenshot({ path: join(DIR, name, `${String(i + 1).padStart(2, '0')}.png`) });
     }
-    // Contact sheet: the same page scaled to a grid, which the page's own print of [data-sheet] provides.
-    const sheet = await page.$('[data-sheet]');
-    if (sheet) await sheet.screenshot({ path: join(DIR, `${name}.png`) });
-    else await page.screenshot({ path: join(DIR, `${name}.png`), fullPage: true });
+    // Contact sheet: a throwaway page that lays the slide PNGs out two across, on the brand cream.
+    const tmp = join(DIR, name, '_sheet.html');
+    const imgs = slides.map((_, i) => `<img src="${String(i + 1).padStart(2, '0')}.png" alt="">`).join('');
+    writeFileSync(tmp, `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="../../../../styles.css">
+<style>body{margin:0;background:var(--rse-brand-cream)}main{display:grid;grid-template-columns:repeat(2,${w / 2}px);gap:48px;padding:64px;width:max-content}img{width:${w / 2}px;display:block;border:1px solid var(--rse-color-border-default)}</style><main>${imgs}</main>`);
+    const sheet = await browser.newPage({ viewport: { width: w + 176, height: 800 } });
+    await sheet.goto(pathToFileURL(tmp).href);
+    await sheet.evaluate(() => Promise.all([...document.images].map((i) => i.decode())));
+    await sheet.screenshot({ path: join(DIR, `${name}.png`), fullPage: true });
+    await sheet.close();
+    rmSync(tmp);
+  } else if (slides.length === 1) {
+    await slides[0].screenshot({ path: join(DIR, `${name}.png`) });
   } else {
     await page.screenshot({ path: join(DIR, `${name}.png`), fullPage: false });
   }

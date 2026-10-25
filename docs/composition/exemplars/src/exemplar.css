@@ -32,6 +32,7 @@
 .slide.hue-blue   { background: var(--rse-brand-blue-light);   }
 .slide.hue-purple { background: var(--rse-brand-purple-light); }
 .slide[class*="hue-"] { --fg: var(--rse-brand-ink); --fg-heading: var(--rse-brand-ink); --fg-muted: var(--rse-brand-ink); --accent: var(--rse-brand-ink); }
+.slide.tint-purple { background: var(--rse-color-tint-purple); --fg: var(--rse-color-tint-purple-ink); --fg-heading: var(--rse-color-tint-purple-ink); --fg-muted: var(--rse-color-tint-purple-ink); --accent: var(--rse-color-tint-purple-ink); }
 .slide.tint-pink { background: var(--rse-color-tint-pink); --fg: var(--rse-color-tint-pink-ink); --fg-heading: var(--rse-color-tint-pink-ink); --fg-muted: var(--rse-color-tint-pink-ink); --accent: var(--rse-color-tint-pink-ink); }
 
 /* Placement by fraction of the canvas. */

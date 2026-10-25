@@ -201,6 +201,46 @@ for (const name of exemplarNames) {
   if (!/<meta\s+name="canvas"\s+content="\d+x\d+"/.test(html)) err(`${src}: missing <meta name="canvas" content="WxH">`);
 }
 
+// Which format each exemplar is built to. The specimen sheet is a contact sheet, not a format.
+const EXEMPLAR_FORMAT = { 'institutional-deck': 'slide-16x9', 'pitch-deck': 'slide-16x9', 'poster-a3': 'print-a3', 'social-card': 'social-4x5' };
+// Grows as the plan lands each exemplar; every one listed must exist.
+const REQUIRED_EXEMPLARS = ['specimen-sheet', 'institutional-deck'];
+for (const n of REQUIRED_EXEMPLARS) if (!exemplarNames.includes(n)) err(`${EX}/src/${n}.html missing — required exemplar`);
+
+const groupOf = new Map();
+if (exists('docs/composition/archetypes.md')) {
+  let group = null;
+  for (const line of read('docs/composition/archetypes.md').split('\n')) {
+    const g = line.match(/^# (\w+)\s*$/); if (g) group = g[1];
+    const a = line.match(/^## A-([a-z0-9-]+)\s*$/); if (a && group) groupOf.set(a[1], group);
+  }
+}
+const textOf = (h) => h.replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/\s+/g, ' ').trim();
+
+for (const name of exemplarNames) {
+  const fmt = formats.find((f) => f.id === EXEMPLAR_FORMAT[name]);
+  if (!fmt) continue;
+  const html = read(`${EX}/src/${name}.html`);
+  const slides = [...html.matchAll(/<section\b[^>]*data-slide[^>]*>([\s\S]*?)<\/section>/g)];
+  if (!slides.length) { err(`${EX}/src/${name}.html: no <section data-slide> found`); continue; }
+  const seenGroups = new Set();
+  slides.forEach((m, i) => {
+    const at = `${name} slide ${i + 1}`;
+    const arch = m[0].match(/data-archetype="([^"]+)"/)?.[1];
+    if (!arch) err(`${at}: no data-archetype`);
+    else if (!archetypeIds.has(arch)) err(`${at}: unknown archetype "${arch}"`);
+    else seenGroups.add(groupOf.get(arch));
+    const words = textOf(m[1]).split(' ').filter(Boolean).length;
+    if (words > fmt.maxWords) err(`${at}: ${words} words; ${fmt.id} allows ${fmt.maxWords}`);
+    const head = m[1].match(/class="[^"]*\b(?:display|h1)\b[^"]*"[^>]*>([\s\S]*?)<\/(?:h\d|p|div)>/);
+    if (head && textOf(head[1]).length > fmt.maxHeadlineChars) err(`${at}: headline is ${textOf(head[1]).length} characters; ${fmt.id} allows ${fmt.maxHeadlineChars}`);
+    for (const f of m[1].matchAll(/font-size:\s*calc\(var\(--S\)\s*\*\s*(\.\d+)\)/g)) {
+      if (Number(f[1]) < fmt.minText) err(`${at}: font-size ${f[1]} of the short side is below minText ${fmt.minText}`);
+    }
+  });
+  if (name === 'institutional-deck') for (const g of GROUPS) if (!seenGroups.has(g)) err(`${name}: no archetype from the "${g}" group`);
+}
+
 for (const f of exists(`${EX}/src`) ? readdirSync(join(ROOT, EX, 'src')).filter((n) => n.endsWith('.css')) : []) {
   const css = read(`${EX}/src/${f}`);
   if (RAW_HEX.test(css)) err(`${EX}/src/${f}: raw hex colour — use --rse-* tokens`);
