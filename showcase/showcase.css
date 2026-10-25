@@ -330,6 +330,17 @@ code { font-family: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', monospace; f
 .sc-pattern { margin: 0; }
 .sc-pattern .art { height: 12rem; border-radius: var(--rse-radius-lg); background-size: cover; background-position: center; border: 1px solid var(--rse-color-border-subtle); }
 .sc-pattern figcaption { margin-top: var(--rse-space-2); font-size: var(--rse-font-size-caption); color: var(--rse-color-text-muted); }
+.sc-gen { display: grid; gap: var(--rse-space-4); }
+.sc-gen-row {
+  margin: 0; background: var(--rse-color-surface-card); border: 1px solid var(--rse-color-border-subtle); border-radius: var(--rse-radius-lg);
+  padding: var(--rse-space-4); display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); align-items: center; gap: var(--rse-space-4);
+}
+.sc-gen-hues { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--rse-space-3); }
+.sc-gen-art { display: flex; justify-content: center; }
+.sc-gen-art svg { width: 100%; height: auto; max-height: 6rem; }
+.sc-gen-row figcaption { font-size: var(--rse-font-size-caption); color: var(--rse-color-text-muted); }
+.sc-gen-row figcaption b { display: block; color: var(--rse-color-text-heading); font-size: var(--rse-font-size-body-sm); }
+@media (max-width: 639px) { .sc-gen-row { grid-template-columns: minmax(0, 1fr); } .sc-gen-hues { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 1119px) { .sc-motifs { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sc-patterns { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 639px) { .sc-motifs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 

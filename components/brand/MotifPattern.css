@@ -1,0 +1,123 @@
+/* MotifPattern — a field of impossible shapes that fills its container, optionally revealing on
+   scroll or breathing slowly (with a pause button).
+   Markup:  <div class="rse-motif-pattern rse-motion-managed" data-animate="ambient">
+              <div class="rse-motif-pattern__art" aria-hidden="true">
+                <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" …>
+                  <defs>…</defs>
+                  <g class="rse-motif-pattern__cells">
+                    <g class="rse-motif-pattern__cell" style="--d:0"><use href="#rse-motif-pattern-…"/></g> …
+              </div>
+              <button type="button" class="rse-motif-pattern__pause" aria-pressed="false"
+                      aria-label="Pausar animação">
+                <span class="rse-motif-pattern__icon rse-motif-pattern__icon--pause">…svg…</span>
+                <span class="rse-motif-pattern__icon rse-motif-pattern__icon--play">…svg…</span>
+              </button>
+            </div>
+   The pause button exists only with data-animate="ambient" (WCAG 2.2.2). motion.js binds it for static
+   pages; the React component does the same toggle itself.
+
+   Size: the root is display:block; width:100%; height:100%, so the HOST sizes it (a wrapper with a
+   height, or a className that sets one) and the SVG, drawn "slice", fills it edge to edge.
+
+   Custom properties are data, never look: --d is the cell's stagger step (distance from the
+   top-left corner, in cells). Cells are flat fills from the engine's ramps.
+
+   Reveal (data-animate="reveal"): progressive enhancement. Cells are visible by default. Only when
+   RSE.motion.reveal() has marked the pattern [data-reveal-ready], and until it scrolls into view
+   (.is-visible), are they hidden. Then each cell fades in and settles from a small offset, staggered
+   by --d. The offset is multiplied by --rse-motion-travel, so reduced is opacity only.
+
+   Ambient (data-animate="ambient"): every cell's opacity breathes between 1 and 0.8, staggered by --d.
+   (CSS cannot recolour the faces inside <use>, so the whole cell fades, never a flash.) One cycle is
+   twice --rse-duration-loop. Reduced: static, nothing runs. [data-paused] pauses it. */
+
+/* Travel is SVG user space (1 unit = 1px of the 1920 x 1080 default box), so it is geometry. */
+@keyframes rse-motif-reveal {
+  from { opacity: 0; transform: translate(calc(var(--rse-motion-travel) * 0px), calc(var(--rse-motion-travel) * 16px)); }
+  to { opacity: 1; transform: translate(calc(var(--rse-motion-travel) * 0px), calc(var(--rse-motion-travel) * 0px)); }
+}
+@keyframes rse-motif-ambient {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.rse-motif-pattern {
+  --d: 0;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.rse-motif-pattern__art { display: block; width: 100%; height: 100%; }
+.rse-motif-pattern__art svg { display: block; width: 100%; height: 100%; }
+.rse-motif-pattern__cell { --d: 0; }
+
+/* Reveal: hidden only while waiting, then a staggered fade + settle. `backwards` holds the first
+   frame during a cell's delay; after the run the cell rests at its own style (fully visible). The
+   delay is capped so a fine grid does not take long to arrive. */
+.rse-motif-pattern[data-animate="reveal"][data-reveal-ready]:not(.is-visible) .rse-motif-pattern__cell { opacity: 0; }
+.rse-motif-pattern[data-animate="reveal"].is-visible .rse-motif-pattern__cell {
+  animation-name: rse-motif-reveal;
+  animation-duration: var(--rse-duration-reveal);
+  animation-timing-function: var(--rse-ease-settle);
+  animation-delay: min(calc(var(--d) * var(--rse-duration-reveal) * 0.1), calc(var(--rse-duration-reveal) * 4));
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
+}
+
+/* Ambient: staggered by --d through the delay; the cycle is a literal product (scripts/check-motion). */
+.rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell {
+  animation-name: rse-motif-ambient;
+  animation-duration: calc(var(--rse-duration-loop) * 2);
+  animation-timing-function: var(--rse-ease-assemble);
+  animation-delay: min(calc(var(--d) * var(--rse-duration-loop) * 0.05), calc(var(--rse-duration-loop) * 2));
+  animation-iteration-count: infinite;
+}
+
+/* Reduced: ambient is static. (Reveal needs no override: its travel is already 0.) */
+[data-rse-motion="reduced"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: none; }
+/* A full section nested inside a reduced one is back to the full loop. */
+[data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: rse-motif-ambient; animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+/* A reduced section inside that is static again (three levels; deeper alternation is not tracked). */
+[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: none; }
+
+/* No attribute set: the OS preference decides, as in base-runtime.css. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-rse-motion]) .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: none; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: rse-motif-ambient; animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: none; }
+}
+
+/* Paused (the button, React or static): every cell holds where it is. */
+.rse-motif-pattern[data-paused] .rse-motif-pattern__cell { animation-play-state: paused; }
+
+/* The pause button: a solid chip in the bottom-right corner so it reads on any hue. */
+.rse-motif-pattern__pause {
+  position: absolute;
+  inset-block-end: var(--rse-space-3);
+  inset-inline-end: var(--rse-space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--rse-hit-target-min);
+  min-height: var(--rse-hit-target-min);
+  padding: 0;
+  border: 1px solid var(--rse-color-border-strong);
+  border-radius: var(--rse-radius-pill);
+  background: var(--rse-color-surface-card);
+  color: var(--rse-color-text-body);
+  box-shadow: var(--rse-shadow-sm);
+  cursor: pointer;
+  line-height: 0;
+}
+.rse-motif-pattern__pause:hover { background: var(--rse-color-surface-primary-tint); }
+.rse-motif-pattern__icon { display: inline-flex; }
+.rse-motif-pattern__icon--play { display: none; }
+.rse-motif-pattern__pause[aria-pressed="true"] .rse-motif-pattern__icon--pause { display: none; }
+.rse-motif-pattern__pause[aria-pressed="true"] .rse-motif-pattern__icon--play { display: inline-flex; }
+
+/* Print: a reveal-ready pattern that never scrolled into view would print as an empty field. */
+@media print {
+  .rse-motif-pattern[data-animate="reveal"][data-reveal-ready]:not(.is-visible) .rse-motif-pattern__cell { opacity: 1; transform: none; animation: none; }
+}

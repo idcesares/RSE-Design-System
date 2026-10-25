@@ -154,6 +154,17 @@ release never changes a page that did not ask for it. The kit also carries `star
 Themes work the same everywhere: `data-rse-theme="dark" | "contrast" | "auto"` on `<html>` or on any
 section; no attribute means light, and `"light"` brings it back inside a section that set another theme.
 
+Motion has its own setting, `data-rse-motion="full" | "reduced"`. A static page that uses it, or that
+places a `MotifPattern`, loads `motion.js` early in `<head>` (so a stored choice applies before first
+paint, with no flash) and calls `init()`:
+
+```html
+<script src="/rse/2.4.0/motion.js"></script>
+<script>RSE.motion.init();</script>
+```
+
+`motion.js` also carries the pattern's scroll reveal and its pause button.
+
 ## Recipe: anything that is not a browser
 
 This is the case the contract exists for. Read `brand.json`, use the assets, ignore the CSS

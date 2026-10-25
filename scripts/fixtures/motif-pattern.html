@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>MotifPattern fixture</title>
+<link rel="stylesheet" href="/tokens/tokens.css">
+<link rel="stylesheet" href="/tokens/base-runtime.css">
+<link rel="stylesheet" href="/components/brand/MotifPattern.css">
+<style>
+  body { margin: 16px; background: var(--rse-color-surface-page) }
+  section { margin-bottom: 16px }
+  .box { width: 480px; height: 270px }
+</style>
+</head>
+<body>
+<section id="full" data-rse-motion="full"></section>
+<section id="reduced" data-rse-motion="reduced"></section>
+<section id="nested" data-rse-motion="reduced"><div id="nested-full" data-rse-motion="full"></div></section>
+<section data-rse-motion="full"><div id="nested-reduced" data-rse-motion="reduced"></div></section>
+<section data-rse-motion="reduced"><div data-rse-motion="full"><div id="nested-rfr" data-rse-motion="reduced"></div></div></section>
+<section id="bare"></section>
+<script src="/assets/vendor/react.production.min.js"></script>
+<script src="/assets/vendor/react-dom.production.min.js"></script>
+<script src="/dist/rse.js"></script>
+<!-- ?motion loads motion.js as well (React + the delegated handler together). -->
+<script>if (/[?&]motion\b/.test(location.search)) document.write('<script src="/motion.js"><\/script>');</script>
+<script>
+  // mount('full', [{ shape: 'cube', animate: 'ambient' }, …]) renders the real component from dist/rse.js.
+  window.mount = function (id, list) {
+    var host = document.getElementById(id);
+    var root = ReactDOM.createRoot(host);
+    ReactDOM.flushSync(function () {
+      root.render(React.createElement(React.Fragment, null, list.map(function (props, i) {
+        return React.createElement('div', { key: i, className: 'box', style: props.__offset ? { marginTop: props.__offset + 'px' } : undefined },
+          React.createElement(RSE.MotifPattern, Object.assign({ 'data-case': String(i) }, props, { __offset: undefined })));
+      })));
+    });
+  };
+</script>
+</body>
+</html>

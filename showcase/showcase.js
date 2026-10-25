@@ -370,6 +370,25 @@
       h('div', { className: 'art', role: 'img', 'aria-label': `Padrão de cubos, família ${(HUE_PT[p.hue] || p.hue).toLowerCase()}`, style: { backgroundImage: `url(../${p.path})` } }),
       h('figcaption', null, `${HUE_PT[p.hue] || p.hue} · ${p.id}${p.id === 'cubes-pattern-4' ? ' — campo liso' : ''}`)))));
 
+  /* ── 01 Marca: motivo gerado (MotifEngine shape library) ─────────────────── */
+
+  const GENERATED_PT = {
+    cube: 'O cubo da gramática, em moldura de doze barras',
+    triangle: 'Triângulo de Penrose: três barras que se fecham sem poder',
+    stair: 'Escada sem fim: sobe dois lances e volta ao começo',
+    loop: 'Laço de cinco barras que sobe e nunca desce',
+    tower: 'Torre de Escher: a coluna de trás passa pela frente',
+    twin: 'Dois cubos gêmeos encaixados de um jeito impossível',
+  };
+  const GENERATED_HUES = ['purple', 'green', 'blue', 'pink', 'orange', 'yellow'];
+  mount('mount-motif-generated', h(F, null, DS.motifShapeNames.map((name) =>
+    h('figure', { className: 'sc-gen-row', key: name },
+      h('div', { className: 'sc-gen-hues' }, GENERATED_HUES.map((hue) =>
+        /* Engine output: flat polygons filled from the palette ramp, so injecting it is safe. */
+        h('span', { key: hue, className: 'sc-gen-art',
+          dangerouslySetInnerHTML: { __html: DS.motifToSvg(DS.motifShapes[name], { hue, size: 96 }) } }))),
+      h('figcaption', null, h('b', null, name), GENERATED_PT[name])))));
+
   /* ── 01 Marca: voz (from docs/brand-manual.md) ───────────────────────────── */
 
   const Voice = () => h(F, null,
@@ -463,6 +482,8 @@
 
   const Motion = () => {
     const [on, setOn] = React.useState(false);
+    const motion = window.RSE && window.RSE.motion;
+    const [reducedSetting, setReducedSetting] = React.useState(() => !!motion && motion.get() === 'reduced');
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     return h(F, null,
       h('h3', { className: 'sc-h3' }, 'Movimento'),
@@ -470,7 +491,8 @@
       ['fast', 'base', 'slow'].map((d) => h('div', { className: 'sc-motion-row', key: d },
         h('code', null, `${d} · ${D.tokens[`--rse-duration-${d}`].value}`),
         h('div', { className: `sc-motion-track${on ? ' is-on' : ''}` }, h('span', { className: 'sc-motion-dot', style: { transitionDuration: `var(--rse-duration-${d})` } })))),
-      h(DS.Button, { variant: 'secondary', size: 'sm', icon: icon(on ? 'refresh-cw' : 'play', 16), onClick: () => setOn(!on) }, on ? 'Voltar' : 'Reproduzir'));
+      h(DS.Button, { variant: 'secondary', size: 'sm', icon: icon(on ? 'refresh-cw' : 'play', 16), onClick: () => setOn(!on) }, on ? 'Voltar' : 'Reproduzir'),
+      motion && h(DS.Switch, { label: 'Reduzir animações', checked: reducedSetting, onChange: (e) => { setReducedSetting(e.target.checked); motion.set(e.target.checked ? 'reduced' : 'full'); } }));
   };
   mount('mount-motion', h(Motion));
 

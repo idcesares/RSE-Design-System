@@ -160,7 +160,7 @@ def build(eyebrow: str, headline: str, hue: str, out: Path) -> None:
 
   <rect width="{SIZE}" height="{SIZE}" fill="{background}"/>
 
-  <!-- One motif construction per composition, never recoloured. -->
+  <!-- One focal motif construction per composition; the hue may be restated in any palette family, the geometry is never redrawn. -->
   <image xlink:href="{motif_uri}" x="{SIZE - margin - motif_size:.0f}" y="{margin:.0f}" width="{motif_size:.0f}" height="{motif_size:.0f}" opacity="0.95"/>
 
   <!-- Simplificada wordmark, clearspace X on all sides. -->

@@ -2,7 +2,7 @@
 // Every Rede Sesc de Educação token resolved to a literal, per theme.
 //   import { light, dark, cssVar } from '@idcesares/rse-design-system/tokens';
 //   light['--rse-color-primary'] // '#6c62c4'
-export const version = "2.3.0";
+export const version = "2.4.0";
 export const light = {
   "--rse-brand-cream": "#f2f4e4",
   "--rse-brand-indigo": "#4c549e",
@@ -174,9 +174,13 @@ export const light = {
   "--rse-shadow-lg": "0 20px 48px rgba(43,42,61,0.14)",
   "--rse-ease-standard": "cubic-bezier(.4,0,.2,1)",
   "--rse-ease-out": "cubic-bezier(0,0,.2,1)",
+  "--rse-ease-assemble": "cubic-bezier(.65,0,.35,1)",
+  "--rse-ease-settle": "cubic-bezier(.22,1,.36,1)",
   "--rse-duration-fast": "150ms",
   "--rse-duration-base": "220ms",
-  "--rse-duration-slow": "360ms"
+  "--rse-duration-slow": "360ms",
+  "--rse-duration-reveal": "600ms",
+  "--rse-duration-loop": "2400ms"
 };
 export const dark = {
   "--rse-brand-cream": "#f2f4e4",
@@ -349,9 +353,13 @@ export const dark = {
   "--rse-shadow-lg": "0 20px 48px rgba(0,0,0,0.6)",
   "--rse-ease-standard": "cubic-bezier(.4,0,.2,1)",
   "--rse-ease-out": "cubic-bezier(0,0,.2,1)",
+  "--rse-ease-assemble": "cubic-bezier(.65,0,.35,1)",
+  "--rse-ease-settle": "cubic-bezier(.22,1,.36,1)",
   "--rse-duration-fast": "150ms",
   "--rse-duration-base": "220ms",
-  "--rse-duration-slow": "360ms"
+  "--rse-duration-slow": "360ms",
+  "--rse-duration-reveal": "600ms",
+  "--rse-duration-loop": "2400ms"
 };
 export const contrast = {
   "--rse-brand-cream": "#f2f4e4",
@@ -524,9 +532,13 @@ export const contrast = {
   "--rse-shadow-lg": "none",
   "--rse-ease-standard": "cubic-bezier(.4,0,.2,1)",
   "--rse-ease-out": "cubic-bezier(0,0,.2,1)",
+  "--rse-ease-assemble": "cubic-bezier(.65,0,.35,1)",
+  "--rse-ease-settle": "cubic-bezier(.22,1,.36,1)",
   "--rse-duration-fast": "150ms",
   "--rse-duration-base": "220ms",
-  "--rse-duration-slow": "360ms"
+  "--rse-duration-slow": "360ms",
+  "--rse-duration-reveal": "600ms",
+  "--rse-duration-loop": "2400ms"
 };
 export const modes = { light, dark, contrast };
 /** `var(--rse-…)` for a token name, for inline styles that must stay themeable. */

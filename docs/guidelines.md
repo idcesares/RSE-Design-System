@@ -48,21 +48,40 @@ stock or generated imagery; an honest placeholder is a brief for the photographe
 
 ## Motion
 
+UI state changes stay capped at 360 ms. Brand motion has its own tier.
+
 | Token | Duration | For |
 | --- | --- | --- |
 | `--rse-duration-fast` | 150 ms | press, focus, colour swaps |
 | `--rse-duration-base` | 220 ms | hover, open/close, accordions |
-| `--rse-duration-slow` | 360 ms | modals, page-level reveals — nothing slower |
+| `--rse-duration-slow` | 360 ms | modals, page-level reveals — nothing slower for state changes |
 
-- `--rse-ease-standard` for state changes, `--rse-ease-out` for anything entering. No spring, bounce
-  or overshoot: the brand reads institutional, not playful.
+**Brand motion**
+
+| Token | Duration | For |
+| --- | --- | --- |
+| `--rse-duration-reveal` | 600 ms | reveals: a motif or block arriving |
+| `--rse-duration-loop` | 2.4 s | loaders and ambient loops |
+
+- Four categories of motion: **state** (hover, press, focus, open/close), **reveal** (arrival),
+  **loading** (progress) and **ambient** (decorative loops). Motion carries meaning or it is removed.
+- `--rse-ease-standard` and `--rse-ease-out` for state changes; `--rse-ease-assemble` and
+  `--rse-ease-settle` for brand motion. No spring, bounce or overshoot: the brand reads
+  institutional, not playful.
+- Scroll-triggered reveals are allowed: opacity plus a small travel, played once. Autoplaying
+  ambient loops are allowed but need a pause control (WCAG 2.2.2). **Parallax stays banned.**
 - Hover moves to a darker shade of the same hue, never to another colour. Press scales to 0.97.
   Cards lift; they never change background.
-- Animate `transform`, `opacity`, `background-color` and `box-shadow` only — never layout.
-- No scroll-triggered motion, parallax or autoplaying decoration. Motion carries meaning (state,
-  progress, arrival) or it is removed.
-- `prefers-reduced-motion: reduce` is honoured globally in `tokens/base-runtime.css`; never add
-  motion inline in a way that escapes it.
+- Animate `transform`, `opacity`, `background-color` and `box-shadow` only — never layout. `fill`
+  and `stroke` may be animated on SVG artwork only.
+- Motion setting: `data-rse-motion="full" | "reduced"` on `<html>` or on any section; it nests like
+  `data-rse-theme`. The initial value is the stored choice (`RSE.motion`, key `rse-motion`), else
+  the OS `prefers-reduced-motion`, else `full`. Reduced keeps opacity and colour changes and drops
+  travel, spinning, looping and parallax (the one exception is `MotifLoader`, which keeps looping as a
+  slowed, opacity-only fade; ambient `MotifPattern` becomes static).
+- Components that implement both forms carry `.rse-motion-managed`. Everything else is flattened
+  in the reduced state by the safety net in `tokens/base-runtime.css`; never add unmanaged motion
+  inline in a way that escapes it.
 
 ## Theming
 

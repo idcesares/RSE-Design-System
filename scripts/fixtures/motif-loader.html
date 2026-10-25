@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>MotifLoader fixture</title>
+<link rel="stylesheet" href="/tokens/tokens.css">
+<link rel="stylesheet" href="/tokens/base-runtime.css">
+<link rel="stylesheet" href="/components/feedback/MotifLoader.css">
+<style>body { margin: 16px; background: var(--rse-color-surface-page) } section { padding: 24px; display: flex; gap: 32px; align-items: center }</style>
+</head>
+<body>
+<section id="full" data-rse-motion="full"></section>
+<section id="reduced" data-rse-motion="reduced"></section>
+<section data-rse-motion="reduced"><div id="nested-full" data-rse-motion="full"></div></section>
+<section data-rse-motion="full"><div id="nested-reduced" data-rse-motion="reduced"></div></section>
+<section data-rse-motion="reduced"><div data-rse-motion="full"><div id="nested-rfr" data-rse-motion="reduced"></div></div></section>
+<script src="/assets/vendor/react.production.min.js"></script>
+<script src="/assets/vendor/react-dom.production.min.js"></script>
+<script src="/dist/rse.js"></script>
+<script>
+  // mount('full', [{ shape: 'cube' }, …]) renders the real component from dist/rse.js.
+  window.mount = function (id, list) {
+    var host = document.getElementById(id);
+    var root = ReactDOM.createRoot(host);
+    ReactDOM.flushSync(function () {
+      root.render(React.createElement(React.Fragment, null, list.map(function (props, i) {
+        return React.createElement(RSE.MotifLoader, Object.assign({ key: i, 'data-case': String(i) }, props));
+      })));
+    });
+  };
+</script>
+</body>
+</html>

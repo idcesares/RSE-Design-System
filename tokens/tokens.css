@@ -233,11 +233,15 @@
 /* ── rse.ease ── */
 --rse-ease-standard:cubic-bezier(.4,0,.2,1);
 --rse-ease-out:cubic-bezier(0,0,.2,1);
+--rse-ease-assemble:cubic-bezier(.65,0,.35,1);
+--rse-ease-settle:cubic-bezier(.22,1,.36,1);
 
 /* ── rse.duration ── */
 --rse-duration-fast:150ms;
 --rse-duration-base:220ms;
 --rse-duration-slow:360ms;
+--rse-duration-reveal:600ms;
+--rse-duration-loop:2400ms;
 }
 
 [data-rse-theme="light"]{

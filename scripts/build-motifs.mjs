@@ -155,8 +155,9 @@ const toRgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
 const toHex = (rgb) => '#' + rgb.map((n) => Math.round(n).toString(16).padStart(2, '0')).join('');
 const mix = (a, b, t) => toRgb(a).map((v, i) => v + (toRgb(b)[i] - v) * t);
 
-/** N shades of \`hue\`, lightest first, walking light → base → dark. */
-function ramp(hue, steps) {
+/** N shades of \`hue\`, lightest first, walking light → base → dark. Null for an unknown hue. */
+export function motifRamp(hue, steps) {
+  if (!Object.prototype.hasOwnProperty.call(HUES, hue)) return null;
   const [light, base, dark] = HUES[hue];
   if (steps === 1) return [base];
   return Array.from({ length: steps }, (_, i) => {
@@ -173,7 +174,7 @@ export function BrandMotif({ variant = 'cube', size = 240, title, opacity = 1, h
   // fills pass through untouched.
   let recolour = null;
   if (hue && hue !== motif.hue && HUES[hue]) {
-    const target = ramp(hue, motif.shades.length);
+    const target = motifRamp(hue, motif.shades.length);
     recolour = Object.fromEntries(motif.shades.map((from, i) => [from, target[i]]));
   }
 
@@ -228,6 +229,9 @@ export const motifVariants: MotifVariant[];
 
 /** All palette families a construction can be restated in */
 export const motifHues: MotifHue[];
+
+/** N palette shades of a hue, lightest first; null for an unknown hue. */
+export function motifRamp(hue: MotifHue, steps: number): string[] | null;
 `;
 
 let stale = false;

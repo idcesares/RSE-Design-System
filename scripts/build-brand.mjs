@@ -189,6 +189,12 @@ const motifHues = new Map(
   [...read('components/brand/BrandMotif.jsx').matchAll(/'([a-z]+)':\s*\{[^}]*?hue:\s*'([a-z]+)'/g)].map((m) => [m[1], m[2]])
 );
 
+const motifShapeMatch = readFileSync(join(ROOT, 'components/brand/MotifEngine.jsx'), 'utf8').match(/motifShapeNames = Object\.freeze\(\[([^\]]+)\]/);
+const motifShapeNames = motifShapeMatch ? [...motifShapeMatch[1].matchAll(/'([a-z]+)'/g)].map((x) => x[1]) : [];
+if (!motifShapeNames.length) {
+  console.error('build-brand: could not read motifShapeNames from components/brand/MotifEngine.jsx');
+  process.exit(1);
+}
 const motifs = readdirSync(join(ROOT, 'assets/motifs'))
   .filter((f) => /^cube-.*\.svg$/.test(f))
   .sort()
@@ -267,8 +273,21 @@ const rules = {
     constructions: motifs.map((m) => m.id),
     huesAvailable: [...new Set(motifs.map((m) => m.hue).filter(Boolean))].sort(),
     perComposition: 1,
-    recolour: 'hue-prop-only',
-    recolourNote: 'Never edit the SVG fills. BrandMotif\'s hue prop restates a construction in any palette family, keeping each shade\'s luminance rank; purple, orange and yellow are derived, not supplied.',
+    perCompositionScope: 'focal construction; a pattern is a field and the loader is transient, so neither counts',
+    maxShare: 0.25,
+    opacityBehindContent: 0.3,
+    textOnFacesOrCells: false,
+    signature: {
+      list: [...motifs.map((m) => m.id), ...patterns.map((p) => p.id)],
+      rule: 'Render exactly as supplied. Never redraw, rotate, stretch or distort.',
+      derivedHues: ['purple', 'orange', 'yellow'],
+    },
+    generatedShapes: motifShapeNames,
+    loader: 'MotifLoader: transient loading feedback built from a generated shape; exempt from the one-focal rule.',
+    pattern: 'MotifPattern and assets/patterns/generated/: a flat colour field, not a construction. No gradients, glows or noise. A multi-hue pattern is allowed only as the artwork itself (hero field or standalone spectrum piece); page text and bands stay in one hue. Text never sits directly on pattern cells; use a solid panel.',
+    recolour: 'palette-families-only',
+    recolourNote: 'Any of the six palette families may be used; ramps come from the palette only, never sampled from artwork, and the remap keeps each shade\'s luminance rank so the shape reads as a solid. Never edit the SVG fills. Purple, orange and yellow signature artwork and all generated shapes are derived, not supplied by Sesc.',
+    generatedBy: 'Generated shapes and motion come only from the motif engine (MotifEngine, through MotifLoader and MotifPattern).',
     treatments: ['small', 'blown up', 'outline', 'tiled as a pattern'],
   },
   language: {
@@ -350,6 +369,7 @@ const brand = {
     'Pantone numbers are not published by the manual — it defers to Formula Guide comparison. Ask before committing to a spot-colour job.',
     'The Sab.IA platform URL is unknown; PlatformEntry links to # until Sesc supplies it.',
     'Sesc supplied the motif constructions in green, blue and pink only. BrandMotif\'s hue prop derives purple, orange and yellow from the published palette — present those three as derived, not supplied. Full-bleed patterns come in blue, green, orange and pink.',
+    'Generated shapes and motion (MotifEngine, MotifPattern, MotifLoader, assets/patterns/generated/) are system work, not supplied by Sesc, and have not been reviewed by Sesc\'s brand team.',
     'The manual covers brand, not layout. The grid, type scale, spacing, components, accessibility floor and dark mode are original system work.',
     'Icons are Lucide (ISC), not an official Sesc set.',
   ],

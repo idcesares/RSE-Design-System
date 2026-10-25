@@ -1,13 +1,14 @@
 {
   "name": "@idcesares/rse-design-system",
-  "version": "2.3.0",
-  "description": "Design system for the Rede Sesc de Educação — brand, tokens (DTCG), 40 React components, templates and guidance for sites, platforms, print and agents.",
+  "version": "2.4.0",
+  "description": "Design system for the Rede Sesc de Educação — brand, tokens (DTCG), 43 React components, templates and guidance for sites, platforms, print and agents.",
   "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
   "sideEffects": [
     "*.css",
     "image-slot.js",
+    "motion.js",
     "dist/rse.js"
   ],
   "files": [
@@ -31,18 +32,22 @@
     "templates",
     "starters",
     "image-slot.js",
+    "motion.js",
+    "motion.d.ts",
     "RULES.md",
     "LICENSE"
   ],
   "scripts": {
-    "check": "node scripts/check-ds.mjs && node scripts/build-tokens.mjs --check && node scripts/build-icons.mjs --check && node scripts/build-bundle.mjs --check && node scripts/build-css.mjs --check && node scripts/build-brand.mjs --check && node scripts/gen-docs.mjs --check && node scripts/build-showcase.mjs --check && node scripts/audit.mjs --strict && node scripts/check-composition.mjs && node scripts/test-composition.mjs",
-    "sync": "node scripts/build-tokens.mjs && node scripts/build-icons.mjs && node scripts/build-bundle.mjs && node scripts/build-css.mjs && node scripts/build-brand.mjs && node scripts/gen-docs.mjs && node scripts/build-showcase.mjs",
+    "check": "node scripts/check-ds.mjs && node scripts/check-motion.mjs && node scripts/check-motion.mjs --selftest && node scripts/check-motif-contrast.mjs && node scripts/check-motif-contrast.mjs --selftest && node scripts/build-tokens.mjs --check && node scripts/build-icons.mjs --check && node scripts/build-patterns.mjs --check && node scripts/build-bundle.mjs --check && node scripts/build-css.mjs --check && node scripts/build-brand.mjs --check && node scripts/gen-docs.mjs --check && node scripts/build-showcase.mjs --check && node scripts/audit.mjs --strict && node scripts/check-composition.mjs && node scripts/test-composition.mjs && node --test scripts/test-motion-unit.mjs && node --test scripts/test-motif-engine.mjs",
+    "sync": "node scripts/build-tokens.mjs && node scripts/build-icons.mjs && node scripts/build-patterns.mjs && node scripts/build-bundle.mjs && node scripts/build-css.mjs && node scripts/build-brand.mjs && node scripts/gen-docs.mjs && node scripts/build-showcase.mjs",
     "audit": "node scripts/audit.mjs",
     "icons": "node scripts/build-icons.mjs",
     "motifs": "node scripts/build-motifs.mjs",
+    "patterns": "node scripts/build-patterns.mjs",
     "docs": "node scripts/gen-docs.mjs",
     "pack": "node scripts/pack-static.mjs",
-    "test:pages": "node scripts/test-pages.mjs"
+    "test:pages": "node scripts/test-pages.mjs",
+    "test:motion": "node scripts/test-motion.mjs"
   },
   "engines": {
     "node": ">=18"
@@ -74,6 +79,10 @@
     "./brand.json": "./brand.json",
     "./bundle": "./dist/rse.js",
     "./image-slot": "./image-slot.js",
+    "./motion": {
+      "types": "./motion.d.ts",
+      "default": "./motion.js"
+    },
     "./assets/*": "./assets/*",
     "./RULES.md": "./RULES.md",
     "./package.json": "./package.json",

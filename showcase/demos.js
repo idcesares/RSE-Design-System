@@ -20,6 +20,7 @@ window.SC_DEMOS = (DS) => {
     Avatar: 'Foto ou iniciais de uma pessoa — depoimentos, equipe, área do estudante.',
     Badge: 'Selinho de estado com um ponto colorido: vagas abertas, encerrado, novo.',
     BrandMotif: 'O cubo impossível oficial, em suas seis construções. Obra da marca, não enfeite.',
+    MotifEngine: 'O motor que gera formas impossíveis com as regras do cubo, em qualquer das seis cores da paleta. Não desenha nada sozinho: é a base do carregador e dos padrões.',
     Breadcrumb: 'Trilha de onde a pessoa está em páginas profundas de unidade ou programa.',
     Button: 'A ação principal. Três variações e três tamanhos, sempre em formato de pílula.',
     Card: 'O cartão de programa ou unidade — imagem, categoria, título e descrição.',
@@ -44,7 +45,9 @@ window.SC_DEMOS = (DS) => {
     Radio: 'Escolha única dentro de um grupo: turno, categoria, forma de contato.',
     Select: 'Lista suspensa para escolher unidade, programa ou estado.',
     Skeleton: 'O esqueleto que ocupa o lugar do conteúdo enquanto ele carrega.',
+    MotifPattern: 'Um campo de formas impossíveis para preencher faixas e fundos: parado, revelado ao rolar ou respirando devagar, sempre com botão de pausa.',
     Spinner: 'Indicador de carregamento para ações sem duração previsível.',
+    MotifLoader: 'O carregamento de página e de seção: uma forma impossível se monta peça por peça.',
     StatBand: 'Uma faixa de números de impacto sobre uma cor só, lida como lista.',
     Stat: 'Um número de impacto com rótulo — o pilar do resultado, tornado visível.',
     Stepper: 'As etapas de um fluxo, mostrando onde a pessoa está e o que já concluiu.',
@@ -105,6 +108,14 @@ window.SC_DEMOS = (DS) => {
         h(DS.BrandMotif, { variant: 'interlock', size: 96 }),
         h(DS.BrandMotif, { variant: 'frame', size: 96 })
       ) },
+
+    MotifEngine: { render: () => {
+      /* The six generated shapes, one hue each. Our own engine output (flat polygons from the
+         palette ramp), so injecting it is safe. */
+      return h(F, null, DS.motifShapeNames.map((name, i) =>
+        h('span', { key: name, style: { display: 'inline-flex' },
+          dangerouslySetInnerHTML: { __html: DS.motifToSvg(DS.motifShapes[name], { hue: DS.motifHues[i % DS.motifHues.length], size: 64, title: name }) } })));
+    } },
 
     Breadcrumb: { block: true, render: () =>
       h(DS.Breadcrumb, { items: [
@@ -353,6 +364,25 @@ window.SC_DEMOS = (DS) => {
         h(DS.Skeleton, { variant: 'circle' }),
         h('div', { style: { flex: 1 } }, h(DS.Skeleton, { variant: 'text', lines: 3 }))
       ) },
+
+    MotifLoader: { render: () =>
+      h(F, null,
+        h(DS.MotifLoader, { shape: 'cube', hue: 'purple', size: 56 }),
+        h(DS.MotifLoader, { shape: 'triangle', hue: 'blue', size: 56, label: 'Carregando programas' }),
+        h(DS.MotifLoader, { shape: 'twin', hues: ['green', 'blue', 'pink'], size: 64, label: 'Carregando unidades' })
+      ) },
+
+    MotifPattern: { block: true, render: () => {
+      const cell = (caption, props) => h('figure', { style: { margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-2)' } },
+        h('div', { style: { height: '220px', borderRadius: 'var(--rse-radius-lg)', overflow: 'hidden', background: 'var(--rse-color-surface-card)' } },
+          h(DS.MotifPattern, props)),
+        h('figcaption', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)' } }, caption));
+      return h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 'var(--rse-space-5)' } },
+        cell('Parado: grade de cubos em roxo.', { shape: 'cube', hue: 'purple', width: 640, height: 440, cell: 72 }),
+        cell('Revela ao rolar: os triângulos aparecem em onda.', { shape: 'triangle', hue: 'blue', layout: 'brick', animate: 'reveal', width: 640, height: 440, cell: 84 }),
+        cell('Ambiente: respira devagar. O botão pausa.', { shape: 'twin', hue: 'green', layout: 'isometric', animate: 'ambient', width: 640, height: 440, cell: 96 }),
+        cell('Espectro: seis cores, só como arte.', { shape: ['cube', 'stair', 'loop'], hues: ['green', 'blue', 'pink', 'purple', 'orange', 'yellow'], sequence: 'diagonal', width: 640, height: 440, cell: 72 }));
+    } },
 
     Spinner: { render: () =>
       h(F, null,

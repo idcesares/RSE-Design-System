@@ -20,6 +20,8 @@ export { Testimonial } from './components/core/Testimonial.jsx';
 
 // Brand
 export { BrandMotif, motifVariants, motifHues } from './components/brand/BrandMotif.jsx';
+export { MotifEngine, isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, motifShapeNames, motifShapes, renderMotifPattern, MAX_PATTERN_CELLS } from './components/brand/MotifEngine.jsx';
+export { MotifPattern } from './components/brand/MotifPattern.jsx';
 export { PlatformEntry } from './components/brand/PlatformEntry.jsx';
 
 // Forms
@@ -44,6 +46,7 @@ export { Tabs } from './components/navigation/Tabs.jsx';
 
 // Feedback
 export { Alert } from './components/feedback/Alert.jsx';
+export { MotifLoader } from './components/feedback/MotifLoader.jsx';
 export { ProgressBar } from './components/feedback/ProgressBar.jsx';
 export { Skeleton } from './components/feedback/Skeleton.jsx';
 export { Spinner } from './components/feedback/Spinner.jsx';

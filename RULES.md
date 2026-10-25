@@ -39,8 +39,11 @@ reasoning and the brand manual extract live in the design system repository (`AG
 8. **The selo** has three versions (principal, secundária, simplificada below 150 px / 45 mm), a
    clearspace of X on every side, palette colours only, never rotated, distorted, outlined or locked
    up with the Sesc signature — it sits at a distance from it.
-9. **The motif** (*cubo impossível*) is artwork: never redraw or distort it; one construction per
-   composition; change its hue only through `BrandMotif`'s `hue` prop.
+9. **The motif** (*cubo impossível*): the six signature constructions render exactly as supplied
+   (never redraw, rotate, stretch or distort); generated shapes and motion come only from the motif
+   engine (`MotifLoader`, `MotifPattern`); any of the six palette families, ramps from the palette
+   only; one focal construction per composition (a pattern is a field, the loader is exempt); flat
+   colour fields only; purple, orange, yellow and all generated shapes are derived, not supplied.
 10. **Sab.IA is the platform, the Rede is the network.** Platform chrome is blue with ink text.
     Enrollment lives in the TOTVS portal, not in the platform.
 11. **Accessibility is part of done.** Contrast ≥ 4.5:1 text, ≥ 3:1 large text and control borders;

@@ -36,3 +36,11 @@ repeating any of these to a user.
 9. **Never re-sample colour from the artwork files.** The supplied vectors and
    `uploads/REDE_SESC_selo_COR.pdf` sit 1–3 points below the manual's published hex. The manual
    wins. This drift is what put the palette off-spec once already.
+10. **Generated shapes and motion are system work, not supplied by Sesc.** The six generated shapes
+    (cube frame, triangle, stair, loop, tower, twin), `MotifPattern`, `MotifLoader`, the baked
+    presets in `assets/patterns/generated/` and every animation are derived from the published
+    palette and the supplied constructions' logic. Sesc's brand team has not reviewed them. Say so
+    when it matters. Their hues are derived too, and the loader's contrast is measured on the base
+    shade of each hue only.
+11. **Spinner and Skeleton are unmanaged in reduced motion.** They do not yet carry
+    `rse-motion-managed` or implement the `data-rse-motion` contract. Follow-up: bring both under it.

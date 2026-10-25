@@ -68,6 +68,14 @@
       "out": {
         "$value": "cubic-bezier(0,0,.2,1)",
         "$type": "cubicBezier"
+      },
+      "assemble": {
+        "$value": "cubic-bezier(.65,0,.35,1)",
+        "$type": "cubicBezier"
+      },
+      "settle": {
+        "$value": "cubic-bezier(.22,1,.36,1)",
+        "$type": "cubicBezier"
       }
     },
     "duration": {
@@ -81,6 +89,14 @@
       },
       "slow": {
         "$value": "360ms",
+        "$type": "duration"
+      },
+      "reveal": {
+        "$value": "600ms",
+        "$type": "duration"
+      },
+      "loop": {
+        "$value": "2400ms",
         "$type": "duration"
       }
     }
