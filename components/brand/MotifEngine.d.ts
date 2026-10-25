@@ -138,11 +138,11 @@ export type MotifPatternAnimate = 'none' | 'reveal' | 'ambient';
 export interface MotifPatternOptions {
   /** Library shape, or a list the seed picks from per cell */
   shape: MotifShapeName | MotifShapeName[];
-  /** Width of the area to fill, px (the SVG's viewBox width) */
+  /** Width of the area to fill, px (the SVG's viewBox width); clamped to 1e9 */
   width: number;
-  /** Height of the area to fill, px */
+  /** Height of the area to fill, px; clamped to 1e9 */
   height: number;
-  /** Cell size, px (default 96); enlarged until the pattern fits MAX_PATTERN_CELLS */
+  /** Cell size, px (default 96, at most 1e9); enlarged until the pattern fits MAX_PATTERN_CELLS */
   cell?: number;
   /** Space taken from each cell, px (default 0) */
   gap?: number;
@@ -167,7 +167,7 @@ export interface MotifPatternOptions {
 /** The most cells a pattern draws, the bleed ring included (1500). */
 export const MAX_PATTERN_CELLS: number;
 
-/** One full-bleed, aria-hidden SVG (viewBox 0 0 width height, slice) of library shapes tiled per the options; '' for an unknown shape or hue. Deterministic, never throws. */
+/** One full-bleed, aria-hidden SVG (xmlns:xlink declared, each <use> with href and xlink:href; viewBox 0 0 width height, slice) of library shapes tiled per the options; '' for an unknown shape or hue. Deterministic, never throws. */
 export function renderMotifPattern(opts: MotifPatternOptions): string;
 
 /**

@@ -405,6 +405,8 @@ const motifShapes = Object.freeze({
 /** The most cells a pattern draws, bleed ring included; a larger request enlarges `cell`. */
 const MAX_PATTERN_CELLS = 1500;
 
+// width, height and cell are clamped to this: r2 (2-decimal rounding) overflows to Infinity near 1e306.
+const MAX_PATTERN_SIZE = 1e9;
 const PATTERN_LAYOUTS = ['grid', 'brick', 'isometric'];
 const PATTERN_SEQUENCES = ['row', 'diagonal', 'seeded'];
 const PATTERN_ANIMATE = ['reveal', 'ambient'];
@@ -493,8 +495,8 @@ function renderMotifPattern(opts = {}) {
   const hues = huesIn.length > 1 ? huesIn : [huesIn[0] ?? o.hue ?? 'purple'];
   const sequence = PATTERN_SEQUENCES.includes(o.sequence) ? o.sequence : 'row';
 
-  const width = r2(Math.max(0, toNumber(o.width, 0)));
-  const height = r2(Math.max(0, toNumber(o.height, 0)));
+  const width = r2(clamp(toNumber(o.width, 0), 0, MAX_PATTERN_SIZE));
+  const height = r2(clamp(toNumber(o.height, 0), 0, MAX_PATTERN_SIZE));
   const layout = PATTERN_LAYOUTS.includes(o.layout) ? o.layout : 'grid';
   const fill = clamp(toNumber(o.fill, 1), 0, 1);
   const seed = Math.trunc(toNumber(o.seed, 1)) >>> 0;
@@ -502,8 +504,8 @@ function renderMotifPattern(opts = {}) {
   const animate = PATTERN_ANIMATE.includes(o.animate) ? o.animate : null;
 
   // Too many cells: grow the cell (5% at a time, whole px) until the grid fits the cap.
-  let cell = Math.max(1, toNumber(o.cell, 96));
-  while (patternGrid(layout, cell, width, height).count > MAX_PATTERN_CELLS) cell = Math.max(cell + 1, Math.ceil(cell * 1.05));
+  let cell = clamp(toNumber(o.cell, 96), 1, MAX_PATTERN_SIZE);
+  while (patternGrid(layout, cell, width, height).count > MAX_PATTERN_CELLS) cell = Math.min(MAX_PATTERN_SIZE, Math.max(cell + 1, Math.ceil(cell * 1.05)));
   const gap = clamp(toNumber(o.gap, 0), 0, cell * 0.9);
   const { px, py, shift } = patternPitch(layout, cell);
 
@@ -546,12 +548,13 @@ function renderMotifPattern(opts = {}) {
       if (!defs.has(key)) defs.set(key, patternDef(name, hue, fit[name].bounds));
       // Stagger step: the cell centre's distance from the top-left corner, in cells.
       const d = Math.round(Math.hypot(Math.max(0, x), Math.max(0, y)) / cell);
-      cells.push(`<g class="rse-motif-pattern__cell" style="--d:${d}"><use href="#rse-motif-pattern-${key}" transform="translate(${x} ${y}) scale(${fit[name].scale})"/></g>`);
+      cells.push(`<g class="rse-motif-pattern__cell" style="--d:${d}"><use href="#rse-motif-pattern-${key}" xlink:href="#rse-motif-pattern-${key}" transform="translate(${x} ${y}) scale(${fit[name].scale})"/></g>`);
     }
   }
 
   const attrs = [
     'xmlns="http://www.w3.org/2000/svg"',
+    'xmlns:xlink="http://www.w3.org/1999/xlink"',
     `viewBox="0 0 ${width} ${height}"`,
     `width="${width}"`,
     `height="${height}"`,

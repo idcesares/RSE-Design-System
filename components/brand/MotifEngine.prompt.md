@@ -24,7 +24,9 @@ Exported functions (also grouped on the `MotifEngine` object):
   `gap` (0), `layout` (`grid`, `brick`, `isometric`), `fill` (0–1), `seed` (1), `hue` or `hues`
   with `sequence` (`row`, `diagonal`, `seeded`), `opacity` (1), `animate` (`none`, `reveal`,
   `ambient`). `''` for an unknown shape or hue; never throws. At most `MAX_PATTERN_CELLS` (1500)
-  cells: a smaller `cell` is enlarged until it fits.
+  cells: a smaller `cell` is enlarged until it fits. `width`, `height` and `cell` are clamped to
+  1e9. The `<svg>` declares `xmlns:xlink` and every `<use>` carries both `href` and `xlink:href`,
+  because older Safari, Inkscape 0.92, old librsvg and some print pipelines resolve only the latter.
 
 Generated shapes — **gerados pelo sistema, não fornecidos pelo Sesc**; the six official
 constructions stay in `BrandMotif`:
@@ -81,6 +83,10 @@ appears) and every cell is `<g class="rse-motif-pattern__cell" style="--d:N">` a
 `data-animate` on the `<svg>`: the motion itself is `MotifPattern`'s CSS. `grid` and `brick` fit
 each shape's box to `cell − gap`; `isometric` fits it to the hexagon of its tile, so a cube field
 locks together like tumbling blocks and other shapes never cover a neighbour.
+
+Duas malhas na mesma página compartilham os mesmos ids (`rse-motif-pattern-<forma>-<matiz>`) de
+propósito: o mesmo id é sempre o mesmo desenho. Por isso esses ids não devem ser reutilizados para
+outro conteúdo na página.
 
 In a static page, the same functions are on `window.RSE`:
 

@@ -427,9 +427,9 @@ test('server render without window does not throw', () => {
 });
 
 // ─── renderMotifPattern (components/brand/MotifEngine.jsx) ──────────────────
-// Cell markup: <g class="rse-motif-pattern__cell" style="--d:N"><use href="#rse-motif-pattern-<shape>-<hue>"
+// Cell markup: <g class="rse-motif-pattern__cell" style="--d:N"><use href="#rse-motif-pattern-<shape>-<hue>" xlink:href="#…"
 // transform="translate(x y) scale(s)"/></g>; geometry lives once per (shape, hue) in <defs>.
-const CELL_RE = /<g class="rse-motif-pattern__cell" style="--d:(\d+)"><use href="#rse-motif-pattern-([a-z]+)-([a-z]+)" transform="translate\((-?[\d.]+) (-?[\d.]+)\) scale\(([\d.]+)\)"\/><\/g>/g;
+const CELL_RE = /<g class="rse-motif-pattern__cell" style="--d:(\d+)"><use href="#rse-motif-pattern-([a-z]+)-([a-z]+)" xlink:href="#rse-motif-pattern-\2-\3" transform="translate\((-?[\d.]+) (-?[\d.]+)\) scale\(([\d.]+)\)"\/><\/g>/g;
 const patternCells = (svg) => [...svg.matchAll(CELL_RE)].map((m) => ({
   d: Number(m[1]), shape: m[2], hue: m[3], x: Number(m[4]), y: Number(m[5]), s: Number(m[6]),
 }));
@@ -453,8 +453,30 @@ test('same options give identical output', () => {
   const b = engine.renderMotifPattern({ ...opts });
   assert.ok(a.length > 0);
   assert.equal(a, b);
-  // Pinned: any change to the output for these options must be deliberate.
-  assert.equal(fnv1a(a), 'd30fd6ec');
+  // Pinned: any change to the output for these options must be deliberate. Re-pinned from
+  // d30fd6ec when xmlns:xlink and xlink:href were added (a regression guard, not a spec).
+  assert.equal(fnv1a(a), '077bb18a');
+});
+
+test('the pattern svg declares xlink and every use carries both href and xlink:href', () => {
+  const svg = engine.renderMotifPattern({ shape: 'cube', width: 400, height: 300, cell: 96, hue: 'blue' });
+  assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" xmlns:xlink="http:\/\/www\.w3\.org\/1999\/xlink"/);
+  const uses = svg.match(/<use [^>]*>/g) ?? [];
+  assert.ok(uses.length > 0);
+  for (const u of uses) {
+    const h = u.match(/ href="(#[^"]+)"/)?.[1];
+    assert.ok(h, u);
+    assert.ok(u.includes(` xlink:href="${h}"`), u);
+  }
+});
+
+test('absurd sizes never produce Infinity or NaN', () => {
+  for (const v of [1e306, 1e308, Number.MAX_VALUE, Infinity, '1e999']) {
+    const svg = engine.renderMotifPattern({ shape: 'cube', width: v, height: v, cell: v, gap: v });
+    assert.ok(!/Infinity|NaN/.test(svg), String(v));
+    const smallCell = engine.renderMotifPattern({ shape: 'cube', width: 1e306, height: 1e306, cell: 4 });
+    assert.ok(!/Infinity|NaN/.test(smallCell));
+  }
 });
 
 test('different seeds differ at fill 0.5', () => {
