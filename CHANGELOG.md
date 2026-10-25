@@ -1,5 +1,72 @@
 # Changelog
 
+## 2.4.0 — 2026-10-25 — a generative motif, brand motion and a motion setting
+
+No token, prop or class was renamed or removed, so this is a minor. One machine-readable value in
+`brand.json` changed (see **The machine-readable change**); it is documented, not a prop or token break.
+
+### What is new
+
+- **`MotifEngine`** — a small generator for the cube motif: `motifBar`, `motifCube`, `makeMotifShape`,
+  `motifFaces`, `motifPieces`, `motifToSvg`, `renderMotifPattern`, and `motifShapes` with six generated
+  shapes (`cube`, `triangle`, `stair`, `loop`, `tower`, `twin`). Every shape is built from the
+  palette's own ramps, so it recolours to any palette family and reads as a solid.
+- **`MotifLoader`** — transient loading feedback built from a generated shape. It is exempt from the
+  one-focal-construction rule.
+- **`MotifPattern`** — a flat colour field with an optional scroll reveal, an ambient loop and a
+  pause button. It is a field, not a construction.
+- **Seven baked presets** in `assets/patterns/generated/` (`cube-isometric-yellow`,
+  `loop-isometric-green`, `spectrum`, `stair-grid-blue`, `tower-grid-pink`,
+  `triangle-brick-purple`, `twin-brick-orange`), for pages that cannot run the engine.
+- **`data-rse-motion="full" | "reduced"`** on `<html>`, and `motion.js` (classic script, no
+  dependencies) to set and store it: stored value, else the OS preference, else `full`. The static
+  kit carries `motion.js`; `docs/integration.md` shows the early-in-`<head>` snippet.
+- **Tokens:** `--rse-duration-reveal`, `--rse-duration-loop`, `--rse-ease-assemble`,
+  `--rse-ease-settle` and `--rse-motion-travel` (the last lives in `base-runtime.css`, because
+  `build-tokens` models only the dark and contrast themes).
+- **Checks:** `scripts/check-motion.mjs` and `scripts/check-motif-contrast.mjs` run in
+  `npm run check`; `npm run test:motion` drives the setting, the pause button and the reveal in a
+  browser (Playwright, so it is not part of `check`, which has no browser dependency).
+- Components: 40 -> 43 (`MotifEngine`, `MotifLoader`, `MotifPattern`).
+
+### What changed
+
+Rule 10 and the motion rules were rewritten. Four rules moved:
+
+- The signature set is untouched, but generated shapes are now allowed, and animation is allowed when
+  it goes through the engine.
+- One **focal** construction per composition (it was "one construction"). A pattern is a field and the
+  loader is transient, so neither counts.
+- A multi-hue pattern is allowed only as artwork (a hero field or a standalone spectrum piece); page
+  text and bands stay in one hue, and text never sits directly on pattern cells.
+- Scroll reveals and ambient loops are allowed, with a pause control. Parallax stays banned. UI state
+  durations are still capped at 360 ms.
+
+The static kit (`npm run pack`) now also carries `motion.js` and `dist/components.css`; the latter was
+missing, so the kit's `styles.css` imported a file that was not there.
+
+### The machine-readable change
+
+In `brand.json`, `rules.motif.recolour` went from `hue-prop-only` to `palette-families-only`: any of
+the six palette families may be used, with ramps from the palette only. New keys under `rules.motif`:
+`perCompositionScope`, `maxShare`, `opacityBehindContent`, `textOnFacesOrCells`, `signature`,
+`generatedShapes`, `loader`, `pattern`, `generatedBy`. A consumer that read `recolour` as a closed enum
+should accept the new value.
+
+### Known limits
+
+- The generated shapes and the motion are system work, not reviewed by Sesc's brand team. The
+  signature artwork is untouched; everything generated is derived.
+- `Spinner` and `Skeleton` stay unmanaged in reduced motion and keep today's behaviour (the safety
+  net). Giving them a reduced form is a separate follow-up.
+- `twin` is dense at small sizes, and faint hairline seams can show between same-colour faces of
+  different pieces.
+- Loader contrast fails 3:1 for the hue and surface combinations listed in `MotifLoader.prompt.md`
+  (`npm run check` verifies the list in both directions). Put the loader on a surface that clears the
+  floor, or pick another hue.
+- The baked presets use `xlink:href` plus `href`, but were not verified in a non-browser rasteriser;
+  none was available.
+
 ## 2.3.0 — 2026-10-25 — a composition layer for decks, pitches, posters and cards
 
 No token, prop or class changed: this is a minor. Nothing existing was removed.

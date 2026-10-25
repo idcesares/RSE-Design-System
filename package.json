@@ -1,6 +1,6 @@
 {
   "name": "@idcesares/rse-design-system",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Design system for the Rede Sesc de Educação — brand, tokens (DTCG), 43 React components, templates and guidance for sites, platforms, print and agents.",
   "type": "module",
   "main": "index.js",
