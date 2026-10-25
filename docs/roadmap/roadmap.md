@@ -31,6 +31,23 @@ How phase 1 landed differently from the plan below, on purpose:
 - **No changesets.** The repo has zero dependencies and keeps it that way: the release workflow
   requires a `## <version>` section in `CHANGELOG.md` and a tag that matches `package.json`.
 
+### Composition layer (2.3.0) — artwork for any stack
+
+Decisions taken October 2026, recorded so a later change does not re-litigate them:
+
+- **The consumer may be an agent with only the repo URL.** The layer is therefore prose and data
+  (`DESIGN.md`, `docs/composition/`), with no install step and no stack assumed. Sizes are
+  fractions of the canvas short side so they convert to px, pt or mm.
+- **HTML first, export on demand.** The exemplars are built in HTML and rendered to PNG; PDF or
+  PPTX comes from an export step. The spec never depends on HTML.
+- **Editorial, type-led.** One aesthetic for every format; the formats differ in numbers, not in
+  taste.
+- **Breadth through layers, not templates.** Twelve modules and fourteen archetypes cover the
+  range; a new one must replace or absorb an existing one, or an exemplar must prove it is needed.
+- **Phase 2, only if asked for:** a generator that takes a content spec (archetype id, copy, image
+  slots) and renders HTML, PDF and PPTX. It reuses the archetype data as it is; nothing here is
+  thrown away.
+
 Progress is tracked with numbers, not adjectives:
 
 ```bash

@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.3.0 — 2026-10-25 — a composition layer for decks, pitches, posters and cards
+
+No token, prop or class changed: this is a minor. Nothing existing was removed.
+
+An agent that is given only this repository's URL, and picks its own stack (HTML, PPTX, SVG, Figma,
+a print pipeline), can now make non-web artwork that looks like the Rede.
+
+- **`DESIGN.md`** at the root: the entry point for deck, pitch, report, poster, social and one-pager
+  work. A ten-line brief, the hard rules, a route by intent, the font fallback, the figures rule
+  and what to say when asked for something the brand forbids. No install step.
+- **`docs/composition/`**: `principles.md` (the editorial grammar), `modules.md` (12 reusable parts),
+  `archetypes.md` (14 layouts grouped by their job in the story), `formats.json` (7 canvases with
+  type, margin and safe area as fractions of the short side, so any unit converts) and `rubric.md`
+  (twelve yes/no checks for an agent's own output).
+- **Exemplars** in `docs/composition/exemplars/`: a specimen sheet of every module and archetype, an
+  institutional deck, a pitch deck, an A3 poster and a 4:5 social card, each with a rendered image
+  and a written spec and rubric result for agents that cannot see images.
+- **`brand.json`** gains `formats` and `composition`.
+- **`npm run check`** now runs `scripts/check-composition.mjs`: format invariants (scale jump of at
+  least 3:1, text above the minimum, safe area inside the margin, twelve columns, a print bleed),
+  cross-references between the docs including anchors, and the exemplars' own limits (words,
+  headline length at h1 and at display size, type roles, one motif, no raw colour, no gradient, no
+  emoji, `exemplar.css` in step with `formats.json`). `scripts/test-composition.mjs` plants 22 defects
+  in a scratch copy and requires the validator to catch each one. `scripts/render-exemplars.mjs`
+  re-renders the images (author tool).
+- `templates/institutional-deck/` is now labelled a working starter; the exemplars are the quality
+  reference.
+
 ## 2.2.0 — 2026-10-19 — bands, hero, testimonial, and a system that fits a phone
 
 No token, prop or class was renamed or removed, so this is a minor. Three components changed their

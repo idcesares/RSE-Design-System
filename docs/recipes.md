@@ -87,7 +87,9 @@ Attributes are strings — that is why component props are kept to strings, arra
 
 ## A deck
 
-Copy `templates/institutional-deck/`. Slides are 1920×1080 stages handled by `deck-stage.js`;
+For any stack, and for the quality bar, start at [DESIGN.md](../DESIGN.md) and the exemplars in
+[docs/composition/exemplars/](composition/exemplars/institutional-deck.md). For a working HTML
+starter, copy `templates/institutional-deck/`. Slides are 1920×1080 stages handled by `deck-stage.js`;
 each `<section>` is one slide. Type scales up hard at that size — the deck uses explicit px sizes
 (40–120px) rather than the web type scale, which is the one sanctioned place to leave the `--rse-font-size-*`
 scale, because the tokens are tuned for screen reading distance.
@@ -97,7 +99,9 @@ and at most one stat band or image per slide.
 
 ## A poster or print piece
 
-Copy `starters/poster.html`. It sets an A3 page box, print CSS (`@page`), and the cream/purple
+For any stack, and for the quality bar, start at [DESIGN.md](../DESIGN.md) and the
+[A3 poster exemplar](composition/exemplars/poster-a3.md). For a blank HTML starter, copy
+`starters/poster.html`. It sets an A3 page box, print CSS (`@page`), and the cream/purple
 field structure. Print rules:
 
 - Flat colour fields only. The brand has no gradients or textures.

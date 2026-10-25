@@ -1,6 +1,6 @@
 {
   "name": "@idcesares/rse-design-system",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Design system for the Rede Sesc de Educação — brand, tokens (DTCG), 40 React components, templates and guidance for sites, platforms, print and agents.",
   "type": "module",
   "main": "index.js",
@@ -24,6 +24,9 @@
     "assets",
     "!assets/logos/source",
     "brand.json",
+    "DESIGN.md",
+    "docs/composition",
+    "!docs/composition/exemplars/src",
     "rse.manifest.json",
     "templates",
     "starters",
@@ -32,7 +35,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "check": "node scripts/check-ds.mjs && node scripts/build-tokens.mjs --check && node scripts/build-icons.mjs --check && node scripts/build-bundle.mjs --check && node scripts/build-css.mjs --check && node scripts/build-brand.mjs --check && node scripts/gen-docs.mjs --check && node scripts/build-showcase.mjs --check && node scripts/audit.mjs --strict",
+    "check": "node scripts/check-ds.mjs && node scripts/build-tokens.mjs --check && node scripts/build-icons.mjs --check && node scripts/build-bundle.mjs --check && node scripts/build-css.mjs --check && node scripts/build-brand.mjs --check && node scripts/gen-docs.mjs --check && node scripts/build-showcase.mjs --check && node scripts/audit.mjs --strict && node scripts/check-composition.mjs && node scripts/test-composition.mjs",
     "sync": "node scripts/build-tokens.mjs && node scripts/build-icons.mjs && node scripts/build-bundle.mjs && node scripts/build-css.mjs && node scripts/build-brand.mjs && node scripts/gen-docs.mjs && node scripts/build-showcase.mjs",
     "audit": "node scripts/audit.mjs",
     "icons": "node scripts/build-icons.mjs",
