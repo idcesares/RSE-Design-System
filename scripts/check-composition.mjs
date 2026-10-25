@@ -114,6 +114,61 @@ if (exists('docs/composition/rubric.md')) {
   if (ids.join() !== Array.from({ length: 12 }, (_, i) => i + 1).join()) err(`rubric.md: expected checks R1–R12 in order, found [${ids.join(', ')}]`);
 }
 
+// ─── modules and archetypes ────────────────────────────────────────────────
+const MODULE_IDS = ['headline', 'bignumber', 'quote', 'figure', 'list', 'comparison', 'table', 'chart', 'timeline', 'callout', 'folio', 'imageslot'];
+const GROUPS = ['Open', 'Argue', 'Prove', 'Compare', 'Show', 'Close'];
+
+// Split a doc into { id, body } blocks at every "## <prefix>-<id>" heading.
+function blocks(file, prefix) {
+  if (!exists(file)) return [];
+  const parts = read(file).split(/^(?=## )/m);
+  return parts
+    .map((p) => ({ m: p.match(new RegExp(`^## ${prefix}-([a-z0-9-]+)\\s*$`, 'm')), body: p }))
+    .filter((p) => p.m)
+    .map((p) => ({ id: p.m[1], body: p.body }));
+}
+const hasLine = (body, label) => new RegExp(`^${label}:\\s*\\S`, 'm').test(body);
+
+const modules = blocks('docs/composition/modules.md', 'M');
+const moduleIds = new Set(modules.map((m) => m.id));
+for (const id of MODULE_IDS) if (!moduleIds.has(id)) err(`modules.md: missing "## M-${id}"`);
+for (const m of modules) {
+  if (!MODULE_IDS.includes(m.id)) err(`modules.md: unknown module "M-${m.id}"`);
+  if (!hasLine(m.body, 'Variants')) err(`modules.md: M-${m.id} has no "Variants:" line`);
+  else {
+    const n = m.body.match(/^Variants:\s*(.+)$/m)[1].split(',').length;
+    if (n < 2 || n > 3) err(`modules.md: M-${m.id} lists ${n} variants; expected 2–3`);
+  }
+  if (!hasLine(m.body, 'Fails when')) err(`modules.md: M-${m.id} has no "Fails when:" line`);
+}
+// Review Focus 2: a chart may not have more series than the palette can tell apart.
+const chart = modules.find((m) => m.id === 'chart');
+if (chart) {
+  const cap = Number(chart.body.match(/^Maximum series:\s*(\d+)/m)?.[1]);
+  const hueFamilies = new Set(JSON.parse(read('brand.json')).palette.map((p) => p.family).filter((f) => !['cream', 'black'].includes(f)));
+  if (!cap) err('modules.md: M-chart has no "Maximum series: <n>" line');
+  else if (cap > hueFamilies.size) err(`modules.md: M-chart allows ${cap} series but the palette has only ${hueFamilies.size} hues`);
+  if (chart && !/Outros/.test(chart.body)) err('modules.md: M-chart must say what to do beyond the cap (group the rest as "Outros" or split the chart)');
+}
+
+const archetypes = blocks('docs/composition/archetypes.md', 'A');
+const archetypeIds = new Set(archetypes.map((a) => a.id));
+if (exists('docs/composition/archetypes.md')) {
+  const text = read('docs/composition/archetypes.md');
+  for (const g of GROUPS) if (!new RegExp(`^# ${g}\\s*$`, 'm').test(text)) err(`archetypes.md: missing group "# ${g}"`);
+  if (archetypes.length < 12 || archetypes.length > 16) err(`archetypes.md: ${archetypes.length} archetypes; expected 12–16`);
+  for (const a of archetypes) {
+    for (const label of ['Modules', 'Grid', 'Colour', 'Fails when']) {
+      if (!hasLine(a.body, label)) err(`archetypes.md: A-${a.id} has no "${label}:" line`);
+    }
+    const used = (a.body.match(/^Modules:\s*(.+)$/m)?.[1] ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+    for (const u of used) if (!moduleIds.has(u)) err(`archetypes.md: A-${a.id} uses unknown module "${u}"`);
+  }
+  // Each group must hold at least one archetype: groups are the "# " headings, archetypes follow them.
+  const byGroup = text.split(/^(?=# )/m).filter((s) => /^# (Open|Argue|Prove|Compare|Show|Close)\s*$/m.test(s.split('\n')[0]));
+  for (const s of byGroup) if (!/^## A-/m.test(s)) err(`archetypes.md: group "${s.split('\n')[0].slice(2)}" has no archetype`);
+}
+
 // ─── report ────────────────────────────────────────────────────────────────
 if (!quiet) console.log(`formats     ${formats.length}`);
 for (const e of errors) console.log(`ERROR  ${e}`);
