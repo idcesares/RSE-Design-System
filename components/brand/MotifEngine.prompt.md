@@ -9,7 +9,10 @@ Exported functions (also grouped on the `MotifEngine` object):
 - `isoPoint(p)` — lattice point `[x, y, z]` to screen point (z up, x at +30°, y at −30°).
 - `motifBar(axis, start, length, thickness?)` and `motifCube(at, size?)` — the two primitives.
 - `makeMotifShape(name, parts, crossings?)` — a shape; a crossing `{ over, under, overAt }` says
-  part `over` passes in front of `under` at its `overAt` end and behind at the other.
+  part `over` passes in front of `under` at its `overAt` end and behind at the other. Everything
+  else paints by plain geometry (what is behind paints first). A part may be `over` in one crossing
+  and `under` in another, so an impossible loop is declared the natural way, one crossing per joint
+  (A over B, B over C, C over A). Crossings beat geometry; the first declared wins a contradiction.
 - `motifFaces(shape)` — every visible face in paint order.
 - `motifPieces(shape, hue)` — faces grouped per piece and filled from the palette ramp; `null` for
   an unknown hue.
@@ -20,9 +23,9 @@ import { motifBar, motifCube, makeMotifShape, motifToSvg } from '@idcesares/rse-
 
 const shape = makeMotifShape('bridge', [
   motifBar('x', [0, 0, 0], 4),
-  motifBar('y', [2, -2, 0], 4),
+  motifBar('y', [2, -2, 1], 4),  // rests on the first bar, so geometry puts it in front…
   motifCube([0, 2, 0]),
-], [{ over: 0, under: 1, overAt: 'end' }]);
+], [{ over: 0, under: 1, overAt: 'end' }]);  // …and the crossing brings the first bar's end over it
 
 // Decorative (aria-hidden):
 const svg = motifToSvg(shape, { hue: 'orange', size: 160 });

@@ -21,7 +21,13 @@ export interface Part {
   size: Vec;
 }
 
-/** Part `over` passes in front of part `under` at its `overAt` end and behind it at the other. */
+/**
+ * Part `over` passes in front of part `under` at its `overAt` end and behind it at the other. The
+ * `over` part is split at its midpoint; the order is enforced only where the halves and `under`
+ * overlap on screen. A part may be `over` in one crossing and `under` in another, so a cyclic set
+ * (A over B, B over C, C over A) is fine. Crossings beat plain geometry; if crossings contradict
+ * each other, the one declared first wins.
+ */
 export interface Crossing {
   /** Index into the shape's parts of the part that is split and passes over */
   over: number;
@@ -47,7 +53,7 @@ export interface Face {
   points: [number, number][];
   /** Its orientation */
   role: Role;
-  /** Paint layer: 0, or 1 / -1 for the front / back half of a crossing's `over` part */
+  /** Paint position of the face's box (0 is painted first); faces of one box share it */
   layer: number;
   /** Index of the part it belongs to */
   piece: number;
@@ -92,10 +98,10 @@ export function motifBar(axis: Axis, start: Vec, length: number, thickness?: num
 /** A cube with its low corner at `at` (size default 1). */
 export function motifCube(at: Vec, size?: number): Part;
 
-/** A shape from parts and crossings. Throws on a crossing that names a missing part, a part too short to split, or a part that is both over and under. */
+/** A shape from parts and crossings. Throws on a crossing that names a missing or the same part, a part too short to split, or one pair crossed at both ends. */
 export function makeMotifShape(name: string, parts: Part[], crossings?: Crossing[]): Shape;
 
-/** Every visible face, in paint order (layer, then depth). */
+/** Every visible face, in paint order: a box behind another (or the back of a crossing) paints first. */
 export function motifFaces(shape: Shape): Face[];
 
 /** The shape's pieces in paint order, filled from the hue's ramp; null for an unknown hue. */

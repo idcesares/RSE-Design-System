@@ -152,8 +152,7 @@ function motifCube(at, size = 1) {
 
 /** A named shape: parts plus the crossings that make it impossible. Throws on a bad crossing. */
 function makeMotifShape(name, parts, crossings = []) {
-  const overAt = new Map();
-  const unders = new Set();
+  const seen = new Map();
   for (const c of crossings) {
     const ok = (i) => Number.isInteger(i) && i >= 0 && i < parts.length;
     if (!ok(c.over) || !ok(c.under) || c.over === c.under) {
@@ -166,44 +165,91 @@ function makeMotifShape(name, parts, crossings = []) {
     if (over.size[AXES.indexOf(over.axis)] < 2) {
       throw new Error(`motif engine: ${name}: part ${c.over} is too short to split for a crossing`);
     }
-    if (overAt.has(c.over) && overAt.get(c.over) !== c.overAt) {
-      throw new Error(`motif engine: ${name}: part ${c.over} is over at both ends`);
+    const pair = `${c.over}>${c.under}`;
+    if (seen.has(pair) && seen.get(pair) !== c.overAt) {
+      throw new Error(`motif engine: ${name}: part ${c.over} cannot be over part ${c.under} at both ends`);
     }
-    overAt.set(c.over, c.overAt);
-    unders.add(c.under);
-  }
-  for (const i of unders) {
-    if (overAt.has(i)) throw new Error(`motif engine: ${name}: part ${i} is both over and under`);
+    seen.set(pair, c.overAt);
   }
   return { name, parts: parts.map((p) => ({ ...p, at: [...p.at], size: [...p.size] })), crossings: crossings.map((c) => ({ ...c })) };
 }
 
-// Boxes to paint, one per part, or two for a part split by a crossing.
-// A split cuts the part at its midpoint (rounded down to the lattice). The half at `overAt` goes
-// to layer 1, in front of every unsplit part; the other half to layer -1, behind them. The start
-// half drops its cap at the cut, so the seam never shows. Sorted by layer, then depth (the sum of
-// the box centre's coordinates: larger is nearer the viewer), then part and half order.
+// A box's screen silhouette is a hexagon bounded by three functionals that are constant along the
+// view direction (1, 1, 1): x - z, y - z and x - y. Two silhouettes overlap (with area) exactly when
+// all three ranges overlap strictly.
+const motifSpans = (b) => {
+  const [x0, y0, z0] = b.at;
+  const [x1, y1, z1] = b.at.map((v, i) => v + b.size[i]);
+  return [[x0 - z1, x1 - z0], [y0 - z1, y1 - z0], [x0 - y1, x1 - y0]];
+};
+const motifOverlap = (p, q) => p.spans.every(([lo, hi], i) => lo < q.spans[i][1] && q.spans[i][0] < hi);
+// Seen from the +x+y+z side, p is behind q when they are separated on some axis with p on the low
+// side. For disjoint boxes whose silhouettes overlap, the axes never disagree.
+const motifBehind = (p, q) => [0, 1, 2].some((k) => p.at[k] + p.size[k] <= q.at[k]);
+
+// Boxes to paint, one per part, or two for a part that is `over` in a crossing: it is cut at its
+// midpoint (rounded down to the lattice) and the start half drops its cap at the cut, so the seam
+// never shows. Paint order is a topological sort of "paints before" edges between boxes whose
+// silhouettes overlap:
+// 1. crossing edges, in declaration order: back half -> under (each of its boxes) -> front half;
+// 2. geometry edges: the box behind -> the box in front, in (part, half) order.
+// An edge that would close a cycle is skipped, so crossing edges win over geometry and an earlier
+// crossing wins over a later one; that is how a cyclic declaration (A over B, B over C, C over A)
+// stays well defined. Among boxes free to paint, the lowest (part, half) goes first.
 const motifBoxes = (shape) => {
-  const overAt = new Map(shape.crossings.map((c) => [c.over, c.overAt]));
+  const split = new Set(shape.crossings.map((c) => c.over));
   const boxes = [];
   shape.parts.forEach((part, index) => {
-    if (!overAt.has(index)) {
-      boxes.push({ index, half: 0, axis: part.axis, at: part.at, size: part.size, layer: 0, skip: null });
+    if (!split.has(index)) {
+      boxes.push({ index, half: 0, axis: part.axis, at: part.at, size: part.size, skip: null });
       return;
     }
     const k = AXES.indexOf(part.axis);
     const cut = Math.floor(part.size[k] / 2);
-    const startSize = part.size.map((s, i) => (i === k ? cut : s));
-    const endSize = part.size.map((s, i) => (i === k ? s - cut : s));
-    const endAt = part.at.map((v, i) => (i === k ? v + cut : v));
-    const front = overAt.get(index);
     boxes.push(
-      { index, half: 0, axis: part.axis, at: part.at, size: startSize, layer: front === 'start' ? 1 : -1, skip: CAP_ROLE[part.axis] },
-      { index, half: 1, axis: part.axis, at: endAt, size: endSize, layer: front === 'end' ? 1 : -1, skip: null },
+      { index, half: 0, axis: part.axis, at: part.at, size: part.size.map((s, i) => (i === k ? cut : s)), skip: CAP_ROLE[part.axis] },
+      { index, half: 1, axis: part.axis, at: part.at.map((v, i) => (i === k ? v + cut : v)), size: part.size.map((s, i) => (i === k ? s - cut : s)), skip: null },
     );
   });
-  const depth = (b) => b.at.reduce((sum, v, i) => sum + v + b.size[i] / 2, 0);
-  return boxes.sort((a, b) => a.layer - b.layer || depth(a) - depth(b) || a.index - b.index || a.half - b.half);
+  boxes.forEach((b, i) => { b.id = i; b.spans = motifSpans(b); b.after = new Set(); });
+
+  const reaches = (from, to) => {
+    const stack = [from];
+    const seen = new Set();
+    while (stack.length) {
+      const b = stack.pop();
+      if (b === to) return true;
+      if (seen.has(b)) continue;
+      seen.add(b);
+      stack.push(...b.after);
+    }
+    return false;
+  };
+  const edge = (p, q) => {
+    if (p !== q && motifOverlap(p, q) && !reaches(q, p)) p.after.add(q);
+  };
+  for (const c of shape.crossings) {
+    const halves = boxes.filter((b) => b.index === c.over);
+    const front = halves[c.overAt === 'start' ? 0 : 1];
+    const back = halves[c.overAt === 'start' ? 1 : 0];
+    for (const u of boxes.filter((b) => b.index === c.under)) {
+      edge(back, u);
+      edge(u, front);
+    }
+  }
+  for (const p of boxes) for (const q of boxes) if (motifBehind(p, q)) edge(p, q);
+
+  const pending = new Map(boxes.map((b) => [b, 0]));
+  for (const b of boxes) for (const q of b.after) pending.set(q, pending.get(q) + 1);
+  const order = [];
+  while (order.length < boxes.length) {
+    const next = boxes.find((b) => pending.get(b) === 0);
+    pending.set(next, -1);
+    for (const q of next.after) pending.set(q, pending.get(q) - 1);
+    order.push(next);
+  }
+  order.forEach((b, rank) => { b.layer = rank; });
+  return order;
 };
 
 const boxFaces = (box) => {
@@ -218,7 +264,7 @@ const boxFaces = (box) => {
     .map((role) => ({ points: corners[role].map(isoPoint), role, layer: box.layer, piece: box.index }));
 };
 
-/** Every visible face, in paint order. `piece` is the index of the part the face belongs to. */
+/** Every visible face, in paint order. `piece` is its part's index, `layer` its box's paint position. */
 function motifFaces(shape) {
   return motifBoxes(shape).flatMap(boxFaces);
 }

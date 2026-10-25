@@ -56,11 +56,43 @@ test('BrandMotif output unchanged', () => {
 // ─── Engine core (components/brand/MotifEngine.jsx) ─────────────────────────
 const HUES6 = ['green', 'blue', 'pink', 'purple', 'orange', 'yellow'];
 const close = (a, b, eps = 0.011) => Math.abs(a - b) <= eps;
-// A small hand-built crossing: bar 0 (along x) and bar 1 (along y) overlap on screen.
+// A small hand-built crossing: bar 1 (along y) rests across the top of bar 0 (along x), so plain
+// geometry paints bar 1 in front of all of bar 0; a crossing must override that at one end.
 const crossShape = (crossings) => engine.makeMotifShape('test-cross', [
   engine.motifBar('x', [0, 0, 0], 4),
-  engine.motifBar('y', [2, -2, 0], 4),
+  engine.motifBar('y', [2, -2, 1], 4),
 ], crossings);
+// A Penrose-style triangle of bars: A along x, B along y from A's far end, C up from B's far end.
+// C's top projects onto A's start, which is the joint an impossible triangle inverts.
+const triangle = (crossings) => engine.makeMotifShape('test-triangle', [
+  engine.motifBar('x', [0, 0, 0], 5),
+  engine.motifBar('y', [4, 1, 0], 4),
+  engine.motifBar('z', [4, 4, 1], 3),
+], crossings);
+const insidePoly = ([px, py], poly) => {
+  let c = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i]; const [xj, yj] = poly[j];
+    if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) c = !c;
+  }
+  return c;
+};
+// Do two groups of faces cover a common screen point? Sampled on a fine grid, interiors only.
+const overlapOnScreen = (a, b) => {
+  const pts = [...a, ...b].flatMap((f) => f.points);
+  const [x0, x1] = [Math.min(...pts.map((p) => p[0])), Math.max(...pts.map((p) => p[0]))];
+  const [y0, y1] = [Math.min(...pts.map((p) => p[1])), Math.max(...pts.map((p) => p[1]))];
+  for (let x = x0 + 0.013; x < x1; x += 0.05) for (let y = y0 + 0.017; y < y1; y += 0.05) {
+    if (a.some((f) => insidePoly([x, y], f.points)) && b.some((f) => insidePoly([x, y], f.points))) return true;
+  }
+  return false;
+};
+// Faces grouped by box: a box is one (piece, layer) pair.
+const boxesOf = (faces) => {
+  const map = new Map();
+  for (const f of faces) map.set(`${f.piece}:${f.layer}`, [...(map.get(`${f.piece}:${f.layer}`) ?? []), f]);
+  return [...map.values()].map((fs) => ({ piece: fs[0].piece, layer: fs[0].layer, faces: fs }));
+};
 const centroid = (pts) => pts.reduce(([sx, sy], [x, y]) => [sx + x / pts.length, sy + y / pts.length], [0, 0]);
 
 test('isoPoint maps lattice axes to 90 and ±30 degrees', () => {
@@ -139,9 +171,10 @@ test('motifToSvg output shape: viewBox, size, pieces, a11y', () => {
 });
 
 test('a declared crossing flips layer order at one end only', () => {
-  // No crossing: one layer, and each part is a single piece.
-  const plain = engine.motifFaces(crossShape());
-  assert.deepEqual([...new Set(plain.map((f) => f.layer))], [0]);
+  // No crossing: each part is one box, and geometry paints bar 1 (on top) after bar 0.
+  const plain = boxesOf(engine.motifFaces(crossShape()));
+  assert.deepEqual(plain.map((b) => b.piece), [0, 1]);
+  assert.ok(plain[0].layer < plain[1].layer);
 
   for (const overAt of ['start', 'end']) {
     const faces = engine.motifFaces(crossShape([{ over: 0, under: 1, overAt }]));
@@ -174,6 +207,49 @@ test('makeMotifShape rejects bad crossings', () => {
   assert.throws(() => engine.makeMotifShape('t', parts, [{ over: 0, under: 5, overAt: 'end' }]));
   assert.throws(() => engine.makeMotifShape('t', parts, [{ over: 0, under: 1, overAt: 'middle' }]));
   assert.throws(() => engine.makeMotifShape('t', [engine.motifBar('x', [0, 0, 0], 1), parts[1]], [{ over: 0, under: 1, overAt: 'end' }]));
+  assert.throws(() => engine.makeMotifShape('t', parts, [{ over: 0, under: 1, overAt: 'end' }, { over: 0, under: 1, overAt: 'start' }]));
+});
+
+test('plain geometry paints a near part after the part behind it', () => {
+  // A cube directly in front of a long bar's start (+y side) must cover the bar, though the
+  // bar's centre is nearer the viewer than the cube's.
+  for (const parts of [
+    [engine.motifBar('x', [0, 0, 0], 8), engine.motifCube([0, 1, 0])],
+    [engine.motifBar('x', [0, 0, 0], 8), engine.motifBar('x', [0, 1, 0], 2)],
+    [engine.motifCube([0, 1, 0]), engine.motifBar('x', [0, 0, 0], 8)],
+  ]) {
+    const near = parts[0].at[1] === 1 ? 0 : 1;
+    const boxes = boxesOf(engine.motifFaces(engine.makeMotifShape('t', parts)));
+    assert.equal(boxes[1].piece, near, JSON.stringify(parts));
+  }
+});
+
+test('triangle joints paint by geometry when nothing is declared', () => {
+  // A -> B (B sits in front of A's far end), B -> C (C stands on B's far end), A -> C.
+  const boxes = boxesOf(engine.motifFaces(triangle()));
+  assert.deepEqual(boxes.map((b) => b.piece), [0, 1, 2]);
+});
+
+test('a cyclic crossing declaration builds and honours every crossing', () => {
+  const crossings = [{ over: 0, under: 1, overAt: 'end' }, { over: 1, under: 2, overAt: 'end' }, { over: 2, under: 0, overAt: 'end' }];
+  const shape = triangle(crossings);
+  const faces = engine.motifFaces(shape);
+  const boxes = boxesOf(faces);
+  assert.equal(boxes.length, 6, 'every part is split once');
+  for (const c of crossings) {
+    const axis = shape.parts[c.over].axis;
+    const ax = engine.isoPoint([axis === 'x' ? 1 : 0, axis === 'y' ? 1 : 0, axis === 'z' ? 1 : 0]);
+    const along = (b) => { const [cx, cy] = centroid(b.faces.flatMap((f) => f.points)); return cx * ax[0] + cy * ax[1]; };
+    const [startHalf, endHalf] = boxes.filter((b) => b.piece === c.over).sort((a, b) => along(a) - along(b));
+    const front = c.overAt === 'end' ? endHalf : startHalf;
+    const back = c.overAt === 'end' ? startHalf : endHalf;
+    let checked = 0;
+    for (const u of boxes.filter((b) => b.piece === c.under)) {
+      if (overlapOnScreen(front.faces, u.faces)) { assert.ok(u.layer < front.layer, `${JSON.stringify(c)}: front half over under`); checked++; }
+      if (overlapOnScreen(back.faces, u.faces)) { assert.ok(back.layer < u.layer, `${JSON.stringify(c)}: back half under under`); checked++; }
+    }
+    assert.ok(checked > 0, `${JSON.stringify(c)}: the crossing is visible somewhere`);
+  }
 });
 
 test('motifToSvg is deterministic', () => {
