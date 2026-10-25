@@ -283,6 +283,14 @@ try {
   check('in reduced, reveal cells never translate', rr.animated && [rr.t0, rr.t50, rr.t100].every((t) => t.every((c) => c.identity)), 'a cell moved');
   check('in reduced, reveal still fades (opacity only)', rr.t0.every((c) => c.o === 0) && rr.t50.every((c) => c.o > 0 && c.o < 1) && rr.t100.every((c) => c.o > 0.95), JSON.stringify(rr.t50.slice(0, 2)));
 
+  // Print: a reveal-ready pattern that never became visible still prints in full.
+  await page.evaluate(() => { document.querySelector('#full .rse-motif-pattern').setAttribute('data-reveal-ready', ''); document.querySelector('#full .rse-motif-pattern').classList.remove('is-visible'); });
+  const screenHidden = await page.evaluate(() => getComputedStyle(document.querySelector('#full .rse-motif-pattern__cell')).opacity);
+  await page.emulateMedia({ media: 'print' });
+  const printOp = await page.evaluate(() => { const c = document.querySelector('#full .rse-motif-pattern__cell'); const cs = getComputedStyle(c); return { o: cs.opacity, t: cs.transform }; });
+  await page.emulateMedia({ media: 'screen' });
+  check('reveal-ready cells are hidden on screen but print in full', screenHidden === '0' && printOp.o === '1' && (printOp.t === 'none' || new DOMMatrix(printOp.t).isIdentity), `screen ${screenHidden}, print ${JSON.stringify(printOp)}`);
+
   // Reveal through motion.js (React + RSE.motion.reveal): ready, then visible on entering the viewport, once.
   await page.goto(`${PATTERN}?motion`);
   await page.setViewportSize({ width: 800, height: 600 });

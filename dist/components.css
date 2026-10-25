@@ -121,6 +121,11 @@
 .rse-motif-pattern__pause[aria-pressed="true"] .rse-motif-pattern__icon--pause { display: none; }
 .rse-motif-pattern__pause[aria-pressed="true"] .rse-motif-pattern__icon--play { display: inline-flex; }
 
+/* Print: a reveal-ready pattern that never scrolled into view would print as an empty field. */
+@media print {
+  .rse-motif-pattern[data-animate="reveal"][data-reveal-ready]:not(.is-visible) .rse-motif-pattern__cell { opacity: 1; transform: none; animation: none; }
+}
+
 /* components/core/Badge.css */
 /* Badge — .rse-badge--<tone>. Words in the -text role, the dot in the indicator role. */
 .rse-badge{

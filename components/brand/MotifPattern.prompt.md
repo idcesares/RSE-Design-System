@@ -80,7 +80,7 @@ Link `styles.css` (it carries `MotifPattern.css`) and load `motion.js`. Render t
 <script>RSE.motion.init(); RSE.motion.reveal();</script>
 ```
 
-`motion.js` binds one delegated click handler for every `.rse-motif-pattern__pause` at load, so the button works with no further code. For `data-animate="reveal"`, call `RSE.motion.reveal()` once the markup is in the page (it takes an optional root). The root is not `aria-hidden` (the button lives in it); the art div is.
+`motion.js` binds one delegated click handler for every `.rse-motif-pattern__pause` at load, so the button works with no further code. For `data-animate="reveal"`, call `RSE.motion.reveal()` once the markup is in the page (it takes an optional root). The root is not `aria-hidden` (the button lives in it); the art div is. When printing, a reveal pattern that never scrolled into view is shown in full (a `@media print` override), so it never prints as an empty field.
 
 ## Contrast and use
 
