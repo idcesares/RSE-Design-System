@@ -83,11 +83,14 @@
 [data-rse-motion="reduced"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: none; }
 /* A full section nested inside a reduced one is back to the full loop. */
 [data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: rse-motif-ambient; animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+/* A reduced section inside that is static again (three levels; deeper alternation is not tracked). */
+[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: none; }
 
 /* No attribute set: the OS preference decides, as in base-runtime.css. */
 @media (prefers-reduced-motion: reduce) {
   :root:not([data-rse-motion]) .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: none; }
   :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: rse-motif-ambient; animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-pattern[data-animate="ambient"] .rse-motif-pattern__cell { animation-name: none; }
 }
 
 /* Paused (the button, React or static): every cell holds where it is. */
@@ -517,6 +520,12 @@
 [data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-loader--hues-2 polygon { animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
 [data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-loader--hues-3 polygon { animation-duration: calc(var(--rse-duration-loop) * 3); animation-iteration-count: infinite; }
 [data-rse-motion="reduced"] [data-rse-motion="full"] .rse-motif-loader--hues-4 polygon { animation-duration: calc(var(--rse-duration-loop) * 4); animation-iteration-count: infinite; }
+/* A reduced section inside that is reduced again (three levels; deeper alternation is not tracked). */
+[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader { --rse-motif-k: 2; }
+[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader__piece { animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader--hues-2 polygon { animation-duration: calc(var(--rse-duration-loop) * 4); animation-iteration-count: infinite; }
+[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader--hues-3 polygon { animation-duration: calc(var(--rse-duration-loop) * 6); animation-iteration-count: infinite; }
+[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader--hues-4 polygon { animation-duration: calc(var(--rse-duration-loop) * 8); animation-iteration-count: infinite; }
 
 /* No attribute set: the OS preference decides, as in base-runtime.css. */
 @media (prefers-reduced-motion: reduce) {
@@ -530,6 +539,11 @@
   :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-loader--hues-2 polygon { animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
   :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-loader--hues-3 polygon { animation-duration: calc(var(--rse-duration-loop) * 3); animation-iteration-count: infinite; }
   :root:not([data-rse-motion]) [data-rse-motion="full"] .rse-motif-loader--hues-4 polygon { animation-duration: calc(var(--rse-duration-loop) * 4); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader { --rse-motif-k: 2; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader__piece { animation-duration: calc(var(--rse-duration-loop) * 2); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader--hues-2 polygon { animation-duration: calc(var(--rse-duration-loop) * 4); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader--hues-3 polygon { animation-duration: calc(var(--rse-duration-loop) * 6); animation-iteration-count: infinite; }
+  :root:not([data-rse-motion]) [data-rse-motion="full"] [data-rse-motion="reduced"] .rse-motif-loader--hues-4 polygon { animation-duration: calc(var(--rse-duration-loop) * 8); animation-iteration-count: infinite; }
 }
 
 /* components/forms/Checkbox.css */

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR" data-rse-motion="full">
+<head>
+<meta charset="utf-8">
+<title>Motion nesting fixture, full page</title>
+<link rel="stylesheet" href="/tokens/base-runtime.css">
+<style>
+  @keyframes fx-slide { from { transform: translateX(0) } to { transform: translateX(100px) } }
+  @keyframes fx-travel { from { transform: translateX(0) } to { transform: translateX(calc(100px * var(--rse-motion-travel))) } }
+  .fx { width: 10px; height: 10px; animation: fx-slide 1s linear }
+  .fx-managed { animation-name: fx-travel }
+  html { scroll-behavior: smooth }
+</style>
+</head>
+<body>
+<div id="top-unmanaged" class="fx"></div>
+<div id="top-managed" class="fx fx-managed rse-motion-managed"></div>
+<section data-rse-motion="reduced">
+  <div id="fr-unmanaged" class="fx"></div>
+  <div id="fr-managed" class="fx fx-managed rse-motion-managed"></div>
+</section>
+</body>
+</html>

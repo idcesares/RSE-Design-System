@@ -11,6 +11,9 @@
 <body>
 <section id="full" data-rse-motion="full"></section>
 <section id="reduced" data-rse-motion="reduced"></section>
+<section data-rse-motion="reduced"><div id="nested-full" data-rse-motion="full"></div></section>
+<section data-rse-motion="full"><div id="nested-reduced" data-rse-motion="reduced"></div></section>
+<section data-rse-motion="reduced"><div data-rse-motion="full"><div id="nested-rfr" data-rse-motion="reduced"></div></div></section>
 <script src="/assets/vendor/react.production.min.js"></script>
 <script src="/assets/vendor/react-dom.production.min.js"></script>
 <script src="/dist/rse.js"></script>

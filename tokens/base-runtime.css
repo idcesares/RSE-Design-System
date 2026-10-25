@@ -31,11 +31,18 @@
 :root{--rse-motion-travel:1}
 [data-rse-motion="reduced"]{--rse-motion-travel:0}
 @media (prefers-reduced-motion:reduce){:root:not([data-rse-motion]){--rse-motion-travel:0}}
+/* After the reduced rules, so a full section nested in a reduced one travels again (inheritance
+   then gives nearest-ancestor behaviour). */
+[data-rse-motion="full"]{--rse-motion-travel:1}
 
-/* Safety net: unmanaged animation (Spinner, Skeleton, a host's own CSS) is flattened when
-   motion is reduced. Components marked .rse-motion-managed implement their own reduced form,
-   and a nested [data-rse-motion="full"] opts its subtree out. */
+/* Safety net: unmanaged animation (Spinner, Skeleton, a host's own CSS) is flattened under the
+   NEAREST [data-rse-motion] ancestor when that is "reduced" (or absent with the OS preference set).
+   Components marked .rse-motion-managed implement their own reduced form and are skipped. A full
+   section inside a reduced one opts its subtree back out, and a reduced section inside that
+   flattens again (three levels; deeper alternation is not tracked). A reduced section inside a
+   full page is flattened, because the full ancestor is further away than the reduced one. */
 [data-rse-motion="reduced"]{scroll-behavior:auto!important}
 @media (prefers-reduced-motion:reduce){:root:not([data-rse-motion]){scroll-behavior:auto!important}}
-[data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *),[data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *)::before,[data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *)::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+[data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="reduced"] [data-rse-motion="full"] *),[data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="reduced"] [data-rse-motion="full"] *)::before,[data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="reduced"] [data-rse-motion="full"] *)::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *),[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *)::before,[data-rse-motion="reduced"] [data-rse-motion="full"] [data-rse-motion="reduced"] :not(.rse-motion-managed):not(.rse-motion-managed *)::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 @media (prefers-reduced-motion:reduce){:root:not([data-rse-motion]) :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *),:root:not([data-rse-motion]) :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *)::before,:root:not([data-rse-motion]) :not(.rse-motion-managed):not(.rse-motion-managed *):not([data-rse-motion="full"] *)::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

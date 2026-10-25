@@ -64,6 +64,34 @@ try {
   check('managed element under reduced does not travel', Math.abs(r.reducedManaged) < 0.5, `translateX ${r.reducedManaged}`);
   check('root scroll-behavior is flattened under reduced', r.scroll === 'auto', `got "${r.scroll}"`);
 
+  // Nesting matrix: nearest [data-rse-motion] ancestor decides, for unmanaged and managed motion.
+  // Each fixture element runs a 100 px slide (managed: scaled by --rse-motion-travel), sampled at 500 ms of 1000.
+  const slideAt = async (pg, url, ids) => {
+    await pg.goto(`${origin}/scripts/fixtures/${url}`);
+    return pg.evaluate((ids) => {
+      for (const a of document.getAnimations()) { a.pause(); a.currentTime = 500; }
+      return Object.fromEntries(ids.map((id) => [id, new DOMMatrix(getComputedStyle(document.getElementById(id)).transform).m41]));
+    }, ids);
+  };
+  const expectSlides = (label, got, want) => {
+    for (const [id, moves] of Object.entries(want)) {
+      const ok = moves ? Math.abs(got[id] - 50) < 1 : Math.abs(got[id]) < 0.5;
+      check(`${label}: ${id} ${moves ? 'moves' : 'holds still'}`, ok, `translateX ${got[id]}`);
+    }
+  };
+  expectSlides('reduced page', await slideAt(page, 'motion-nesting.html', ['reduced-unmanaged', 'reduced-managed', 'full-unmanaged', 'full-managed', 'rfr-unmanaged', 'rfr-managed']),
+    { 'reduced-unmanaged': false, 'reduced-managed': false, 'full-unmanaged': true, 'full-managed': true, 'rfr-unmanaged': false, 'rfr-managed': false });
+  expectSlides('full page', await slideAt(page, 'motion-nesting-full.html', ['top-unmanaged', 'top-managed', 'fr-unmanaged', 'fr-managed']),
+    { 'top-unmanaged': true, 'top-managed': true, 'fr-unmanaged': false, 'fr-managed': false });
+  const osNest = await browser.newPage({ reducedMotion: 'reduce' });
+  expectSlides('no attribute, OS reduce', await slideAt(osNest, 'motion-nesting-bare.html', ['top-unmanaged', 'top-managed', 'full-unmanaged', 'full-managed', 'fr-unmanaged', 'fr-managed']),
+    { 'top-unmanaged': false, 'top-managed': false, 'full-unmanaged': true, 'full-managed': true, 'fr-unmanaged': false, 'fr-managed': false });
+  await osNest.close();
+  const noPref = await browser.newPage({ reducedMotion: 'no-preference' });
+  expectSlides('no attribute, no OS preference', await slideAt(noPref, 'motion-nesting-bare.html', ['top-unmanaged', 'top-managed', 'fr-unmanaged', 'fr-managed']),
+    { 'top-unmanaged': true, 'top-managed': true, 'fr-unmanaged': false, 'fr-managed': false });
+  await noPref.close();
+
   // ─── MotifLoader ──────────────────────────────────────────────────────────
   // Real component from dist/rse.js. Animations are paused and set to 0, 40% and 80% of a cycle.
   await page.goto(`${origin}/scripts/fixtures/motif-loader.html`);
@@ -118,6 +146,28 @@ try {
   const hf = probe['full/3'], hr = probe['reduced/3'];
   check('hues: fill is the first hue in cycle 1 and the second in cycle 2', hf.fill0 === rgb(hf.c0) && hf.fill1 === rgb(hf.c1) && hf.c0 !== hf.c1, `${hf.fill0} / ${hf.fill1} vs ${hf.c0} / ${hf.c1}`);
   check('hues: reduced steps through the hues on its own (doubled) cycle', hr.fill0 === rgb(hr.c0) && hr.fill1 === rgb(hr.c1), `${hr.fill0} / ${hr.fill1}`);
+
+  // Nested sections: the nearest [data-rse-motion] ancestor picks the form of a managed component.
+  await page.goto(`${origin}/scripts/fixtures/motif-loader.html`);
+  const loaderForm = await page.evaluate(() => {
+    const ids = ['full', 'reduced', 'nested-full', 'nested-reduced', 'nested-rfr'];
+    for (const id of ids) window.mount(id, [{ shape: 'cube' }]);
+    return Object.fromEntries(ids.map((id) => {
+      const loader = document.querySelector(`#${id} .rse-motif-loader`);
+      const anims = loader.getAnimations({ subtree: true }).filter((a) => a.animationName === 'rse-motif-build');
+      const cycle = anims[0].effect.getComputedTiming().duration;
+      for (const a of loader.getAnimations({ subtree: true })) { a.pause(); a.currentTime = 0; }
+      const moved = [...loader.querySelectorAll('.rse-motif-loader__piece')].some((p) => !new DOMMatrix(getComputedStyle(p).transform).isIdentity);
+      return [id, { cycle, moved, travel: getComputedStyle(loader).getPropertyValue('--rse-motion-travel').trim() }];
+    }));
+  });
+  const FULL_CYCLE = loaderForm.full.cycle;
+  for (const [id, wantFull] of [['nested-full', true], ['nested-reduced', false], ['nested-rfr', false]]) {
+    const f = loaderForm[id];
+    check(`loader in ${id}: ${wantFull ? 'full cycle, travels' : 'doubled cycle, no travel'}`,
+      wantFull ? f.cycle === FULL_CYCLE && f.moved && f.travel === '1' : f.cycle === 2 * FULL_CYCLE && !f.moved && f.travel === '0',
+      JSON.stringify(f));
+  }
 
   // ─── MotifPattern ─────────────────────────────────────────────────────────
   // React path (dist/rse.js, no motion.js), static-HTML path (motion.js, no React), and both together.
@@ -182,6 +232,11 @@ try {
   check('in reduced, ambient cells have no running animation', redAmb.cells > 5 && redAmb.running === 0 && redAmb.animations === 0, JSON.stringify(redAmb));
   check('in full, ambient cells do animate', fullAmb.running > 0, JSON.stringify(fullAmb));
   check('a full section nested in a reduced one animates again', nestedAmb.running > 0, JSON.stringify(nestedAmb));
+  await page.evaluate((a) => { window.mount('nested-reduced', [a]); window.mount('nested-rfr', [a]); }, AMBIENT);
+  const nestedRed = await cellStates('#nested-reduced .rse-motif-pattern');
+  const nestedRfr = await cellStates('#nested-rfr .rse-motif-pattern');
+  check('a reduced section nested in a full one has a static ambient pattern', nestedRed.cells > 5 && nestedRed.running === 0, JSON.stringify(nestedRed));
+  check('reduced inside full inside reduced has a static ambient pattern', nestedRfr.cells > 5 && nestedRfr.running === 0, JSON.stringify(nestedRfr));
   const osPage = await browser.newPage({ reducedMotion: 'reduce' });
   await osPage.goto(PATTERN);
   await osPage.evaluate((a) => window.mount('bare', [a]), AMBIENT);
@@ -213,9 +268,13 @@ try {
     return out;
   }, form);
   await page.goto(PATTERN);
-  await page.evaluate((r) => { window.mount('full', [r]); window.mount('reduced', [r]); }, REVEAL);
+  await page.evaluate((r) => { window.mount('full', [r]); window.mount('reduced', [r]); window.mount('nested-full', [r]); window.mount('nested-reduced', [r]); }, REVEAL);
   const rf = await revealProbe('full');
   const rr = await revealProbe('reduced');
+  const rnf = await revealProbe('nested-full');
+  const rnr = await revealProbe('nested-reduced');
+  check('reveal in a full section nested in reduced travels', rnf.t0.some((c) => !c.identity), JSON.stringify(rnf.t0.slice(0, 2)));
+  check('reveal in a reduced section nested in full never translates', [rnr.t0, rnr.t50, rnr.t100].every((t) => t.every((c) => c.identity)), 'a cell moved');
   check('reveal: cells are visible with no JS enhancement', rf.plain.every((o) => o === 1), `opacity ${rf.plain.slice(0, 3)}`);
   check('reveal: [data-reveal-ready] without .is-visible hides the cells', rf.hidden.every((o) => o === 0), `opacity ${rf.hidden.slice(0, 3)}`);
   check('reveal: full travels (non-identity at the start) and lands in place, opacity 0 to 1', rf.animated && rf.t0.some((c) => !c.identity) && rf.t0.every((c) => c.o === 0) && rf.t100.every((c) => Math.abs(c.dy) < 0.1 && c.o > 0.95) && rf.t50.every((c) => c.o > 0 && c.o < 1), JSON.stringify(rf.t0.slice(0, 2)));
