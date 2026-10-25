@@ -1,6 +1,8 @@
 /* Shared by the composition exemplars. Author tooling: the numbers mirror formats.json
    (slide-16x9) and every colour, font and spacing value is a --rse-* token. Elements are placed
-   with the same fractions the archetypes specify: style="--x:.05;--y:.45;--w:.5". */
+   with the same fractions the archetypes specify: style="--x:.05;--y:.45;--w:.5".
+   An exemplar page that reads var(--S), var(--W), var(--H) or var(--m) inline must also declare it in
+   its own <style>: check-ds accepts a custom property only when the same file defines it. */
 
 .slide {
   --W: 1920px; --H: 1080px;            /* canvas */
