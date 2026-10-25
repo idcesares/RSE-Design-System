@@ -62,7 +62,7 @@ Fails when: the figure is invented, there are more than three figures, or the la
 A chart that makes one point.
 Modules: headline, chart, folio
 Grid: headline stating the finding in columns 1–9 (y 0.08–0.25); chart in columns 1–10 (y 0.32–0.88); source line at *m* below.
-Colour: page; marks in the `-dark` tones in the order given by [M-chart](modules.md#m-chart).
+Colour: page; marks in `--rse-color-data-1…4` in the order given by [M-chart](modules.md#m-chart).
 Fails when: the headline names the chart rather than the finding, or the chart exceeds its series cap.
 
 ## A-testimonial

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="canvas" content="3200x3200">
+<title>Folha de amostras — Rede Sesc de Educação</title>
+<link rel="stylesheet" href="../../../../styles.css">
+<link rel="stylesheet" href="exemplar.css">
+<style>
+  html, body { margin: 0; background: var(--rse-color-surface-page); }
+  .sheet { position: relative; width: 3200px; height: 3200px; padding: 130px 160px; box-sizing: border-box; overflow: hidden; background: var(--rse-color-surface-page); font-family: var(--rse-font-family); }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; height: 340px; padding-bottom: 36px; box-sizing: border-box; }
+  .head h1 { margin: 0; font-size: 140px; font-weight: var(--rse-font-weight-extrabold); letter-spacing: var(--rse-letter-spacing-tight); line-height: 1; color: var(--rse-color-text-heading); }
+  .head .eyebrow { font-size: 30px; margin-bottom: 26px; white-space: nowrap; }
+  .head p { margin: 0; width: 760px; font-size: 30px; line-height: 1.5; color: var(--rse-color-text-body); }
+  .label { margin: 0; height: 60px; display: flex; align-items: flex-end; padding-bottom: 14px; font-size: 28px; font-weight: var(--rse-font-weight-bold); text-transform: uppercase; letter-spacing: var(--rse-letter-spacing-eyebrow); color: var(--rse-color-text-muted); border-bottom: 2px solid var(--rse-color-border-default); margin-bottom: 26px; }
+  .grid-a { display: grid; grid-template-columns: repeat(4, 640px); column-gap: 106px; row-gap: 30px; }
+  .grid-m { display: grid; grid-template-columns: repeat(6, 440px); column-gap: 48px; row-gap: 30px; }
+  .cell .cap { margin: 12px 0 0; font-size: 22px; font-weight: var(--rse-font-weight-bold); letter-spacing: var(--rse-letter-spacing-eyebrow); text-transform: uppercase; color: var(--rse-color-text-muted); height: 32px; }
+  .cell .cap b { color: var(--rse-color-text-heading); font-weight: var(--rse-font-weight-extrabold); }
+  .thumb { position: relative; width: 640px; height: 360px; overflow: hidden; border: 1px solid var(--rse-color-border-default); }
+  .thumb > .slide { transform: scale(.3333); transform-origin: 0 0; }
+  .tile { position: relative; width: 440px; height: 300px; overflow: hidden; border: 1px solid var(--rse-color-border-default); background: var(--rse-color-surface-card); }
+  .tile > .stage { display: flex; flex-direction: column; justify-content: center; position: absolute; left: 0; top: 0; width: 1320px; height: 900px; transform: scale(.3333); transform-origin: 0 0; padding: 90px; box-sizing: border-box; --S: 1080px; font-family: var(--rse-font-family); font-size: calc(var(--S) * .028); line-height: 1.45; color: var(--rse-color-text-body); }
+  .tile .stage * { box-sizing: border-box; }
+</style>
+</head>
+<body>
+<main class="sheet" data-sheet>
+  <header class="head">
+    <div>
+      <p class="eyebrow">Rede Sesc de Educação · Composição</p>
+      <h1>Doze módulos.<br>Catorze arranjos.</h1>
+    </div>
+    <p>O vocabulário de toda peça: texto grande, grade firme, muito espaço vazio e um cubo por composição. Cada arranjo é uma composição de módulos; o formato define a tela. Dados e imagens são de exemplo.</p>
+  </header>
+
+  <h2 class="label">Arranjos — o papel de cada tela na história</h2>
+  <div class="grid-a">
+
+    <!-- Open -->
+    <div class="cell"><div class="thumb"><div class="slide band" data-archetype="cover">
+      <img class="selo" src="../../../../assets/logos/wordmark-white.svg" alt="" style="left:var(--m);top:var(--m)">
+      <img class="motif" src="../../../../assets/motifs/cube-cube.svg" alt="" style="left:1230px;top:260px;width:1000px">
+      <div class="at" style="--x:.05;--y:.43;--w:.55"><p class="eyebrow">Rede Sesc de Educação</p><h2 class="display">Aprender para a vida acontecer</h2></div>
+    </div></div><p class="cap">Abrir · <b>cover</b></p></div>
+
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="section">
+      <div class="at" style="--x:.05;--y:.12;--w:.3"><div class="display accent">02</div></div>
+      <div class="at" style="--x:.05;--y:.55;--w:.7"><p class="eyebrow">Parte dois</p><h2 class="h1">Quem somos</h2></div>
+      <div class="folio"><span>Rede Sesc de Educação</span><span>02</span></div>
+    </div></div><p class="cap">Abrir · <b>section</b></p></div>
+
+    <!-- Argue -->
+    <div class="cell"><div class="thumb"><div class="slide hue-yellow" data-archetype="statement">
+      <div class="at" style="--x:.05;--y:.28;--w:.78"><h2 class="display">Educação que acolhe para desenvolver.</h2></div>
+      <div class="folio"><span>Rede Sesc de Educação</span><span>03</span></div>
+    </div></div><p class="cap">Argumentar · <b>statement</b></p></div>
+
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="pillars">
+      <div class="at" style="--x:.05;--y:.1;--w:.6"><p class="eyebrow">Posicionamento</p><h2 class="h1">Três pilares</h2></div>
+      <div class="at" style="--x:.05;--y:.42;--w:.9"><div class="cols c3">
+        <div class="col"><div class="h2 accent">01</div><h3 class="h2" style="margin:12px 0">Tradição</h3><p class="body">A credibilidade do Sesc aplicada à educação.</p></div>
+        <div class="col"><div class="h2 accent">02</div><h3 class="h2" style="margin:12px 0">Acolhimento</h3><p class="body">Cada pessoa é recebida como é.</p></div>
+        <div class="col"><div class="h2 accent">03</div><h3 class="h2" style="margin:12px 0">Resultado</h3><p class="body">Desenvolvimento que se vê na vida.</p></div>
+      </div></div>
+      <div class="folio"><span>Rede Sesc de Educação</span><span>04</span></div>
+    </div></div><p class="cap">Argumentar · <b>pillars</b></p></div>
+
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="process">
+      <div class="at" style="--x:.05;--y:.1;--w:.6"><p class="eyebrow">Como funciona</p><h2 class="h1">Quatro passos simples</h2></div>
+      <div class="axis" style="left:var(--m);right:var(--m);top:calc(.55 * 1080px)"></div>
+      <div class="mark now" style="left:calc(.05 * 1920px + 16px);top:calc(.55 * 1080px)"></div>
+      <div class="mark" style="left:calc(.31 * 1920px + 16px);top:calc(.55 * 1080px)"></div>
+      <div class="mark" style="left:calc(.56 * 1920px + 16px);top:calc(.55 * 1080px)"></div>
+      <div class="mark" style="left:calc(.81 * 1920px + 16px);top:calc(.55 * 1080px)"></div>
+      <div class="at" style="--x:.05;--y:.6;--w:.2"><div class="h2 accent">01</div><p class="body">Conhecer</p></div>
+      <div class="at" style="--x:.31;--y:.6;--w:.2"><div class="h2">02</div><p class="body">Escolher</p></div>
+      <div class="at" style="--x:.56;--y:.6;--w:.2"><div class="h2">03</div><p class="body">Matricular</p></div>
+      <div class="at" style="--x:.81;--y:.6;--w:.15"><div class="h2">04</div><p class="body">Começar</p></div>
+      <div class="folio"><span>Etapas ilustrativas</span><span>05</span></div>
+    </div></div><p class="cap">Argumentar · <b>process</b></p></div>
+
+    <!-- Prove -->
+    <div class="cell"><div class="thumb"><div class="slide hue-orange" data-archetype="proof-number">
+      <div class="at" style="--x:.05;--y:.2;--w:.6"><div class="num" style="font-size:calc(var(--S) * .42)">000</div></div>
+      <div class="at" style="--x:.05;--y:.72;--w:.5"><p class="h2">estudantes na rede</p><p class="caption" style="margin-top:12px">Número de exemplo — confirmar antes de publicar.</p></div>
+      <div class="at" style="--x:.62;--y:.1;--w:.33"><p class="eyebrow">Alcance</p></div>
+    </div></div><p class="cap">Provar · <b>proof-number</b></p></div>
+
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="evidence">
+      <div class="at" style="--x:.05;--y:.08;--w:.7"><p class="eyebrow">Dados de exemplo</p><h2 class="h1">A procura cresce ano a ano</h2></div>
+      <div class="chart" style="left:var(--m);width:calc(.7 * 1920px);top:calc(.4 * 1080px);height:calc(.4 * 1080px)">
+        <div class="bar" style="--v:.4"><b>00</b><i>0000</i></div>
+        <div class="bar" style="--v:.6"><b>00</b><i>0000</i></div>
+        <div class="bar" style="--v:.8"><b>00</b><i>0000</i></div>
+        <div class="bar" style="--v:1"><b>00</b><i>0000</i></div>
+      </div>
+      <div class="folio"><span>Fonte: dados de exemplo</span><span>07</span></div>
+    </div></div><p class="cap">Provar · <b>evidence</b></p></div>
+
+    <div class="cell"><div class="thumb"><div class="slide tint-pink" data-archetype="testimonial">
+      <div class="at" style="--x:.05;--y:.24;--w:.58"><h2 class="h1">“Frase de depoimento de exemplo, em até vinte e cinco palavras.”</h2><p class="caption" style="margin-top:36px">Nome Sobrenome · cargo · unidade (exemplo)</p></div>
+      <div class="slot" style="left:calc(.7 * 1920px);top:calc(.2 * 1080px);width:calc(.23 * 1920px);height:calc(.55 * 1080px);background:var(--rse-brand-white)"><span>retrato, luz natural, fundo neutro</span></div>
+    </div></div><p class="cap">Provar · <b>testimonial</b></p></div>
+
+    <!-- Compare -->
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="comparison">
+      <div class="at" style="--x:.05;--y:.08;--w:.7"><h2 class="h1">Duas formas de começar</h2></div>
+      <div class="at" style="--x:.05;--y:.32;--w:.42"><div class="col"><p class="eyebrow">Presencial</p><p class="h2">Na unidade</p><p class="body" style="margin-top:20px">Atributo A · Atributo B · Atributo C</p></div></div>
+      <div class="fill" style="left:calc(.5 * 1920px);top:calc(.28 * 1080px);width:calc(.5 * 1920px);height:calc(.72 * 1080px);background:var(--rse-color-tint-purple)"></div>
+      <div class="at" style="--x:.55;--y:.32;--w:.38"><div class="col" style="border-top-color:var(--rse-color-tint-purple-ink)"><p class="eyebrow" style="color:var(--rse-color-tint-purple-ink)">Digital</p><p class="h2" style="color:var(--rse-color-tint-purple-ink)">Na Sab.IA</p><p class="body" style="margin-top:20px;color:var(--rse-color-tint-purple-ink)">Atributo A · Atributo B · Atributo C</p></div></div>
+    </div></div><p class="cap">Comparar · <b>comparison</b></p></div>
+
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="data-table">
+      <div class="at" style="--x:.05;--y:.08;--w:.7"><p class="eyebrow">Para consulta</p><h2 class="h1">Turmas e períodos</h2></div>
+      <div class="at" style="--x:.05;--y:.34;--w:.9"><table class="tbl">
+        <thead><tr><th>Programa</th><th>Faixa</th><th>Período</th><th>Vagas</th></tr></thead>
+        <tbody>
+          <tr><td>Programa A</td><td>00–00 anos</td><td>Manhã</td><td>00</td></tr>
+          <tr><td>Programa B</td><td>00–00 anos</td><td>Tarde</td><td>00</td></tr>
+          <tr><td>Programa C</td><td>00–00 anos</td><td>Noite</td><td>00</td></tr>
+        </tbody></table></div>
+    </div></div><p class="cap">Comparar · <b>data-table</b></p></div>
+
+    <!-- Show -->
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="image-split">
+      <div class="at" style="--x:.05;--y:.3;--w:.38"><p class="eyebrow">Na prática</p><h2 class="h1">Uma sala que convida</h2><p class="body" style="margin-top:36px">Um parágrafo curto de apoio, em até quarenta palavras no total da tela.</p></div>
+      <div class="slot" style="left:calc(.5 * 1920px);top:0;width:calc(.5 * 1920px);height:1080px"><span>estudantes em sala, luz natural, estilo documental</span></div>
+    </div></div><p class="cap">Mostrar · <b>image-split</b></p></div>
+
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="journey">
+      <div class="at" style="--x:.05;--y:.08;--w:.7"><p class="eyebrow">Linha do tempo</p><h2 class="h1">Do início até agora</h2></div>
+      <div class="axis" style="left:var(--m);right:var(--m);top:calc(.58 * 1080px)"></div>
+      <div class="mark" style="left:calc(.12 * 1920px);top:calc(.58 * 1080px)"></div>
+      <div class="mark" style="left:calc(.3 * 1920px);top:calc(.58 * 1080px)"></div>
+      <div class="mark" style="left:calc(.5 * 1920px);top:calc(.58 * 1080px)"></div>
+      <div class="mark" style="left:calc(.7 * 1920px);top:calc(.58 * 1080px)"></div>
+      <div class="mark now" style="left:calc(.88 * 1920px);top:calc(.58 * 1080px)"></div>
+      <div class="at" style="--x:.07;--y:.38;--w:.12"><div class="h2">0000</div></div>
+      <div class="at" style="--x:.25;--y:.64;--w:.12"><div class="h2">0000</div></div>
+      <div class="at" style="--x:.45;--y:.38;--w:.12"><div class="h2">0000</div></div>
+      <div class="at" style="--x:.65;--y:.64;--w:.12"><div class="h2">0000</div></div>
+      <div class="at" style="--x:.83;--y:.38;--w:.12"><div class="h2 accent">Hoje</div></div>
+    </div></div><p class="cap">Mostrar · <b>journey</b></p></div>
+
+    <!-- Close -->
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="ask">
+      <div class="at" style="--x:.05;--y:.26;--w:.62"><h2 class="h1">Venha conhecer a unidade mais próxima</h2><p class="h2 accent" style="margin-top:36px">Matrículas até 00/00</p></div>
+      <div class="fill" style="left:0;right:0;bottom:0;height:calc(.2 * 1080px);background:var(--rse-brand-yellow-light)"></div>
+      <div class="at b" style="--x:.05;--y:.06;--w:.8"><p class="h2" style="color:var(--rse-brand-ink)">Fale com a unidade: endereço e telefone de exemplo</p></div>
+    </div></div><p class="cap">Fechar · <b>ask</b></p></div>
+
+    <div class="cell"><div class="thumb"><div class="slide" data-archetype="contact">
+      <div class="at" style="--x:.05;--y:.25;--w:.36"><p class="eyebrow">Contato</p><h2 class="h1">Fale com a Rede</h2></div>
+      <div class="at" style="--x:.5;--y:.25;--w:.43"><hr class="rule"><p class="h2" style="padding:22px 0">Unidade de exemplo</p><hr class="rule"><p class="h2" style="padding:22px 0">(00) 0000-0000</p><hr class="rule"><p class="h2" style="padding:22px 0">contato@exemplo.org.br</p><hr class="rule"></div>
+      <img class="selo" src="../../../../assets/logos/wordmark-purple.svg" alt="" style="left:var(--m);bottom:calc(var(--S) * .09)">
+    </div></div><p class="cap">Fechar · <b>contact</b></p></div>
+
+    <div class="cell" style="grid-column: span 2">
+      <p class="eyebrow" style="font-size:24px;margin:0 0 18px">Como ler a folha</p>
+      <p style="margin:0 0 14px;font-size:30px;line-height:1.45;color:var(--rse-color-text-heading);font-weight:var(--rse-font-weight-bold)">Cada miniatura é uma tela 16:9 real, reduzida a um terço.</p>
+      <p style="margin:0 0 14px;font-size:26px;line-height:1.5">Um cubo, uma faixa de cor e um título por tela. O resto é espaço.</p>
+      <p style="margin:0;font-size:26px;line-height:1.5">Números, datas, nomes e imagens são de exemplo e precisam ser trocados antes de qualquer uso público.</p>
+    </div>
+  </div>
+
+  <h2 class="label" style="margin-top:26px">Módulos — as partes de toda peça</h2>
+  <div class="grid-m">
+    <div class="cell"><div class="tile"><div class="stage"><p class="eyebrow">Eixo</p><h3 class="h1" style="margin:0;font-size:calc(var(--S) * .09);font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);line-height:1.04;color:var(--rse-color-text-heading)">Título que abre a tela</h3></div></div><p class="cap">M · <b>headline</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage"><div class="num" style="font-size:calc(var(--S) * .3);color:var(--rse-color-primary)">000</div><p class="body" style="font-size:calc(var(--S) * .04)">rótulo do número</p></div></div><p class="cap">M · <b>bignumber</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage"><p style="margin:0;font-size:calc(var(--S) * .06);font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);line-height:1.1;color:var(--rse-color-text-heading)">“Frase curta de depoimento de exemplo.”</p><p style="margin:36px 0 0;font-size:calc(var(--S) * .022);color:var(--rse-color-text-muted)">Nome · cargo · unidade (exemplo)</p></div></div><p class="cap">M · <b>quote</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage"><div style="height:560px;background:var(--rse-color-surface-sunken);display:flex;align-items:flex-end;padding:30px;font-size:calc(var(--S) * .022);font-weight:600;color:var(--rse-color-text-muted)">figura, com legenda abaixo</div><p class="caption" style="margin:16px 0 0;font-size:calc(var(--S) * .022);color:var(--rse-color-text-muted)">Legenda da figura.</p></div></div><p class="cap">M · <b>figure</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage" style="font-size:calc(var(--S) * .04)"><div style="border-top:2px solid var(--rse-color-border-default);padding:22px 0"><b style="color:var(--rse-color-primary);margin-right:24px">01</b>Primeiro item</div><div style="border-top:2px solid var(--rse-color-border-default);padding:22px 0"><b style="color:var(--rse-color-primary);margin-right:24px">02</b>Segundo item</div><div style="border-top:2px solid var(--rse-color-border-default);padding:22px 0"><b style="color:var(--rse-color-primary);margin-right:24px">03</b>Terceiro item</div></div></div><p class="cap">M · <b>list</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage" style="display:grid;grid-template-columns:1fr 1fr;gap:60px"><div style="border-top:2px solid var(--rse-color-border-default);padding-top:20px"><p class="eyebrow">Antes</p><p style="margin:0;font-size:calc(var(--S) * .055);font-weight:800;color:var(--rse-color-text-heading)">00</p></div><div style="border-top:6px solid var(--rse-color-primary);padding-top:20px"><p class="eyebrow">Depois</p><p style="margin:0;font-size:calc(var(--S) * .055);font-weight:800;color:var(--rse-color-primary)">00</p></div></div></div><p class="cap">M · <b>comparison</b></p></div>
+
+    <div class="cell"><div class="tile"><div class="stage" style="font-size:calc(var(--S) * .03)"><table class="tbl" style="--S:1080px"><thead><tr><th>Item</th><th>Valor</th></tr></thead><tbody><tr><td>Linha A</td><td>00</td></tr><tr><td>Linha B</td><td>00</td></tr><tr><td>Linha C</td><td>00</td></tr></tbody></table></div></div><p class="cap">M · <b>table</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage"><div class="chart" style="position:relative;height:560px;--S:1080px"><div class="bar" style="--v:.45"><b>00</b></div><div class="bar" style="--v:.7"><b>00</b></div><div class="bar" style="--v:1"><b>00</b></div></div><p class="caption" style="margin:24px 0 0;font-size:calc(var(--S) * .022);color:var(--rse-color-text-muted)">Fonte: dados de exemplo</p></div></div><p class="cap">M · <b>chart</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage"><div style="position:relative;margin-top:300px;border-top:4px solid var(--rse-color-text-body)"><span class="mark" style="left:8%;top:0;position:absolute;width:32px;height:32px;border-radius:999px;background:var(--rse-color-surface-page);border:4px solid var(--rse-color-text-body);transform:translate(-50%,-50%)"></span><span style="position:absolute;left:46%;top:0;width:32px;height:32px;border-radius:999px;background:var(--rse-color-surface-page);border:4px solid var(--rse-color-text-body);transform:translate(-50%,-50%)"></span><span style="position:absolute;left:92%;top:0;width:32px;height:32px;border-radius:999px;background:var(--rse-color-primary);transform:translate(-50%,-50%)"></span></div></div></div><p class="cap">M · <b>timeline</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage" style="background:var(--rse-brand-yellow-light);color:var(--rse-brand-ink);display:flex;align-items:center"><p style="margin:0;font-size:calc(var(--S) * .055);font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);line-height:1.1">Uma frase que interrompe a página.</p></div></div><p class="cap">M · <b>callout</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage" style="display:flex;align-items:flex-end;justify-content:space-between;font-size:calc(var(--S) * .022);font-weight:600;color:var(--rse-color-text-muted)"><img src="../../../../assets/logos/wordmark-purple.svg" alt="" style="height:90px;width:auto"><span>Seção · 00</span></div></div><p class="cap">M · <b>folio</b></p></div>
+    <div class="cell"><div class="tile"><div class="stage"><div style="height:620px;background:var(--rse-color-surface-sunken);display:flex;align-items:flex-end;padding:30px"><span style="background:var(--rse-color-surface-card);border-radius:8px;padding:12px 20px;font-size:calc(var(--S) * .022);font-weight:600;color:var(--rse-color-text-body)">estudantes em sala, luz natural</span></div></div></div><p class="cap">M · <b>imageslot</b></p></div>
+  </div>
+</main>
+</body>
+</html>

@@ -7,7 +7,7 @@
 // Exits 1 on any ERROR. The layer is stack-agnostic prose and data; this script keeps the data
 // internally consistent and the prose's cross-references alive. See docs/composition/.
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -167,6 +167,44 @@ if (exists('docs/composition/archetypes.md')) {
   // Each group must hold at least one archetype: groups are the "# " headings, archetypes follow them.
   const byGroup = text.split(/^(?=# )/m).filter((s) => /^# (Open|Argue|Prove|Compare|Show|Close)\s*$/m.test(s.split('\n')[0]));
   for (const s of byGroup) if (!/^## A-/m.test(s)) err(`archetypes.md: group "${s.split('\n')[0].slice(2)}" has no archetype`);
+}
+
+// ─── exemplars ─────────────────────────────────────────────────────────────
+// Each exemplar X is exemplars/src/X.html (the source), exemplars/X.png (the render) and
+// exemplars/X.md (why it works, the spec, the rubric result, the placeholders to replace).
+const EX = 'docs/composition/exemplars';
+const EX_SECTIONS = ['Why it works', 'Spec', 'Rubric', 'Placeholders'];
+const exemplarNames = exists(`${EX}/src`) ? readdirSync(join(ROOT, EX, 'src')).filter((f) => f.endsWith('.html')).map((f) => f.replace(/\.html$/, '')) : [];
+const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u;
+const RAW_HEX = /[:"'(,\s]#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?(?:[0-9a-fA-F]{2})?(?![\w-])/;
+
+for (const name of exemplarNames) {
+  const src = `${EX}/src/${name}.html`;
+  if (!exists(`${EX}/${name}.png`)) err(`${EX}/${name}.png missing — render it with node scripts/render-exemplars.mjs ${name}`);
+  if (!exists(`${EX}/${name}.md`)) { err(`${EX}/${name}.md missing`); }
+  else {
+    const doc = read(`${EX}/${name}.md`);
+    for (const h of EX_SECTIONS) if (!new RegExp(`^## ${h}\\s*$`, 'm').test(doc)) err(`${EX}/${name}.md: missing "## ${h}"`);
+    const rub = doc.match(/^## Rubric\s*$([\s\S]*?)(?=^## |(?![\s\S]))/m)?.[1] ?? '';
+    for (let i = 1; i <= 12; i++) {
+      const line = rub.split('\n').find((l) => new RegExp(`^-\\s*R${i}:`).test(l));
+      if (!line) { err(`${EX}/${name}.md: rubric has no line for R${i}`); continue; }
+      if (!/^-\s*R\d+:\s*(yes|no)\s*[—-]\s*\S/i.test(line)) err(`${EX}/${name}.md: R${i} must read "R${i}: yes — reason" or "no — reason"`);
+      if (/^-\s*R\d+:\s*no/i.test(line)) err(`${EX}/${name}.md: R${i} is "no" — fix the exemplar, do not document the failure`);
+    }
+    checkLinks(`${EX}/${name}.md`);
+  }
+  const html = read(src);
+  if (RAW_HEX.test(html)) err(`${src}: raw hex colour — use --rse-* tokens`);
+  if (/gradient\(/i.test(html)) err(`${src}: gradient — the brand is flat colour`);
+  if (EMOJI.test(html)) err(`${src}: emoji`);
+  if (!/<meta\s+name="canvas"\s+content="\d+x\d+"/.test(html)) err(`${src}: missing <meta name="canvas" content="WxH">`);
+}
+
+for (const f of exists(`${EX}/src`) ? readdirSync(join(ROOT, EX, 'src')).filter((n) => n.endsWith('.css')) : []) {
+  const css = read(`${EX}/src/${f}`);
+  if (RAW_HEX.test(css)) err(`${EX}/src/${f}: raw hex colour — use --rse-* tokens`);
+  if (/gradient\(/i.test(css)) err(`${EX}/src/${f}: gradient — the brand is flat colour`);
 }
 
 // ─── report ────────────────────────────────────────────────────────────────

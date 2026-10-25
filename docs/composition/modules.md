@@ -58,9 +58,9 @@ below the format's `minText`.
 
 ## M-chart
 A bar, line or dot chart with direct labels on the marks and no legend where it can be avoided.
-Marks use the `-dark` tones, which clear 3:1 against cream and white: `--rse-brand-indigo`, then
-`--rse-brand-orange-dark`, `--rse-brand-green-dark`, `--rse-brand-pink-dark`. Colour never carries
-meaning alone. Bars start at zero. Gridlines are hairlines; there are no 3D effects, shadows or
+Marks use the system's data series tokens in order, `--rse-color-data-1` to `--rse-color-data-4`
+(purple-dark, blue-dark, green-dark, yellow-ink), which clear 3:1 against cream and white. Colour
+never carries meaning alone. Bars start at zero. Gridlines are hairlines; there are no 3D effects, shadows or
 gradients. Every chart has a one-line takeaway as its headline and a source line.
 Variants: bar, line, dot
 Maximum series: 4
