@@ -303,6 +303,7 @@ npm run check    # integrity, generated-file freshness, contrast gate, debt ratc
 npm run sync     # after editing tokens, components, icons or motifs — regenerates everything
 npm run audit    # quality scorecard: contrast of rendered pairs, component/page debt, doc drift
 npm run audit -- --update-baseline   # after lowering a debt count, lock it in (same PR)
+npm run test:motion   # browser test of the motion contract (Playwright, not a dependency)
 npm run icons    # rebuild Icon.jsx after vendoring a new Lucide SVG
 npm run motifs   # rebuild BrandMotif.jsx from assets/motifs/cubes-official.svg
 npm run pack     # build the static kit dist/static/rse-<version>/ (CMS and offline use)
