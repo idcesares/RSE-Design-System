@@ -55,4 +55,4 @@ Evite: orange sobre card
 Evite: yellow sobre page
 Evite: yellow sobre card
 
-(`page` is the cream page, `card` the white card, `ink` the `--rse-brand-ink` band, `dark-page` the dark theme page.) Every hue clears 3:1 on `ink` and on `dark-page`, so on those surfaces any hue works. On the cream page and the white card, use `purple` on card, or put the loader on an ink band.
+(`page` is the cream page, `card` the white card, `ink` the `--rse-brand-ink` band, `dark-page` the dark theme page.) Contrast is measured on each hue's base shade, and the base shade of every hue clears 3:1 on `ink` and on `dark-page`. The darker facets can fall below it: of the six hues only purple's darkest face does, on `ink` (about 2.8:1, against 3.4:1 on `dark-page`; every darkest face of the other five hues is 3.4:1 or better on both surfaces). On `ink`, prefer green, blue, pink, orange or yellow when the shape must stand out. On the cream page and the white card, use `purple` on card, or put the loader on an ink band.
