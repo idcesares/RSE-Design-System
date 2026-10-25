@@ -139,8 +139,31 @@ Sab.IA login screen's signature: a cube field on one side, content on a calm sur
 | `cubes-pattern-3.svg` | orange |
 | `cubes-pattern-4.svg` | red |
 
+**Generated presets** — when none of the four official fields fits, `assets/patterns/generated/`
+has seven baked 1920 x 1080 SVGs from the motif engine, in single hues (`triangle-brick-purple`,
+`stair-grid-blue`, `loop-isometric-green`, `tower-grid-pink`, `twin-brick-orange`,
+`cube-isometric-yellow`) and one multi-hue `spectrum`. They are system work, not supplied by Sesc;
+the README in that folder lists their parameters. Use them exactly like the official fields:
+
+```css
+.faixa-matriculas{
+  background: var(--rse-color-surface-page) url('assets/patterns/generated/stair-grid-blue.svg') center / cover no-repeat;
+}
+```
+
+```html
+<!-- Faixa decorativa: a imagem é só enfeite, então alt vazio. -->
+<img src="assets/patterns/generated/cube-isometric-yellow.svg" alt="" width="1920" height="1080">
+```
+
+`spectrum.svg` is the one multi-hue file and it is artwork only: a hero field or a standalone
+piece, never a backdrop for a form or a page of copy, and the text and bands around it stay in one
+hue. To change a preset or add one, edit `scripts/lib/pattern-presets.mjs` and run
+`npm run patterns`; to tile a pattern at any size in the browser, use `MotifPattern`.
+
 Never put body text on top of a cube field — split the composition, or reserve the field for a
-column that carries no copy. One field per page, and never behind a form.
+column that carries no copy. Text goes on a solid panel, never directly on the pattern, generated
+or official. One field per page, and never behind a form.
 
 ## Linking to the Plataforma Sesc Sab.IA
 

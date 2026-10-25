@@ -1,7 +1,7 @@
 // Unit tests for the motif engine. Run: node --test scripts/test-motif-engine.mjs
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadMotifEngine } from './lib/load-motif-engine.mjs';
@@ -760,4 +760,55 @@ test('the reveal effect calls RSE.motion.reveal with the root when it exists, an
     for (const fx of engine.React.effects) fx();
     assert.deepEqual(seen, []);
   } finally { delete globalThis.window; }
+});
+
+// ─── Baked presets (scripts/build-patterns.mjs -> assets/patterns/generated/) ───
+const { PRESETS, presetFileName, presetSvgFile } = await import('./lib/pattern-presets.mjs');
+const GENERATED = join(HERE, '..', 'assets', 'patterns', 'generated');
+const PRESET_NAMES = ['triangle-brick-purple', 'stair-grid-blue', 'loop-isometric-green', 'tower-grid-pink', 'twin-brick-orange', 'cube-isometric-yellow', 'spectrum'];
+
+test('the preset list is exactly the seven agreed names, 1920x1080, static', () => {
+  assert.deepEqual(PRESETS.map((p) => p.name), PRESET_NAMES);
+  for (const p of PRESETS) {
+    assert.equal(p.options.width, 1920, p.name);
+    assert.equal(p.options.height, 1080, p.name);
+    assert.equal(p.options.animate, 'none', p.name);
+  }
+  assert.ok(PRESETS.filter((p) => p.options.fill < 1).length >= 2);
+});
+
+test('every preset file exists and matches a fresh render', () => {
+  for (const p of PRESETS) {
+    const file = join(GENERATED, presetFileName(p));
+    assert.ok(existsSync(file), `${p.name}: missing ${file}`);
+    const disk = readFileSync(file, 'utf8');
+    assert.equal(disk, presetSvgFile(engine, p), `${p.name} differs from a fresh render`);
+    assert.ok(disk.startsWith('<?xml version="1.0" encoding="UTF-8"?>\n<svg '), p.name);
+    assert.match(disk, /xmlns:xlink="http:\/\/www\.w3\.org\/1999\/xlink"/);
+    assert.match(disk, /aria-hidden="true"/);
+  }
+  const extra = readdirSync(GENERATED).filter((f) => f !== 'README.md' && !PRESETS.some((p) => presetFileName(p) === f));
+  assert.deepEqual(extra, []);
+});
+
+test('presets have no gradients, no url(, no filter and only ramp colours', () => {
+  const ramp = new Set(engine.motifHues.flatMap((h) => engine.motifRamp(h, 3)));
+  for (const p of PRESETS) {
+    const svg = readFileSync(join(GENERATED, presetFileName(p)), 'utf8');
+    assert.ok(!/gradient|url\(|filter|<image|<style|<script/i.test(svg), p.name);
+    const fills = [...svg.matchAll(/fill="([^"]+)"/g)].map((m) => m[1]);
+    assert.ok(fills.length > 0, p.name);
+    for (const f of fills) assert.ok(ramp.has(f), `${p.name}: ${f}`);
+  }
+});
+
+test('spectrum uses all six hues; single-hue presets use one', () => {
+  const fillsOf = (name) => new Set([...readFileSync(join(GENERATED, `${name}.svg`), 'utf8').matchAll(/fill="([^"]+)"/g)].map((m) => m[1]));
+  const familyOf = (f) => engine.motifHues.find((h) => engine.motifRamp(h, 3).includes(f));
+  const spectrum = new Set([...fillsOf('spectrum')].map(familyOf));
+  assert.deepEqual([...spectrum].sort(), [...engine.motifHues].sort());
+  assert.equal(engine.motifHues.length, 6);
+  for (const name of PRESET_NAMES.slice(0, 6)) {
+    assert.deepEqual([...new Set([...fillsOf(name)].map(familyOf))], [name.split('-').pop()], name);
+  }
 });
