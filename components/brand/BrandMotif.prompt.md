@@ -11,28 +11,31 @@ the geometric placeholder that shipped earlier.
 <BrandMotif variant="cube" hue="purple" size={240} />          // restated in another family
 ```
 
-| variant | supplied hue | what it is |
-| --- | --- | --- |
-| `cube` | green | the solid isometric cube — the base mark |
-| `interlock` | blue | two cubes passing through each other |
-| `bar` | green | a cube pierced by a bar that could not pass through it |
-| `frame` | pink | an open frame with two impossible voids |
-| `chain` | pink | a zig-zag chain of bars, the widest construction |
-| `hollow` | blue | a cube opened out around a hollow centre |
+| variant | default brand hue | supplied hue | what it is |
+| --- | --- | --- | --- |
+| `cube` | purple | green | the solid isometric cube — the base mark |
+| `interlock` | blue | blue | two cubes passing through each other |
+| `bar` | green | green | a cube pierced by a bar that could not pass through it |
+| `frame` | pink | pink | an open frame with two impossible voids |
+| `chain` | orange | pink | a zig-zag chain of bars, the widest construction |
+| `hollow` | yellow | blue | a cube opened out around a hollow centre |
 
-`hue` accepts `green`, `blue`, `pink`, `purple`, `orange`, `yellow`.
+`hue` accepts `green`, `blue`, `pink`, `purple`, `orange`, `yellow`, or `original`.
+Omit it for the distinct brand family assigned above. These six default treatments are derived
+palette remaps. `hue="original"` restores the exact supplied fills. The source SVG assets stay untouched.
+`motifDefaultHues` exports the assignments for consumers and the showcase.
 
 **Rules**
 
 - One focal construction per composition, in negative space (corner of a band, beside a section eyebrow),
   at 25% or less of the composition. Two competing motifs read as decoration and lose the meaning.
 - **The geometry belongs to the artwork; the hue is a choice.** A motif never re-maps per theme,
-  exactly like the logo. Left alone it renders the exact fills Sesc supplied. Sesc's sheet only
+  exactly like the logo. `hue="original"` renders the exact fills Sesc supplied. Sesc's sheet only
   covers green, blue and pink, so `hue` is how purple, orange and yellow are reached — ramps come
   from the manual's published palette, never from sampling the artwork, and the remap keeps each
   face's luminance rank so the solid still reads as a solid. Say "derived" when it matters: those
   three hues are ours, not supplied, and official artwork should replace them if it arrives.
-- The signature constructions render exactly as supplied: never redraw, rotate, stretch, distort or
+- The signature geometry stays exactly as supplied: never redraw, rotate, stretch, distort or
   animate one. Generated shapes and motion are not drawn here; they come only from the motif
   engine, through `MotifPattern` (fields) and `MotifLoader` (transient loading). A pattern is a
   field, not a construction, and the loader is exempt from the one-focal rule. Generated shapes are

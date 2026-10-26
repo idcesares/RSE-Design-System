@@ -1,54 +1,28 @@
 'use client';
 import React from 'react';
-export function Accordion({ items = [], allowMultiple = false, defaultOpen = [] }) {
+import { Icon } from '../core/Icon.jsx';
+const cx = (...c) => c.filter(Boolean).join(' ');
+export const Accordion = React.forwardRef(function Accordion({ items = [], allowMultiple = false, defaultOpen = [], className, ...rest }, ref) {
   const [open, setOpen] = React.useState(() => new Set(defaultOpen));
+  const id = 'rse-accordion-' + React.useId().replace(/:/g, '');
   const toggle = (i) => setOpen(prev => {
     const next = allowMultiple ? new Set(prev) : new Set();
     if (prev.has(i)) next.delete(i); else next.add(i);
     return next;
   });
-  return React.createElement('div', {
-    style: { display: 'flex', flexDirection: 'column', gap: 0, borderTop: '1px solid var(--rse-color-border-subtle)' }
-  }, items.map((item, i) => {
+  return React.createElement('div', { ref, className: cx('rse-accordion', className), ...rest }, items.map((item, i) => {
     const isOpen = open.has(i);
-    return React.createElement('div', { key: i, style: { borderBottom: '1px solid var(--rse-color-border-subtle)' } },
+    return React.createElement('div', { key: i, className: 'rse-accordion__item' },
       React.createElement('button', {
-        type: 'button',
-        'aria-expanded': isOpen,
-        onClick: () => toggle(i),
-        style: {
-          width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--rse-space-4)',
-          padding: 'var(--rse-space-5) 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
-          fontFamily: 'var(--rse-font-family)', fontSize: 'var(--rse-font-size-h4)',
-          fontWeight: 'var(--rse-font-weight-bold)', color: 'var(--rse-color-text-heading)'
-        }
-      },
-        React.createElement('span', null, item.title),
-        React.createElement('span', {
-          'aria-hidden': 'true',
-          style: {
-            flex: 'none', width: 28, height: 28, borderRadius: 'var(--rse-radius-pill)', display: 'inline-flex',
-            alignItems: 'center', justifyContent: 'center',
-            background: isOpen ? 'var(--rse-color-primary)' : 'var(--rse-color-surface-primary-tint)',
-            color: isOpen ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-primary)',
-            transition: 'background var(--rse-duration-base) var(--rse-ease-standard), transform var(--rse-duration-base) var(--rse-ease-standard)',
-            transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)', fontSize: 20, lineHeight: 1, fontWeight: 400
-          }
-        }, '+')
-      ),
+        type: 'button', className: 'rse-accordion__trigger', id: id + '-trigger-' + i,
+        'aria-expanded': isOpen, 'aria-controls': id + '-panel-' + i, onClick: () => toggle(i)
+      }, React.createElement('span', null, item.title),
+        React.createElement('span', { className: 'rse-accordion__icon', 'aria-hidden': 'true' }, React.createElement(Icon, { name: 'plus', size: 20 }))),
       React.createElement('div', {
-        style: {
-          display: 'grid', gridTemplateRows: isOpen ? '1fr' : '0fr',
-          transition: 'grid-template-rows var(--rse-duration-base) var(--rse-ease-standard)'
-        }
-      }, React.createElement('div', { style: { overflow: 'hidden' } },
-        React.createElement('div', {
-          style: {
-            paddingBottom: 'var(--rse-space-5)', paddingRight: 'var(--rse-space-7)', maxWidth: 'var(--rse-container-prose)',
-            fontSize: 'var(--rse-font-size-body-md)', lineHeight: 'var(--rse-line-height-body)', color: 'var(--rse-color-text-body)'
-          }
-        }, item.content)
-      ))
+        className: 'rse-accordion__panel', id: id + '-panel-' + i, 'aria-labelledby': id + '-trigger-' + i,
+        'aria-hidden': !isOpen, ...(isOpen ? {} : { inert: '' })
+      }, React.createElement('div', { className: 'rse-accordion__clip' },
+        React.createElement('div', { className: 'rse-accordion__content' }, item.content)))
     );
   }));
-}
+});

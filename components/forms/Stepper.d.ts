@@ -1,8 +1,9 @@
+import React from 'react';
 export interface StepperStep {
   label: string;
   description?: string;
 }
-export interface StepperProps {
+export interface StepperProps extends React.OlHTMLAttributes<HTMLOListElement> {
   /** Step labels, or objects with an optional description */
   steps: (string | StepperStep)[];
   /** Zero-based index of the current step; earlier steps render as complete */
@@ -12,4 +13,4 @@ export interface StepperProps {
   onStepClick?: (index: number) => void;
 }
 /** Progress indicator for multi-step flows: enrollment, document upload, application review. */
-export function Stepper(props: StepperProps): JSX.Element;
+export declare const Stepper: React.ForwardRefExoticComponent<StepperProps & React.RefAttributes<HTMLOListElement>>;

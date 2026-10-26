@@ -82,7 +82,7 @@ window.SHOWCASE_DATA = {
       "group": "core",
       "groupLabel": "Essenciais",
       "sourcePath": "components/core/Avatar.jsx",
-      "summary": "Circular photo or initials avatar for students, staff, and testimonial bylines.",
+      "summary": "Circular image or initials with optional decorative presence dot. Class contract: .rse-avatar.",
       "props": [
         {
           "name": "src",
@@ -142,7 +142,7 @@ window.SHOWCASE_DATA = {
       "group": "brand",
       "groupLabel": "Marca",
       "sourcePath": "components/brand/BrandMotif.jsx",
-      "summary": "The official \"cubo impossível\" motif — the brand's central visual idea, supplied by Sesc as vector artwork and split into six constructions. Renders the supplied colours untouched unless `hue` asks for another family. Never re-maps per theme. Returns null for an unknown variant.",
+      "summary": "The official \"cubo impossível\" motif — the brand's central visual idea, supplied by Sesc as vector artwork and split into six constructions. Defaults to one brand family per shape; hue=\"original\" retains supplied colours. Never re-maps per theme. Invalid variants/hues return null.",
       "props": [
         {
           "name": "variant",
@@ -167,6 +167,12 @@ window.SHOWCASE_DATA = {
           "type": "number",
           "required": false,
           "notes": "Fade the motif when it sits behind content (default 1)"
+        },
+        {
+          "name": "hue",
+          "type": "MotifHue | 'original'",
+          "required": false,
+          "notes": "Omit for the assigned brand family; \"original\" preserves supplied fills; a palette family selects a derived remap."
         }
       ]
     },
@@ -175,7 +181,7 @@ window.SHOWCASE_DATA = {
       "group": "navigation",
       "groupLabel": "Navegação",
       "sourcePath": "components/navigation/Breadcrumb.jsx",
-      "summary": "Path trail for deep pages — unit detail, program detail, portal sub-pages.",
+      "summary": "Navigation trail with a non-link current page. Class contract: .rse-breadcrumb.",
       "props": []
     },
     {
@@ -483,7 +489,7 @@ window.SHOWCASE_DATA = {
       "group": "core",
       "groupLabel": "Essenciais",
       "sourcePath": "components/core/Divider.jsx",
-      "summary": "Thin rule for separating sections, form groups, or a vertical rule between toolbar items.",
+      "summary": "Horizontal or vertical separator, optionally with a centred label. Class contract: .rse-divider.",
       "props": [
         {
           "name": "orientation",
@@ -947,13 +953,13 @@ window.SHOWCASE_DATA = {
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
       "sourcePath": "components/feedback/MotifLoader.jsx",
-      "summary": "Animated loader: an impossible shape assembles piece by piece, holds, comes apart and loops. For page and section loading at 48 px or larger; use Spinner for buttons. Follows the motion setting: reduced is a slower, opacity-only build.",
+      "summary": "Primary branded loading feedback for buttons, inline waits and whole sections. Generated motif pieces assemble and release; reduced motion uses a slower opacity-only build.",
       "props": [
         {
           "name": "shape",
           "type": "MotifShapeName",
           "required": false,
-          "notes": "Which shape assembles (default 'cube', the 12-bar frame). An unknown name renders nothing"
+          "notes": "Shape to assemble. Defaults to cube for sections, triangle for inline. Invalid names render nothing"
         },
         {
           "name": "hue",
@@ -968,10 +974,22 @@ window.SHOWCASE_DATA = {
           "notes": "2 to 4 families to step through, one per cycle. Any other length uses `hue`"
         },
         {
+          "name": "variant",
+          "type": "'section' | 'inline'",
+          "required": false,
+          "notes": "Section feedback (48 px, palette facets) or compact inline feedback (24 px, monochrome)"
+        },
+        {
+          "name": "tone",
+          "type": "'primary' | 'inverse'",
+          "required": false,
+          "notes": "Inline foreground: primary for light surfaces; inverse for primary/ink bands and buttons"
+        },
+        {
           "name": "size",
           "type": "number",
           "required": false,
-          "notes": "Width and height in px (default 48). Below 32 the facets blur and a console warning is logged once"
+          "notes": "Width and height in px. Below 32 automatically uses compact inline rendering"
         },
         {
           "name": "label",
@@ -1022,6 +1040,12 @@ window.SHOWCASE_DATA = {
           "notes": "Logo image URL"
         },
         {
+          "name": "logoDarkSrc",
+          "type": "string",
+          "required": false,
+          "notes": "White lockup for dark surfaces. Optional; CSS follows the nearest explicit theme or auto mode"
+        },
+        {
           "name": "logoAlt",
           "type": "string",
           "required": false,
@@ -1064,7 +1088,7 @@ window.SHOWCASE_DATA = {
       "group": "navigation",
       "groupLabel": "Navegação",
       "sourcePath": "components/navigation/Pagination.jsx",
-      "summary": "Page-number control for long unit/program listings.",
+      "summary": "Page navigation for long result lists. Class contract: .rse-pagination.",
       "props": [
         {
           "name": "page",
@@ -1097,7 +1121,7 @@ window.SHOWCASE_DATA = {
           "name": "href",
           "type": "string",
           "required": false,
-          "notes": "Where the platform lives. Ask Sesc for the real URL — there is no default."
+          "notes": "Where the platform lives. Ask Sesc for the real URL — the default # is a placeholder."
         },
         {
           "name": "logoSrc",
@@ -1277,7 +1301,7 @@ window.SHOWCASE_DATA = {
           "name": "radius",
           "type": "string",
           "required": false,
-          "notes": "Override border radius"
+          "notes": "Override border radius with a --rse-radius-* token reference"
         }
       ]
     },
@@ -1286,7 +1310,7 @@ window.SHOWCASE_DATA = {
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
       "sourcePath": "components/feedback/Spinner.jsx",
-      "summary": "Indeterminate loading indicator for async actions (submitting a form, loading unit search results).",
+      "summary": "Compatibility wrapper for MotifLoader inline mode. Prefer MotifLoader for new loading feedback. Uses managed reduced motion, not a separate rotating ring.",
       "props": [
         {
           "name": "size",
@@ -2597,6 +2621,14 @@ window.SHOWCASE_DATA = {
     "--rse-duration-loop": {
       "value": "2400ms",
       "kind": "other"
+    },
+    "--rse-duration-spinner": {
+      "value": "800ms",
+      "kind": "other"
+    },
+    "--rse-duration-skeleton": {
+      "value": "1400ms",
+      "kind": "other"
     }
   },
   "scales": {
@@ -3026,36 +3058,42 @@ window.SHOWCASE_DATA = {
         "id": "bar",
         "path": "assets/motifs/cube-bar.svg",
         "hue": "green",
+        "defaultHue": "green",
         "variant": "bar"
       },
       {
         "id": "chain",
         "path": "assets/motifs/cube-chain.svg",
         "hue": "pink",
+        "defaultHue": "orange",
         "variant": "chain"
       },
       {
         "id": "cube",
         "path": "assets/motifs/cube-cube.svg",
         "hue": "green",
+        "defaultHue": "purple",
         "variant": "cube"
       },
       {
         "id": "frame",
         "path": "assets/motifs/cube-frame.svg",
         "hue": "pink",
+        "defaultHue": "pink",
         "variant": "frame"
       },
       {
         "id": "hollow",
         "path": "assets/motifs/cube-hollow.svg",
         "hue": "blue",
+        "defaultHue": "yellow",
         "variant": "hollow"
       },
       {
         "id": "interlock",
         "path": "assets/motifs/cube-interlock.svg",
         "hue": "blue",
+        "defaultHue": "blue",
         "variant": "interlock"
       }
     ],
@@ -3270,6 +3308,14 @@ window.SHOWCASE_DATA = {
         "green",
         "pink"
       ],
+      "defaultHues": {
+        "cube": "purple",
+        "interlock": "blue",
+        "bar": "green",
+        "frame": "pink",
+        "chain": "orange",
+        "hollow": "yellow"
+      },
       "perComposition": 1,
       "perCompositionScope": "focal construction; a pattern is a field and the loader is transient, so neither counts",
       "maxShare": 0.25,
@@ -3288,7 +3334,7 @@ window.SHOWCASE_DATA = {
           "cubes-pattern-3",
           "cubes-pattern-4"
         ],
-        "rule": "Render exactly as supplied. Never redraw, rotate, stretch or distort.",
+        "rule": "Preserve supplied geometry. BrandMotif defaults to six derived palette remaps; hue=\"original\" retains supplied fills. Never redraw, rotate, stretch or distort.",
         "derivedHues": [
           "purple",
           "orange",
@@ -3303,7 +3349,7 @@ window.SHOWCASE_DATA = {
         "tower",
         "twin"
       ],
-      "loader": "MotifLoader: transient loading feedback built from a generated shape; exempt from the one-focal rule.",
+      "loader": "MotifLoader: primary loading feedback with inline and section modes; Spinner is a compatibility wrapper for inline mode. Generated, transient, exempt from the one-focal rule.",
       "pattern": "MotifPattern and assets/patterns/generated/: a flat colour field, not a construction. No gradients, glows or noise. A multi-hue pattern is allowed only as the artwork itself (hero field or standalone spectrum piece); page text and bands stay in one hue. Text never sits directly on pattern cells; use a solid panel.",
       "recolour": "palette-families-only",
       "recolourNote": "Any of the six palette families may be used; ramps come from the palette only, never sampled from artwork, and the remap keeps each shade's luminance rank so the shape reads as a solid. Never edit the SVG fills. Purple, orange and yellow signature artwork and all generated shapes are derived, not supplied by Sesc.",
@@ -3347,7 +3393,7 @@ window.SHOWCASE_DATA = {
   "templates": [
     {
       "name": "Enrollment form (print)",
-      "description": "Two-page printable A4 matrícula form: student and guardian data, document checklist, terms and signatures.",
+      "description": "Two-page A4 print reference with tokenized typography, clear writing areas and explicit content/privacy placeholders.",
       "folder": "templates/enrollment-form",
       "entryPath": "templates/enrollment-form/EnrollmentForm.dc.html",
       "thumbnail": {
@@ -3357,7 +3403,7 @@ window.SHOWCASE_DATA = {
     },
     {
       "name": "Institutional deck",
-      "description": "9-slide institutional presentation for the Rede Sesc de Educação — cover, pillars, reach, programs, testimonial, closing.",
+      "description": "Ten-slide editorial reference: current signature artwork, one idea per canvas, honest placeholders and an accessible presentation stage.",
       "folder": "templates/institutional-deck",
       "entryPath": "templates/institutional-deck/InstitutionalDeck.dc.html",
       "thumbnail": {
@@ -3367,7 +3413,7 @@ window.SHOWCASE_DATA = {
     },
     {
       "name": "Landing Page",
-      "description": "Marketing landing page — announcement bar, hero, stats, tabbed programs, testimonial, unit finder, interest form, footer",
+      "description": "Campaign reference: editorial hero, verified-data placeholders, filterable programs, next steps, Sab.IA guidance and institutional footer.",
       "folder": "templates/landing-page",
       "entryPath": "templates/landing-page/LandingPage.dc.html",
       "thumbnail": {
@@ -3377,7 +3423,7 @@ window.SHOWCASE_DATA = {
     },
     {
       "name": "Program detail page",
-      "description": "Program/unit detail page: sticky header, hero with enrollment window, tabs of content, turmas table, FAQ accordion, unit info and CTA.",
+      "description": "Program reference: editorial overview, filterable example classes, FAQ, truthful enrollment guidance, Sab.IA entry and institutional footer.",
       "folder": "templates/program-page",
       "entryPath": "templates/program-page/ProgramPage.dc.html",
       "thumbnail": {
@@ -3388,26 +3434,45 @@ window.SHOWCASE_DATA = {
   ],
   "contractComponents": [
     "MotifPattern",
+    "PlatformEntry",
+    "Avatar",
     "Badge",
     "Button",
     "Card",
     "CtaBand",
+    "Divider",
     "Hero",
+    "IconButton",
     "Tag",
     "Testimonial",
+    "DataTable",
+    "Stat",
     "StatBand",
+    "Accordion",
     "Alert",
     "MotifLoader",
+    "ProgressBar",
+    "Skeleton",
+    "Spinner",
+    "Toast",
+    "Tooltip",
     "Checkbox",
+    "DateField",
     "FileUpload",
+    "FilterChips",
     "Input",
     "Radio",
     "Select",
+    "Stepper",
     "Switch",
     "Textarea",
+    "Breadcrumb",
     "Footer",
+    "Menu",
     "Navbar",
-    "Tabs"
+    "Pagination",
+    "Tabs",
+    "Modal"
   ],
   "tokenTable": {
     "--rse-brand-cream": {
@@ -5214,12 +5279,12 @@ window.SHOWCASE_DATA = {
   "quality": {
     "pagesTested": 8,
     "axeViolations": 0,
-    "pagesOverflowingOnPhone": 4,
-    "componentsOnCssContract": 21,
+    "pagesOverflowingOnPhone": 0,
+    "componentsOnCssContract": 40,
     "componentsTotal": 43,
     "componentGlyphIcons": 0,
-    "componentPxLiterals": 59,
-    "componentsWithJsHover": 3
+    "componentPxLiterals": 0,
+    "componentsWithJsHover": 0
   },
   "package": "@idcesares/rse-design-system",
   "contrastPairs": [
@@ -5562,7 +5627,7 @@ window.SHOWCASE_DATA = {
   ],
   "counts": {
     "components": 43,
-    "tokens": 172,
+    "tokens": 174,
     "palette": 21,
     "themes": 3,
     "templates": 4,

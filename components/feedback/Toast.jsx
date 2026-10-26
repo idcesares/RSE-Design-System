@@ -1,27 +1,10 @@
 import React from 'react';
 import { Icon } from '../core/Icon.jsx';
-export function Toast({ tone = 'info', title, message, onClose }) {
-  const tones = {
-    success: { accent: 'var(--rse-color-success)' },
-    warning: { accent: 'var(--rse-color-warning)' },
-    danger: { accent: 'var(--rse-color-danger)' },
-    info: { accent: 'var(--rse-color-info)' }
-  };
-  const t = tones[tone];
-  return React.createElement('div', {
-    style: {
-      display: 'flex', alignItems: 'flex-start', gap: 12, padding: '16px 18px', maxWidth: 360,
-      background: 'var(--rse-color-surface-card)', borderRadius: 'var(--rse-radius-md)', boxShadow: 'var(--rse-shadow-lg)',
-      borderLeft: `4px solid ${t.accent}`, fontFamily: 'var(--rse-font-family)'
-    }
-  },
-    React.createElement('div', { style: { flex: 1 } },
-      title ? React.createElement('div', { style: { fontWeight: 'var(--rse-font-weight-semibold)', fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-heading)', marginBottom: 2 } }, title) : null,
-      React.createElement('div', { style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)' } }, message)
-    ),
-    onClose ? React.createElement('button', {
-      onClick: onClose, 'aria-label': 'Fechar',
-      style: { border: 'none', background: 'transparent', color: 'var(--rse-color-text-muted)', cursor: 'pointer', display: 'inline-flex', padding: 0 }
-    }, React.createElement(Icon, { name: 'x', size: 16 })) : null
-  );
-}
+const cx = (...c) => c.filter(Boolean).join(' ');
+export const Toast = React.forwardRef(function Toast({ tone = 'info', title, message, onClose, className, ...rest }, ref) {
+  return React.createElement('div', { ref, className: cx('rse-toast', 'rse-toast--' + tone, className), role: tone === 'danger' ? 'alert' : 'status', ...rest },
+    React.createElement('div', { className: 'rse-toast__content' },
+      title ? React.createElement('div', { className: 'rse-toast__title' }, title) : null,
+      React.createElement('div', { className: 'rse-toast__message' }, message)),
+    onClose ? React.createElement('button', { type: 'button', className: 'rse-toast__close', onClick: onClose, 'aria-label': 'Fechar' }, React.createElement(Icon, { name: 'x', size: 16 })) : null);
+});

@@ -58,6 +58,7 @@
 }
 
 .rse-motif-loader {
+  color:var(--rse-color-primary);
   /* Cycle multiplier for the stagger: 1 in full, 2 in reduced (set below, with the durations). */
   --rse-motif-k: 1;
   /* Defaults for the data the markup sets inline: one piece, and a fallback fill per hue step. */
@@ -70,6 +71,8 @@
   line-height: 0;
   vertical-align: middle;
 }
+.rse-motif-loader--inline{vertical-align:middle;line-height:0;flex:none}
+.rse-motif-loader--inverse{color:var(--rse-color-text-on-ink)}
 .rse-motif-loader svg { display: block; overflow: visible; }
 
 .rse-motif-loader__piece {

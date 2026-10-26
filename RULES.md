@@ -39,7 +39,7 @@ reasoning and the brand manual extract live in the design system repository (`AG
 8. **The selo** has three versions (principal, secundária, simplificada below 150 px / 45 mm), a
    clearspace of X on every side, palette colours only, never rotated, distorted, outlined or locked
    up with the Sesc signature — it sits at a distance from it.
-9. **The motif** (*cubo impossível*): the six signature constructions render exactly as supplied
+9. **The motif** (*cubo impossível*): the six signature constructions preserve the supplied geometry
    (never redraw, rotate, stretch or distort); generated shapes and motion come only from the motif
    engine (`MotifLoader`, `MotifPattern`); any of the six palette families, ramps from the palette
    only; one focal construction per composition (a pattern is a field, the loader is exempt); flat
@@ -48,3 +48,9 @@ reasoning and the brand manual extract live in the design system repository (`AG
     Enrollment lives in the TOTVS portal, not in the platform.
 11. **Accessibility is part of done.** Contrast ≥ 4.5:1 text, ≥ 3:1 large text and control borders;
     focus always visible; keyboard path complete; hit targets ≥ 44 px; works at 360 px wide.
+
+
+Signature colour defaults: BrandMotif assigns cube/purple, interlock/blue, bar/green, frame/pink,
+chain/orange and hollow/yellow. These are derived palette remaps; `hue="original"` preserves the
+supplied fills. Geometry never changes. MotifLoader is the primary loading component (inline and
+section modes); Spinner remains a compatibility adapter for inline mode.

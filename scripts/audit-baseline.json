@@ -1,14 +1,14 @@
 {
   "componentGlyphIcons": 0,
   "componentRawColors": 0,
-  "componentPxLiterals": 59,
-  "componentsWithJsHover": 3,
+  "componentPxLiterals": 0,
+  "componentsWithJsHover": 0,
   "componentsWithRandomIds": 0,
-  "componentsWithoutRestProps": 17,
-  "pageRawColors": 5,
-  "pageHardWidths": 19,
-  "pagesWithoutMediaQueries": 4,
+  "componentsWithoutRestProps": 0,
+  "pageRawColors": 0,
+  "pageHardWidths": 4,
+  "pagesWithoutMediaQueries": 1,
   "docCountDrift": 0,
   "componentsResponsive": 0,
-  "componentsOnCssContract": 21
+  "componentsOnCssContract": 40
 }

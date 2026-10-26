@@ -1,53 +1,17 @@
 import React from 'react';
-export function DataTable({ columns = [], rows = [], caption, zebra = true, compact = false, emptyMessage = 'Nenhum resultado.' }) {
-  const pad = compact ? '10px 14px' : '16px 20px';
-  const cell = { padding: pad, fontSize: compact ? 'var(--rse-font-size-body-sm)' : 'var(--rse-font-size-body-md)', textAlign: 'left', verticalAlign: 'middle' };
-  return React.createElement('div', {
-    style: {
-      background: 'var(--rse-color-surface-card)', border: '1px solid var(--rse-color-border-subtle)', borderRadius: 'var(--rse-radius-lg)',
-      overflow: 'hidden', boxShadow: 'var(--rse-shadow-sm)'
-    }
-  }, React.createElement('div', {
-    // The scroller takes focus so a keyboard user can scroll a table wider than a phone.
-    style: { overflowX: 'auto' }, tabIndex: 0, role: 'region', 'aria-label': caption || 'Tabela'
-  },
-    React.createElement('table', { style: { width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--rse-font-family)' } },
-      caption ? React.createElement('caption', {
-        style: {
-          captionSide: 'top', textAlign: 'left', padding: pad, fontSize: 'var(--rse-font-size-caption)',
-          textTransform: 'uppercase', letterSpacing: 'var(--rse-letter-spacing-eyebrow)',
-          fontWeight: 'var(--rse-font-weight-bold)', color: 'var(--rse-color-text-muted)', background: 'var(--rse-color-surface-card)'
-        }
-      }, caption) : null,
-      React.createElement('thead', null, React.createElement('tr', null, columns.map(c =>
-        React.createElement('th', {
-          key: c.key, scope: 'col',
-          style: {
-            ...cell, textAlign: c.align || 'left', width: c.width, whiteSpace: 'nowrap',
-            fontSize: 'var(--rse-font-size-caption)', textTransform: 'uppercase',
-            letterSpacing: 'var(--rse-letter-spacing-eyebrow)', fontWeight: 'var(--rse-font-weight-bold)',
-            color: 'var(--rse-color-text-muted)', background: 'var(--rse-color-surface-sunken)',
-            borderBottom: '1px solid var(--rse-color-border-subtle)'
-          }
-        }, c.label)
-      ))),
-      React.createElement('tbody', null, rows.length ? rows.map((r, i) =>
-        React.createElement('tr', {
-          key: i,
-          style: { background: zebra && i % 2 ? 'var(--rse-color-surface-page)' : 'transparent', borderBottom: i === rows.length - 1 ? 'none' : '1px solid var(--rse-color-border-subtle)' }
-        }, columns.map((c, j) =>
-          React.createElement('td', {
-            key: c.key,
-            style: {
-              ...cell, textAlign: c.align || 'left',
-              color: j === 0 ? 'var(--rse-color-text-heading)' : 'var(--rse-color-text-body)',
-              fontWeight: j === 0 ? 'var(--rse-font-weight-semibold)' : 'var(--rse-font-weight-regular)'
-            }
-          }, r[c.key])
-        ))
-      ) : React.createElement('tr', null, React.createElement('td', {
-        colSpan: columns.length, style: { ...cell, color: 'var(--rse-color-text-muted)', textAlign: 'center', padding: 'var(--rse-space-7)' }
-      }, emptyMessage)))
+export const DataTable = React.forwardRef(function DataTable({ columns = [], rows = [], caption, zebra = true, compact = false, emptyMessage = 'Nenhum resultado.', className, ...rest }, ref) {
+  const cellClass = c => 'rse-data-table__cell' + (c.align ? ' rse-data-table__cell--' + c.align : '');
+  return React.createElement('div', { ...rest, ref, className: ['rse-data-table', zebra && 'rse-data-table--zebra', compact && 'rse-data-table--compact', className].filter(Boolean).join(' ') },
+    React.createElement('div', { className: 'rse-data-table__scroller', tabIndex: 0, role: 'region', 'aria-label': caption || 'Tabela' },
+      React.createElement('table', { className: 'rse-data-table__table' },
+        caption ? React.createElement('caption', { className: 'rse-data-table__caption' }, caption) : null,
+        React.createElement('thead', null, React.createElement('tr', null, columns.map(c => React.createElement('th', {
+          key: c.key, scope: 'col', className: cellClass(c), style: c.width ? { '--rse-data-table-column-width': c.width } : undefined
+        }, c.label)))),
+        React.createElement('tbody', null, rows.length ? rows.map((r, i) => React.createElement('tr', { key: i },
+          columns.map(c => React.createElement('td', { key: c.key, className: cellClass(c) }, r[c.key]))
+        )) : React.createElement('tr', null, React.createElement('td', { colSpan: Math.max(1, columns.length), className: 'rse-data-table__empty' }, emptyMessage)))
+      )
     )
-  ));
-}
+  );
+});

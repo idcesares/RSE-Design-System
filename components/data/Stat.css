@@ -1,0 +1,15 @@
+/* Stat — .rse-stat--<accent>, --sm/--lg and --center. */
+.rse-stat{display:flex;flex-direction:column;gap:var(--rse-space-2);text-align:left;align-items:flex-start;font-family:var(--rse-font-family);--rse-stat-accent:var(--rse-color-primary);--rse-stat-label:var(--rse-color-text-muted);--rse-stat-description:var(--rse-color-text-body);--rse-stat-value-size:var(--rse-font-size-h1)}
+.rse-stat--center{text-align:center;align-items:center}
+.rse-stat--sm{--rse-stat-value-size:var(--rse-font-size-h2)}
+.rse-stat--lg{--rse-stat-value-size:var(--rse-font-size-display-2)}
+.rse-stat--indigo{--rse-stat-accent:var(--rse-color-text-link-hover)}
+.rse-stat--pink{--rse-stat-accent:var(--rse-color-tint-pink-ink)}
+.rse-stat--orange{--rse-stat-accent:var(--rse-color-tint-orange-ink)}
+.rse-stat--green{--rse-stat-accent:var(--rse-color-tint-green-ink)}
+.rse-stat--blue{--rse-stat-accent:var(--rse-color-tint-blue-ink)}
+.rse-stat--yellow{--rse-stat-accent:var(--rse-color-tint-yellow-ink)}
+.rse-stat--inverse{--rse-stat-accent:var(--rse-color-text-on-primary);--rse-stat-label:var(--rse-color-text-on-primary);--rse-stat-description:var(--rse-color-text-on-primary)}
+.rse-stat__value{font-size:var(--rse-stat-value-size);font-weight:var(--rse-font-weight-black);line-height:var(--rse-line-height-tight);letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-stat-accent)}
+.rse-stat__label{font-size:var(--rse-font-size-eyebrow);text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);font-weight:var(--rse-font-weight-bold);color:var(--rse-stat-label)}
+.rse-stat__description{margin:var(--rse-space-1) 0 0;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-stat-description);max-width:32ch}

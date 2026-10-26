@@ -7,6 +7,8 @@ Walk this before handing anything over — a page, a deck, a poster, a component
 
 ```bash
 npm run check
+npm run test:pages -- --themes=all
+npm run test:contracts
 ```
 
 - [ ] Passes with 0 errors.
@@ -16,9 +18,11 @@ npm run check
 
 ## Brand
 
-- [ ] Page background is cream (`--rse-color-surface-page`), content on white cards. At most two background
-      colours in the composition — cream plus one purple band.
-- [ ] Accent hues appear only in tags, chips, dots and data — never as a section background.
+- [ ] Page background uses `--rse-color-surface-page`, content uses `--rse-color-surface-card`.
+      Band surfaces follow the sanctioned pairings: purple/indigo with white, light or mid accents
+      with ink. One band colour per section; check dark and contrast themes as well as light.
+- [ ] Accent bands use their paired foregrounds. Never white text on a light/mid accent, never
+      a dark accent as a band. A multi-hue pattern is artwork only, with text on a solid panel.
 - [ ] Headings Extrabold with tight tracking; exactly one uppercase style in play (the eyebrow).
 - [ ] Radii follow the system: pill for buttons/badges/tags, `--rse-radius-md` for fields,
       `--rse-radius-lg/xl` for cards and media. No square corners in UI chrome.

@@ -52,8 +52,8 @@ with tokens and use the components only where behaviour matters — that is what
 ## A page inside a React project
 
 ```jsx
-import { Navbar, Card, Stat, Tabs, Footer } from 'rede-sesc-educacao-design-system';
-import 'rede-sesc-educacao-design-system/styles.css';
+import { Navbar, Card, Stat, Tabs, Footer } from '@idcesares/rse-design-system';
+import '@idcesares/rse-design-system/styles.css';
 ```
 
 Or, working inside this repo, `import { … } from './index.js'`. Never import
@@ -74,7 +74,8 @@ that page:
 const base = '../../_ds';   // the one line to edit
 ```
 
-`ds-base.js` link-tags the token stylesheets and loads `dist/rse.js`; the page itself mounts
+`ds-base.js` loads local styles, motion/init, vendored React/DOM, the bundle, image slots and the
+local template runtime in order. The page itself mounts
 components through `<x-import component-from-global-scope="RSE.Button" …>`.
 Attributes are strings — that is why component props are kept to strings, arrays and plain objects.
 
@@ -83,16 +84,17 @@ Attributes are strings — that is why component props are kept to strings, arra
 | `templates/landing-page/` | Marketing / campaign pages |
 | `templates/program-page/` | A single programme or unit, with turmas and FAQ |
 | `templates/enrollment-form/` | Printable A4 matrícula form |
-| `templates/institutional-deck/` | 9-slide institutional presentation |
+| `templates/institutional-deck/` | 10-slide editorial institutional presentation |
 
 ## A deck
 
 For any stack, and for the quality bar, start at [DESIGN.md](../DESIGN.md) and the exemplars in
 [docs/composition/exemplars/](composition/exemplars/institutional-deck.md). For a working HTML
 starter, copy `templates/institutional-deck/`. Slides are 1920×1080 stages handled by `deck-stage.js`;
-each `<section>` is one slide. Type scales up hard at that size — the deck uses explicit px sizes
-(40–120px) rather than the web type scale, which is the one sanctioned place to leave the `--rse-font-size-*`
-scale, because the tokens are tuned for screen reading distance.
+each `<section>` is one slide. `deck.css` derives display, headline, body and caption sizes from
+the short-side fractions in `docs/composition/formats.json`, rather than hand-setting pixel font sizes.
+Its signature artwork comes from BrandMotif, and its photographs remain labelled image slots.
+See [application-references.md](application-references.md) for the structure and acceptance checks.
 
 Keep to the deck's existing rhythm: one idea per slide, an eyebrow + a short declarative headline,
 and at most one stat band or image per slide.

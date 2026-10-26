@@ -1,5 +1,47 @@
 # Changelog
 
+## Unreleased
+
+- Upgrade campaign/program pages, the ten-slide institutional deck and the two-page A4 form into
+  implementation references, with authored token-based composition styles, current components,
+  functional filters, local dependency bootstraps and explicit content placeholders.
+- Add optional theme-specific Navbar wordmarks and a legible 150 px logo width. Reference pages
+  demonstrate white/purple asset selection without recolouring official files.
+- Add application regression checks for real interactions, external dependency blocking, slide
+  text bounds/word counts and expected PDF page counts; refresh application previews and guidance.
+
+- Assign a distinct default brand family to each BrandMotif construction, preserving original
+  geometry and source files. `hue="original"` retains supplied fills; expose `motifDefaultHues`.
+- Make MotifLoader the primary loading component with inline and section modes. Spinner keeps
+  its public props as a compatibility adapter to inline motif feedback; reduced motion stays active
+  through the managed opacity-only build. Small loaders automatically use compact geometry.
+- Improve showcase discovery with bilingual, accent-insensitive tokenized search, compact group
+  selection, live counts and reset. Use measured variable-height cards and collapsible details.
+
+- Complete the CSS-contract migration for the 17 remaining UI wrappers. All 40 audited wrappers now
+  forward refs, native root attributes and className; hover styling lives in CSS. Geometry props use
+  documented custom properties. Icon, BrandMotif and MotifEngine remain separate generated/library entries.
+- Share contract ownership between the CSS builder, audit and showcase, including IconButton/Button.css
+  and DateField/Input.css. Correct gallery badges, filters and HTML-tab coverage.
+- Add keyboard navigation and linked panels to gallery detail tabs; use contrast-safe loader demo surfaces.
+- Add menu keyboard navigation/focus return, inert closed accordion panels, trigger descriptions and
+  Escape dismissal for tooltips, toast announcements, and dialog focus-trap edge handling.
+- Refresh integration examples, migration status and plain-HTML behavior guidance. Add browser contract
+  regressions to CI and tighten debt baselines. No release or package version change yet.
+- Check all shipped pages in three themes in CI. Fix the program footer's ink surface pairing and
+  scope printable enrollment sheets to the light paper theme. Stack steppers on phone screens.
+- Add `--rse-duration-skeleton` (1400 ms) for the existing shimmer. Retain the 800 ms
+  `--rse-duration-spinner` compatibility token; Spinner now follows the managed motif loop instead.
+
+### Markup and appearance adjustments
+
+The migrated wrappers now render `.rse-*` classes and BEM children instead of inline visual styles.
+Consumers targeting internal elements should review their selectors. Existing named props remain.
+Spacing uses the token scale, dismiss buttons meet the touch target floor, and stat accents use
+readable theme roles. Modal native props/ref target its dialog panel. Tooltip accepts one focusable
+React child that forwards `aria-describedby`; plain HTML needs the documented host controller.
+Skeleton keeps the unmanaged reduced-motion safety net; Spinner now uses the managed inline motif.
+
 ## 2.4.0 — 2026-10-25 — a generative motif, brand motion and a motion setting
 
 No token, prop or class was renamed or removed, so this is a minor. One machine-readable value in

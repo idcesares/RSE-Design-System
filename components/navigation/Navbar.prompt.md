@@ -26,3 +26,9 @@ Plain HTML:
   </div>
 </header>
 ```
+
+
+Pass `logoDarkSrc` with the official white lockup alongside the purple `logoSrc` when a page
+supports dark themes. CSS chooses the correct image using the nearest `data-rse-theme` setting
+(including nested light and auto mode). Both files are unchanged official assets; do not filter
+or recolour the logo. Plain HTML uses `.rse-navbar__logo--light` and `--dark` on the two images.

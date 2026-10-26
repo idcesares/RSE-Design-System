@@ -1,0 +1,10 @@
+/* Accordion — expanded trigger controls the adjacent panel; closed panels are inert. */
+.rse-accordion{display:flex;flex-direction:column;border-top:1px solid var(--rse-color-border-subtle)}
+.rse-accordion__item{border-bottom:1px solid var(--rse-color-border-subtle)}
+.rse-accordion__trigger{width:100%;min-height:var(--rse-hit-target-min);display:flex;align-items:center;justify-content:space-between;gap:var(--rse-space-4);padding:var(--rse-space-5) 0;background:none;border:none;cursor:pointer;text-align:left;font-family:var(--rse-font-family);font-size:var(--rse-font-size-h4);font-weight:var(--rse-font-weight-bold);color:var(--rse-color-text-heading)}
+.rse-accordion__icon{flex:none;width:28px;height:28px;border-radius:var(--rse-radius-pill);display:inline-flex;align-items:center;justify-content:center;background:var(--rse-color-surface-primary-tint);color:var(--rse-color-text-on-primary-tint);transition:background var(--rse-duration-base) var(--rse-ease-standard),transform var(--rse-duration-base) var(--rse-ease-standard)}
+.rse-accordion__trigger[aria-expanded="true"] .rse-accordion__icon{background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);transform:rotate(45deg)}
+.rse-accordion__panel{display:grid;grid-template-rows:1fr;transition:grid-template-rows var(--rse-duration-base) var(--rse-ease-standard)}
+.rse-accordion__panel[aria-hidden="true"]{grid-template-rows:0fr}
+.rse-accordion__clip{min-height:0;overflow:hidden}
+.rse-accordion__content{padding-bottom:var(--rse-space-5);padding-right:var(--rse-space-7);max-width:var(--rse-container-prose);font-size:var(--rse-font-size-body-md);line-height:var(--rse-line-height-body);color:var(--rse-color-text-body)}

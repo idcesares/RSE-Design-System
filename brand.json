@@ -1080,6 +1080,14 @@
     "--rse-duration-loop": {
       "value": "2400ms",
       "kind": "other"
+    },
+    "--rse-duration-spinner": {
+      "value": "800ms",
+      "kind": "other"
+    },
+    "--rse-duration-skeleton": {
+      "value": "1400ms",
+      "kind": "other"
     }
   },
   "themes": {
@@ -1509,36 +1517,42 @@
         "id": "bar",
         "path": "assets/motifs/cube-bar.svg",
         "hue": "green",
+        "defaultHue": "green",
         "variant": "bar"
       },
       {
         "id": "chain",
         "path": "assets/motifs/cube-chain.svg",
         "hue": "pink",
+        "defaultHue": "orange",
         "variant": "chain"
       },
       {
         "id": "cube",
         "path": "assets/motifs/cube-cube.svg",
         "hue": "green",
+        "defaultHue": "purple",
         "variant": "cube"
       },
       {
         "id": "frame",
         "path": "assets/motifs/cube-frame.svg",
         "hue": "pink",
+        "defaultHue": "pink",
         "variant": "frame"
       },
       {
         "id": "hollow",
         "path": "assets/motifs/cube-hollow.svg",
         "hue": "blue",
+        "defaultHue": "yellow",
         "variant": "hollow"
       },
       {
         "id": "interlock",
         "path": "assets/motifs/cube-interlock.svg",
         "hue": "blue",
+        "defaultHue": "blue",
         "variant": "interlock"
       }
     ],
@@ -1753,6 +1767,14 @@
         "green",
         "pink"
       ],
+      "defaultHues": {
+        "cube": "purple",
+        "interlock": "blue",
+        "bar": "green",
+        "frame": "pink",
+        "chain": "orange",
+        "hollow": "yellow"
+      },
       "perComposition": 1,
       "perCompositionScope": "focal construction; a pattern is a field and the loader is transient, so neither counts",
       "maxShare": 0.25,
@@ -1771,7 +1793,7 @@
           "cubes-pattern-3",
           "cubes-pattern-4"
         ],
-        "rule": "Render exactly as supplied. Never redraw, rotate, stretch or distort.",
+        "rule": "Preserve supplied geometry. BrandMotif defaults to six derived palette remaps; hue=\"original\" retains supplied fills. Never redraw, rotate, stretch or distort.",
         "derivedHues": [
           "purple",
           "orange",
@@ -1786,7 +1808,7 @@
         "tower",
         "twin"
       ],
-      "loader": "MotifLoader: transient loading feedback built from a generated shape; exempt from the one-focal rule.",
+      "loader": "MotifLoader: primary loading feedback with inline and section modes; Spinner is a compatibility wrapper for inline mode. Generated, transient, exempt from the one-focal rule.",
       "pattern": "MotifPattern and assets/patterns/generated/: a flat colour field, not a construction. No gradients, glows or noise. A multi-hue pattern is allowed only as the artwork itself (hero field or standalone spectrum piece); page text and bands stay in one hue. Text never sits directly on pattern cells; use a solid panel.",
       "recolour": "palette-families-only",
       "recolourNote": "Any of the six palette families may be used; ramps come from the palette only, never sampled from artwork, and the remap keeps each shade's luminance rank so the shape reads as a solid. Never edit the SVG fills. Purple, orange and yellow signature artwork and all generated shapes are derived, not supplied by Sesc.",
@@ -2084,7 +2106,7 @@
   "templates": [
     {
       "name": "Enrollment form (print)",
-      "description": "Two-page printable A4 matrícula form: student and guardian data, document checklist, terms and signatures.",
+      "description": "Two-page A4 print reference with tokenized typography, clear writing areas and explicit content/privacy placeholders.",
       "folder": "templates/enrollment-form",
       "entryPath": "templates/enrollment-form/EnrollmentForm.dc.html",
       "thumbnail": {
@@ -2094,7 +2116,7 @@
     },
     {
       "name": "Institutional deck",
-      "description": "9-slide institutional presentation for the Rede Sesc de Educação — cover, pillars, reach, programs, testimonial, closing.",
+      "description": "Ten-slide editorial reference: current signature artwork, one idea per canvas, honest placeholders and an accessible presentation stage.",
       "folder": "templates/institutional-deck",
       "entryPath": "templates/institutional-deck/InstitutionalDeck.dc.html",
       "thumbnail": {
@@ -2104,7 +2126,7 @@
     },
     {
       "name": "Landing Page",
-      "description": "Marketing landing page — announcement bar, hero, stats, tabbed programs, testimonial, unit finder, interest form, footer",
+      "description": "Campaign reference: editorial hero, verified-data placeholders, filterable programs, next steps, Sab.IA guidance and institutional footer.",
       "folder": "templates/landing-page",
       "entryPath": "templates/landing-page/LandingPage.dc.html",
       "thumbnail": {
@@ -2114,7 +2136,7 @@
     },
     {
       "name": "Program detail page",
-      "description": "Program/unit detail page: sticky header, hero with enrollment window, tabs of content, turmas table, FAQ accordion, unit info and CTA.",
+      "description": "Program reference: editorial overview, filterable example classes, FAQ, truthful enrollment guidance, Sab.IA entry and institutional footer.",
       "folder": "templates/program-page",
       "entryPath": "templates/program-page/ProgramPage.dc.html",
       "thumbnail": {
@@ -2127,7 +2149,7 @@
     "No photography exists in this repo; every image is a placeholder carrying a shot brief.",
     "Pantone numbers are not published by the manual — it defers to Formula Guide comparison. Ask before committing to a spot-colour job.",
     "The Sab.IA platform URL is unknown; PlatformEntry links to # until Sesc supplies it.",
-    "Sesc supplied the motif constructions in green, blue and pink only. BrandMotif's hue prop derives purple, orange and yellow from the published palette — present those three as derived, not supplied. Full-bleed patterns come in blue, green, orange and pink.",
+    "Sesc supplied the motif constructions in green, blue and pink only. BrandMotif defaults assign six derived palette remaps; hue=original preserves supplied fills. Full-bleed patterns come in blue, green, orange and pink.",
     "Generated shapes and motion (MotifEngine, MotifPattern, MotifLoader, assets/patterns/generated/) are system work, not supplied by Sesc, and have not been reviewed by Sesc's brand team.",
     "The manual covers brand, not layout. The grid, type scale, spacing, components, accessibility floor and dark mode are original system work.",
     "Icons are Lucide (ISC), not an official Sesc set."

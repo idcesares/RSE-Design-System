@@ -13,7 +13,7 @@ export interface MenuEntry {
   /** Renders a hairline separator */
   divider?: boolean;
 }
-export interface MenuProps {
+export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Trigger text */
   label: string;
   items: MenuEntry[];
@@ -27,4 +27,4 @@ export interface MenuProps {
   onOpenChange?: (open: boolean) => void;
 }
 /** Dropdown menu for navigation and actions: regional unit pickers, Programas nav sections, row actions. Closes on outside click and Escape. */
-export function Menu(props: MenuProps): JSX.Element;
+export declare const Menu: React.ForwardRefExoticComponent<MenuProps & React.RefAttributes<HTMLDivElement>>;

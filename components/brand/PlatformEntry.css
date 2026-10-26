@@ -1,0 +1,14 @@
+/* Sab.IA surfaces and foregrounds stay fixed across themes. */
+.rse-platform-entry { background: var(--rse-color-sabia-purple); color: var(--rse-brand-white); border-radius: var(--rse-radius-lg); padding: var(--rse-space-7) var(--rse-space-6); font-family: var(--rse-font-family); display: flex; gap: var(--rse-space-6); align-items: center; flex-wrap: wrap; box-sizing: border-box; }
+.rse-platform-entry__content { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: var(--rse-space-3); }
+.rse-platform-entry__logo { height: 34px; max-width: 100%; align-self: flex-start; object-fit: contain; display: block; margin-bottom: var(--rse-space-2); }
+.rse-platform-entry__eyebrow { font-size: var(--rse-font-size-eyebrow); font-weight: var(--rse-font-weight-bold); letter-spacing: var(--rse-letter-spacing-eyebrow); text-transform: uppercase; }
+.rse-platform-entry__title { font-size: var(--rse-font-size-h2); font-weight: var(--rse-font-weight-extrabold); margin: 0; color: inherit; letter-spacing: var(--rse-letter-spacing-tight); overflow-wrap: anywhere; }
+.rse-platform-entry__description { font-size: var(--rse-font-size-body-md); line-height: var(--rse-line-height-body); color: inherit; margin: 0; max-width: var(--rse-container-prose); }
+.rse-platform-entry__note { font-size: var(--rse-font-size-caption); color: inherit; margin: 0; }
+.rse-platform-entry__link { display: inline-flex; align-items: center; justify-content: center; gap: var(--rse-space-2); min-height: var(--rse-hit-target-min); box-sizing: border-box; padding: var(--rse-space-4) var(--rse-space-6); border-radius: var(--rse-radius-pill); font-size: var(--rse-font-size-body-md); font-weight: var(--rse-font-weight-semibold); text-decoration: none; background: var(--rse-brand-white); color: var(--rse-color-sabia-purple); transition: background var(--rse-duration-base) var(--rse-ease-standard); text-align: center; max-width: 100%; }
+.rse-platform-entry__link:hover { background: var(--rse-color-sabia-surface); }
+.rse-platform-entry--cream { background: var(--rse-color-sabia-surface); color: var(--rse-brand-ink); }
+.rse-platform-entry--cream .rse-platform-entry__eyebrow { color: var(--rse-color-sabia-purple); }
+.rse-platform-entry--cream .rse-platform-entry__link { background: var(--rse-color-sabia-purple); color: var(--rse-brand-white); }
+.rse-platform-entry--cream .rse-platform-entry__link:hover { background: var(--rse-brand-purple-ink); }

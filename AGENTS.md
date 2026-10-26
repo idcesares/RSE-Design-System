@@ -69,7 +69,7 @@ and not like a generic template.
    `docs/brand-manual.md`, `assets/logos/README.md`.
 10. **The motif has two kinds of artwork: signature constructions and generated shapes.** The six
    SIGNATURE constructions (`BrandMotif`, `assets/motifs/`, the four official `assets/patterns/`)
-   render exactly as supplied — never redraw, rotate, stretch or distort one, and they never re-map
+   preserve the supplied geometry — never redraw, rotate, stretch or distort one, and they never re-map
    per theme. GENERATED shapes and motion come only from the motif engine (`MotifEngine`, through
    `MotifLoader` and `MotifPattern`, and the baked presets in `assets/patterns/generated/`); never
    hand-draw one. Any of the six palette families may be used (`BrandMotif` takes a `hue`, the
@@ -206,7 +206,8 @@ routes to the composition rules, the formats and the exemplars. What follows is 
 this repo: static pages, no React needed unless you want the components.
 
 - Deck: copy `templates/institutional-deck/` (1920×1080 slides, print/PPTX-ready via `deck-stage.js`). It is
-  a working starter, not the reference: look at `docs/composition/exemplars/` for what good looks like.
+  a working implementation reference: see `docs/application-references.md` for its structure and
+  validation, and `docs/composition/exemplars/` for cross-stack editorial direction.
 - Poster / print piece: `starters/poster.html` (A3 at 300dpi-equivalent scale, print CSS included).
 - Any static page: `starters/page.html`.
 
@@ -233,9 +234,13 @@ showcase/demos.js                  a demo for the showcase gallery (step 4 of do
 **The CSS contract is the component; React is a convenience.** A CMS, the enrollment portal or a
 static page uses the classes directly, so nothing visual may live only in JavaScript: no inline
 style objects, no hover held in state. Wrappers forward `ref`, pass every other prop to the main
-element (`...rest`), merge `className`, and build ids with `React.useId`. Twenty-one components are on
-the contract (`npm run audit` → `componentsOnCssContract`, the live number; IconButton is styled in
-`Button.css`, so some components share a `.css` file); moving the rest is roadmap P2.
+element (`...rest`), merge `className`, and build ids with `React.useId`. All 40 audited UI wrappers
+are on the contract (`npm run audit` → `componentsOnCssContract`). IconButton shares `Button.css`,
+and DateField shares `Input.css`; `scripts/lib/css-contract.mjs` records shared ownership. The 43
+manifest entries also include generated Icon and BrandMotif, plus the MotifEngine function library.
+CSS provides appearance and visual states; behavioral interactions still need a controller
+(the React wrapper or host JavaScript). Geometry props may set documented CSS custom properties;
+colours, typography, radii, shadows and motion stay in CSS and tokens.
 
 Then:
 
@@ -317,6 +322,8 @@ npm run sync     # after editing tokens, components, icons or motifs — regener
 npm run audit    # quality scorecard: contrast of rendered pairs, component/page debt, doc drift
 npm run audit -- --update-baseline   # after lowering a debt count, lock it in (same PR)
 npm run test:motion   # browser test of the motion contract (Playwright, not a dependency)
+npm run test:contracts # browser test of component forwarding and keyboard interactions
+npm run test:applications # application filters, local dependencies, slide bounds and print output
 npm run icons    # rebuild Icon.jsx after vendoring a new Lucide SVG
 npm run motifs   # rebuild BrandMotif.jsx from assets/motifs/cubes-official.svg
 npm run pack     # build the static kit dist/static/rse-<version>/ (CMS and offline use)
@@ -349,3 +356,9 @@ Open caveats in the source material — not bugs to fix silently, but things to 
 they matter (photography, Pantone, the Sab.IA URL, derived motif hues, layout being system work,
 icons, favicon rasters, never re-sampling colour). The list lives in one place:
 [docs/known-gaps.md](docs/known-gaps.md).
+
+
+Signature colour defaults: BrandMotif assigns cube/purple, interlock/blue, bar/green, frame/pink,
+chain/orange and hollow/yellow. These are derived palette remaps; `hue="original"` preserves the
+supplied fills. Geometry never changes. MotifLoader is the primary loading component (inline and
+section modes); Spinner remains a compatibility adapter for inline mode.

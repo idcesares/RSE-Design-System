@@ -42,5 +42,10 @@ repeating any of these to a user.
     palette and the supplied constructions' logic. Sesc's brand team has not reviewed them. Say so
     when it matters. Their hues are derived too, and the loader's contrast is measured on the base
     shade of each hue only.
-11. **Spinner and Skeleton are unmanaged in reduced motion.** They do not yet carry
-    `rse-motion-managed` or implement the `data-rse-motion` contract. Follow-up: bring both under it.
+11. **Skeleton remains unmanaged in reduced motion.** It uses the runtime safety net. Spinner
+    now delegates to the managed inline MotifLoader, which removes travel and keeps a slower
+    opacity-only loading signal.
+
+The six default BrandMotif colours are derived palette assignments, including normalized ramps
+for green, blue and pink. The source files remain untouched; use `hue="original"` for supplied
+fills. This default colour assignment is system work rather than a new Sesc-supplied artwork set.

@@ -25,7 +25,7 @@ export { Testimonial } from './components/core/Testimonial';
 export type { TestimonialProps } from './components/core/Testimonial';
 
 // Brand
-export { BrandMotif, motifVariants, motifHues } from './components/brand/BrandMotif';
+export { BrandMotif, motifVariants, motifHues, motifDefaultHues } from './components/brand/BrandMotif';
 export type { MotifVariant, MotifHue } from './components/brand/BrandMotif';
 export { MotifEngine, isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, motifShapeNames, motifShapes, renderMotifPattern, MAX_PATTERN_CELLS } from './components/brand/MotifEngine';
 export type { Axis, Vec, Role, Part, Crossing, Shape, Face, PieceFace, Piece, MotifSvgOptions, MotifShapeName, MotifPatternLayout, MotifPatternSequence, MotifPatternAnimate, MotifPatternOptions } from './components/brand/MotifEngine';

@@ -1,5 +1,5 @@
 import React from 'react';
-export interface ModalProps {
+export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   open: boolean;
   onClose?: () => void;
   title?: string;
@@ -7,4 +7,4 @@ export interface ModalProps {
   footer?: React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
 }
-export function Modal(props: ModalProps): JSX.Element | null;
+export declare const Modal: React.ForwardRefExoticComponent<ModalProps & React.RefAttributes<HTMLDivElement>>;

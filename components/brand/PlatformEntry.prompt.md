@@ -25,3 +25,24 @@ live — never send someone here for a matrícula task.
 
 `href` defaults to `#`, which is a placeholder, not a value: flag it to the user until Sesc supplies
 the real platform URL.
+
+## Plain HTML contract
+
+Native section attributes and the forwarded ref target `.rse-platform-entry`. Add
+`.rse-platform-entry--cream` for the cream variant. The Sab.IA surfaces and their paired
+foregrounds remain fixed across themes. Hover is CSS; no JavaScript is required.
+
+```html
+<section class="rse-platform-entry" aria-label="Plataforma Sesc Sab.IA">
+  <div class="rse-platform-entry__content">
+    <span class="rse-platform-entry__eyebrow">Plataforma Sesc Sab.IA</span>
+    <h2 class="rse-platform-entry__title">Aprendizagem que acompanha cada estudante</h2>
+    <p class="rse-platform-entry__description">Acompanhamento contínuo da aprendizagem.</p>
+    <p class="rse-platform-entry__note">Acesso para a comunidade da Rede.</p>
+  </div>
+  <a class="rse-platform-entry__link" href="#">Acessar a plataforma</a>
+</section>
+```
+
+Replace the eyebrow with `img.rse-platform-entry__logo` when using an approved lockup, with
+`alt="Plataforma Sesc Sab.IA"`. The note is optional. Replace the placeholder URL before publishing.

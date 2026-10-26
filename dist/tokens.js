@@ -180,7 +180,9 @@ export const light = {
   "--rse-duration-base": "220ms",
   "--rse-duration-slow": "360ms",
   "--rse-duration-reveal": "600ms",
-  "--rse-duration-loop": "2400ms"
+  "--rse-duration-loop": "2400ms",
+  "--rse-duration-spinner": "800ms",
+  "--rse-duration-skeleton": "1400ms"
 };
 export const dark = {
   "--rse-brand-cream": "#f2f4e4",
@@ -359,7 +361,9 @@ export const dark = {
   "--rse-duration-base": "220ms",
   "--rse-duration-slow": "360ms",
   "--rse-duration-reveal": "600ms",
-  "--rse-duration-loop": "2400ms"
+  "--rse-duration-loop": "2400ms",
+  "--rse-duration-spinner": "800ms",
+  "--rse-duration-skeleton": "1400ms"
 };
 export const contrast = {
   "--rse-brand-cream": "#f2f4e4",
@@ -538,7 +542,9 @@ export const contrast = {
   "--rse-duration-base": "220ms",
   "--rse-duration-slow": "360ms",
   "--rse-duration-reveal": "600ms",
-  "--rse-duration-loop": "2400ms"
+  "--rse-duration-loop": "2400ms",
+  "--rse-duration-spinner": "800ms",
+  "--rse-duration-skeleton": "1400ms"
 };
 export const modes = { light, dark, contrast };
 /** `var(--rse-…)` for a token name, for inline styles that must stay themeable. */

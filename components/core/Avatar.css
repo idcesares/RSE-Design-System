@@ -1,0 +1,10 @@
+/* Avatar — .rse-avatar--<size>, .rse-avatar__status--<status>. */
+.rse-avatar{--rse-avatar-size:44px;--rse-avatar-font-size:var(--rse-font-size-body-sm);position:relative;display:inline-flex;width:var(--rse-avatar-size);height:var(--rse-avatar-size);flex-shrink:0}
+.rse-avatar--sm{--rse-avatar-size:32px;--rse-avatar-font-size:var(--rse-font-size-caption)}
+.rse-avatar--lg{--rse-avatar-size:64px;--rse-avatar-font-size:var(--rse-font-size-h4)}
+.rse-avatar__image,.rse-avatar__initials{width:100%;height:100%;border-radius:var(--rse-radius-pill)}
+.rse-avatar__image{object-fit:cover;display:block}
+.rse-avatar__initials{display:inline-flex;align-items:center;justify-content:center;background:var(--rse-color-surface-primary-tint);color:var(--rse-color-text-on-primary-tint);font-family:var(--rse-font-family);font-weight:var(--rse-font-weight-semibold);font-size:var(--rse-avatar-font-size)}
+.rse-avatar__status{position:absolute;bottom:-1px;right:-1px;width:max(8px,calc(var(--rse-avatar-size) * .28));height:max(8px,calc(var(--rse-avatar-size) * .28));border-radius:var(--rse-radius-pill);background:var(--rse-color-text-on-ink-muted);border:2px solid var(--rse-color-surface-card)}
+.rse-avatar__status--online{background:var(--rse-color-success)}
+.rse-avatar__status--away{background:var(--rse-color-warning)}

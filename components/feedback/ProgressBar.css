@@ -1,0 +1,7 @@
+/* ProgressBar — set --rse-progress-bar-value to a clamped percentage. */
+.rse-progress-bar{--rse-progress-bar-value:0%;display:flex;flex-direction:column;gap:calc(var(--rse-space-3) / 2);width:100%;font-family:var(--rse-font-family);--rse-progress-bar-color:var(--rse-color-primary)}
+.rse-progress-bar--success{--rse-progress-bar-color:var(--rse-color-success)}
+.rse-progress-bar--danger{--rse-progress-bar-color:var(--rse-color-danger)}
+.rse-progress-bar__label{display:flex;justify-content:space-between;font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)}
+.rse-progress-bar__track{width:100%;height:var(--rse-space-2);border-radius:var(--rse-radius-pill);background:var(--rse-color-surface-sunken);overflow:hidden}
+.rse-progress-bar__fill{width:var(--rse-progress-bar-value,0%);height:100%;border-radius:var(--rse-radius-pill);background:var(--rse-progress-bar-color);transition:width var(--rse-duration-base) var(--rse-ease-standard)}

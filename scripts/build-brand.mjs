@@ -188,6 +188,10 @@ const logos = readdirSync(join(ROOT, 'assets/logos'))
 const motifHues = new Map(
   [...read('components/brand/BrandMotif.jsx').matchAll(/'([a-z]+)':\s*\{[^}]*?hue:\s*'([a-z]+)'/g)].map((m) => [m[1], m[2]])
 );
+const motifDefaults = new Map(
+  [...read('components/brand/BrandMotif.jsx').matchAll(/'([a-z]+)':\s*\{[^}]*?defaultHue:\s*'([a-z]+)'/g)].map(m => [m[1], m[2]])
+);
+if (motifDefaults.size !== 6) throw new Error('build-brand: expected six signature default hue assignments');
 
 const motifShapeMatch = readFileSync(join(ROOT, 'components/brand/MotifEngine.jsx'), 'utf8').match(/motifShapeNames = Object\.freeze\(\[([^\]]+)\]/);
 const motifShapeNames = motifShapeMatch ? [...motifShapeMatch[1].matchAll(/'([a-z]+)'/g)].map((x) => x[1]) : [];
@@ -200,7 +204,7 @@ const motifs = readdirSync(join(ROOT, 'assets/motifs'))
   .sort()
   .map((f) => {
     const id = f.replace(/^cube-|\.svg$/g, '');
-    return { id, path: `assets/motifs/${f}`, hue: motifHues.get(id) ?? null, variant: id };
+    return { id, path: `assets/motifs/${f}`, hue: motifHues.get(id) ?? null, defaultHue: motifDefaults.get(id), variant: id };
   });
 
 const patterns = readdirSync(join(ROOT, 'assets/patterns'))
@@ -272,6 +276,7 @@ const rules = {
   motif: {
     constructions: motifs.map((m) => m.id),
     huesAvailable: [...new Set(motifs.map((m) => m.hue).filter(Boolean))].sort(),
+    defaultHues: Object.fromEntries(motifDefaults),
     perComposition: 1,
     perCompositionScope: 'focal construction; a pattern is a field and the loader is transient, so neither counts',
     maxShare: 0.25,
@@ -279,11 +284,11 @@ const rules = {
     textOnFacesOrCells: false,
     signature: {
       list: [...motifs.map((m) => m.id), ...patterns.map((p) => p.id)],
-      rule: 'Render exactly as supplied. Never redraw, rotate, stretch or distort.',
+      rule: 'Preserve supplied geometry. BrandMotif defaults to six derived palette remaps; hue="original" retains supplied fills. Never redraw, rotate, stretch or distort.',
       derivedHues: ['purple', 'orange', 'yellow'],
     },
     generatedShapes: motifShapeNames,
-    loader: 'MotifLoader: transient loading feedback built from a generated shape; exempt from the one-focal rule.',
+    loader: 'MotifLoader: primary loading feedback with inline and section modes; Spinner is a compatibility wrapper for inline mode. Generated, transient, exempt from the one-focal rule.',
     pattern: 'MotifPattern and assets/patterns/generated/: a flat colour field, not a construction. No gradients, glows or noise. A multi-hue pattern is allowed only as the artwork itself (hero field or standalone spectrum piece); page text and bands stay in one hue. Text never sits directly on pattern cells; use a solid panel.',
     recolour: 'palette-families-only',
     recolourNote: 'Any of the six palette families may be used; ramps come from the palette only, never sampled from artwork, and the remap keeps each shade\'s luminance rank so the shape reads as a solid. Never edit the SVG fills. Purple, orange and yellow signature artwork and all generated shapes are derived, not supplied by Sesc.',
@@ -368,7 +373,7 @@ const brand = {
     'No photography exists in this repo; every image is a placeholder carrying a shot brief.',
     'Pantone numbers are not published by the manual — it defers to Formula Guide comparison. Ask before committing to a spot-colour job.',
     'The Sab.IA platform URL is unknown; PlatformEntry links to # until Sesc supplies it.',
-    'Sesc supplied the motif constructions in green, blue and pink only. BrandMotif\'s hue prop derives purple, orange and yellow from the published palette — present those three as derived, not supplied. Full-bleed patterns come in blue, green, orange and pink.',
+    'Sesc supplied the motif constructions in green, blue and pink only. BrandMotif defaults assign six derived palette remaps; hue=original preserves supplied fills. Full-bleed patterns come in blue, green, orange and pink.',
     'Generated shapes and motion (MotifEngine, MotifPattern, MotifLoader, assets/patterns/generated/) are system work, not supplied by Sesc, and have not been reviewed by Sesc\'s brand team.',
     'The manual covers brand, not layout. The grid, type scale, spacing, components, accessibility floor and dark mode are original system work.',
     'Icons are Lucide (ISC), not an official Sesc set.',

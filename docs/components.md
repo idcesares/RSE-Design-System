@@ -12,7 +12,7 @@ off `window.RSE`. See [../AGENTS.md](../AGENTS.md).
 
 ### Avatar
 
-Circular photo or initials avatar for students, staff, and testimonial bylines.
+Circular image or initials with optional decorative presence dot. Class contract: .rse-avatar.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
@@ -86,7 +86,7 @@ A full-bleed call-to-action band: headline, one line of support and the caller's
 
 ### Divider
 
-Thin rule for separating sections, form groups, or a vertical rule between toolbar items.
+Horizontal or vertical separator, optionally with a centred label. Class contract: .rse-divider.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
@@ -174,7 +174,7 @@ A single static testimonial as figure, blockquote and figcaption. Never invent o
 
 ### BrandMotif
 
-The official "cubo impossível" motif — the brand's central visual idea, supplied by Sesc as vector artwork and split into six constructions. Renders the supplied colours untouched unless `hue` asks for another family. Never re-maps per theme. Returns null for an unknown variant.
+The official "cubo impossível" motif — the brand's central visual idea, supplied by Sesc as vector artwork and split into six constructions. Defaults to one brand family per shape; hue="original" retains supplied colours. Never re-maps per theme. Invalid variants/hues return null.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
@@ -182,9 +182,7 @@ The official "cubo impossível" motif — the brand's central visual idea, suppl
 | `size` | `number` | — | Rendered square size in px (default 240) |
 | `title` | `string` | — | Accessible label. Omit when decorative (rendered aria-hidden) |
 | `opacity` | `number` | — | Fade the motif when it sits behind content (default 1) |
-| `hue` | `MotifHue` | — | * Restate the construction in another palette family. Omit to render the exact fills Sesc
-   * supplied — the sheet ships green, blue and pink only, so this is how the other three
-   * families are reached. Ramps derive from the published palette, never from the artwork. |
+| `hue` | `MotifHue \| 'original'` | — | Omit for the assigned brand family; "original" preserves supplied fills; a palette family selects a derived remap. |
 
 `components/brand/BrandMotif.jsx` · [props](../components/brand/BrandMotif.d.ts) · [usage](../components/brand/BrandMotif.prompt.md)
 
@@ -212,7 +210,7 @@ Co-branded entry point from a Rede Sesc de Educação surface into the Plataform
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
-| `href` | `string` | — | Where the platform lives. Ask Sesc for the real URL — there is no default. |
+| `href` | `string` | — | Where the platform lives. Ask Sesc for the real URL — the default # is a placeholder. |
 | `logoSrc` | `string` | — | Sab.IA lockup, e.g. assets/logos/sabia-wordmark-cream.svg on purple |
 | `logoAlt` | `string` | — |  |
 | `eyebrow` | `string` | — | Uppercase label shown when no logoSrc is given |
@@ -372,7 +370,7 @@ Multi-line text field matching Input, with optional hint, error and character co
 
 ### Breadcrumb
 
-Path trail for deep pages — unit detail, program detail, portal sub-pages.
+Navigation trail with a non-link current page. Class contract: .rse-breadcrumb.
 
 `components/navigation/Breadcrumb.jsx` · [props](../components/navigation/Breadcrumb.d.ts) · [usage](../components/navigation/Breadcrumb.prompt.md)
 
@@ -413,6 +411,7 @@ Sticky site header: logo, text links and one call to action; wraps instead of ov
 | prop | type | required | notes |
 | --- | --- | --- | --- |
 | `logoSrc` | `string` | — | Logo image URL |
+| `logoDarkSrc` | `string` | — | White lockup for dark surfaces. Optional; CSS follows the nearest explicit theme or auto mode |
 | `logoAlt` | `string` | — | Alt text for the logo |
 | `links` | `NavbarLink[]` | — | Text links; they wrap onto their own row on narrow screens |
 | `activeHref` | `string` | — | The link whose href matches gets aria-current="page" and the primary colour |
@@ -424,7 +423,7 @@ Sticky site header: logo, text links and one call to action; wraps instead of ov
 
 ### Pagination
 
-Page-number control for long unit/program listings.
+Page navigation for long result lists. Class contract: .rse-pagination.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
@@ -466,14 +465,16 @@ Persistent inline banner with a tone icon. Class contract: .rse-alert--<tone>.
 
 ### MotifLoader
 
-Animated loader: an impossible shape assembles piece by piece, holds, comes apart and loops. For page and section loading at 48 px or larger; use Spinner for buttons. Follows the motion setting: reduced is a slower, opacity-only build.
+Primary branded loading feedback for buttons, inline waits and whole sections. Generated motif pieces assemble and release; reduced motion uses a slower opacity-only build.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |
-| `shape` | `MotifShapeName` | — | Which shape assembles (default 'cube', the 12-bar frame). An unknown name renders nothing |
+| `shape` | `MotifShapeName` | — | Shape to assemble. Defaults to cube for sections, triangle for inline. Invalid names render nothing |
 | `hue` | `MotifHue` | — | Palette family (default 'purple'). An unknown name renders nothing |
 | `hues` | `MotifHue[]` | — | 2 to 4 families to step through, one per cycle. Any other length uses `hue` |
-| `size` | `number` | — | Width and height in px (default 48). Below 32 the facets blur and a console warning is logged once |
+| `variant` | `'section' \| 'inline'` | — | Section feedback (48 px, palette facets) or compact inline feedback (24 px, monochrome) |
+| `tone` | `'primary' \| 'inverse'` | — | Inline foreground: primary for light surfaces; inverse for primary/ink bands and buttons |
+| `size` | `number` | — | Width and height in px. Below 32 automatically uses compact inline rendering |
 | `label` | `string` | — | Accessible name announced to screen readers, in pt-BR (default 'Carregando') |
 
 `components/feedback/MotifLoader.jsx` · [props](../components/feedback/MotifLoader.d.ts) · [usage](../components/feedback/MotifLoader.prompt.md)
@@ -501,13 +502,13 @@ Loading placeholder with a slow shimmer. Mirror the shape of the content that wi
 | `width` | `string \| number` | — | CSS width (default 100%, or 48px for circle) |
 | `height` | `string \| number` | — |  |
 | `lines` | `number` | — | Line count for variant text |
-| `radius` | `string` | — | Override border radius |
+| `radius` | `string` | — | Override border radius with a --rse-radius-* token reference |
 
 `components/feedback/Skeleton.jsx` · [props](../components/feedback/Skeleton.d.ts) · [usage](../components/feedback/Skeleton.prompt.md)
 
 ### Spinner
 
-Indeterminate loading indicator for async actions (submitting a form, loading unit search results).
+Compatibility wrapper for MotifLoader inline mode. Prefer MotifLoader for new loading feedback. Uses managed reduced motion, not a separate rotating ring.
 
 | prop | type | required | notes |
 | --- | --- | --- | --- |

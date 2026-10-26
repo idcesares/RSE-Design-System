@@ -41,15 +41,27 @@ test('motifRamp is lightest first by luminance for all six hues', () => {
   }
 });
 
-test('BrandMotif output unchanged', () => {
+test('BrandMotif original fills and geometry stay unchanged', () => {
   const snapshot = JSON.parse(readFileSync(join(HERE, 'fixtures', 'brandmotif-snapshot.json'), 'utf8'));
   assert.deepEqual(Object.keys(snapshot), engine.motifVariants);
   for (const variant of engine.motifVariants) {
     const actual = {
-      default: engine.BrandMotif({ variant }),
+      default: engine.BrandMotif({ variant, hue: 'original' }),
       purple: engine.BrandMotif({ variant, hue: 'purple' }),
     };
     assert.deepEqual(JSON.parse(JSON.stringify(actual)), snapshot[variant], variant);
+  }
+});
+
+test('signature defaults assign all six palette families without changing geometry', () => {
+  assert.equal(new Set(Object.values(engine.motifDefaultHues)).size, 6);
+  for (const variant of engine.motifVariants) {
+    const original = engine.BrandMotif({ variant, hue: 'original' });
+    const actual = engine.BrandMotif({ variant });
+    assert.equal(actual.props.viewBox, original.props.viewBox);
+    const stripFill = tree => JSON.parse(JSON.stringify(tree, (key, value) => key === 'fill' ? undefined : value));
+    assert.deepEqual(stripFill(actual), stripFill(original));
+    assert.deepEqual(actual, engine.BrandMotif({ variant, hue: engine.motifDefaultHues[variant] }));
   }
 });
 
@@ -405,7 +417,7 @@ test('hues length 1 or 5 falls back to hue', () => {
   }
 });
 
-test('size 24 warns once and renders', () => {
+test('small sizes select compact generated geometry without warning', () => {
   const warn = console.warn;
   const calls = [];
   console.warn = (...a) => calls.push(a);
@@ -414,9 +426,15 @@ test('size 24 warns once and renders', () => {
     const b = engine.MotifLoader({ size: 20 });
     assert.ok(a && b);
     assert.equal(find(a, (n) => n.type === 'svg')[0].props.width, 24);
-    assert.equal(calls.length, 1);
+    assert.equal(calls.length, 0);
+    assert.match(a.props.className, /rse-motif-loader--inline/);
+    assert.equal(loaderPieces(a).length, engine.motifPieces(engine.motifShapes.triangle, 'purple').length);
+    assert.ok(loaderPolys(a).every(p => p.props.fill === 'currentColor'));
+    const inline = engine.MotifLoader({ variant: 'inline', tone: 'inverse' });
+    assert.equal(find(inline, n => n.type === 'svg')[0].props.width, 24);
+    assert.match(inline.props.className, /rse-motif-loader--inverse/);
     engine.MotifLoader({ size: 48 });
-    assert.equal(calls.length, 1);
+    assert.equal(calls.length, 0);
   } finally {
     console.warn = warn;
   }

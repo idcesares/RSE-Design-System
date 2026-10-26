@@ -1,166 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head><title>viewport — Rede Sesc de Educação</title>
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<title>Apresentação institucional — Rede Sesc de Educação</title>
+<link rel="stylesheet" href="./deck.css">
+<script src="./ds-base.js"></script>
 </head>
 <body>
 <x-dc>
-<!-- Modelo funcional. A referência de qualidade para decks, com regras, formatos e exemplos, está em DESIGN.md e em docs/composition/exemplars/. -->
-<!-- @template name="Institutional deck" description="9-slide institutional presentation for the Rede Sesc de Educação — cover, pillars, reach, programs, testimonial, closing." -->
-<helmet><script src="./ds-base.js"></script></helmet>
-<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
-<section data-label="Capa" data-screen-label="01" style="width:1920px;height:1080px;background:var(--rse-color-primary);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:110px 120px;font-family:var(--rse-font-family)">
-<img src="../../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação" style="height:96px;width:auto;object-fit:contain;align-self:flex-start">
-<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:80px">
-<div style="max-width:1180px;display:flex;flex-direction:column;gap:36px">
-<p style="margin:0;font-size:30px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-on-primary)">Rede Sesc de Educação</p>
-<h1 style="margin:0;font-size:132px;line-height:1.04;font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-on-primary)">Aprender para a vida acontecer</h1>
-<p style="margin:0;font-size:36px;line-height:1.5;color:var(--rse-color-text-on-primary);max-width:1000px">Tradição, acolhimento e resultado em uma única rede nacional de educação.</p>
-</div>
-<svg width="300" height="300" viewBox="0 0 160 160" aria-hidden="true" style="flex:none;opacity:.55"><g style="stroke:var(--rse-color-text-on-primary)" stroke-width="2" fill="none"><line x1="52" y1="26" x2="120" y2="26"></line><line x1="120" y1="26" x2="120" y2="94"></line><line x1="120" y1="94" x2="52" y2="94"></line><line x1="52" y1="94" x2="52" y2="26"></line><line x1="26" y1="52" x2="52" y2="26"></line><line x1="94" y1="52" x2="120" y2="26"></line><line x1="94" y1="120" x2="120" y2="94"></line><line x1="26" y1="120" x2="52" y2="94"></line><line x1="26" y1="52" x2="44" y2="52"></line><line x1="60" y1="52" x2="94" y2="52"></line><line x1="94" y1="52" x2="94" y2="86"></line><line x1="94" y1="102" x2="94" y2="120"></line><line x1="94" y1="120" x2="26" y2="120"></line><line x1="26" y1="120" x2="26" y2="52"></line></g></svg>
-</div>
+<!-- @template name="Institutional deck" description="Ten-slide editorial reference: current signature artwork, one idea per canvas, honest placeholders and an accessible presentation stage." -->
+<x-import component-from-global-scope="deck-stage" width="1920" height="1080" hint-size="100%,100%">
+<section class="reference-slide reference-slide--primary" data-label="Aprender para a vida" data-screen-label="01" data-archetype="cover">
+  <x-import component-from-global-scope="RSEReferenceLogo" tone="white" class-name="reference-slide__logo" hint-size="200px,80px"></x-import>
+  <div class="reference-slide__motif" aria-hidden="true"><x-import component-from-global-scope="RSE.BrandMotif" variant="hollow" size="760" opacity="0.3"></x-import></div>
+  <div class="reference-slide__cover-copy"><p class="reference-slide__eyebrow">Apresentação institucional</p><h1 class="reference-slide__display">Aprender para a vida acontecer</h1></div>
+  <p class="reference-slide__folio">Modelo de referência · conteúdo a validar</p>
 </section>
-<section data-label="Agenda" data-screen-label="02" style="width:1920px;height:1080px;background:var(--rse-color-surface-page);padding:120px;display:flex;flex-direction:column;gap:64px;font-family:var(--rse-font-family)">
-<div style="display:flex;flex-direction:column;gap:20px">
-<p style="margin:0;font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-muted)">Nesta apresentação</p>
-<h2 style="margin:0;font-size:84px;font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-heading)">O que vamos ver</h2>
-</div>
-<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px 64px">
-<div style="display:flex;gap:28px;align-items:baseline;border-top:2px solid var(--rse-color-border-default);padding-top:24px"><span style="font-size:32px;font-weight:800;color:var(--rse-color-primary)">01</span><span style="font-size:38px;font-weight:700;color:var(--rse-color-text-heading)">Quem somos como rede</span></div>
-<div style="display:flex;gap:28px;align-items:baseline;border-top:2px solid var(--rse-color-border-default);padding-top:24px"><span style="font-size:32px;font-weight:800;color:var(--rse-color-primary)">02</span><span style="font-size:38px;font-weight:700;color:var(--rse-color-text-heading)">Os três pilares</span></div>
-<div style="display:flex;gap:28px;align-items:baseline;border-top:2px solid var(--rse-color-border-default);padding-top:24px"><span style="font-size:32px;font-weight:800;color:var(--rse-color-primary)">03</span><span style="font-size:38px;font-weight:700;color:var(--rse-color-text-heading)">Alcance nacional</span></div>
-<div style="display:flex;gap:28px;align-items:baseline;border-top:2px solid var(--rse-color-border-default);padding-top:24px"><span style="font-size:32px;font-weight:800;color:var(--rse-color-primary)">04</span><span style="font-size:38px;font-weight:700;color:var(--rse-color-text-heading)">Programas e etapas</span></div>
-<div style="display:flex;gap:28px;align-items:baseline;border-top:2px solid var(--rse-color-border-default);padding-top:24px"><span style="font-size:32px;font-weight:800;color:var(--rse-color-primary)">05</span><span style="font-size:38px;font-weight:700;color:var(--rse-color-text-heading)">Resultados e depoimentos</span></div>
-<div style="display:flex;gap:28px;align-items:baseline;border-top:2px solid var(--rse-color-border-default);padding-top:24px"><span style="font-size:32px;font-weight:800;color:var(--rse-color-primary)">06</span><span style="font-size:38px;font-weight:700;color:var(--rse-color-text-heading)">Próximos passos</span></div>
-</div>
+<section class="reference-slide" data-label="Uma rede" data-screen-label="02" data-archetype="statement">
+  <p class="reference-slide__eyebrow">Quem somos</p>
+  <div class="reference-slide__statement"><h2 class="reference-slide__display">Uma rede.<br>Muitas formas de aprender.</h2></div>
+  <footer class="reference-slide__folio"><span>Rede Sesc de Educação</span><span>02</span></footer>
 </section>
-<section data-label="Quem somos" data-screen-label="03" style="width:1920px;height:1080px;background:var(--rse-color-surface-page);display:grid;grid-template-columns:1fr 1fr;font-family:var(--rse-font-family)">
-<div style="padding:120px;display:flex;flex-direction:column;justify-content:center;gap:36px">
-<p style="margin:0;font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-muted)">Quem somos</p>
-<h2 style="margin:0;font-size:76px;line-height:1.1;font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-heading)">Uma rede, não um conjunto de escolas</h2>
-<p style="margin:0;font-size:32px;line-height:1.6;color:var(--rse-color-text-body)">A Rede Sesc de Educação reúne escolas, projetos e iniciativas educacionais em todo o Brasil sob uma mesma visão de educação — respeitando as especificidades de cada região.</p>
-<p style="margin:0;font-size:32px;line-height:1.6;color:var(--rse-color-text-body)">Educação é próxima, relevante e consistente: acolhe para desenvolver, e desenvolve para produzir resultados reais na vida das pessoas.</p>
-</div>
-<div style="background:repeating-linear-gradient(135deg,var(--rse-brand-gray-200) 0 16px,var(--rse-brand-gray-100) 16px 32px);display:flex;align-items:flex-end;padding:48px">
-<span style="font-family:ui-monospace,Menlo,monospace;font-size:22px;background:var(--rse-color-surface-card);border-radius:10px;padding:12px 18px;color:var(--rse-color-text-muted)">foto · sala de aula, luz natural, 3:4</span>
-</div>
+<section class="reference-slide" data-label="Três pilares" data-screen-label="03" data-archetype="pillars">
+  <header><p class="reference-slide__eyebrow">Posicionamento</p><h2 class="reference-slide__heading">Três ideias, uma rede</h2></header>
+  <div class="reference-slide__columns reference-slide__columns--low">
+    <div class="reference-slide__column"><p class="reference-slide__index">01</p><h3 class="reference-slide__subheading">Tradição</h3><p>Credibilidade do Sesc aplicada à educação.</p></div>
+    <div class="reference-slide__column"><p class="reference-slide__index">02</p><h3 class="reference-slide__subheading">Acolhimento</h3><p>Cada pessoa é recebida como é.</p></div>
+    <div class="reference-slide__column"><p class="reference-slide__index">03</p><h3 class="reference-slide__subheading">Resultado</h3><p>Desenvolvimento que se vê na vida.</p></div>
+  </div>
+  <footer class="reference-slide__folio"><span>Rede Sesc de Educação</span><span>03</span></footer>
 </section>
-<section data-label="Pilares" data-screen-label="04" style="width:1920px;height:1080px;background:var(--rse-color-surface-page);padding:120px;display:flex;flex-direction:column;gap:64px;font-family:var(--rse-font-family)">
-<div style="display:flex;flex-direction:column;gap:20px">
-<p style="margin:0;font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-muted)">Posicionamento</p>
-<h2 style="margin:0;font-size:84px;font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-heading)">Os três pilares</h2>
-</div>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;flex:1">
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:32px;padding:56px;display:flex;flex-direction:column;gap:24px;box-shadow:var(--rse-shadow-sm)">
-<span style="align-self:flex-start;background:var(--rse-color-tint-pink);color:var(--rse-color-tint-pink-ink);font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);padding:10px 22px;border-radius:var(--rse-radius-pill)">Tradição</span>
-<h3 style="margin:0;font-size:46px;font-weight:800;color:var(--rse-color-text-heading);line-height:1.15">Décadas de história</h3>
-<p style="margin:0;font-size:28px;line-height:1.6;color:var(--rse-color-text-body)">A credibilidade institucional do Sesc aplicada à educação, com continuidade e método.</p>
-</div>
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:32px;padding:56px;display:flex;flex-direction:column;gap:24px;box-shadow:var(--rse-shadow-sm)">
-<span style="align-self:flex-start;background:var(--rse-color-tint-orange);color:var(--rse-color-tint-orange-ink);font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);padding:10px 22px;border-radius:var(--rse-radius-pill)">Acolhimento</span>
-<h3 style="margin:0;font-size:46px;font-weight:800;color:var(--rse-color-text-heading);line-height:1.15">O aluno é protagonista</h3>
-<p style="margin:0;font-size:28px;line-height:1.6;color:var(--rse-color-text-body)">Cada estudante é recebido pelo que é e pelo que pode se tornar — vínculo antes de conteúdo.</p>
-</div>
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:32px;padding:56px;display:flex;flex-direction:column;gap:24px;box-shadow:var(--rse-shadow-sm)">
-<span style="align-self:flex-start;background:var(--rse-color-tint-green);color:var(--rse-color-tint-green-ink);font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);padding:10px 22px;border-radius:var(--rse-radius-pill)">Resultado</span>
-<h3 style="margin:0;font-size:46px;font-weight:800;color:var(--rse-color-text-heading);line-height:1.15">Impacto verificável</h3>
-<p style="margin:0;font-size:28px;line-height:1.6;color:var(--rse-color-text-body)">Aprendizagem que se traduz em oportunidade real: trabalho, continuidade dos estudos, cidadania.</p>
-</div>
-</div>
+<section class="reference-slide reference-slide--indigo" data-label="Percursos" data-screen-label="04" data-archetype="section">
+  <div class="reference-slide__motif reference-slide__motif--top" aria-hidden="true"><x-import component-from-global-scope="RSE.BrandMotif" variant="bar" size="760" opacity="0.3"></x-import></div>
+  <div class="reference-slide__cover-copy"><p class="reference-slide__eyebrow">Percursos de aprendizagem</p><h2 class="reference-slide__heading">Educação que acompanha cada etapa da vida</h2></div>
+  <footer class="reference-slide__folio"><span>Rede Sesc de Educação</span><span>04</span></footer>
 </section>
-<section data-label="Alcance" data-screen-label="05" style="width:1920px;height:1080px;background:var(--rse-color-primary);padding:120px;display:flex;flex-direction:column;justify-content:center;gap:80px;font-family:var(--rse-font-family)">
-<div style="display:flex;flex-direction:column;gap:20px">
-<p style="margin:0;font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-on-primary)">Alcance nacional</p>
-<h2 style="margin:0;font-size:84px;font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-on-primary);max-width:1300px">Presente em todo o país</h2>
-</div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:56px">
-<div style="display:flex;flex-direction:column;gap:14px"><span style="font-size:112px;font-weight:900;line-height:1;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-on-primary)">26+DF</span><span style="font-size:26px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-on-primary)">Estados</span></div>
-<div style="display:flex;flex-direction:column;gap:14px"><span style="font-size:112px;font-weight:900;line-height:1;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-on-primary)">0.000</span><span style="font-size:26px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-on-primary)">Unidades</span></div>
-<div style="display:flex;flex-direction:column;gap:14px"><span style="font-size:112px;font-weight:900;line-height:1;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-on-primary)">00 mil</span><span style="font-size:26px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-on-primary)">Estudantes/ano</span></div>
-<div style="display:flex;flex-direction:column;gap:14px"><span style="font-size:112px;font-weight:900;line-height:1;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-on-primary)">0,0 mil</span><span style="font-size:26px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-on-primary)">Educadores</span></div>
-</div>
-<p style="margin:0;font-size:24px;color:var(--rse-color-text-on-primary)">Substitua por números oficiais verificados antes de apresentar.</p>
+<section class="reference-slide" data-label="Programas" data-screen-label="05" data-archetype="pillars">
+  <header><p class="reference-slide__eyebrow">Programas · exemplo</p><h2 class="reference-slide__heading">Cada percurso tem seu lugar</h2></header>
+  <div class="reference-slide__columns reference-slide__columns--low">
+    <div class="reference-slide__column"><h3 class="reference-slide__subheading">Infantil</h3><p>Brincar, descobrir e conviver.</p></div>
+    <div class="reference-slide__column"><h3 class="reference-slide__subheading">Fundamental</h3><p>Investigar, criar e ampliar repertórios.</p></div>
+    <div class="reference-slide__column"><h3 class="reference-slide__subheading">Médio</h3><p>Fazer escolhas e construir caminhos.</p></div>
+  </div>
+  <footer class="reference-slide__folio"><span>Texto ilustrativo · validar a oferta da unidade</span><span>05</span></footer>
 </section>
-<section data-label="Programas" data-screen-label="06" style="width:1920px;height:1080px;background:var(--rse-color-surface-page);padding:120px;display:flex;flex-direction:column;gap:56px;font-family:var(--rse-font-family)">
-<div style="display:flex;flex-direction:column;gap:20px">
-<p style="margin:0;font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-muted)">Programas</p>
-<h2 style="margin:0;font-size:84px;font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-heading)">Da primeira infância ao mundo do trabalho</h2>
-</div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;flex:1">
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:32px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--rse-shadow-sm)">
-<div style="height:220px;background:repeating-linear-gradient(135deg,var(--rse-brand-gray-200) 0 14px,var(--rse-brand-gray-100) 14px 28px)"></div>
-<div style="padding:40px;display:flex;flex-direction:column;gap:18px">
-<span style="align-self:flex-start;background:var(--rse-color-tint-pink);color:var(--rse-color-tint-pink-ink);font-size:22px;font-weight:700;padding:8px 18px;border-radius:var(--rse-radius-pill)">Infantil</span>
-<h3 style="margin:0;font-size:38px;font-weight:800;color:var(--rse-color-text-heading);line-height:1.15">Educação Infantil</h3>
-<p style="margin:0;font-size:25px;line-height:1.55;color:var(--rse-color-text-body)">Cuidar e educar juntos, com brincar como método.</p>
-</div>
-</div>
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:32px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--rse-shadow-sm)">
-<div style="height:220px;background:repeating-linear-gradient(135deg,var(--rse-brand-gray-200) 0 14px,var(--rse-brand-gray-100) 14px 28px)"></div>
-<div style="padding:40px;display:flex;flex-direction:column;gap:18px">
-<span style="align-self:flex-start;background:var(--rse-color-tint-orange);color:var(--rse-color-tint-orange-ink);font-size:22px;font-weight:700;padding:8px 18px;border-radius:var(--rse-radius-pill)">Fundamental</span>
-<h3 style="margin:0;font-size:38px;font-weight:800;color:var(--rse-color-text-heading);line-height:1.15">Ensino Fundamental</h3>
-<p style="margin:0;font-size:25px;line-height:1.55;color:var(--rse-color-text-body)">Base sólida em leitura, matemática e convivência.</p>
-</div>
-</div>
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:32px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--rse-shadow-sm)">
-<div style="height:220px;background:repeating-linear-gradient(135deg,var(--rse-brand-gray-200) 0 14px,var(--rse-brand-gray-100) 14px 28px)"></div>
-<div style="padding:40px;display:flex;flex-direction:column;gap:18px">
-<span style="align-self:flex-start;background:var(--rse-color-tint-green);color:var(--rse-color-tint-green-ink);font-size:22px;font-weight:700;padding:8px 18px;border-radius:var(--rse-radius-pill)">Médio</span>
-<h3 style="margin:0;font-size:38px;font-weight:800;color:var(--rse-color-text-heading);line-height:1.15">Ensino Médio</h3>
-<p style="margin:0;font-size:25px;line-height:1.55;color:var(--rse-color-text-body)">Formação integral com projeto de vida no centro.</p>
-</div>
-</div>
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:32px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--rse-shadow-sm)">
-<div style="height:220px;background:repeating-linear-gradient(135deg,var(--rse-brand-gray-200) 0 14px,var(--rse-brand-gray-100) 14px 28px)"></div>
-<div style="padding:40px;display:flex;flex-direction:column;gap:18px">
-<span style="align-self:flex-start;background:var(--rse-color-tint-blue);color:var(--rse-color-tint-blue-ink);font-size:22px;font-weight:700;padding:8px 18px;border-radius:var(--rse-radius-pill)">Técnico</span>
-<h3 style="margin:0;font-size:38px;font-weight:800;color:var(--rse-color-text-heading);line-height:1.15">Formação Profissional</h3>
-<p style="margin:0;font-size:25px;line-height:1.55;color:var(--rse-color-text-body)">Qualificação conectada aos setores de comércio e serviços.</p>
-</div>
-</div>
-</div>
+<section class="reference-slide reference-slide--yellow" data-label="Um dado, uma história" data-screen-label="06" data-archetype="proof-number">
+  <div class="reference-slide__proof-title"><p class="reference-slide__eyebrow">Alcance · exemplo</p><h2 class="reference-slide__subheading">Um dado.<br>Uma história coletiva.</h2></div>
+  <div class="reference-slide__number">000</div>
+  <div class="reference-slide__proof-caption"><p class="reference-slide__subheading">unidades da Rede</p><p class="reference-slide__caption">Número de exemplo. Substitua por dado oficial verificado.</p></div>
+  <footer class="reference-slide__folio"><span>Fonte a confirmar</span><span>06</span></footer>
 </section>
-<section data-label="Depoimento" data-screen-label="07" style="width:1920px;height:1080px;background:var(--rse-color-surface-page);display:grid;grid-template-columns:1fr 1.15fr;font-family:var(--rse-font-family)">
-<div style="background:repeating-linear-gradient(135deg,var(--rse-brand-gray-200) 0 16px,var(--rse-brand-gray-100) 16px 32px);display:flex;align-items:flex-end;padding:48px">
-<span style="font-family:ui-monospace,Menlo,monospace;font-size:22px;background:var(--rse-color-surface-card);border-radius:10px;padding:12px 18px;color:var(--rse-color-text-muted)">retrato · estudante ou responsável</span>
-</div>
-<div style="padding:120px;display:flex;flex-direction:column;justify-content:center;gap:44px">
-<p style="margin:0;font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-muted)">Depoimento</p>
-<blockquote style="margin:0;font-size:60px;line-height:1.28;font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-heading)">“Minha filha chegou tímida e hoje apresenta projeto para a turma inteira. A escola do Sesc mudou a nossa rotina.”</blockquote>
-<div style="display:flex;flex-direction:column;gap:8px">
-<span style="font-size:30px;font-weight:700;color:var(--rse-color-text-heading)">Nome do responsável</span>
-<span style="font-size:26px;color:var(--rse-color-text-muted)">Mãe de estudante do Fundamental II · Unidade a definir</span>
-</div>
-</div>
+<section class="reference-slide reference-slide--split" data-label="Aprender e conviver" data-screen-label="07" data-archetype="image-split">
+  <div class="reference-slide__split-copy"><p class="reference-slide__eyebrow">Na prática</p><h2 class="reference-slide__heading">Espaços para aprender e conviver</h2><p>Imagem de referência a produzir.</p></div>
+  <div class="reference-slide__photo"><image-slot id="deck-learning-photo" placeholder="estudantes em sala, luz natural, estilo documental"></image-slot></div>
+  <footer class="reference-slide__folio"><span>Imagem e texto ilustrativos</span><span>07</span></footer>
 </section>
-<section data-label="Como funciona" data-screen-label="08" style="width:1920px;height:1080px;background:var(--rse-color-surface-page);padding:120px;display:flex;flex-direction:column;gap:64px;font-family:var(--rse-font-family)">
-<div style="display:flex;flex-direction:column;gap:20px">
-<p style="margin:0;font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-muted)">Como entrar</p>
-<h2 style="margin:0;font-size:84px;font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-heading)">Quatro passos até a matrícula</h2>
-</div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:48px;flex:1;align-content:start">
-<div style="display:flex;flex-direction:column;gap:24px"><span style="width:88px;height:88px;border-radius:var(--rse-radius-pill);background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800">1</span><h3 style="margin:0;font-size:40px;font-weight:800;color:var(--rse-color-text-heading)">Escolha o programa</h3><p style="margin:0;font-size:27px;line-height:1.6;color:var(--rse-color-text-body)">Consulte etapas, turnos e unidades disponíveis na sua cidade.</p></div>
-<div style="display:flex;flex-direction:column;gap:24px"><span style="width:88px;height:88px;border-radius:var(--rse-radius-pill);background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800">2</span><h3 style="margin:0;font-size:40px;font-weight:800;color:var(--rse-color-text-heading)">Faça a inscrição</h3><p style="margin:0;font-size:27px;line-height:1.6;color:var(--rse-color-text-body)">Formulário online, com acompanhamento do andamento por etapa.</p></div>
-<div style="display:flex;flex-direction:column;gap:24px"><span style="width:88px;height:88px;border-radius:var(--rse-radius-pill);background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800">3</span><h3 style="margin:0;font-size:40px;font-weight:800;color:var(--rse-color-text-heading)">Envie os documentos</h3><p style="margin:0;font-size:27px;line-height:1.6;color:var(--rse-color-text-body)">RG, CPF, comprovante de residência e, se aplicável, Credencial Sesc.</p></div>
-<div style="display:flex;flex-direction:column;gap:24px"><span style="width:88px;height:88px;border-radius:var(--rse-radius-pill);background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800">4</span><h3 style="margin:0;font-size:40px;font-weight:800;color:var(--rse-color-text-heading)">Confirme a vaga</h3><p style="margin:0;font-size:27px;line-height:1.6;color:var(--rse-color-text-body)">A unidade confere a documentação e confirma a matrícula.</p></div>
-</div>
+<section class="reference-slide" data-label="Cada tarefa no lugar certo" data-screen-label="08" data-archetype="comparison">
+  <header><p class="reference-slide__eyebrow">O ecossistema</p><h2 class="reference-slide__heading">Cada tarefa no lugar certo</h2></header>
+  <div class="reference-slide__columns reference-slide__columns--two reference-slide__columns--low">
+    <div class="reference-slide__column"><h3 class="reference-slide__subheading">Sab.IA</h3><p>Aprendizagem e acompanhamento.</p></div>
+    <div class="reference-slide__column"><h3 class="reference-slide__subheading">Portal TOTVS</h3><p>Matrícula e registros escolares.</p></div>
+  </div>
+  <footer class="reference-slide__folio"><span>Endereços de acesso a confirmar</span><span>08</span></footer>
 </section>
-<section data-label="Encerramento" data-screen-label="09" style="width:1920px;height:1080px;background:var(--rse-color-primary);padding:120px;display:flex;flex-direction:column;justify-content:space-between;font-family:var(--rse-font-family)">
-<p style="margin:0;font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:var(--rse-letter-spacing-eyebrow);color:var(--rse-color-text-on-primary)">Próximos passos</p>
-<div style="display:flex;flex-direction:column;gap:44px;max-width:1400px">
-<h2 style="margin:0;font-size:116px;line-height:1.06;font-weight:800;letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-on-primary)">Vamos levar a Rede para mais perto de mais gente</h2>
-<p style="margin:0;font-size:36px;line-height:1.5;color:var(--rse-color-text-on-primary)">Defina aqui o pedido concreto desta apresentação: parceria, aprovação, próxima reunião.</p>
-</div>
-<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:64px">
-<div style="display:flex;flex-direction:column;gap:12px">
-<span style="font-size:30px;font-weight:700;color:var(--rse-color-text-on-primary)">contato@exemplo.sesc.br</span>
-<span style="font-size:26px;color:var(--rse-color-text-on-primary)">Rede Sesc de Educação · Aprender para a vida acontecer</span>
-</div>
-<img src="../../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação" style="height:84px;width:auto;object-fit:contain">
-</div>
+<section class="reference-slide reference-slide--tint" data-label="Uma voz da comunidade" data-screen-label="09" data-archetype="testimonial">
+  <p class="reference-slide__eyebrow">Depoimento · exemplo</p>
+  <blockquote class="reference-slide__quote"><h2 class="reference-slide__heading">[Depoimento real e autorizado da comunidade escolar]</h2><footer class="reference-slide__caption">[Nome autorizado] · [Unidade]</footer></blockquote>
+  <footer class="reference-slide__folio"><span>Substitua por um relato real antes de apresentar</span><span>09</span></footer>
+</section>
+<section class="reference-slide reference-slide--ink" data-label="Próximo passo" data-screen-label="10" data-archetype="ask">
+  <x-import component-from-global-scope="RSEReferenceLogo" tone="white" class-name="reference-slide__logo" hint-size="200px,80px"></x-import>
+  <div class="reference-slide__ask"><p class="reference-slide__eyebrow">Próximo passo</p><h2 class="reference-slide__heading">Vamos construir o próximo passo</h2><p>Defina um pedido e um responsável antes de apresentar.</p></div>
+  <footer class="reference-slide__contact">[Contato institucional a confirmar]</footer>
 </section>
 </x-import>
 </x-dc>

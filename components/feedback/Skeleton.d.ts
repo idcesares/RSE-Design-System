@@ -1,4 +1,5 @@
-export interface SkeletonProps {
+import React from 'react';
+export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   /** text = stacked lines; rect / card / circle = single block */
   variant?: 'text' | 'rect' | 'card' | 'circle';
   /** CSS width (default 100%, or 48px for circle) */
@@ -6,8 +7,8 @@ export interface SkeletonProps {
   height?: string | number;
   /** Line count for variant text */
   lines?: number;
-  /** Override border radius */
+  /** Override border radius with a --rse-radius-* token reference */
   radius?: string;
 }
 /** Loading placeholder with a slow shimmer. Mirror the shape of the content that will replace it. */
-export function Skeleton(props: SkeletonProps): JSX.Element;
+export declare const Skeleton: React.ForwardRefExoticComponent<SkeletonProps & React.RefAttributes<HTMLDivElement>>;

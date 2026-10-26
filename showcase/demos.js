@@ -19,7 +19,7 @@ window.SC_DEMOS = (DS) => {
     Alert: 'Aviso fixo dentro da página: prazo de matrícula, erro em formulário, comunicado.',
     Avatar: 'Foto ou iniciais de uma pessoa — depoimentos, equipe, área do estudante.',
     Badge: 'Selinho de estado com um ponto colorido: vagas abertas, encerrado, novo.',
-    BrandMotif: 'O cubo impossível oficial, em suas seis construções. Obra da marca, não enfeite.',
+    BrandMotif: 'As seis construções fornecidas, cada uma com uma cor da Rede. Geometria preservada; cores padrão adaptadas.',
     MotifEngine: 'O motor que gera formas impossíveis com as regras do cubo, em qualquer das seis cores da paleta. Não desenha nada sozinho: é a base do carregador e dos padrões.',
     Breadcrumb: 'Trilha de onde a pessoa está em páginas profundas de unidade ou programa.',
     Button: 'A ação principal. Três variações e três tamanhos, sempre em formato de pílula.',
@@ -46,8 +46,8 @@ window.SC_DEMOS = (DS) => {
     Select: 'Lista suspensa para escolher unidade, programa ou estado.',
     Skeleton: 'O esqueleto que ocupa o lugar do conteúdo enquanto ele carrega.',
     MotifPattern: 'Um campo de formas impossíveis para preencher faixas e fundos: parado, revelado ao rolar ou respirando devagar, sempre com botão de pausa.',
-    Spinner: 'Indicador de carregamento para ações sem duração previsível.',
-    MotifLoader: 'O carregamento de página e de seção: uma forma impossível se monta peça por peça.',
+    Spinner: 'Compatibilidade com o carregamento compacto da Rede. Para novos usos, prefira MotifLoader no modo inline.',
+    MotifLoader: 'O carregamento da Rede: compacto em botões e ações, maior em páginas e seções. Uma forma impossível se monta peça por peça.',
     StatBand: 'Uma faixa de números de impacto sobre uma cor só, lida como lista.',
     Stat: 'Um número de impacto com rótulo — o pilar do resultado, tornado visível.',
     Stepper: 'As etapas de um fluxo, mostrando onde a pessoa está e o que já concluiu.',
@@ -103,11 +103,7 @@ window.SC_DEMOS = (DS) => {
       ) },
 
     BrandMotif: { render: () =>
-      h(F, null,
-        h(DS.BrandMotif, { variant: 'cube', size: 96 }),
-        h(DS.BrandMotif, { variant: 'interlock', size: 96 }),
-        h(DS.BrandMotif, { variant: 'frame', size: 96 })
-      ) },
+      h(F, null, DS.motifVariants.map(variant => h(DS.BrandMotif, { key: variant, variant, size: 96 }))) },
 
     MotifEngine: { render: () => {
       /* The six generated shapes, one hue each. Our own engine output (flat polygons from the
@@ -295,6 +291,7 @@ window.SC_DEMOS = (DS) => {
       h('div', { style: { borderRadius: 'var(--rse-radius-md)', overflow: 'hidden', border: '1px solid var(--rse-color-border-subtle)' } },
         h(DS.Navbar, {
           logoSrc: '../assets/logos/wordmark-purple.svg',
+          logoDarkSrc: '../assets/logos/wordmark-white.svg',
           logoAlt: 'Rede Sesc de Educação',
           links: [{ label: 'Programas', href: '#' }, { label: 'Unidades', href: '#' }, { label: 'Matrículas', href: '#' }],
           activeHref: '#',
@@ -365,11 +362,14 @@ window.SC_DEMOS = (DS) => {
         h('div', { style: { flex: 1 } }, h(DS.Skeleton, { variant: 'text', lines: 3 }))
       ) },
 
-    MotifLoader: { render: () =>
-      h(F, null,
-        h(DS.MotifLoader, { shape: 'cube', hue: 'purple', size: 56 }),
+    MotifLoader: { block: true, render: () =>
+      h('div', { className: 'sc-loading-examples' },
+        h(DS.Button, { disabled: true, 'aria-busy': 'true', icon: h(DS.MotifLoader, { variant: 'inline', size: 20 }) }, 'Enviando inscrição'),
+        h('div', { className: 'sc-loading-inline' }, h(DS.MotifLoader, { variant: 'inline', size: 24, label: 'Carregando programas' }), h('span', null, 'Buscando programas…')),
+        h('div', { className: 'sc-loader-stage' },
+        h(DS.MotifLoader, { shape: 'cube', hue: 'orange', size: 56 }),
         h(DS.MotifLoader, { shape: 'triangle', hue: 'blue', size: 56, label: 'Carregando programas' }),
-        h(DS.MotifLoader, { shape: 'twin', hues: ['green', 'blue', 'pink'], size: 64, label: 'Carregando unidades' })
+        h(DS.MotifLoader, { shape: 'twin', hues: ['green', 'blue', 'pink'], size: 64, label: 'Carregando unidades' }))
       ) },
 
     MotifPattern: { block: true, render: () => {
@@ -385,11 +385,9 @@ window.SC_DEMOS = (DS) => {
     } },
 
     Spinner: { render: () =>
-      h(F, null,
-        h(DS.Spinner, { size: 20 }),
-        h(DS.Spinner, { size: 28 }),
-        h('span', { style: { background: 'var(--rse-color-primary)', padding: 'var(--rse-space-3)', borderRadius: 'var(--rse-radius-md)', display: 'inline-flex' } },
-          h(DS.Spinner, { size: 24, tone: 'inverse' }))
+      h('div', { className: 'sc-loading-examples' },
+        h('div', { className: 'sc-loading-inline' }, h(DS.Spinner, { size: 24 }), h('span', null, 'Mesma implementação do MotifLoader inline.')),
+        h(DS.Button, { variant: 'ghost', size: 'sm', href: '#componente-motifloader' }, 'Ver o componente principal')
       ) },
 
     Hero: { block: true, render: () =>

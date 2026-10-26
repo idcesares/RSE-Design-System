@@ -242,6 +242,10 @@
 --rse-duration-slow:360ms;
 --rse-duration-reveal:600ms;
 --rse-duration-loop:2400ms;
+/* Unmanaged loading spinner cycle; reduced motion uses the base-runtime safety net. */
+--rse-duration-spinner:800ms;
+/* Unmanaged skeleton shimmer cycle; reduced motion uses the base-runtime safety net. */
+--rse-duration-skeleton:1400ms;
 }
 
 [data-rse-theme="light"]{

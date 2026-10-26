@@ -2,17 +2,17 @@ import React from 'react';
 
 // GENERATED list — see scripts/build-motifs.mjs.
 export type MotifVariant =
-  /** green — solid isometric cube — the base mark */
+  /** purple default; green supplied — solid isometric cube — the base mark */
   | 'cube'
-  /** blue — two cubes interlocking through each other */
+  /** blue default; blue supplied — two cubes interlocking through each other */
   | 'interlock'
-  /** green — cube pierced by a bar that cannot pass through it */
+  /** green default; green supplied — cube pierced by a bar that cannot pass through it */
   | 'bar'
-  /** pink — open frame with two impossible voids */
+  /** pink default; pink supplied — open frame with two impossible voids */
   | 'frame'
-  /** pink — zig-zag chain of bars — the widest construction */
+  /** orange default; pink supplied — zig-zag chain of bars — the widest construction */
   | 'chain'
-  /** blue — cube opened out around a hollow centre */
+  /** yellow default; blue supplied — cube opened out around a hollow centre */
   | 'hollow';
 
 export type MotifHue = 'green' | 'blue' | 'pink' | 'purple' | 'orange' | 'yellow';
@@ -26,19 +26,14 @@ export interface BrandMotifProps {
   title?: string;
   /** Fade the motif when it sits behind content (default 1) */
   opacity?: number;
-  /**
-   * Restate the construction in another palette family. Omit to render the exact fills Sesc
-   * supplied — the sheet ships green, blue and pink only, so this is how the other three
-   * families are reached. Ramps derive from the published palette, never from the artwork.
-   */
-  hue?: MotifHue;
+  /** Omit for the assigned brand family; "original" preserves supplied fills; a palette family selects a derived remap. */
+  hue?: MotifHue | 'original';
 }
 
 /**
  * The official "cubo impossível" motif — the brand's central visual idea, supplied by Sesc
- * as vector artwork and split into six constructions. Renders the supplied colours untouched
- * unless `hue` asks for another family. Never re-maps per theme. Returns null for an unknown
- * variant.
+ * as vector artwork and split into six constructions. Defaults to one brand family per shape;
+ * hue="original" retains supplied colours. Never re-maps per theme. Invalid variants/hues return null.
  */
 export function BrandMotif(props: BrandMotifProps): JSX.Element | null;
 
@@ -47,6 +42,9 @@ export const motifVariants: MotifVariant[];
 
 /** All palette families a construction can be restated in */
 export const motifHues: MotifHue[];
+
+/** Assigned default brand family for each construction (derived remaps). */
+export const motifDefaultHues: Readonly<Record<MotifVariant, MotifHue>>;
 
 /** N palette shades of a hue, lightest first; null for an unknown hue. */
 export function motifRamp(hue: MotifHue, steps: number): string[] | null;
