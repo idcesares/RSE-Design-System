@@ -4,6 +4,11 @@ The brand and UI foundation of the **Rede Sesc de Educação** and its learning 
 **Plataforma Sesc Sab.IA**: tokens, components, templates and rules for building sites, platforms,
 print and social pieces that all read as one national network.
 
+All 40 audited UI wrappers use a CSS class contract, with native attributes and refs forwarded by
+React. The 43 manifest entries also include the generated Icon/BrandMotif wrappers and the
+MotifEngine library. Plain HTML can use the same styles; interactive behavior needs a host
+controller as documented in each component guide.
+
 | You are… | Start at |
 | --- | --- |
 | Building something in this repo, or an agent | [AGENTS.md](AGENTS.md) |
@@ -12,6 +17,7 @@ print and social pieces that all read as one national network.
 | Settling a brand question | [docs/brand-manual.md](docs/brand-manual.md) |
 | Showing the system to someone | [showcase/index.html](showcase/index.html) (opens offline) |
 | Improving the system itself | [docs/roadmap/](docs/roadmap/) |
+| Learning from complete implementations | [docs/application-references.md](docs/application-references.md) |
 
 ```bash
 npm install @idcesares/rse-design-system   # GitHub Packages; see docs/integration.md
@@ -76,7 +82,7 @@ The Rede Sesc de Educação is Sesc's (Serviço Social do Comércio) national ne
 
 **Transparency/blur:** used sparingly — the sticky header uses a translucent cream background with light backdrop-blur so content scrolls beneath it without fully obscuring it. No modal-glass or oversized blur elsewhere.
 
-**3D/impossible-cube motif:** the brief calls for a "cubo impossível" (impossible cube) motif suggesting reach, expansion, flexibility, and lateral thinking. **The official artwork is now in the system** (`assets/motifs/`, `components/brand/BrandMotif.jsx`) as six constructions — cube, interlock, bar, frame, chain, hollow — in the green, blue and pink face-shaded families. The six signature constructions render exactly as supplied: never redrawn, rotated or distorted, and they do not re-map per theme, exactly like the logo. **Generated shapes and motion** (six shapes, patterns, a loader) come only from the motif engine (`MotifEngine`, through `MotifPattern` and `MotifLoader`); they are system work, derived, not supplied by Sesc. Patterns are flat colour fields; one focal construction per composition, a pattern is a field and the loader is exempt. The signature **hue** can alternate: `BrandMotif` takes a `hue` prop that restates a construction in any of the six palette families, so purple, orange and yellow are reachable without new artwork. Ramps come from the manual's published palette (never sampled off the artwork) and preserve each face's luminance rank, which is what keeps the impossible cube reading as a solid. Full-bleed cube fields use `assets/patterns/`.
+**3D/impossible-cube motif:** the brief calls for a "cubo impossível" (impossible cube) motif suggesting reach, expansion, flexibility, and lateral thinking. **The official artwork is now in the system** (`assets/motifs/`, `components/brand/BrandMotif.jsx`) as six constructions — cube, interlock, bar, frame, chain, hollow — in the green, blue and pink face-shaded families. The six signature constructions preserve the supplied geometry: never redrawn, rotated or distorted, and they do not re-map per theme, exactly like the logo. **Generated shapes and motion** (six shapes, patterns, a loader) come only from the motif engine (`MotifEngine`, through `MotifPattern` and `MotifLoader`); they are system work, derived, not supplied by Sesc. Patterns are flat colour fields; one focal construction per composition, a pattern is a field and the loader is exempt. The signature **hue** can alternate: `BrandMotif` takes a `hue` prop that restates a construction in any of the six palette families, so purple, orange and yellow are reachable without new artwork. Ramps come from the manual's published palette (never sampled off the artwork) and preserve each face's luminance rank, which is what keeps the impossible cube reading as a solid. Full-bleed cube fields use `assets/patterns/`. By default each construction has a distinct brand family (see `motifDefaultHues`); these palette remaps are derived. Use `hue="original"` for the exact supplied fills.
 
 ## Iconography
 No official Sesc icon set was supplied, so the system adopts **[Lucide](https://lucide.dev) (ISC licence)** — chosen because its drawing spec (24×24 grid, 2px stroke, `currentColor`) is exactly the spec this system already required, so nothing had to be restyled. 97 glyphs covering education, enrollment, units, results and the Sab.IA platform are vendored in `assets/icons/lucide/`, and `components/core/Icon.jsx` is generated from them by `scripts/build-icons.mjs`. Pass an `<Icon>` to `Button`/`IconButton` via their `icon` prop. **No emoji, no unicode-as-icon usage, and never a hand-drawn one-off SVG** — vendor the glyph and regenerate. See `assets/icons/README.md`.

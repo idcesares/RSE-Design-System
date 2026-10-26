@@ -11,22 +11,22 @@
   },
   "templates/landing-page/LandingPage.dc.html": {
     "axe": 0,
-    "overflow": true,
+    "overflow": false,
     "rules": {}
   },
   "templates/program-page/ProgramPage.dc.html": {
     "axe": 0,
-    "overflow": true,
+    "overflow": false,
     "rules": {}
   },
   "starters/page-react.html": {
     "axe": 0,
-    "overflow": true,
+    "overflow": false,
     "rules": {}
   },
   "starters/page.html": {
     "axe": 0,
-    "overflow": true,
+    "overflow": false,
     "rules": {}
   },
   "starters/poster.html": {

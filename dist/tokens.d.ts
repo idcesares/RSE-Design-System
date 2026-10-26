@@ -176,7 +176,9 @@ export type TokenName =
   | "--rse-duration-base"
   | "--rse-duration-slow"
   | "--rse-duration-reveal"
-  | "--rse-duration-loop";
+  | "--rse-duration-loop"
+  | "--rse-duration-spinner"
+  | "--rse-duration-skeleton";
 export type TokenMap = Record<TokenName, string>;
 export declare const version: string;
 export declare const light: TokenMap;

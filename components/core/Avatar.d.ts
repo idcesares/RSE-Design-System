@@ -1,5 +1,5 @@
 import React from 'react';
-export interface AvatarProps {
+export interface AvatarProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** Photo URL; when omitted, initials are shown */
   src?: string;
   alt?: string;
@@ -9,4 +9,5 @@ export interface AvatarProps {
   /** Optional presence dot */
   status?: 'online' | 'offline' | 'away';
 }
-export function Avatar(props: AvatarProps): JSX.Element;
+/** Circular image or initials with optional decorative presence dot. Class contract: .rse-avatar. */
+export declare const Avatar: React.ForwardRefExoticComponent<AvatarProps & React.RefAttributes<HTMLSpanElement>>;

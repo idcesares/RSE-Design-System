@@ -10,8 +10,10 @@ a script can verify, and whether it can start now or waits on a decision.
 | --- | --- |
 | Decisions approved | **D1–D6** (October 2026). D5 without legacy aliases: nothing consumed 1.x, so 2.0.0 is a clean break. |
 | Done in 2.0.0 | **Phase 0** (P0.1–P0.3) · **Phase 1** (P1.1–P1.4) · D6 removals · **P2.4** glyphs → `Icon` · **P2.1–P2.3** for 12 components (Button, IconButton, Card, Tag, Badge, Alert, Input, Select, Textarea, Checkbox, Radio, Switch) · **P2.5** browser tests (errors + axe + 360px) |
-| Measured | axe WCAG 2.2 AA violation nodes across 8 pages: **171 → 0**; contrast pairs gated: **117**, all passing in 3 themes; glyph icons **9 → 0**; px literals in components **133 → 81** |
-| Next | **P2.1/P2.2** for the other 24 components · **P3.1** responsive templates (12 pages still scroll sideways at 360px, ratcheted) · **P3.4** one docs site (see the showcase proposal) |
+| Historical measurement (2.0.0) | axe WCAG 2.2 AA violation nodes across 8 pages: **171 → 0**; contrast pairs gated: **117**, all passing in 3 themes; glyph icons **9 → 0**; px literals in components **133 → 81** |
+| Current implementation | All **40 audited UI wrappers** use the CSS contract (38 shared/distinct stylesheets); **0** JS-hover styling, **0** wrappers without rest props, **0** component px literals in JSX. The manifest also includes generated Icon/BrandMotif and the MotifEngine library (43 entries total). |
+| Current validation | **168** listed contrast pairs pass across three themes. Browser checks cover 8 shipped pages; current axe and overflow results are recorded by `scripts/test-pages-baseline.json`. |
+| Next | **P3.4** one docs site (see the showcase proposal); wider consumer testing and host adapters. P2.1/P2.2 migration is complete; retain responsive coverage as a regression gate. |
 
 P2.5 landed without screenshot diffs on purpose: baselines of 46 pages × 3 themes churn on every
 intended change and get approved blindly. Runtime errors, axe and phone overflow catch the
@@ -56,6 +58,10 @@ npm run audit -- --json
 ```
 
 ---
+
+The sections below preserve the original roadmap proposal. Proposed package splits, paths and legacy
+aliases are historical design options, not installation instructions. The current implementation
+is the single package described above and in [integration.md](../integration.md).
 
 ## 1. Target architecture
 

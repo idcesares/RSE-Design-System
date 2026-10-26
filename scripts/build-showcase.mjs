@@ -15,6 +15,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CONTRAST_PAIRS } from './contrast-pairs.mjs';
+import { cssContractPath } from './lib/css-contract.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'showcase', 'showcase-data.js');
@@ -82,9 +83,9 @@ const palette = brand.palette.map((c) => ({
   source: c.source,
 }));
 
-/* ── Components on the CSS contract: they have a .css file next to the .jsx ──── */
+/* ── Components on the CSS contract, including shared stylesheets ──────────── */
 const contractComponents = manifest.components
-  .filter((c) => existsSync(join(ROOT, c.sourcePath.replace(/\.jsx$/, '.css'))))
+  .filter((c) => cssContractPath(ROOT, c.sourcePath))
   .map((c) => c.name);
 
 /* ── Tokens per theme with the alias each one points at, for the explorer ───── */

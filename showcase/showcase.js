@@ -352,17 +352,18 @@
   };
   const MotifGallery = () => {
     const [hue, setHue] = React.useState(null);
-    const options = [null, 'purple', 'green', 'blue', 'pink', 'orange', 'yellow'];
+    const options = [null, 'purple', 'green', 'blue', 'pink', 'orange', 'yellow', 'original'];
     return h(F, null,
       h('div', { className: 'sc-hue-switch', role: 'group', 'aria-label': 'Cor das construções' },
-        options.map((id) => h('button', { key: id || 'original', type: 'button', 'aria-pressed': String(hue === id), onClick: () => setHue(id) },
-          id ? h('span', { className: 'dot', style: { background: `var(--rse-brand-${id})` } }) : null,
-          id ? HUE_PT[id] : 'Original'))),
+        options.map((id) => h('button', { key: id || 'brand', type: 'button', 'aria-pressed': String(hue === id), onClick: () => setHue(id) },
+          id && id !== 'original' ? h('span', { className: 'dot', style: { background: `var(--rse-brand-${id})` } }) : null,
+          id === 'original' ? 'Como fornecido' : id ? HUE_PT[id] : 'Cores da Rede'))),
       h('div', { className: 'sc-motifs' }, D.assets.motifs.map((m) =>
         h('figure', { className: 'sc-motif', key: m.id },
           h(DS.BrandMotif, { variant: m.variant, size: 140, hue: hue || undefined }),
           h('figcaption', null, h('b', null, MOTIF_PT[m.variant] || m.variant),
-            hue && hue !== m.hue ? `${HUE_PT[hue].toLowerCase()} — derivada` : `${(HUE_PT[m.hue] || m.hue).toLowerCase()} — oficial`)))));
+            hue === 'original' ? `${HUE_PT[m.hue].toLowerCase()} — como fornecido` : `${HUE_PT[hue || DS.motifDefaultHues[m.variant]].toLowerCase()} — cor adaptada`)))),
+      h('p', { className: 'sc-note' }, 'As seis cores padrão são adaptações da paleta da Rede sobre a geometria fornecida. “Como fornecido” preserva as cores do arquivo original.'));
   };
   mount('mount-motifs', h(MotifGallery));
   mount('mount-patterns', h(F, null, D.assets.patterns.map((p) =>
@@ -613,8 +614,32 @@
   const DemoCard = ({ component }) => {
     const demo = DEMOS[component.name];
     const contract = isContract(component.name);
-    const [tab, setTab] = React.useState(null);
+    const [tab, setTab] = React.useState('props');
+    const detailId = 'sc-detail-' + React.useId().replace(/:/g, '');
+    const detailRefs = React.useRef({});
     const stageRef = React.useRef(null);
+    const cardRef = React.useRef(null);
+    React.useLayoutEffect(() => {
+      const card = cardRef.current;
+      if (!card || typeof ResizeObserver === 'undefined') return;
+      let frame;
+      const measure = () => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          const grid = getComputedStyle(card.parentElement);
+          const row = parseFloat(grid.gridAutoRows);
+          if (!row) return;
+          const gap = parseFloat(getComputedStyle(card).marginBottom) || 0;
+          const span = Math.ceil((card.getBoundingClientRect().height + gap) / row);
+          const placement = 'span ' + Math.max(1, span);
+          if (card.style.gridRowEnd !== placement) card.style.gridRowEnd = placement;
+        });
+      };
+      const observer = new ResizeObserver(measure);
+      observer.observe(card);
+      measure();
+      return () => { observer.disconnect(); cancelAnimationFrame(frame); };
+    }, []);
     const tabs = [['props', 'Props'], ...(contract ? [['html', 'HTML']] : []), ['use', 'Usar']];
     const panel = () => {
       if (tab === 'props') return component.props.length
@@ -624,7 +649,7 @@
       if (tab === 'html') {
         const html = stageRef.current ? prettyHtml(componentMarkup(stageRef.current)) : '';
         return h(F, null,
-          h('p', { className: 'sc-note' }, 'A marcação que este componente acabou de produzir. Com o CSS do sistema, ela funciona igual sem React — cole num CMS ou no portal.'),
+          h('p', { className: 'sc-note' }, 'Esta marcação usa o CSS do sistema. Interações como abrir menus, alternar abas e controlar diálogos precisam de JavaScript no site. Consulte o guia do componente antes de copiar.'),
           h('pre', { className: 'sc-code', tabIndex: 0, 'aria-label': `HTML gerado por ${component.name}` }, html),
           h('div', { className: 'sc-copy-row' }, h(DS.Button, { size: 'sm', variant: 'secondary', icon: icon('download', 16), onClick: () => copy(html, `O HTML de ${component.name}`) }, 'Copiar HTML')));
       }
@@ -635,7 +660,7 @@
       }
       return null;
     };
-    return h('article', { className: 'sc-demo', id: `componente-${component.name.toLowerCase()}` },
+    return h('article', { ref: cardRef, className: 'sc-demo', id: `componente-${component.name.toLowerCase()}` },
       h('div', { className: 'sc-demo-head' },
         h('h3', { className: 'sc-demo-name' }, component.name,
           h('span', { className: 'sc-demo-tag' }, component.groupLabel),
@@ -643,31 +668,66 @@
         h('p', { className: 'sc-demo-desc' }, GLOSS[component.name] || component.summary)),
       h('div', { className: `sc-demo-stage${demo && demo.block ? ' is-block' : ''}`, ref: stageRef },
         demo ? demo.render() : h('p', { className: 'sc-note', style: { margin: 0 } }, 'Sem demonstração nesta página.')),
-      h('div', { className: 'sc-demo-tabs', role: 'tablist', 'aria-label': `Detalhes de ${component.name}` },
-        tabs.map(([id, label]) => h('button', { key: id, type: 'button', role: 'tab', 'aria-selected': String(tab === id), onClick: () => setTab(tab === id ? null : id) }, label))),
-      tab ? h('div', { className: 'sc-demo-panel', role: 'tabpanel' }, panel()) : null);
+      h('details', { className: 'sc-demo-details' },
+      h('summary', { className: 'sc-demo-summary', 'aria-label': `Detalhes e código de ${component.name}` }, 'Detalhes e código'),
+      h('div', { className: 'sc-demo-tabs', role: 'tablist', 'aria-label': `Detalhes de ${component.name}`, onKeyDown: (event) => {
+        if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const index = tabs.findIndex(([id]) => id === tab);
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        const id = tabs[next][0];
+        setTab(id);
+        detailRefs.current[id].focus();
+      } },
+        tabs.map(([id, label]) => h('button', { key: id, type: 'button', role: 'tab', id: `${detailId}-${id}`, 'aria-controls': `${detailId}-panel-${id}`, 'aria-selected': String(tab === id), tabIndex: tab === id ? 0 : -1, ref: (node) => { detailRefs.current[id] = node; }, onClick: () => setTab(id) }, label))),
+      tabs.map(([id]) => h('div', { key: id, id: `${detailId}-panel-${id}`, className: 'sc-demo-panel', role: 'tabpanel', 'aria-labelledby': `${detailId}-${id}`, hidden: tab !== id, tabIndex: 0 }, tab === id ? panel() : null))));
   };
+
+  const normalizeSearch = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const SEARCH_ALIASES = {
+    Button: 'botão ação confirmar', IconButton: 'botão ícone', Input: 'campo texto entrada',
+    Select: 'seleção lista opções', Checkbox: 'caixa seleção marcar', Radio: 'opção única seleção',
+    Switch: 'alternar interruptor ativar', Divider: 'divisória separador linha',
+    FileUpload: 'arquivo anexo documento upload', DataTable: 'tabela dados',
+    Modal: 'janela diálogo', Toast: 'notificação aviso', Tooltip: 'dica ajuda',
+    Pagination: 'paginação páginas', FilterChips: 'filtros seleção', Stepper: 'etapas progresso matrícula',
+    MotifLoader: 'motifspinner motif spinner carregamento espera processando', Spinner: 'motif loader compatibilidade carregamento',
+    Tabs: 'abas navegação', Accordion: 'sanfona perguntas respostas', PlatformEntry: 'plataforma sabia acesso'
+  };
+  const SEARCH_INDEX = new Map(D.components.map((c) => [c.name, normalizeSearch([
+    c.name, c.name.replace(/([a-z])([A-Z])/g, '$1 $2'), c.group, c.groupLabel,
+    GLOSS[c.name], c.summary, SEARCH_ALIASES[c.name]
+  ].filter(Boolean).join(' '))]));
 
   const Gallery = () => {
     const [query, setQuery] = React.useState('');
-    const [groups, setGroups] = React.useState([]);
+    const [group, setGroup] = React.useState('');
     const [onlyContract, setOnlyContract] = React.useState(false);
-    const q = query.trim().toLowerCase();
-    const visible = D.components.filter((c) =>
-      (groups.length === 0 || groups.includes(c.group)) && (!onlyContract || isContract(c.name)) &&
-      (!q || c.name.toLowerCase().includes(q) || (GLOSS[c.name] || '').toLowerCase().includes(q) || c.summary.toLowerCase().includes(q)));
+    const queryId = 'sc-gallery-help-' + React.useId().replace(/:/g, '');
+    const terms = normalizeSearch(query).split(' ').filter(Boolean);
+    const matching = D.components.filter((c) => (!onlyContract || isContract(c.name)) && terms.every((term) => SEARCH_INDEX.get(c.name).includes(term)));
+    const visible = matching.filter((c) => !group || c.group === group);
+    const filtered = Boolean(query || group || onlyContract);
+    const reset = () => { setQuery(''); setGroup(''); setOnlyContract(false); };
     return h(F, null,
       ReactDOM.createPortal(h(F, null,
-        h('div', { className: 'sc-gallery-search' }, h(DS.Input, { label: 'Buscar componente', placeholder: 'botão, tabela, matrícula…', value: query, onChange: (e) => setQuery(e.target.value) })),
-        h('div', { style: { flex: '1 1 24rem' } }, h(DS.FilterChips, {
-          label: 'Grupo', value: groups, onChange: setGroups, showClear: true,
-          options: GROUPS.map((g) => ({ id: g.id, label: g.label, count: D.components.filter((c) => c.group === g.id).length })) })),
-        h(DS.Switch, { label: 'Só contrato CSS', checked: onlyContract, onChange: (e) => setOnlyContract(e.target.checked) }),
-        h('span', { className: 'sc-gallery-count', 'aria-live': 'polite' }, `${visible.length} de ${D.components.length}`)),
+        h('div', { className: 'sc-gallery-search' }, h(DS.Input, { label: 'Buscar componente', type: 'search', placeholder: 'Nome, função ou uso: botão, file upload…', value: query, 'aria-describedby': queryId, onChange: (e) => setQuery(e.target.value) })),
+        h('div', { className: 'sc-gallery-group' }, h(DS.Select, {
+          label: 'Grupo', value: group, onChange: (e) => setGroup(e.target.value),
+          options: [{ value: '', label: `Todos os grupos (${matching.length})` }, ...GROUPS.map((g) => ({ value: g.id, label: `${g.label} (${matching.filter((c) => c.group === g.id).length})` }))]
+        })),
+        h('div', { className: 'sc-gallery-contract' }, h(DS.Switch, { label: 'Só contrato CSS', checked: onlyContract, onChange: (e) => setOnlyContract(e.target.checked) })),
+        h(DS.Button, { className: 'sc-gallery-reset', variant: 'ghost', size: 'sm', disabled: !filtered, onClick: reset }, 'Limpar filtros'),
+        h('div', { className: 'sc-gallery-status' },
+          h('p', { id: queryId, className: 'sc-gallery-help' }, 'Busque em português ou inglês. Combine palavras para refinar os resultados.'),
+          h('p', { className: 'sc-gallery-count', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' }, `${visible.length} de ${D.components.length} componentes`))),
       document.getElementById('mount-gallery-controls')),
       visible.length
-        ? h('div', { className: 'sc-demos' }, visible.map((c) => h(DemoCard, { component: c, key: c.name })))
-        : h('div', { className: 'sc-empty' }, 'Nenhum componente corresponde a essa busca.'));
+        ? h('div', { className: 'sc-demos' + (typeof ResizeObserver !== 'undefined' ? ' is-masonry' : '') }, visible.map((c) => h(DemoCard, { component: c, key: c.name })))
+        : h('div', { className: 'sc-gallery-empty' },
+            h('h3', null, 'Nenhum componente encontrado'),
+            h('p', null, 'Tente outro nome, use menos palavras ou escolha todos os grupos.'),
+            h(DS.Button, { variant: 'secondary', onClick: reset }, 'Limpar filtros')));
   };
   mount('mount-gallery', h(Gallery));
 
@@ -716,10 +776,10 @@
   /* ── 04 Aplicações: templates, live, at three widths ─────────────────────── */
 
   const TEMPLATE_PT = {
-    'Landing Page': ['Página de campanha', 'Aviso, hero, números, programas em abas, depoimento, busca de unidades e formulário de interesse.'],
-    'Program detail page': ['Página de programa', 'Janela de matrícula, tabela de turmas, filtros, perguntas frequentes e inscrição em etapas.'],
-    'Institutional deck': ['Apresentação institucional', 'Nove slides em 1920×1080, para projeção, PDF ou PowerPoint.'],
-    'Enrollment form (print)': ['Ficha de matrícula', 'Formulário A4 de duas páginas: dados, documentos, termos e assinaturas.'],
+    'Landing Page': ['Página de campanha', 'Campanha editorial com programas filtráveis, experiência escolar, orientações de matrícula e acesso à Sab.IA.'],
+    'Program detail page': ['Página de programa', 'Proposta de programa, turmas com filtro funcional, perguntas frequentes e orientação para o portal TOTVS.'],
+    'Institutional deck': ['Apresentação institucional', 'Dez slides editoriais em 1920×1080, com hierarquia, arte oficial e marcadores de conteúdo.'],
+    'Enrollment form (print)': ['Ficha de matrícula', 'Duas páginas A4 com áreas de escrita, documentos ilustrativos e campos de ciência a validar.'],
   };
   const VIEW = {
     'Landing Page': { width: 1280, height: 1500, web: true },

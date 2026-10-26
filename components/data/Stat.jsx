@@ -1,33 +1,11 @@
 import React from 'react';
-export function Stat({ value, label, description, accent = 'primary', align = 'left', size = 'md' }) {
-  const accents = {
-    primary: 'var(--rse-color-primary)', indigo: 'var(--rse-brand-indigo)', pink: 'var(--rse-brand-pink-dark)',
-    orange: 'var(--rse-brand-orange-dark)', green: 'var(--rse-brand-green-dark)', blue: 'var(--rse-brand-blue-dark)',
-    yellow: 'var(--rse-color-tint-yellow-ink)', inverse: 'var(--rse-color-text-on-primary)'
-  };
-  const valueSize = size === 'lg' ? 'var(--rse-font-size-display-2)' : size === 'sm' ? 'var(--rse-font-size-h2)' : 'var(--rse-font-size-h1)';
+const cx = (...c) => c.filter(Boolean).join(' ');
+export const Stat = React.forwardRef(function Stat({ value, label, description, accent = 'primary', align = 'left', size = 'md', className, ...rest }, ref) {
   return React.createElement('div', {
-    style: { display: 'flex', flexDirection: 'column', gap: 'var(--rse-space-2)', textAlign: align, alignItems: align === 'center' ? 'center' : 'flex-start' }
+    ref, className: cx('rse-stat', 'rse-stat--' + accent, 'rse-stat--' + size, align === 'center' && 'rse-stat--center', className), ...rest
   },
-    React.createElement('span', {
-      style: {
-        fontSize: valueSize, fontWeight: 'var(--rse-font-weight-black)', lineHeight: 'var(--rse-line-height-tight)',
-        letterSpacing: 'var(--rse-letter-spacing-tight)', color: accents[accent] || accents.primary,
-        fontFamily: 'var(--rse-font-family)'
-      }
-    }, value),
-    React.createElement('span', {
-      style: {
-        fontSize: 'var(--rse-font-size-eyebrow)', textTransform: 'uppercase', letterSpacing: 'var(--rse-letter-spacing-eyebrow)',
-        fontWeight: 'var(--rse-font-weight-bold)',
-        color: accent === 'inverse' ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-text-muted)'
-      }
-    }, label),
-    description ? React.createElement('p', {
-      style: {
-        marginTop: 'var(--rse-space-1)', fontSize: 'var(--rse-font-size-body-sm)', lineHeight: 'var(--rse-line-height-body)',
-        color: accent === 'inverse' ? 'var(--rse-color-text-on-primary)' : 'var(--rse-color-text-body)', maxWidth: '32ch'
-      }
-    }, description) : null
+    React.createElement('span', { className: 'rse-stat__value' }, value),
+    React.createElement('span', { className: 'rse-stat__label' }, label),
+    description ? React.createElement('p', { className: 'rse-stat__description' }, description) : null
   );
-}
+});

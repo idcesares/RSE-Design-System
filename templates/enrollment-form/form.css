@@ -1,0 +1,30 @@
+doc-page:not(:defined){visibility:hidden}
+/* A4 paper geometry; screen themes do not recolour the printed document. */
+.enrollment-sheet{display:flex;flex-direction:column;gap:var(--rse-space-4);padding:14mm 16mm;font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-color-text-body);background:var(--rse-color-surface-card);border-radius:var(--rse-radius-sm)!important;box-shadow:var(--rse-shadow-md)!important}
+.enrollment-sheet *{box-sizing:border-box}
+.enrollment-sheet p{margin:0;font-size:inherit;line-height:inherit;max-width:none}
+.enrollment-sheet h1,.enrollment-sheet__title{font-size:var(--rse-font-size-h2);font-weight:var(--rse-font-weight-extrabold);letter-spacing:var(--rse-letter-spacing-tight);line-height:var(--rse-line-height-tight);color:var(--rse-color-text-heading);margin:0}
+.enrollment-sheet h2:not(.enrollment-sheet__title){font-size:var(--rse-font-size-body-md);font-weight:var(--rse-font-weight-extrabold);letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-heading);margin:0}
+.enrollment-sheet__header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--rse-space-5);border-bottom:2px solid var(--rse-color-primary);padding-bottom:var(--rse-space-4)}
+.enrollment-sheet__eyebrow{font-size:var(--rse-font-size-caption)!important;font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-text-link);margin-bottom:var(--rse-space-2)!important}
+.enrollment-sheet__logo{width:48mm;height:auto;flex:none;object-fit:contain}
+.enrollment-sheet__lead{font-size:var(--rse-font-size-caption)!important;color:var(--rse-color-text-muted);margin-top:var(--rse-space-2)!important}
+.enrollment-sheet__notice{font-size:var(--rse-font-size-caption)!important;border-left:3px solid var(--rse-color-primary);padding-left:var(--rse-space-3);color:var(--rse-color-text-muted)}
+.enrollment-sheet__section{display:flex;flex-direction:column;gap:var(--rse-space-3)}
+.enrollment-sheet__section--tint{background:var(--rse-color-surface-primary-tint);color:var(--rse-color-text-on-primary-tint);border-radius:var(--rse-radius-sm);padding:var(--rse-space-4)}
+.enrollment-sheet__section--tint h2,.enrollment-sheet__section--tint .enrollment-sheet__caption{color:var(--rse-color-text-on-primary-tint)}
+.enrollment-sheet__section--outlined{border:1px solid var(--rse-color-border-strong);border-radius:var(--rse-radius-sm);padding:var(--rse-space-4)}
+.enrollment-sheet__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--rse-space-4)}
+.enrollment-sheet__grid--three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.enrollment-sheet__grid--address{grid-template-columns:2fr 1fr}
+.print-field{display:flex;flex-direction:column;gap:var(--rse-space-1);min-width:0;font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)}
+.print-field__line{display:block;height:7mm;border-bottom:1px solid var(--rse-color-border-strong)}
+.print-field__line--notes{height:9mm}
+.print-field__line--signature{height:15mm}
+.print-options{display:flex;flex-wrap:wrap;gap:var(--rse-space-3) var(--rse-space-4);font-size:var(--rse-font-size-caption)}
+.print-options>span{display:flex;align-items:center;gap:var(--rse-space-2)}
+.print-options--documents{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--rse-space-4)}
+.print-box{display:inline-block;width:5mm;height:5mm;flex:none;border:1.5px solid var(--rse-color-border-strong);border-radius:var(--rse-radius-sm);background:var(--rse-color-surface-card)}
+.enrollment-sheet__caption{font-size:var(--rse-font-size-caption)!important;color:var(--rse-color-text-muted)}
+.enrollment-sheet__footer{display:flex;justify-content:space-between;gap:var(--rse-space-4);margin-top:auto;padding-top:var(--rse-space-3);border-top:1px solid var(--rse-color-border-subtle);font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)}
+@media print{.enrollment-sheet{border-radius:0!important;box-shadow:none!important}.enrollment-sheet__section--tint{print-color-adjust:exact}}

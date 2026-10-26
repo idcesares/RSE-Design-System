@@ -1,0 +1,4 @@
+/* CSS controls hover/focus; data-dismissed lets Escape suppress the bubble. */
+.rse-tooltip{position:relative;display:inline-flex}
+.rse-tooltip__bubble{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--rse-color-surface-inverse);color:var(--rse-color-text-inverse);padding:var(--rse-space-2) var(--rse-space-3);border-radius:var(--rse-radius-sm);font-size:var(--rse-font-size-caption);max-width:min(24rem,calc(100vw - var(--rse-space-6)));width:max-content;box-sizing:border-box;overflow-wrap:anywhere;font-family:var(--rse-font-family);box-shadow:var(--rse-shadow-md);z-index:var(--rse-z-tooltip);visibility:hidden;opacity:0}
+.rse-tooltip:not([data-dismissed]):is(:hover,:focus-within) .rse-tooltip__bubble{visibility:visible;opacity:1}

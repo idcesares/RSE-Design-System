@@ -1,6 +1,6 @@
 import React from 'react';
-export interface TooltipProps {
+export interface TooltipProps extends React.HTMLAttributes<HTMLSpanElement> {
   label: string;
   children: React.ReactNode;
 }
-export function Tooltip(props: TooltipProps): JSX.Element;
+export declare const Tooltip: React.ForwardRefExoticComponent<TooltipProps & React.RefAttributes<HTMLSpanElement>>;

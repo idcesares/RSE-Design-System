@@ -1,0 +1,8 @@
+/* Breadcrumb — current page is plain text; separators are decorative. */
+.rse-breadcrumb{font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-sm)}
+.rse-breadcrumb__list{display:flex;align-items:center;gap:var(--rse-space-2);margin:0;padding:0;list-style:none;flex-wrap:wrap}
+.rse-breadcrumb__item{display:flex;align-items:center;gap:var(--rse-space-2)}
+.rse-breadcrumb__current{font-weight:var(--rse-font-weight-semibold);color:var(--rse-color-text-heading)}
+.rse-breadcrumb__link{color:var(--rse-color-text-muted);text-decoration:none}
+.rse-breadcrumb__link:hover{text-decoration:underline}
+.rse-breadcrumb__separator{color:var(--rse-color-border-strong)}

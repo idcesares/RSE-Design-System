@@ -1,0 +1,6 @@
+.rse-pagination { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--rse-space-1); font-family: var(--rse-font-family); }
+.rse-pagination__button { display: inline-flex; align-items: center; justify-content: center; min-width: var(--rse-hit-target-min); min-height: var(--rse-hit-target-min); padding: var(--rse-space-2); border-radius: var(--rse-radius-pill); border: none; cursor: pointer; font-family: var(--rse-font-family); font-size: var(--rse-font-size-body-sm); font-weight: var(--rse-font-weight-semibold); background: transparent; color: var(--rse-color-text-body); }
+.rse-pagination__button:hover:not(:disabled):not([aria-current="page"]) { background: var(--rse-color-surface-sunken); }
+.rse-pagination__button[aria-current="page"] { background: var(--rse-color-primary); color: var(--rse-color-text-on-primary); }
+.rse-pagination__button:disabled { opacity: 0.4; cursor: not-allowed; }
+.rse-pagination__ellipsis { padding: 0 var(--rse-space-2); color: var(--rse-color-text-muted); }

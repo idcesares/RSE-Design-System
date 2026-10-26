@@ -1,3 +1,4 @@
+import React from 'react';
 export interface FilterChipOption {
   /** Value stored in the selection array */
   id: string;
@@ -5,7 +6,7 @@ export interface FilterChipOption {
   /** Optional result count shown inside the chip */
   count?: number;
 }
-export interface FilterChipsProps {
+export interface FilterChipsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /** Chip options — plain strings or objects with a count */
   options: (string | FilterChipOption)[];
   /** Selected ids */
@@ -19,4 +20,4 @@ export interface FilterChipsProps {
   showClear?: boolean;
 }
 /** Pill toggle group for filtering program, level and unit listings. Use above a results grid, never as a form field. */
-export function FilterChips(props: FilterChipsProps): JSX.Element;
+export declare const FilterChips: React.ForwardRefExoticComponent<FilterChipsProps & React.RefAttributes<HTMLDivElement>>;

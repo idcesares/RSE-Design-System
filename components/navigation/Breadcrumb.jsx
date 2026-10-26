@@ -1,16 +1,17 @@
 import React from 'react';
-export function Breadcrumb({ items = [] }) {
-  return React.createElement('nav', { 'aria-label': 'Trilha de navegação', style: { fontFamily: 'var(--rse-font-family)' } },
-    React.createElement('ol', { style: { display: 'flex', alignItems: 'center', gap: 8, margin: 0, padding: 0, listStyle: 'none', flexWrap: 'wrap' } },
+const cx = (...c) => c.filter(Boolean).join(' ');
+export const Breadcrumb = React.forwardRef(function Breadcrumb({ items = [], className, ...rest }, ref) {
+  return React.createElement('nav', { ref, 'aria-label': 'Trilha de navegação', className: cx('rse-breadcrumb', className), ...rest },
+    React.createElement('ol', { className: 'rse-breadcrumb__list' },
       items.map((it, i) => {
         const last = i === items.length - 1;
-        return React.createElement('li', { key: i, style: { display: 'flex', alignItems: 'center', gap: 8 } },
+        return React.createElement('li', { key: i, className: 'rse-breadcrumb__item' },
           last
-            ? React.createElement('span', { 'aria-current': 'page', style: { fontSize: 'var(--rse-font-size-body-sm)', fontWeight: 'var(--rse-font-weight-semibold)', color: 'var(--rse-color-text-heading)' } }, it.label)
-            : React.createElement('a', { href: it.href || '#', style: { fontSize: 'var(--rse-font-size-body-sm)', color: 'var(--rse-color-text-muted)', textDecoration: 'none' } }, it.label),
-          !last ? React.createElement('span', { style: { color: 'var(--rse-color-border-strong)', fontSize: 'var(--rse-font-size-body-sm)' } }, '/') : null
+            ? React.createElement('span', { 'aria-current': 'page', className: 'rse-breadcrumb__current' }, it.label)
+            : React.createElement('a', { href: it.href || '#', className: 'rse-breadcrumb__link' }, it.label),
+          !last ? React.createElement('span', { className: 'rse-breadcrumb__separator', 'aria-hidden': 'true' }, '/') : null
         );
       })
     )
   );
-}
+});

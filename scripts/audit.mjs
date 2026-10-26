@@ -18,6 +18,7 @@ import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from '
 import { join, dirname, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CONTRAST_PAIRS } from './contrast-pairs.mjs';
+import { cssContractPath } from './lib/css-contract.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const asJson = process.argv.includes('--json');
@@ -95,7 +96,7 @@ const components = walk('components')
       passesRest: /\.\.\.(?:rest|props|other)\b/.test(src),
       acceptsClassName: /\bclassName\b(?!:\s*'rse-control)/.test(src.replace(/className:\s*'rse-control-(?:input|box)'/g, '')),
       responsive: /matchMedia|@media|container-type/.test(src),
-      cssContract: existsSync(join(ROOT, f.replace(/\.jsx$/, '.css'))) || /className: cx\('rse-/.test(src),
+      cssContract: Boolean(cssContractPath(ROOT, f)),
     };
   });
 
@@ -103,7 +104,13 @@ const components = walk('components')
 const pages = walk('templates')
   .filter((f) => /\.(dc\.html|html|js)$/.test(f) && !/(support|ds-base|deck-stage|doc-page)\.js$/.test(f))
   .map((f) => {
-    const src = read(f);
+    const html = read(f);
+    // Composition can live in an authored stylesheet instead of inline HTML.
+    // Follow explicit local CSS links, not vendored runtime internals.
+    const stylesheets = [...html.matchAll(/<link\b[^>]*href="([^"?#]+\.css)"/g)]
+      .map(match => join(dirname(f), match[1]))
+      .filter(path => existsSync(join(ROOT, path)));
+    const src = [html, ...stylesheets.map(read)].join('\n');
     return {
       file: f,
       rawColors: (src.match(/#[0-9a-fA-F]{3,6}\b|:\s*(?:white|black)\b|rgba?\(/g) || []).length,

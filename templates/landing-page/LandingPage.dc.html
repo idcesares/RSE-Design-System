@@ -1,243 +1,134 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><title>viewport — Rede Sesc de Educação</title>
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<meta name="description" content="Referência de campanha da Rede Sesc de Educação, com conteúdo demonstrativo e navegação local.">
+<title>Aprender para a vida acontecer — Rede Sesc de Educação</title>
+<link rel="stylesheet" href="./reference.css">
+<script src="./ds-base.js"></script>
 </head>
 <body>
+<noscript>Este modelo usa JavaScript local para apresentar os componentes. Ative-o para explorar a referência.</noscript>
 <x-dc>
-<!-- @template name="Landing Page" description="Marketing landing page — announcement bar, hero, stats, tabbed programs, testimonial, unit finder, interest form, footer" -->
-<helmet><script src="./ds-base.js"></script><script src="../../image-slot.js"></script></helmet>
-<div style="background:var(--rse-color-surface-page);min-height:100vh;position:relative">
-<x-import component-from-global-scope="RSE.Navbar" logo-src="../../assets/logos/wordmark-purple.svg" logo-alt="Rede Sesc de Educação" links="{{ navLinks }}" active-href="#programas" cta-label="Encontre uma unidade" cta-href="#unidades" hint-size="100%,72px"></x-import>
-<div style="max-width:1200px;margin:0 auto;padding:16px 24px 0;box-sizing:border-box">
-<x-import component-from-global-scope="RSE.Alert" tone="info" title="Matrículas abertas" hint-size="100%,64px">Garanta a vaga para o ano letivo de 0000.</x-import>
+<!-- @template name="Landing Page" description="Campaign reference: editorial hero, verified-data placeholders, filterable programs, next steps, Sab.IA guidance and institutional footer." -->
+<div class="lp-page" id="inicio">
+<a class="lp-skip" href="#conteudo">Pular para o conteúdo</a>
+<x-import component-from-global-scope="RSE.Navbar" logo-src="{{ logoPurple }}" logo-dark-src="{{ logoWhite }}" logo-alt="Rede Sesc de Educação" links="{{ navLinks }}" cta-label="Programas" cta-href="#programas" hint-size="100%,96px"></x-import>
+<main id="conteudo" tabindex="-1">
+<div class="lp-container lp-notice">
+<x-import component-from-global-scope="RSE.Alert" tone="info" title="Uma referência para construir sua campanha" message="Conteúdo demonstrativo. Programas, números e condições precisam de validação antes da publicação. Este modelo não recebe dados nem realiza matrículas." hint-size="100%,96px"></x-import>
 </div>
-<x-import component-from-global-scope="RSE.Hero" eyebrow="Rede Sesc de Educação" badge="{{ heroBadge }}" title="Aprender para a vida acontecer" lead="Educação que acolhe, forma e transforma — em unidades por todo o Brasil." media="{{ heroMedia }}" hint-size="100%,440px">
-<x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" hint-size="220px,56px">Quero me inscrever</x-import>
-<x-import component-from-global-scope="RSE.Button" variant="ghost" size="lg" icon="{{ iconPlay }}" on-click="{{ openModal }}" hint-size="200px,56px">Assista a nossa história</x-import>
+<x-import component-from-global-scope="RSE.Hero" eyebrow="Rede Sesc de Educação" badge="{{ heroBadge }}" title="Aprender para a vida acontecer" lead="Descobrir o mundo. Construir relações. Encontrar novos caminhos. A educação acolhe suas perguntas e abre espaço para o que vem depois." media="{{ heroMedia }}" hint-size="100%,520px">
+<x-import component-from-global-scope="RSE.Button" size="lg" href="#programas" hint-size="220px,56px">Conheça os programas</x-import>
+<x-import component-from-global-scope="RSE.Button" variant="secondary" size="lg" href="#proximos-passos" hint-size="220px,56px">Planeje o próximo passo</x-import>
 </x-import>
-<!-- Números de exemplo: substituir por dados verificados antes de publicar. -->
-<x-import component-from-global-scope="RSE.StatBand" tone="primary" note="Números de exemplo: substituir por dados verificados antes de publicar." hint-size="100%,230px">
-<x-import component-from-global-scope="RSE.Stat" value="00" label="unidades no Brasil" accent="inverse" align="center" hint-size="100%,96px"></x-import>
-<x-import component-from-global-scope="RSE.Stat" value="00 anos" label="de tradição em educação" accent="inverse" align="center" hint-size="100%,96px"></x-import>
-<x-import component-from-global-scope="RSE.Stat" value="000 mil" label="estudantes atendidos" accent="inverse" align="center" hint-size="100%,96px"></x-import>
-<x-import component-from-global-scope="RSE.Stat" value="00" label="estados e o DF" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.StatBand" tone="blue-light" title="A Rede em números" note="Números ilustrativos. Substitua os zeros por dados oficiais, com fonte e data de referência, antes de publicar." hint-size="100%,230px">
+<x-import component-from-global-scope="RSE.Stat" value="00" label="Unidades · exemplo" align="center" hint-size="100%,100px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="000" label="Estudantes · exemplo" align="center" hint-size="100%,100px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="00" label="Programas · exemplo" align="center" hint-size="100%,100px"></x-import>
 </x-import>
-<div style="max-width:1200px;margin:0 auto;padding:80px 24px;display:flex;flex-direction:column;gap:40px;box-sizing:border-box">
-<div style="display:flex;flex-direction:column;gap:12px;max-width:600px">
-<span style="font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary)">Programas</span>
-<h2 style="font-size:var(--rse-font-size-h1);margin:0">Formação para cada etapa da vida</h2>
+<section class="lp-section lp-container" id="programas" aria-labelledby="programas-titulo">
+<div class="lp-heading">
+<p class="lp-eyebrow">Possibilidades de aprender</p>
+<h2 id="programas-titulo">Cada etapa abre um novo caminho</h2>
+<p class="lp-intro">Explore exemplos de apresentação dos programas. A oferta, o público e os diferenciais de cada unidade devem ser confirmados com a Rede.</p>
 </div>
-<x-import component-from-global-scope="RSE.Tabs" tabs="{{ programTabs }}" active-id="{{ activeProgramTab }}" on-change="{{ setProgramTab }}" hint-size="420px,44px"></x-import>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:24px">
+<div class="lp-filters">
+<x-import component-from-global-scope="RSE.Tabs" tabs="{{ programTabs }}" active-id="{{ activeProgramTab }}" on-change="{{ setProgramTab }}" aria-label="Filtrar programas de exemplo" hint-size="100%,48px"></x-import>
+</div>
+<p class="lp-count" role="status" aria-live="polite">{{ programResultLabel }}</p>
+<div class="lp-grid">
 <sc-if value="{{ showInfantil }}" hint-placeholder-val="{{ true }}">
-<div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);overflow:hidden;display:flex;flex-direction:column">
-<div style="position:relative">
-<image-slot id="program-1" shape="rect" style="width:100%;aspect-ratio:16/10;display:block" placeholder="foto — educação infantil"></image-slot>
-<div style="position:absolute;top:12px;right:12px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar programa" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import></div>
-</div>
-<div style="padding:24px;display:flex;flex-direction:column;gap:10px">
-<x-import component-from-global-scope="RSE.Tag" color="pink" hint-size="150px,28px">Educação Infantil</x-import>
-<h3 style="font-size:var(--rse-font-size-h4);margin:0">Primeiros passos</h3>
-<p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted);margin:0">Acolhimento e descoberta para crianças de 0 a 5 anos.</p>
-</div>
-</div>
+<x-import component-from-global-scope="RSE.Card" image="{{ infantilMedia }}" tag="{{ infantilTag }}" eyebrow="Programa ilustrativo" title="Aprender começa com a descoberta" description="Brincar, conviver e descobrir o mundo. Cada pergunta abre espaço para uma nova experiência." href="#proximos-passos" hint-size="100%,420px"></x-import>
 </sc-if>
 <sc-if value="{{ showFundamental }}" hint-placeholder-val="{{ true }}">
-<div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);overflow:hidden;display:flex;flex-direction:column">
-<div style="position:relative">
-<image-slot id="program-2" shape="rect" style="width:100%;aspect-ratio:16/10;display:block" placeholder="foto — ensino fundamental"></image-slot>
-<div style="position:absolute;top:12px;right:12px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar programa" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import></div>
-</div>
-<div style="padding:24px;display:flex;flex-direction:column;gap:10px">
-<div style="display:flex;gap:8px;align-items:center">
-<x-import component-from-global-scope="RSE.Tag" color="orange" hint-size="180px,28px">Ensino Fundamental</x-import>
-<x-import component-from-global-scope="RSE.Badge" tone="info" hint-size="60px,22px">Novo</x-import>
-</div>
-<h3 style="font-size:var(--rse-font-size-h4);margin:0">Base para o futuro</h3>
-<p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted);margin:0">Formação integral do 1º ao 9º ano, com foco em protagonismo.</p>
-</div>
-</div>
+<x-import component-from-global-scope="RSE.Card" image="{{ fundamentalMedia }}" tag="{{ fundamentalTag }}" eyebrow="Programa ilustrativo" title="Perguntas que levam mais longe" description="Investigar ideias, criar em conjunto e construir autonomia para aprender cada vez mais." href="#proximos-passos" hint-size="100%,420px"></x-import>
 </sc-if>
-<sc-if value="{{ showProfissional }}" hint-placeholder-val="{{ true }}">
-<div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);overflow:hidden;display:flex;flex-direction:column">
-<div style="position:relative">
-<image-slot id="program-3" shape="rect" style="width:100%;aspect-ratio:16/10;display:block" placeholder="foto — formação profissional"></image-slot>
-<div style="position:absolute;top:12px;right:12px"><x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar programa" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import></div>
-</div>
-<div style="padding:24px;display:flex;flex-direction:column;gap:10px">
-<x-import component-from-global-scope="RSE.Tag" color="blue" hint-size="190px,28px">Formação Profissional</x-import>
-<h3 style="font-size:var(--rse-font-size-h4);margin:0">Prontos para o mercado</h3>
-<p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted);margin:0">Cursos técnicos e livres conectados às oportunidades reais.</p>
-</div>
-</div>
+<sc-if value="{{ showMedio }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="RSE.Card" image="{{ medioMedia }}" tag="{{ medioTag }}" eyebrow="Programa ilustrativo" title="Projetos para o que vem pela frente" description="Conectar conhecimentos, fazer escolhas e imaginar os caminhos que você quer construir." href="#proximos-passos" hint-size="100%,420px"></x-import>
 </sc-if>
 </div>
-</div>
-<div style="max-width:900px;margin:0 auto;padding:0 24px 80px;box-sizing:border-box">
-<!-- Depoimento de exemplo: substituir por um relato real e autorizado antes de publicar. -->
-<x-import component-from-global-scope="RSE.Testimonial" example="true" quote="Minha filha entrou tímida na Educação Infantil e hoje é protagonista do próprio aprendizado. A Rede Sesc transformou a nossa família." name="Nome Sobrenome" role="responsável" unit="unidade a definir" avatar="{{ testimonialAvatar }}" hint-size="100%,260px"></x-import>
-</div>
-<div id="unidades" style="max-width:1200px;margin:0 auto;padding:0 24px 80px;display:flex;flex-direction:column;gap:24px;box-sizing:border-box">
-<x-import component-from-global-scope="RSE.Breadcrumb" items="{{ unitBreadcrumbItems }}" hint-size="300px,24px"></x-import>
-<div style="display:flex;flex-direction:column;gap:12px;max-width:600px">
-<span style="font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary)">Unidades</span>
-<h2 style="font-size:var(--rse-font-size-h1);margin:0">Encontre uma unidade perto de você</h2>
-</div>
-<div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-sm);padding:24px;display:flex;flex-direction:column;gap:20px">
-<form role="search" aria-label="Buscar unidade" onsubmit="{{ onUnitSearch }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px;align-items:end">
-<x-import component-from-global-scope="RSE.Select" label="Estado" options="{{ stateOptions }}" value="{{ selectedState }}" on-change="{{ onStateChange }}" placeholder="Selecione o estado" hint-size="100%,64px"></x-import>
-<x-import component-from-global-scope="RSE.Input" label="Cidade" type="search" placeholder="Digite sua cidade" value="{{ selectedCity }}" on-change="{{ onCityChange }}" hint-size="100%,64px"></x-import>
-<x-import component-from-global-scope="RSE.Button" type="submit" variant="primary" icon="{{ iconSearch }}" hint-size="160px,44px">Buscar</x-import>
-</form>
-<x-import component-from-global-scope="RSE.Divider" hint-size="100%,1px"></x-import>
-<div style="display:flex;flex-direction:column;gap:4px">
-<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 4px;border-bottom:1px solid var(--rse-color-border-subtle)">
-<div><div style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Unidade exemplo 1</div><div style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">Cidade, UF</div></div>
-<x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar unidade" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import>
-</div>
-<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 4px;border-bottom:1px solid var(--rse-color-border-subtle)">
-<div><div style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Unidade exemplo 2</div><div style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">Cidade, UF</div></div>
-<x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar unidade" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import>
-</div>
-<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 4px">
-<div><div style="font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Unidade exemplo 3</div><div style="font-size:var(--rse-font-size-caption);color:var(--rse-color-text-muted)">Cidade, UF</div></div>
-<x-import component-from-global-scope="RSE.IconButton" aria-label="Favoritar unidade" icon="{{ iconHeart }}" variant="ghost" hint-size="44px,44px"></x-import>
+</section>
+<section class="lp-section lp-container" id="experiencia" aria-labelledby="experiencia-titulo">
+<div class="lp-editorial">
+<figure class="lp-figure">
+<image-slot class="lp-photo" id="campaign-experience" placeholder="estudantes investigando materiais em grupo, ambiente escolar real, luz natural, fotografia documental autorizada"></image-slot>
+<figcaption class="lp-photo-caption">Imagem pendente: inserir fotografia real, autorizada e acompanhada de crédito.</figcaption>
+</figure>
+<div class="lp-editorial-copy">
+<p class="lp-eyebrow">Uma vida de descobertas</p>
+<h2 id="experiencia-titulo">O aprendizado ganha sentido quando encontra a vida</h2>
+<p class="lp-intro">Use este espaço para contar uma experiência real da sua comunidade escolar. Uma pergunta que virou projeto. Um encontro que abriu perspectivas. Uma descoberta que continuou fora da sala.</p>
+<p>Na versão publicada, apresente o contexto, a participação dos estudantes e o que foi aprendido. Um relato documentado vale mais que uma promessa genérica.</p>
+<div class="lp-signature" aria-hidden="true"><x-import component-from-global-scope="RSE.BrandMotif" variant="frame" size="160" opacity="0.3" hint-size="160px,160px"></x-import></div>
 </div>
 </div>
-<div style="display:flex;justify-content:center">
-<x-import component-from-global-scope="RSE.Pagination" page="{{ unitPage }}" total-pages="5" on-change="{{ onUnitPageChange }}" hint-size="200px,40px"></x-import>
+</section>
+<section class="lp-section lp-container" id="proximos-passos" aria-labelledby="passos-titulo">
+<div class="lp-next">
+<div class="lp-stack">
+<div class="lp-heading">
+<p class="lp-eyebrow">Da descoberta à escolha</p>
+<h2 id="passos-titulo">Informação para decidir com confiança</h2>
+<p class="lp-intro">Conheça o programa, confirme a oferta na unidade e consulte as orientações oficiais de matrícula.</p>
+</div>
+<x-import class="lp-stepper" component-from-global-scope="RSE.Stepper" steps="{{ nextSteps }}" current="0" orientation="vertical" aria-label="Próximos passos para conhecer a Rede" hint-size="100%,240px"></x-import>
+</div>
+<div class="lp-stack lp-portal-note">
+<h3>Antes de começar</h3>
+<p>Confira com a unidade escolhida os programas disponíveis, os critérios de atendimento, os documentos, os valores e os prazos. Nenhuma dessas condições está definida neste modelo.</p>
+<x-import component-from-global-scope="RSE.Alert" tone="warning" title="Portal de matrícula ainda não configurado" message="Matrícula e registros acadêmicos pertencem ao portal TOTVS. A Rede precisa fornecer a URL oficial antes de habilitar o acesso." hint-size="100%,120px"></x-import>
+<x-import component-from-global-scope="RSE.Button" disabled="{{ true }}" size="lg" block="{{ true }}" hint-size="100%,56px">Acessar o portal TOTVS</x-import>
+<p class="lp-caption">Este botão permanece desativado. Nenhum dado pessoal é solicitado ou enviado pela demonstração.</p>
 </div>
 </div>
+<div class="lp-platform" id="sabia">
+<x-import component-from-global-scope="RSE.PlatformEntry" logo-src="{{ sabiaLogo }}" href="#sabia-orientacao" title="Um espaço para continuar aprendendo" description="Sab.IA é a plataforma de aprendizagem da Rede. Matrícula e registros acadêmicos seguem no portal TOTVS." cta-label="Orientações de acesso" note="URL oficial da Sab.IA pendente. O link abaixo leva à orientação local, sem abrir um serviço externo." hint-size="100%,280px"></x-import>
+<p class="lp-caption" id="sabia-orientacao">Para configurar o acesso à Sab.IA, solicite à Rede a URL oficial e as condições de acesso. Este modelo não autentica usuários.</p>
 </div>
-<div style="max-width:1200px;margin:0 auto;padding:0 24px 80px;box-sizing:border-box">
-<div style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);border:1px solid var(--rse-color-border-subtle);box-shadow:var(--rse-shadow-md);padding:clamp(24px,5vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px">
-<div style="display:flex;flex-direction:column;gap:16px">
-<span style="font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary)">Interesse em se inscrever</span>
-<h2 style="font-size:var(--rse-font-size-h2);margin:0">Conte pra gente e te ajudamos a começar</h2>
-<p style="color:var(--rse-color-text-muted);font-size:var(--rse-font-size-body-sm);margin:0">Preencha seus dados que uma unidade perto de você entra em contato.</p>
-<x-import component-from-global-scope="RSE.ProgressBar" value="33" label="Etapa 1 de 3 · Dados pessoais" tone="primary" hint-size="100%,40px"></x-import>
-</div>
-<div style="display:flex;flex-direction:column;gap:16px">
-<x-import component-from-global-scope="RSE.Input" label="Nome completo" placeholder="Seu nome" value="{{ name }}" on-change="{{ onNameChange }}" hint-size="100%,64px"></x-import>
-<x-import component-from-global-scope="RSE.Input" label="E-mail" type="email" placeholder="voce@email.com" value="{{ email }}" on-change="{{ onEmailChange }}" hint-size="100%,64px"></x-import>
-<fieldset style="border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
-<legend style="padding:0;margin-bottom:8px;font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)">Turno de interesse</legend>
-<div style="display:flex;gap:20px;flex-wrap:wrap">
-<x-import component-from-global-scope="RSE.Radio" name="turno" label="Manhã" checked="{{ turnoManha }}" on-change="{{ onTurnoManha }}" hint-size="90px,24px"></x-import>
-<x-import component-from-global-scope="RSE.Radio" name="turno" label="Tarde" checked="{{ turnoTarde }}" on-change="{{ onTurnoTarde }}" hint-size="90px,24px"></x-import>
-<x-import component-from-global-scope="RSE.Radio" name="turno" label="Integral" checked="{{ turnoIntegral }}" on-change="{{ onTurnoIntegral }}" hint-size="90px,24px"></x-import>
-</div>
-</fieldset>
-<x-import component-from-global-scope="RSE.Checkbox" label="Li e aceito os termos de uso" checked="{{ acceptTerms }}" on-change="{{ onAcceptChange }}" hint-size="100%,24px"></x-import>
-<x-import component-from-global-scope="RSE.Switch" label="Quero receber novidades da Rede" checked="{{ notifyUpdates }}" on-change="{{ onNotifyChange }}" hint-size="100%,24px"></x-import>
-<div style="display:flex;align-items:center;gap:12px;margin-top:8px">
-<x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" disabled="{{ submitDisabled }}" on-click="{{ submitInterest }}" hint-size="200px,56px">{{ submitLabel }}</x-import>
-<sc-if value="{{ submitting }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="RSE.Spinner" size="20" tone="primary" hint-size="20px,20px"></x-import></sc-if>
-</div>
-</div>
-</div>
-</div>
-<!-- Ponte para a Plataforma Sesc Sab.IA: um clique da landing até a home da plataforma.
-     Troque href pela URL real antes de publicar (docs/sabia-platform.md). -->
-<div style="max-width:1200px;margin:0 auto;padding:0 24px 80px;box-sizing:border-box">
-<x-import component-from-global-scope="RSE.PlatformEntry" href="#" logo-src="../../assets/logos/sabia-wordmark-cream.svg" title="Aprendizagem que acompanha cada estudante" description="Avaliação diagnóstica, trilhas personalizadas e acompanhamento contínuo — o núcleo de inteligência educacional da Rede." cta-label="Acessar a plataforma" note="Acesso para estudantes, famílias e educadores da Rede." hint-size="100%,240px"></x-import>
-</div>
-<x-import component-from-global-scope="RSE.CtaBand" tone="ink" title="Ainda com dúvidas?" description="Nossa equipe responde o mais rápido possível." hint-size="100%,340px">
-<x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" hint-size="180px,56px">Fale conosco</x-import>
+</section>
+<x-import component-from-global-scope="RSE.CtaBand" tone="pink-light" eyebrow="Vamos ao próximo passo" title="Uma boa escolha começa com uma boa conversa" description="Antes de publicar esta campanha, inclua o canal oficial da unidade e as condições verificadas de atendimento." hint-size="100%,340px">
+<x-import component-from-global-scope="RSE.Button" size="lg" href="#proximos-passos" hint-size="240px,56px">Confira as orientações</x-import>
 </x-import>
-<x-import component-from-global-scope="RSE.Footer" logo-src="../../assets/logos/wordmark-white.svg" logo-alt="Rede Sesc de Educação" tagline="Aprender para a vida acontecer." columns="{{ footerColumns }}" note="© 2026 Sesc — Serviço Social do Comércio. Todos os direitos reservados." hint-size="100%,320px"></x-import>
-<x-import component-from-global-scope="RSE.Modal" open="{{ modalOpen }}" on-close="{{ closeModal }}" title="Nossa história em vídeo" size="md" hint-size="520px,400px">
-<image-slot id="story-video" shape="rect" radius="12" style="width:100%;aspect-ratio:16/9;display:block" placeholder="vídeo institucional"></image-slot>
-<p style="font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-muted);margin:16px 0 0">Conheça a trajetória da Rede Sesc de Educação formando estudantes por todo o Brasil.</p>
-</x-import>
-<div style="position:fixed;bottom:24px;right:24px;z-index:1000;max-width:340px">
-<sc-if value="{{ toastVisible }}" hint-placeholder-val="{{ false }}">
-<x-import component-from-global-scope="RSE.Toast" tone="success" title="Recebemos seu interesse!" message="Uma unidade perto de você entrará em contato em breve." on-close="{{ dismissToast }}" hint-size="320px,80px"></x-import>
-</sc-if>
-</div>
+</main>
+<x-import component-from-global-scope="RSE.Footer" logo-src="{{ logoWhite }}" logo-alt="Rede Sesc de Educação" tagline="Aprender para a vida acontecer." columns="{{ footerColumns }}" note="Referência de implementação. Conteúdo demonstrativo; dados e canais oficiais pendentes de validação." hint-size="100%,320px"></x-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = {
-    activeProgramTab: 'todos', modalOpen: false, toastVisible: false, submitting: false,
-    unitPage: 1, selectedState: '', selectedCity: '', name: '', email: '', turno: 'manha',
-    acceptTerms: false, notifyUpdates: true
-  };
+  state = { activeProgramTab: 'todos' };
   renderVals() {
-    const s = this.state;
+    const h = React.createElement;
+    const root = window.RSE_TEMPLATE_BASE;
+    const media = (id, placeholder) => h('image-slot', { id, placeholder });
+    const tag = (color, label) => h(RSE.Tag, { color }, label);
+    const active = this.state.activeProgramTab;
     return {
-      navLinks: [
-        { label: 'Programas', href: '#programas' },
-        { label: 'Unidades', href: '#unidades' },
-        { label: 'Sobre a Rede', href: '#sobre' }
-      ],
-      footerColumns: [
-        { title: 'Rede Sesc de Educação', links: [{ label: 'Sobre a Rede' }, { label: 'Programas' }, { label: 'Unidades' }] },
-        { title: 'Para famílias', links: [{ label: 'Matrículas' }, { label: 'Calendário letivo' }, { label: 'Portal do estudante' }] },
-        { title: 'Institucional', links: [{ label: 'Sesc Nacional' }, { label: 'Trabalhe conosco' }, { label: 'Fale conosco' }] }
-      ],
-      programTabs: [
-        { id: 'todos', label: 'Todos' }, { id: 'infantil', label: 'Infantil' },
-        { id: 'fundamental', label: 'Fundamental' }, { id: 'profissional', label: 'Profissionalizante' }
-      ],
-      activeProgramTab: s.activeProgramTab,
+      logoPurple: root + 'assets/logos/wordmark-purple.svg',
+      logoWhite: root + 'assets/logos/wordmark-white.svg',
+      sabiaLogo: root + 'assets/logos/sabia-wordmark-cream.svg',
+      heroBadge: h(RSE.Badge, { tone: 'neutral' }, 'Campanha de exemplo'),
+      heroMedia: media('campaign-hero', 'estudantes em atividade coletiva na escola, luz natural, enquadramento documental, fotografia real e autorizada'),
+      infantilMedia: media('program-childhood', 'crianças explorando materiais em sala, fotografia documental com autorização de uso'),
+      fundamentalMedia: media('program-primary', 'estudantes do ensino fundamental em investigação coletiva, luz natural, fotografia autorizada'),
+      medioMedia: media('program-secondary', 'estudantes do ensino médio apresentando um projeto, ambiente escolar, fotografia autorizada'),
+      infantilTag: tag('pink', 'Educação infantil'),
+      fundamentalTag: tag('green', 'Ensino fundamental'),
+      medioTag: tag('blue', 'Ensino médio'),
+      navLinks: [{ label: 'Programas', href: '#programas' }, { label: 'Experiências', href: '#experiencia' }, { label: 'Próximos passos', href: '#proximos-passos' }],
+      programTabs: [{ id: 'todos', label: 'Todos' }, { id: 'infantil', label: 'Infantil' }, { id: 'fundamental', label: 'Fundamental' }, { id: 'medio', label: 'Médio' }],
+      activeProgramTab: active,
       setProgramTab: (id) => this.setState({ activeProgramTab: id }),
-      showInfantil: s.activeProgramTab === 'todos' || s.activeProgramTab === 'infantil',
-      showFundamental: s.activeProgramTab === 'todos' || s.activeProgramTab === 'fundamental',
-      showProfissional: s.activeProgramTab === 'todos' || s.activeProgramTab === 'profissional',
-      unitBreadcrumbItems: [
-        { label: 'Início', href: '#' }, { label: 'Unidades', href: '#unidades' },
-        { label: s.selectedState || 'Todas as unidades' }
-      ],
-      stateOptions: ['SP', 'RJ', 'MG', 'BA', 'RS', 'PR'].map(v => ({ label: v, value: v })),
-      selectedState: s.selectedState,
-      onStateChange: (e) => this.setState({ selectedState: e.target.value }),
-      selectedCity: s.selectedCity,
-      onCityChange: (e) => this.setState({ selectedCity: e.target.value }),
-      unitPage: s.unitPage,
-      onUnitPageChange: (p) => this.setState({ unitPage: p }),
-      name: s.name,
-      onNameChange: (e) => this.setState({ name: e.target.value }),
-      email: s.email,
-      onEmailChange: (e) => this.setState({ email: e.target.value }),
-      turnoManha: s.turno === 'manha',
-      turnoTarde: s.turno === 'tarde',
-      turnoIntegral: s.turno === 'integral',
-      onTurnoManha: () => this.setState({ turno: 'manha' }),
-      onTurnoTarde: () => this.setState({ turno: 'tarde' }),
-      onTurnoIntegral: () => this.setState({ turno: 'integral' }),
-      acceptTerms: s.acceptTerms,
-      onAcceptChange: (e) => this.setState({ acceptTerms: e.target.checked }),
-      notifyUpdates: s.notifyUpdates,
-      onNotifyChange: (e) => this.setState({ notifyUpdates: e.target.checked }),
-      submitting: s.submitting,
-      submitDisabled: !s.acceptTerms || s.submitting,
-      submitLabel: s.submitting ? 'Enviando…' : 'Enviar interesse',
-      submitInterest: () => {
-        if (!this.state.acceptTerms || this.state.submitting) return;
-        this.setState({ submitting: true });
-        setTimeout(() => {
-          this.setState({ submitting: false, toastVisible: true });
-          setTimeout(() => this.setState({ toastVisible: false }), 4500);
-        }, 900);
-      },
-      toastVisible: s.toastVisible,
-      dismissToast: () => this.setState({ toastVisible: false }),
-      modalOpen: s.modalOpen,
-      openModal: () => this.setState({ modalOpen: true }),
-      closeModal: () => this.setState({ modalOpen: false }),
-      onUnitSearch: (e) => { if (e && e.preventDefault) e.preventDefault(); },
-      heroBadge: React.createElement(RSE.Badge, { tone: 'success' }, 'Vagas abertas'),
-      heroMedia: React.createElement('image-slot', { id: 'hero-photo', shape: 'rounded', radius: '32', placeholder: 'foto de estudantes, estilo documental' }),
-      testimonialAvatar: React.createElement(RSE.Avatar, { initials: 'NS', size: 'lg' }),
-      iconPlay: React.createElement(RSE.Icon, { name: 'play', size: 18 }),
-      iconHeart: React.createElement(RSE.Icon, { name: 'heart', size: 18 }),
-      iconCheck: React.createElement(RSE.Icon, { name: 'check', size: 18 }),
-      iconSearch: React.createElement(RSE.Icon, { name: 'search', size: 18 })
+      showInfantil: active === 'todos' || active === 'infantil',
+      showFundamental: active === 'todos' || active === 'fundamental',
+      showMedio: active === 'todos' || active === 'medio',
+      programResultLabel: active === 'todos' ? '3 programas ilustrativos' : '1 programa ilustrativo',
+      nextSteps: [{ label: 'Explore os programas', description: 'Escolha a etapa de ensino que faz sentido para você.' }, { label: 'Confirme com a unidade', description: 'Valide a oferta, os canais de contato e as condições de atendimento.' }, { label: 'Consulte o portal TOTVS', description: 'Use o endereço oficial para matrícula e registros acadêmicos.' }],
+      footerColumns: [
+        { title: 'Conheça a Rede', links: [{ label: 'Programas de exemplo', href: '#programas' }, { label: 'Experiência escolar', href: '#experiencia' }] },
+        { title: 'Planeje seu caminho', links: [{ label: 'Orientações de matrícula', href: '#proximos-passos' }, { label: 'Plataforma Sab.IA', href: '#sabia' }] }
+      ]
     };
   }
 }

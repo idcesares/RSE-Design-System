@@ -1,27 +1,28 @@
 'use client';
 import React from 'react';
 import { Icon } from '../core/Icon.jsx';
+const cx = (...c) => c.filter(Boolean).join(' ');
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
-export function Modal({ open, onClose, title, children, footer, size = 'md' }) {
+export const Modal = React.forwardRef(function Modal({ open, onClose, title, children, footer, size = 'md', className, onClick, ...rest }, forwardedRef) {
   const panel = React.useRef(null);
+  const close = React.useRef(onClose);
+  close.current = onClose;
   const titleId = 'rse-modal-' + React.useId().replace(/:/g, '');
-  // Escape to close, focus moved into the dialog on open and returned to the
-  // trigger on close, Tab cycled inside the panel while it is open.
   React.useEffect(() => {
-    if (!open) return;
+    if (!open) return undefined;
     const previous = document.activeElement;
     const node = panel.current;
-    if (node) {
-      const first = node.querySelector(FOCUSABLE);
-      (first || node).focus();
-    }
-    const onKey = (e) => {
-      if (e.key === 'Escape') { e.stopPropagation(); if (onClose) onClose(); return; }
-      if (e.key !== 'Tab' || !panel.current) return;
-      const items = Array.from(panel.current.querySelectorAll(FOCUSABLE));
-      if (!items.length) return;
-      const edge = e.shiftKey ? items[0] : items[items.length - 1];
-      if (document.activeElement === edge) { e.preventDefault(); (e.shiftKey ? items[items.length - 1] : items[0]).focus(); }
+    const focusable = () => Array.from(node.querySelectorAll(FOCUSABLE)).filter(el => el.getClientRects().length && !el.closest('[inert]'));
+    (focusable()[0] || node).focus();
+    const onKey = (event) => {
+      if (event.key === 'Escape') { event.stopPropagation(); if (close.current) close.current(); return; }
+      if (event.key !== 'Tab') return;
+      const items = focusable();
+      if (!items.length) { event.preventDefault(); node.focus(); return; }
+      const edge = event.shiftKey ? items[0] : items[items.length - 1];
+      if (document.activeElement === edge || !node.contains(document.activeElement) || document.activeElement === node) {
+        event.preventDefault(); (event.shiftKey ? items[items.length - 1] : items[0]).focus();
+      }
     };
     document.addEventListener('keydown', onKey);
     const overflow = document.body.style.overflow;
@@ -29,38 +30,19 @@ export function Modal({ open, onClose, title, children, footer, size = 'md' }) {
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = overflow;
-      if (previous && previous.focus) previous.focus();
+      if (previous && previous.isConnected && previous.focus) previous.focus();
     };
-  }, [open, onClose]);
+  }, [open]);
   if (!open) return null;
-  const widths = { sm: 380, md: 520, lg: 720 };
-  return React.createElement('div', {
-    onClick: onClose,
-    style: {
-      position: 'fixed', inset: 0, background: 'var(--rse-color-scrim)', backdropFilter: 'blur(2px)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, zIndex: 'var(--rse-z-modal)'
-    }
-  },
+  return React.createElement('div', { className: 'rse-modal-backdrop', onClick: (event) => { if (event.target === event.currentTarget && onClose) onClose(); } },
     React.createElement('div', {
-      ref: panel, onClick: e => e.stopPropagation(), role: 'dialog', 'aria-modal': 'true',
-      'aria-labelledby': title ? titleId : undefined,
-      'aria-label': title ? undefined : 'Diálogo',
-      tabIndex: -1,
-      style: {
-        width: '100%', maxWidth: widths[size], maxHeight: '85vh', overflowY: 'auto',
-        background: 'var(--rse-color-surface-card)', borderRadius: 'var(--rse-radius-lg)', boxShadow: 'var(--rse-shadow-lg)',
-        fontFamily: 'var(--rse-font-family)'
-      }
-    },
-      React.createElement('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', borderBottom: '1px solid var(--rse-color-border-subtle)' } },
-        React.createElement('h3', { id: titleId, style: { fontSize: 'var(--rse-font-size-h3)', margin: 0 } }, title),
-        onClose ? React.createElement('button', {
-          type: 'button', onClick: onClose, 'aria-label': 'Fechar',
-          style: { border: 'none', background: 'var(--rse-color-surface-sunken)', borderRadius: '50%', width: 32, height: 32, cursor: 'pointer', color: 'var(--rse-color-text-muted)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }
-        }, React.createElement(Icon, { name: 'x', size: 16 })) : null
-      ),
-      React.createElement('div', { style: { padding: 24 } }, children),
-      footer ? React.createElement('div', { style: { display: 'flex', justifyContent: 'flex-end', gap: 12, padding: '16px 24px', borderTop: '1px solid var(--rse-color-border-subtle)' } }, footer) : null
-    )
-  );
-}
+      ref: (node) => { panel.current = node; if (typeof forwardedRef === 'function') forwardedRef(node); else if (forwardedRef) forwardedRef.current = node; },
+      className: cx('rse-modal', 'rse-modal--' + size, className), role: 'dialog', 'aria-modal': 'true',
+      'aria-labelledby': title ? titleId : undefined, 'aria-label': title ? undefined : 'Diálogo', tabIndex: -1,
+      ...rest, onClick: (event) => { event.stopPropagation(); if (onClick) onClick(event); }
+    }, React.createElement('div', { className: 'rse-modal__header' },
+      React.createElement('h3', { className: 'rse-modal__title', id: titleId }, title),
+      onClose ? React.createElement('button', { className: 'rse-modal__close', type: 'button', onClick: onClose, 'aria-label': 'Fechar' }, React.createElement(Icon, { name: 'x', size: 16 })) : null),
+      React.createElement('div', { className: 'rse-modal__body' }, children),
+      footer ? React.createElement('div', { className: 'rse-modal__footer' }, footer) : null));
+});

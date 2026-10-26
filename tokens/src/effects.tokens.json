@@ -98,6 +98,16 @@
       "loop": {
         "$value": "2400ms",
         "$type": "duration"
+      },
+      "spinner": {
+        "$value": "800ms",
+        "$type": "duration",
+        "$description": "Unmanaged loading spinner cycle; reduced motion uses the base-runtime safety net."
+      },
+      "skeleton": {
+        "$value": "1400ms",
+        "$type": "duration",
+        "$description": "Unmanaged skeleton shimmer cycle; reduced motion uses the base-runtime safety net."
       }
     }
   },

@@ -9,8 +9,8 @@
 // supplied sheet and re-emits the same shapes. If Sesc supplies more constructions, drop a
 // new sheet in and re-run.
 //
-// Colour: the sheet ships three hue families (green, blue, pink). Rendered in its own hue a
-// construction keeps the supplied fills byte for byte. `BrandMotif` also accepts a `hue`, and
+// Colour: the sheet ships three hue families (green, blue, pink). hue="original" keeps the
+// supplied fills byte for byte; defaults assign all six brand families. `BrandMotif` accepts a `hue`, and
 // the ramps emitted below let it restate a construction in any of the six palette families —
 // authorised by the design owner, and derived from the manual's published palette rather than
 // sampled off the artwork. The remap preserves each shade's luminance rank, which is what
@@ -27,12 +27,12 @@ const checkOnly = process.argv.includes('--check');
 // Order matches the groups in the supplied sheet. Names are ours (the source file has none);
 // bounding boxes were measured from the rendered artwork.
 const VARIANTS = [
-  { name: 'cube', hue: 'green', box: [0, 0, 255.74, 295.51], note: 'solid isometric cube — the base mark' },
-  { name: 'interlock', hue: 'blue', box: [634.49, 11.17, 294.56, 283.19], note: 'two cubes interlocking through each other' },
-  { name: 'bar', hue: 'green', box: [321.13, 315.74, 257.17, 296.92], note: 'cube pierced by a bar that cannot pass through it' },
-  { name: 'frame', hue: 'pink', box: [653.65, 321.43, 256.16, 295.5], note: 'open frame with two impossible voids' },
-  { name: 'chain', hue: 'pink', box: [296.49, 15.03, 306.44, 265.44], note: 'zig-zag chain of bars — the widest construction' },
-  { name: 'hollow', hue: 'blue', box: [0.78, 325.7, 254.18, 295.51], note: 'cube opened out around a hollow centre' },
+  { name: 'cube', defaultHue: 'purple', hue: 'green', box: [0, 0, 255.74, 295.51], note: 'solid isometric cube — the base mark' },
+  { name: 'interlock', defaultHue: 'blue', hue: 'blue', box: [634.49, 11.17, 294.56, 283.19], note: 'two cubes interlocking through each other' },
+  { name: 'bar', defaultHue: 'green', hue: 'green', box: [321.13, 315.74, 257.17, 296.92], note: 'cube pierced by a bar that cannot pass through it' },
+  { name: 'frame', defaultHue: 'pink', hue: 'pink', box: [653.65, 321.43, 256.16, 295.5], note: 'open frame with two impossible voids' },
+  { name: 'chain', defaultHue: 'orange', hue: 'pink', box: [296.49, 15.03, 306.44, 265.44], note: 'zig-zag chain of bars — the widest construction' },
+  { name: 'hollow', defaultHue: 'yellow', hue: 'blue', box: [0.78, 325.7, 254.18, 295.51], note: 'cube opened out around a hollow centre' },
 ];
 
 const svg = readFileSync(SRC, 'utf8');
@@ -124,7 +124,7 @@ const jsBody = built
       .map(([tag, attrs]) => `['${tag}',{${Object.entries(attrs).map(([k, val]) => `${/^[a-z][\w]*$/i.test(k) ? k : `'${k}'`}:'${val}'`).join(',')}}]`)
       .join(',');
     const shades = v.shades.map((s) => `'${s}'`).join(',');
-    return `  '${v.name}': { viewBox: '${v.viewBox}', hue: '${v.hue}', shades: [${shades}], shapes: [${shapes}] },`;
+    return `  '${v.name}': { viewBox: '${v.viewBox}', hue: '${v.hue}', defaultHue: '${v.defaultHue}', shades: [${shades}], shapes: [${shapes}] },`;
   })
   .join('\n');
 
@@ -137,11 +137,9 @@ files['components/brand/BrandMotif.jsx'] = `import React from 'react';
 // This is the OFFICIAL "cubo impossível" artwork supplied by Sesc, split into its six
 // constructions. Geometry is never redrawn, rotated or distorted.
 //
-// Colour: left alone, a construction renders in the exact fills Sesc supplied. Pass \`hue\` to
-// restate it in another palette family — the sheet only ships green, blue and pink, so this is
-// how the other three are reached. Ramps come from the manual's published palette, never from
-// sampling the artwork, and the remap keeps each shade's luminance rank so the solid still
-// reads as a solid.
+// Colour: each construction defaults to a distinct brand family. These defaults are derived
+// palette remaps, never changes to the supplied geometry. Use hue="original" for the exact
+// supplied fills. Every remap preserves luminance rank and never follows the UI theme.
 const MOTIFS = {
 ${jsBody}
 };
@@ -167,14 +165,14 @@ export function motifRamp(hue, steps) {
 }
 
 export function BrandMotif({ variant = 'cube', size = 240, title, opacity = 1, hue }) {
+  if (!Object.prototype.hasOwnProperty.call(MOTIFS, variant)) return null;
   const motif = MOTIFS[variant];
-  if (!motif) return null;
 
-  // Only build a remap when a different, known family is asked for; otherwise the official
-  // fills pass through untouched.
+  const family = hue || motif.defaultHue;
   let recolour = null;
-  if (hue && hue !== motif.hue && HUES[hue]) {
-    const target = motifRamp(hue, motif.shades.length);
+  if (family !== 'original') {
+    const target = motifRamp(family, motif.shades.length);
+    if (!target) return null;
     recolour = Object.fromEntries(motif.shades.map((from, i) => [from, target[i]]));
   }
 
@@ -189,13 +187,14 @@ export function BrandMotif({ variant = 'cube', size = 240, title, opacity = 1, h
 
 export const motifVariants = Object.keys(MOTIFS);
 export const motifHues = Object.keys(HUES);
+export const motifDefaultHues = Object.freeze(Object.fromEntries(Object.entries(MOTIFS).map(([name, motif]) => [name, motif.defaultHue])));
 `;
 
 files['components/brand/BrandMotif.d.ts'] = `import React from 'react';
 
 // GENERATED list — see scripts/build-motifs.mjs.
 export type MotifVariant =
-${built.map((v) => `  /** ${v.hue} — ${v.note} */\n  | '${v.name}'`).join('\n')};
+${built.map((v) => `  /** ${v.defaultHue} default; ${v.hue} supplied — ${v.note} */\n  | '${v.name}'`).join('\n')};
 
 export type MotifHue = ${HUE_FAMILIES.map((h) => `'${h}'`).join(' | ')};
 
@@ -208,19 +207,14 @@ export interface BrandMotifProps {
   title?: string;
   /** Fade the motif when it sits behind content (default 1) */
   opacity?: number;
-  /**
-   * Restate the construction in another palette family. Omit to render the exact fills Sesc
-   * supplied — the sheet ships green, blue and pink only, so this is how the other three
-   * families are reached. Ramps derive from the published palette, never from the artwork.
-   */
-  hue?: MotifHue;
+  /** Omit for the assigned brand family; "original" preserves supplied fills; a palette family selects a derived remap. */
+  hue?: MotifHue | 'original';
 }
 
 /**
  * The official "cubo impossível" motif — the brand's central visual idea, supplied by Sesc
- * as vector artwork and split into six constructions. Renders the supplied colours untouched
- * unless \`hue\` asks for another family. Never re-maps per theme. Returns null for an unknown
- * variant.
+ * as vector artwork and split into six constructions. Defaults to one brand family per shape;
+ * hue="original" retains supplied colours. Never re-maps per theme. Invalid variants/hues return null.
  */
 export function BrandMotif(props: BrandMotifProps): JSX.Element | null;
 
@@ -229,6 +223,9 @@ export const motifVariants: MotifVariant[];
 
 /** All palette families a construction can be restated in */
 export const motifHues: MotifHue[];
+
+/** Assigned default brand family for each construction (derived remaps). */
+export const motifDefaultHues: Readonly<Record<MotifVariant, MotifHue>>;
 
 /** N palette shades of a hue, lightest first; null for an unknown hue. */
 export function motifRamp(hue: MotifHue, steps: number): string[] | null;

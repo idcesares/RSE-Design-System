@@ -5,7 +5,7 @@ export interface AccordionItem {
   /** Body content — string or nodes */
   content: React.ReactNode;
 }
-export interface AccordionProps {
+export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
   items: AccordionItem[];
   /** Allow several panels open at once (default: single-open) */
   allowMultiple?: boolean;
@@ -13,4 +13,4 @@ export interface AccordionProps {
   defaultOpen?: number[];
 }
 /** Expand/collapse list for FAQs and long-form program details. Animated with grid-template-rows so panel height is automatic. */
-export function Accordion(props: AccordionProps): JSX.Element;
+export declare const Accordion: React.ForwardRefExoticComponent<AccordionProps & React.RefAttributes<HTMLDivElement>>;

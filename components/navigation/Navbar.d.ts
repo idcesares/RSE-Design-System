@@ -3,6 +3,8 @@ export interface NavbarLink { label: string; href?: string; }
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   /** Logo image URL */
   logoSrc?: string;
+  /** White lockup for dark surfaces. Optional; CSS follows the nearest explicit theme or auto mode */
+  logoDarkSrc?: string;
   /** Alt text for the logo */
   logoAlt?: string;
   /** Text links; they wrap onto their own row on narrow screens */

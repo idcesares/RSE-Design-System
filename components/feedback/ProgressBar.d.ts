@@ -1,5 +1,5 @@
 import React from 'react';
-export interface ProgressBarProps {
+export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   /** 0-100 */
   value?: number;
   tone?: 'primary' | 'success' | 'danger';
@@ -9,4 +9,4 @@ export interface ProgressBarProps {
   ariaLabel?: string;
 }
 /** Determinate progress track exposed as `role="progressbar"` with aria-valuenow/min/max. */
-export function ProgressBar(props: ProgressBarProps): JSX.Element;
+export declare const ProgressBar: React.ForwardRefExoticComponent<ProgressBarProps & React.RefAttributes<HTMLDivElement>>;

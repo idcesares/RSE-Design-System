@@ -1,0 +1,16 @@
+.rse-data-table { --rse-data-table-column-width: auto; background: var(--rse-color-surface-card); color: var(--rse-color-text-body); border: 1px solid var(--rse-color-border-subtle); border-radius: var(--rse-radius-lg); overflow: hidden; box-shadow: var(--rse-shadow-sm); font-family: var(--rse-font-family); }
+.rse-data-table__scroller { overflow-x: auto; }
+.rse-data-table__table { width: 100%; border-collapse: collapse; }
+.rse-data-table__cell { padding: var(--rse-space-4) var(--rse-space-5); font-size: var(--rse-font-size-body-md); text-align: left; vertical-align: middle; }
+.rse-data-table--compact .rse-data-table__cell { padding: var(--rse-space-2) var(--rse-space-3); font-size: var(--rse-font-size-body-sm); }
+.rse-data-table__caption, .rse-data-table__table th { font-size: var(--rse-font-size-caption); font-weight: var(--rse-font-weight-bold); color: var(--rse-color-text-muted); }
+.rse-data-table__caption { caption-side: top; text-align: left; padding: var(--rse-space-4) var(--rse-space-5); }
+.rse-data-table--compact .rse-data-table__caption { padding: var(--rse-space-2) var(--rse-space-3); }
+.rse-data-table__table th { width: var(--rse-data-table-column-width, auto); white-space: nowrap; background: var(--rse-color-surface-sunken); border-bottom: 1px solid var(--rse-color-border-subtle); }
+.rse-data-table__table tbody tr:not(:last-child) { border-bottom: 1px solid var(--rse-color-border-subtle); }
+.rse-data-table--zebra tbody tr:nth-child(even) { background: var(--rse-color-surface-page); }
+.rse-data-table__table td:first-child { color: var(--rse-color-text-heading); font-weight: var(--rse-font-weight-semibold); }
+.rse-data-table__cell--left { text-align: left; }
+.rse-data-table__cell--center { text-align: center; }
+.rse-data-table__cell--right { text-align: right; }
+.rse-data-table__table .rse-data-table__empty { padding: var(--rse-space-7); text-align: center; color: var(--rse-color-text-muted); font-size: var(--rse-font-size-body-md); font-weight: var(--rse-font-weight-regular); }

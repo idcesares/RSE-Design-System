@@ -6,6 +6,7 @@
 //   node scripts/test-pages.mjs                    # report; exit 1 on any regression
 //   node scripts/test-pages.mjs --update-baseline  # after fixing violations, lock the new counts in
 //   node scripts/test-pages.mjs --only=templates   # pages whose path contains the string
+//   node scripts/test-pages.mjs --themes=all       # light, dark and contrast (CI)
 //
 // Needs `playwright` (with Chromium) and `axe-core`. The repo keeps zero dependencies, so CI
 // installs them for this step only:  npm i --no-save playwright axe-core && npx playwright install chromium
@@ -26,6 +27,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const BASELINE = join(ROOT, 'scripts/test-pages-baseline.json');
 const update = process.argv.includes('--update-baseline');
 const only = process.argv.find((a) => a.startsWith('--only='))?.slice(7);
+const themes = process.argv.includes('--themes=all') ? ['light', 'dark', 'contrast'] : ['light'];
 
 // ─── Tools ──────────────────────────────────────────────────────────────────
 const require = createRequire(import.meta.url);
@@ -74,11 +76,12 @@ const browser = await chromium.launch();
 const results = {};
 for (const page of pages) {
   const r = { errors: [], axe: 0, rules: {}, overflow: false };
-  for (const width of [1280, 360]) {
+  for (const theme of themes) for (const width of [1280, 360]) {
     const tab = await browser.newPage({ viewport: { width, height: 900 } });
-    tab.on('pageerror', (e) => r.errors.push(`${width}px pageerror: ${e.message}`));
-    tab.on('console', (m) => { if (m.type() === 'error' && !/Failed to load resource/.test(m.text())) r.errors.push(`${width}px console: ${m.text().slice(0, 200)}`); });
+    tab.on('pageerror', (e) => r.errors.push(`${theme} ${width}px pageerror: ${e.message}`));
+    tab.on('console', (m) => { if (m.type() === 'error' && !/Failed to load resource/.test(m.text())) r.errors.push(`${theme} ${width}px console: ${m.text().slice(0, 200)}`); });
     await tab.goto(origin + page, { waitUntil: 'load' }).catch((e) => r.errors.push(`goto: ${e.message}`));
+    if (theme !== 'light') await tab.evaluate(theme => document.documentElement.setAttribute('data-rse-theme', theme), theme);
     await tab.waitForTimeout(1200);
     const state = await tab.evaluate(() => ({
       ds: ((window.RSE && window.RSE.__errors) || []).map((e) => `${e.path}: ${e.error}`),
@@ -87,14 +90,14 @@ for (const page of pages) {
     }));
     r.errors.push(...state.ds.map((e) => `RSE: ${e}`));
     if (!state.tokens) r.errors.push(`${width}px: tokens not loaded`);
-    if (width === 360 && !FIXED_CANVAS.test(page)) r.overflow = state.overflow;
+    if (width === 360 && !FIXED_CANVAS.test(page)) r.overflow ||= state.overflow;
     if (width === 1280) {
       await tab.addScriptTag({ content: axeSource });
       const axe = await tab.evaluate(async () => {
         const res = await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] } });
         return res.violations.map((v) => ({ id: v.id, nodes: v.nodes.length }));
       });
-      for (const v of axe) { r.rules[v.id] = v.nodes; r.axe += v.nodes; }
+      for (const v of axe) { const key = themes.length > 1 ? `${theme}:${v.id}` : v.id; r.rules[key] = v.nodes; r.axe += v.nodes; }
     }
     await tab.close();
   }
@@ -117,7 +120,7 @@ for (const [page, r] of Object.entries(results)) {
   const tag = [r.errors.length && `${r.errors.length} error(s)`, r.axe && `axe ${r.axe}${b.axe !== r.axe ? ` (baseline ${b.axe})` : ''}`, r.overflow && 'overflows at 360px'].filter(Boolean);
   console.log(`${tag.length ? '•' : '✓'} ${page}${tag.length ? '  — ' + tag.join(' · ') : ''}`);
 }
-console.log(`\n${pages.length} pages · ${totalAxe} axe violation nodes · ${overflowing} page(s) overflow at 360px`);
+console.log(`\n${pages.length} pages × ${themes.length} theme(s) · ${totalAxe} axe violation nodes · ${overflowing} page(s) overflow at 360px`);
 
 if (update) {
   // A full run replaces the baseline, so pages that no longer exist drop out; --only merges.

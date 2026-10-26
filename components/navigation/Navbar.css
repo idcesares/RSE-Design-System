@@ -11,7 +11,7 @@
   gap:var(--rse-space-2) var(--rse-space-5);max-width:var(--rse-container-xl);margin:0 auto;
   padding:var(--rse-space-3) var(--rse-container-padding);
 }
-.rse-navbar__logo{display:block;height:34px;max-width:100%;width:auto;flex:0 0 auto}
+.rse-navbar__logo{display:block;width:150px;max-width:100%;height:auto;flex:0 0 auto}
 .rse-navbar__links{
   display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--rse-space-5);
   margin:0;padding:0;min-width:0;order:2;flex:1 1 auto;justify-content:center;
@@ -38,3 +38,10 @@
   .rse-navbar__cta{order:2}
   .rse-navbar__links{order:3;flex:1 1 100%;justify-content:flex-start;column-gap:var(--rse-space-4)}
 }
+
+/* Optional theme-specific assets inherit the nearest theme, including nested light sections. */
+[data-rse-theme="light"],[data-rse-theme="contrast"],[data-rse-theme="auto"]{--rse-navbar-logo-light-display:block;--rse-navbar-logo-dark-display:none}
+[data-rse-theme="dark"]{--rse-navbar-logo-light-display:none;--rse-navbar-logo-dark-display:block}
+@media(prefers-color-scheme:dark){[data-rse-theme="auto"]{--rse-navbar-logo-light-display:none;--rse-navbar-logo-dark-display:block}}
+.rse-navbar__logo--light{display:var(--rse-navbar-logo-light-display,block)}
+.rse-navbar__logo--dark{display:var(--rse-navbar-logo-dark-display,none)}

@@ -1,171 +1,138 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><title>Programa — Rede Sesc de Educação</title>
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<meta name="description" content="Referência de página de programa da Rede Sesc de Educação. Oferta, calendário e condições demonstrativos.">
+<title>Ensino médio — Rede Sesc de Educação</title>
+<link rel="stylesheet" href="./reference.css">
+<script src="./ds-base.js"></script>
 </head>
 <body>
+<noscript>Este modelo usa JavaScript local para apresentar os componentes. Ative-o para explorar a referência.</noscript>
 <x-dc>
-<!-- @template name="Program detail page" description="Program/unit detail page: sticky header, hero with enrollment window, tabs of content, turmas table, FAQ accordion, unit info and CTA." -->
-<helmet><script src="./ds-base.js"></script><script src="../../image-slot.js"></script></helmet>
-<div style="min-height:100vh;background:var(--rse-color-surface-page);font-family:var(--rse-font-family);color:var(--rse-color-text-body)">
-<!-- Números de exemplo: substituir por dados verificados antes de publicar. -->
-<div style="background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);padding:10px 24px;text-align:center;font-size:14px;font-weight:600">Inscrições abertas para 0000 · consulte vagas na sua unidade</div>
-<header style="position:sticky;top:0;z-index:100;background:var(--rse-color-surface-page-translucent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rse-color-border-subtle)">
-<div style="max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px">
-<img src="../../assets/logos/wordmark-purple.svg" alt="Rede Sesc de Educação" style="height:44px;width:auto;object-fit:contain">
-<nav style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;font-size:15px;font-weight:600;color:var(--rse-color-text-heading)">
-<a href="#programas" style="color:inherit;text-decoration:none">Programas</a>
-<a href="#turmas" style="color:inherit;text-decoration:none">Turmas</a>
-<a href="#duvidas" style="color:inherit;text-decoration:none">Dúvidas</a>
-<a href="#unidade" style="color:inherit;text-decoration:none">Unidade</a>
-</nav>
-<x-import component-from-global-scope="RSE.Button" variant="primary" href="#inscricao" hint-size="200px,44px">Quero me inscrever</x-import>
+<!-- @template name="Program detail page" description="Program reference: editorial overview, filterable example classes, FAQ, truthful enrollment guidance, Sab.IA entry and institutional footer." -->
+<div class="pp-page" id="inicio">
+<a class="pp-skip" href="#conteudo">Pular para o conteúdo</a>
+<x-import component-from-global-scope="RSE.Navbar" logo-src="{{ logoPurple }}" logo-dark-src="{{ logoWhite }}" logo-alt="Rede Sesc de Educação" links="{{ navLinks }}" cta-label="Matrícula" cta-href="#inscricao" hint-size="100%,96px"></x-import>
+<main id="conteudo" tabindex="-1">
+<div class="pp-container pp-introduction pp-stack">
+<x-import component-from-global-scope="RSE.Breadcrumb" items="{{ breadcrumbs }}" hint-size="100%,32px"></x-import>
+<x-import component-from-global-scope="RSE.Alert" tone="info" title="Programa de exemplo" message="Proposta editorial, turmas, números e condições são demonstrativos. Confirme as informações com a unidade antes de publicar. Nenhuma matrícula é realizada nesta página." hint-size="100%,100px"></x-import>
 </div>
-</header>
-<x-import component-from-global-scope="RSE.Hero" eyebrow="Rede Sesc de Educação" badge="{{ heroBadges }}" title="Ensino Médio com projeto de vida no centro" lead="Três anos de formação integral que unem base acadêmica sólida, cultura, esporte e preparação para o mundo do trabalho — com acompanhamento individual de cada estudante." media="{{ heroMedia }}" hint-size="100%,480px">
-<x-import component-from-global-scope="RSE.Button" variant="primary" size="lg" href="#inscricao" hint-size="220px,56px">Quero me inscrever</x-import>
-<x-import component-from-global-scope="RSE.Button" variant="secondary" size="lg" href="#turmas" hint-size="220px,56px">Ver turmas e turnos</x-import>
+<x-import component-from-global-scope="RSE.Hero" eyebrow="Ensino médio" badge="{{ heroBadge }}" title="Conhecimento para ampliar caminhos" lead="Perguntar, investigar e criar. Conheça um percurso que conecta a aprendizagem às escolhas e aos projetos que você quer construir." media="{{ heroMedia }}" hint-size="100%,520px">
+<x-import component-from-global-scope="RSE.Button" size="lg" href="#turmas" hint-size="220px,56px">Explorar turmas de exemplo</x-import>
+<x-import component-from-global-scope="RSE.Button" variant="secondary" size="lg" href="#inscricao" hint-size="220px,56px">Entenda os próximos passos</x-import>
 </x-import>
-<x-import component-from-global-scope="RSE.StatBand" id="programas" tone="primary" aria-label="O programa em números" note="Números de exemplo: substituir por dados verificados antes de publicar." hint-size="100%,230px">
-<x-import component-from-global-scope="RSE.Stat" value="0 anos" label="Duração" accent="inverse" align="center" hint-size="100%,96px"></x-import>
-<x-import component-from-global-scope="RSE.Stat" value="00 alunos" label="Por turma" accent="inverse" align="center" hint-size="100%,96px"></x-import>
-<x-import component-from-global-scope="RSE.Stat" value="0h00" label="Carga diária" accent="inverse" align="center" hint-size="100%,96px"></x-import>
-<x-import component-from-global-scope="RSE.Stat" value="00%" label="Com projeto de vida" accent="inverse" align="center" hint-size="100%,96px"></x-import>
+<x-import component-from-global-scope="RSE.StatBand" tone="green-light" title="O programa em perspectiva" note="Todos os números são ilustrativos. Duração, composição das turmas e carga horária precisam de confirmação oficial." hint-size="100%,230px">
+<x-import component-from-global-scope="RSE.Stat" value="0 anos" label="Duração · exemplo" align="center" hint-size="100%,100px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="00" label="Estudantes por turma · exemplo" align="center" hint-size="100%,100px"></x-import>
+<x-import component-from-global-scope="RSE.Stat" value="0h" label="Carga diária · exemplo" align="center" hint-size="100%,100px"></x-import>
 </x-import>
-<section style="max-width:1200px;margin:0 auto;padding:var(--rse-section-y-sm) 24px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">O programa</p>
-<h2 style="margin:0;font-size:2rem;font-weight:800;letter-spacing:-0.02em;color:var(--rse-color-text-heading)">O que o estudante vive aqui</h2>
-<p style="margin:0;font-size:17px;line-height:1.6;max-width:66ch">A matriz combina as áreas do conhecimento da BNCC com trilhas eletivas, iniciação científica e vivências culturais e esportivas do Sesc. O acompanhamento é feito por um tutor que conhece cada estudante pelo nome.</p>
-<ul style="margin:8px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:12px;font-size:17px;line-height:1.6">
-<li>Trilhas eletivas escolhidas pelo próprio estudante a cada semestre.</li>
-<li>Projeto de vida com orientação individual e portfólio ao final do ciclo.</li>
-<li>Cultura e esporte integrados à grade, não como atividade extra.</li>
-<li>Preparação para o Enem e para a entrada no mundo do trabalho.</li>
-</ul>
+<section class="pp-section pp-container" id="proposta" aria-labelledby="proposta-titulo">
+<div class="pp-editorial">
+<div class="pp-stack">
+<p class="pp-eyebrow">O que faz sentido para você</p>
+<h2 id="proposta-titulo">Uma formação que conversa com a vida</h2>
+<p class="pp-intro">Apresente aqui a proposta pedagógica validada do programa. Relacione os conhecimentos às experiências concretas de quem estuda, sem prometer atividades que a unidade ainda não confirmou.</p>
+<p>Esta referência sugere três eixos de comunicação. Substitua os textos pelas práticas documentadas da escola e mostre como elas acontecem no cotidiano.</p>
+<div class="pp-signature" aria-hidden="true"><x-import component-from-global-scope="RSE.BrandMotif" variant="interlock" size="160" opacity="0.3" hint-size="160px,160px"></x-import></div>
 </div>
-<div style="display:flex;flex-direction:column;gap:16px">
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--rse-shadow-sm)">
-<h3 style="margin:0;font-size:1.25rem;font-weight:800;color:var(--rse-color-text-heading)">Quem tem prioridade</h3>
-<p style="margin:0;font-size:16px;line-height:1.6">Trabalhadores do comércio de bens, serviços e turismo e seus dependentes, com condições diferenciadas. Vagas remanescentes ficam abertas à comunidade.</p>
-</div>
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--rse-shadow-sm)">
-<h3 style="margin:0;font-size:1.25rem;font-weight:800;color:var(--rse-color-text-heading)">Gratuidade</h3>
-<p style="margin:0;font-size:16px;line-height:1.6">Parte das vagas é destinada ao Programa de Comprometimento e Gratuidade, conforme o regulamento nacional do Sesc.</p>
+<div class="pp-stack">
+<x-import component-from-global-scope="RSE.Card" eyebrow="Eixo ilustrativo" title="Investigar o mundo" description="Descreva uma experiência real de pesquisa, leitura ou resolução de problemas. Identifique o contexto e o aprendizado, com informações aprovadas pela escola." hint-size="100%,200px"></x-import>
+<x-import component-from-global-scope="RSE.Card" eyebrow="Eixo ilustrativo" title="Construir em conjunto" description="Mostre como a convivência pode aparecer nas práticas do programa. Inclua somente projetos e atividades efetivamente oferecidos." hint-size="100%,200px"></x-import>
+<x-import component-from-global-scope="RSE.Card" eyebrow="Eixo ilustrativo" title="Ampliar as escolhas" description="Apresente as orientações e os percursos disponíveis para estudantes. Confirme com a unidade antes de falar em tutoria, itinerários ou preparação específica." hint-size="100%,200px"></x-import>
 </div>
 </div>
 </section>
-<section id="turmas" style="max-width:1200px;margin:0 auto;padding:0 24px 64px;display:flex;flex-direction:column;gap:24px">
-<div style="display:flex;flex-direction:column;gap:12px">
-<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">Turmas 0000</p>
-<h2 style="margin:0;font-size:2rem;font-weight:800;letter-spacing:-0.02em;color:var(--rse-color-text-heading)">Turnos e vagas por unidade</h2>
+<section class="pp-section pp-container" id="turmas" aria-labelledby="turmas-titulo">
+<div class="pp-heading">
+<p class="pp-eyebrow">Organize suas possibilidades</p>
+<h2 id="turmas-titulo">Um turno que cabe na sua rotina</h2>
+<p class="pp-intro">O filtro abaixo funciona com dados ilustrativos. As unidades, os turnos, as datas e a disponibilidade precisam ser substituídos pela oferta oficial.</p>
 </div>
-<x-import component-from-global-scope="RSE.FilterChips" label="Turno" options="{{ turnoOptions }}" value="{{ turnos }}" onChange="{{ setTurnos }}" hint-size="100%,80px"></x-import>
-<div style="background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);border-radius:var(--rse-radius-lg);overflow:hidden;box-shadow:var(--rse-shadow-sm)">
-<div style="overflow-x:auto">
-<table style="width:100%;border-collapse:collapse">
-<thead><tr>
-<th scope="col" style="text-align:left;padding:16px 20px;background:var(--rse-color-surface-sunken);border-bottom:1px solid var(--rse-color-border-subtle);font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--rse-color-text-muted);white-space:nowrap">Unidade</th>
-<th scope="col" style="text-align:left;padding:16px 20px;background:var(--rse-color-surface-sunken);border-bottom:1px solid var(--rse-color-border-subtle);font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--rse-color-text-muted);white-space:nowrap">Turno</th>
-<th scope="col" style="text-align:left;padding:16px 20px;background:var(--rse-color-surface-sunken);border-bottom:1px solid var(--rse-color-border-subtle);font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--rse-color-text-muted);white-space:nowrap">Início</th>
-<th scope="col" style="text-align:right;padding:16px 20px;background:var(--rse-color-surface-sunken);border-bottom:1px solid var(--rse-color-border-subtle);font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--rse-color-text-muted);white-space:nowrap">Status</th>
-</tr></thead>
-<tbody>
-<tr style="border-bottom:1px solid var(--rse-color-border-subtle)">
-<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade exemplo 1</td>
-<td style="padding:16px 20px;font-size:16px">Manhã</td>
-<td style="padding:16px 20px;font-size:16px">00/00/0000</td>
-<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rse-radius-pill)">Vagas abertas</span></td>
-</tr>
-<tr style="border-bottom:1px solid var(--rse-color-border-subtle);background:var(--rse-color-surface-sunken)">
-<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade exemplo 2</td>
-<td style="padding:16px 20px;font-size:16px">Manhã</td>
-<td style="padding:16px 20px;font-size:16px">00/00/0000</td>
-<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-warning-surface);color:var(--rse-color-warning-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rse-radius-pill)">Últimas vagas</span></td>
-</tr>
-<tr style="border-bottom:1px solid var(--rse-color-border-subtle)">
-<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade exemplo 3</td>
-<td style="padding:16px 20px;font-size:16px">Tarde</td>
-<td style="padding:16px 20px;font-size:16px">00/00/0000</td>
-<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-success-surface);color:var(--rse-color-success-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rse-radius-pill)">Vagas abertas</span></td>
-</tr>
-<tr>
-<td style="padding:16px 20px;font-size:16px;font-weight:600;color:var(--rse-color-text-heading)">Unidade exemplo 4</td>
-<td style="padding:16px 20px;font-size:16px">Integral</td>
-<td style="padding:16px 20px;font-size:16px">00/00/0000</td>
-<td style="padding:16px 20px;text-align:right"><span style="background:var(--rse-color-danger-surface);color:var(--rse-color-danger-text);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rse-radius-pill)">Encerrado</span></td>
-</tr>
-</tbody>
-</table>
+<div class="pp-filters"><x-import component-from-global-scope="RSE.FilterChips" label="Turno" options="{{ turnoOptions }}" value="{{ turnos }}" on-change="{{ setTurnos }}" hint-size="100%,90px"></x-import></div>
+<p class="pp-count" role="status" aria-live="polite" aria-atomic="true">{{ resultLabel }}</p>
+<div class="pp-table"><x-import component-from-global-scope="RSE.DataTable" columns="{{ columns }}" rows="{{ filteredRows }}" caption="Turmas ilustrativas · sem confirmação de vagas" empty-message="Nenhuma turma de exemplo neste filtro." hint-size="100%,360px"></x-import></div>
+</section>
+<section class="pp-section pp-container" id="duvidas" aria-labelledby="duvidas-titulo">
+<div class="pp-faq">
+<div class="pp-heading">
+<p class="pp-eyebrow">Para decidir com tranquilidade</p>
+<h2 id="duvidas-titulo">O que confirmar antes da matrícula</h2>
+<p class="pp-intro">As respostas orientam a preparação da página. Regras de atendimento, benefícios e documentação dependem das informações oficiais da unidade.</p>
 </div>
+<x-import component-from-global-scope="RSE.Accordion" items="{{ faq }}" default-open="{{ faqOpen }}" hint-size="100%,360px"></x-import>
 </div>
 </section>
-<section id="duvidas" style="max-width:1200px;margin:0 auto;padding:0 24px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px">
-<div style="display:flex;flex-direction:column;gap:12px">
-<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-muted)">Dúvidas frequentes</p>
-<h2 style="margin:0;font-size:2rem;font-weight:800;letter-spacing:-0.02em;color:var(--rse-color-text-heading)">Antes de se inscrever</h2>
-<p style="margin:0;font-size:16px;line-height:1.6;color:var(--rse-color-text-muted)">Não encontrou sua dúvida? Fale com a unidade — o contato está no fim da página.</p>
+<x-import component-from-global-scope="RSE.CtaBand" tone="blue-light" eyebrow="Conheça a unidade" title="Uma conversa ajuda a enxergar os próximos passos" description="O endereço, os contatos e as condições de visita ainda precisam ser confirmados. Inclua os canais oficiais da unidade antes de publicar." hint-size="100%,340px">
+<x-import component-from-global-scope="RSE.Button" size="lg" href="#inscricao" hint-size="240px,56px">Confira as orientações</x-import>
+</x-import>
+<section class="pp-section pp-container" id="inscricao" aria-labelledby="inscricao-titulo">
+<div class="pp-enrollment">
+<div class="pp-stack">
+<div class="pp-heading">
+<p class="pp-eyebrow">Antes de começar</p>
+<h2 id="inscricao-titulo">Seu caminho até a matrícula</h2>
+<p class="pp-intro">Você está na etapa de conhecer o programa. A solicitação de matrícula acontece no ambiente oficial indicado pela Rede.</p>
 </div>
-<x-import component-from-global-scope="RSE.Accordion" items="{{ faq }}" defaultOpen="{{ faqOpen }}" hint-size="100%,320px"></x-import>
-</section>
-<section id="unidade" style="background:var(--rse-color-primary);padding:80px 24px">
-<div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px;align-items:center">
-<div style="display:flex;flex-direction:column;gap:24px">
-<p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rse-color-text-on-primary)">Unidade exemplo 1</p>
-<h2 style="margin:0;font-size:2.25rem;line-height:1.15;font-weight:800;letter-spacing:-0.02em;color:var(--rse-color-text-on-primary)">Venha conhecer a escola</h2>
-<p style="margin:0;font-size:18px;line-height:1.6;color:var(--rse-color-text-on-primary);max-width:52ch">Visitas guiadas em dias e horários a definir (00h às 00h), com agendamento prévio. Traga o estudante — a decisão é dele também.</p>
-<div style="display:flex;flex-direction:column;gap:8px;font-size:16px;color:var(--rse-color-text-on-primary)">
-<span>Rua a definir, 000 · Bairro · Cidade/UF</span>
-<span>(00) 0000-0000 · unidade@exemplo.sesc.br</span>
+<x-import component-from-global-scope="RSE.Stepper" steps="{{ steps }}" current="0" orientation="vertical" aria-label="Etapas para iniciar a matrícula" hint-size="100%,260px"></x-import>
+</div>
+<div class="pp-stack pp-portal">
+<h3>Portal TOTVS</h3>
+<p>Matrícula e registros acadêmicos pertencem ao portal TOTVS. Esta página de referência não coleta documentos, não confirma vagas e não conclui inscrições.</p>
+<x-import component-from-global-scope="RSE.Alert" tone="warning" title="URL oficial pendente" message="Solicite à Rede o endereço do portal e valide o destino antes de habilitar este botão." hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="RSE.Button" size="lg" block="{{ true }}" disabled="{{ true }}" hint-size="100%,56px">Acessar o portal TOTVS</x-import>
+<p class="pp-caption">Prazos, valores, critérios de atendimento e eventuais benefícios precisam ser confirmados no canal oficial da unidade.</p>
 </div>
 </div>
-<div id="inscricao" style="background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);padding:36px;display:flex;flex-direction:column;gap:20px;box-shadow:var(--rse-shadow-lg)">
-<h3 style="margin:0;font-size:1.5rem;font-weight:800;color:var(--rse-color-text-heading)">Comece sua inscrição</h3>
-<p style="margin:0;font-size:16px;line-height:1.6">Leva poucos minutos. Você pode salvar e continuar depois.</p>
-<x-import component-from-global-scope="RSE.Stepper" steps="{{ steps }}" current="{{ 1 }}" hint-size="100%,120px"></x-import>
-<x-import component-from-global-scope="RSE.Button" variant="primary" block href="#" hint-size="100%,44px">Continuar inscrição</x-import>
-<p style="margin:0;font-size:13px;color:var(--rse-color-text-muted)">Ao continuar você concorda com o tratamento dos dados conforme a LGPD.</p>
-</div>
+<div class="pp-platform" id="sabia">
+<x-import component-from-global-scope="RSE.PlatformEntry" tone="cream" logo-src="{{ sabiaLogo }}" href="#sabia-orientacao" title="Aprendizagem continua na Sab.IA" description="A Sab.IA é a plataforma de aprendizagem. O portal TOTVS é o ambiente de matrícula e registros acadêmicos." cta-label="Orientações de acesso" note="A URL oficial da plataforma ainda precisa ser informada. Este link leva à orientação local." hint-size="100%,280px"></x-import>
+<p class="pp-caption" id="sabia-orientacao">Confirme a URL da Sab.IA e as condições de acesso com a Rede. A demonstração não abre uma sessão nem encaminha dados.</p>
 </div>
 </section>
-<footer style="background:var(--rse-color-surface-inverse);color:var(--rse-color-text-on-ink-muted);padding:56px 24px">
-<div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:48px;justify-content:space-between;align-items:flex-start">
-<img src="../../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação" style="height:52px;width:auto;object-fit:contain">
-<div style="display:flex;gap:56px;flex-wrap:wrap;font-size:15px">
-<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--rse-color-text-on-ink-muted)">Programas</span><a href="#" style="color:inherit;text-decoration:none">Educação Infantil</a><a href="#" style="color:inherit;text-decoration:none">Ensino Fundamental</a><a href="#" style="color:inherit;text-decoration:none">Ensino Médio</a></div>
-<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--rse-color-text-on-ink-muted)">A Rede</span><a href="#" style="color:inherit;text-decoration:none">Sobre nós</a><a href="#" style="color:inherit;text-decoration:none">Unidades</a><a href="#" style="color:inherit;text-decoration:none">Transparência</a></div>
-</div>
-<span style="font-size:14px;color:var(--rse-color-text-on-ink-muted);max-width:24ch">Aprender para a vida acontecer.</span>
-</div>
-</footer>
+</main>
+<x-import component-from-global-scope="RSE.Footer" logo-src="{{ logoWhite }}" logo-alt="Rede Sesc de Educação" tagline="Aprender para a vida acontecer." columns="{{ footerColumns }}" note="Referência de implementação. Oferta, dados, calendário e canais oficiais pendentes de validação." hint-size="100%,320px"></x-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { turnos: [] };
   renderVals() {
+    const h = React.createElement;
+    const root = window.RSE_TEMPLATE_BASE;
+    const rows = [
+      { unidade: 'Unidade exemplo A', turnoId: 'manha', turno: 'Manhã', inicio: 'A confirmar' },
+      { unidade: 'Unidade exemplo B', turnoId: 'manha', turno: 'Manhã', inicio: 'A confirmar' },
+      { unidade: 'Unidade exemplo C', turnoId: 'tarde', turno: 'Tarde', inicio: 'A confirmar' },
+      { unidade: 'Unidade exemplo D', turnoId: 'integral', turno: 'Integral', inicio: 'A confirmar' }
+    ];
+    const filtered = rows.filter((row) => !this.state.turnos.length || this.state.turnos.includes(row.turnoId));
     return {
-      heroBadges: React.createElement(React.Fragment, null,
-        React.createElement(RSE.Badge, { tone: 'info' }, 'Ensino Médio'),
-        React.createElement(RSE.Badge, { tone: 'success' }, 'Vagas abertas'),
-        React.createElement(RSE.Badge, { tone: 'warning' }, 'Inscrições até 00/00/0000')),
-      heroMedia: React.createElement('image-slot', { id: 'hero-photo', shape: 'rounded', radius: '32', placeholder: 'estudantes em atividade, luz natural, estilo documental' }),
-      turnoOptions: [
-        { id: 'manha', label: 'Manhã', count: 2 },
-        { id: 'tarde', label: 'Tarde', count: 1 },
-        { id: 'integral', label: 'Integral', count: 1 }
-      ],
+      logoPurple: root + 'assets/logos/wordmark-purple.svg',
+      logoWhite: root + 'assets/logos/wordmark-white.svg',
+      sabiaLogo: root + 'assets/logos/sabia-wordmark-purple.svg',
+      navLinks: [{ label: 'Proposta', href: '#proposta' }, { label: 'Turmas', href: '#turmas' }, { label: 'Dúvidas', href: '#duvidas' }],
+      breadcrumbs: [{ label: 'Início', href: '#inicio' }, { label: 'Programa de exemplo' }],
+      heroBadge: h(RSE.Badge, { tone: 'neutral' }, 'Página de exemplo'),
+      heroMedia: h('image-slot', { id: 'program-hero', placeholder: 'estudantes do ensino médio criando um projeto em grupo, espaço escolar real, luz natural, fotografia documental autorizada' }),
+      turnoOptions: [{ id: 'manha', label: 'Manhã' }, { id: 'tarde', label: 'Tarde' }, { id: 'integral', label: 'Integral' }].map((option) => ({ ...option, count: rows.filter((row) => row.turnoId === option.id).length })),
       turnos: this.state.turnos,
-      setTurnos: (v) => this.setState({ turnos: v }),
-      steps: [{ label: 'Dados do aluno' }, { label: 'Documentos' }, { label: 'Revisão' }],
+      setTurnos: (turnos) => this.setState({ turnos }),
+      resultLabel: `${filtered.length} de ${rows.length} turmas ilustrativas`,
+      columns: [{ key: 'unidade', label: 'Unidade' }, { key: 'turno', label: 'Turno' }, { key: 'inicio', label: 'Início' }, { key: 'status', label: 'Disponibilidade' }],
+      filteredRows: filtered.map((row) => ({ ...row, status: h(RSE.Badge, { tone: 'neutral' }, 'A confirmar') })),
+      steps: [{ label: 'Conheça o programa', description: 'Leia a proposta e confirme a oferta com a unidade.' }, { label: 'Consulte as condições oficiais', description: 'Confira documentos, valores, critérios e prazos.' }, { label: 'Siga para o portal TOTVS', description: 'Use a URL oficial para realizar a solicitação de matrícula.' }],
       faqOpen: [0],
       faq: [
-        { title: 'Quem pode se inscrever?', content: 'Trabalhadores do comércio de bens, serviços e turismo e seus dependentes têm prioridade e condições diferenciadas. As vagas remanescentes ficam abertas à comunidade em geral.' },
-        { title: 'Quais documentos preciso levar?', content: 'RG e CPF do aluno e do responsável, comprovante de residência, histórico escolar e, para a categoria trabalhador, a Credencial Sesc válida.' },
-        { title: 'Como funciona a seleção quando há mais candidatos que vagas?', content: 'A seleção segue os critérios publicados no edital de cada unidade, com prioridade para a categoria trabalhador e para o Programa de Comprometimento e Gratuidade.' },
-        { title: 'Existe transporte ou alimentação?', content: 'Varia por unidade. Confirme com a unidade escolhida antes de concluir a matrícula.' }
+        { title: 'Quem pode se inscrever?', content: 'Confirme com a unidade o público atendido, os critérios de prioridade e as condições para cada categoria. Este modelo não estabelece regras de elegibilidade.' },
+        { title: 'Quais documentos são necessários?', content: 'Solicite à unidade ou consulte no portal TOTVS a relação oficial de documentos para o estudante e o responsável. Nenhum documento deve ser enviado por esta página de exemplo.' },
+        { title: 'Como consultar valores, benefícios e vagas?', content: 'Verifique os canais oficiais da unidade e o edital aplicável. Não publique valores, descontos, gratuidade ou disponibilidade sem confirmação.' },
+        { title: 'Como funciona o acesso à Sab.IA?', content: 'A Sab.IA é a plataforma de aprendizagem, separada da matrícula. Confirme com a Rede a URL e as condições de acesso; o endereço ainda não está configurado nesta referência.' }
+      ],
+      footerColumns: [
+        { title: 'O programa', links: [{ label: 'Proposta de apresentação', href: '#proposta' }, { label: 'Turmas de exemplo', href: '#turmas' }, { label: 'Dúvidas frequentes', href: '#duvidas' }] },
+        { title: 'Próximos passos', links: [{ label: 'Orientações de matrícula', href: '#inscricao' }, { label: 'Plataforma Sab.IA', href: '#sabia' }] }
       ]
     };
   }

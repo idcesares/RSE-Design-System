@@ -10,9 +10,9 @@ composing what exists. Otherwise compose it in the page.
 ## 1. Write the CSS contract, then the wrapper
 
 Start with `components/<group>/Name.css`: a root class `.rse-name`, BEM elements
-(`.rse-name__part`) and modifiers (`.rse-name--variant`). Every state is CSS — `:hover`,
-`:focus-visible`, `:checked`, `:disabled`, `[aria-invalid="true"]` — so the component works in a CMS
-page with no JavaScript. `npm run sync` wraps all of them in `@layer rse.components` in
+(`.rse-name__part`) and modifiers (`.rse-name--variant`). Every visual state is CSS — `:hover`,
+`:focus-visible`, `:checked`, `:disabled`, `[aria-invalid="true"]`. Behavior such as dialog focus
+management or menu keyboard navigation still needs a host controller. `npm run sync` wraps the CSS in `@layer rse.components` in
 `dist/components.css`; a raw colour fails the build.
 
 Then `components/<group>/Name.jsx` renders that markup. Groups are `core`, `brand`, `forms`,
@@ -35,7 +35,8 @@ Hard rules:
   `dist/rse.js` verbatim so static pages can load it with no build step; JSX is rejected.
 - **Export shape**: `export const Name = React.forwardRef(function Name(…))` (or `export function
   Name` for one that needs no ref). The name must match the filename.
-- **No inline style objects, no hover in state.** Forward `ref`, spread `...rest` onto the main
+- **No visual inline styles, no hover styling in state.** Dynamic geometry may set documented CSS
+  custom properties (e.g. progress percentage); all visual rules belong in CSS. Forward `ref`, spread `...rest` onto the main
   element, merge `className`, build ids with `React.useId` (never `Math.random`).
 - **Tokens only** for colour, type, radius, shadow, motion, z-index. Layout geometry (a 20px
   checkbox box, a 16:10 media ratio) may be literal.
@@ -78,6 +79,9 @@ The showcase gallery lists every component in the manifest on its own. Add a dem
 `showcase/demos.js` (a `render()` returning realistic pt-BR content, and `block: true` if it needs
 the full card width) and a one-line pt-BR gloss to `GLOSS` in the same file. Components on the CSS
 contract get the "HTML" tab automatically: it prints the markup the demo just rendered.
+Shared stylesheets must be registered in `scripts/lib/css-contract.mjs`, so the CSS builder,
+audit and showcase agree. Document the controller needed for interactive plain HTML; copying
+markup does not copy React event handlers.
 
 ## 5. Register it
 
