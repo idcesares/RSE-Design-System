@@ -106,7 +106,8 @@ For any stack, and for the quality bar, start at [DESIGN.md](../DESIGN.md) and t
 `starters/poster.html`. It sets an A3 page box, print CSS (`@page`), and the cream/purple
 field structure. Print rules:
 
-- Flat colour fields only. The brand has no gradients or textures.
+- Colour fields in palette colour; subtle palette gradients and depth are welcome
+  ([creative latitude](composition/creative-latitude.md#gradients)). No textures over text.
 - Shadows do not print — the starter drops them inside `@media print`.
 - Type: headline Extrabold with tight tracking, one uppercase tracked eyebrow, generous margins.
   Poster type sizes are geometry, not the web scale.

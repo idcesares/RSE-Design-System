@@ -1708,8 +1708,8 @@
     "authority": "AGENTS.md and docs/brand-manual.md govern. This block is a machine-checkable summary, never a second spec.",
     "colour": {
       "paletteOnly": true,
-      "backgrounds": "Cream page surface, white cards. A feature or CTA band is brand purple or indigo with white text, or a light or mid accent with ink (--rse-brand-ink) text. Never white text on an accent, never a -dark accent or mid purple as a band, no gradients, one band colour per section.",
-      "gradients": false,
+      "backgrounds": "Cream page surface, white cards. A feature or CTA band is brand purple or indigo with white text, or a light or mid accent with ink (--rse-brand-ink) text. Never white text on an accent, never a -dark accent or mid purple as a band, one band colour per section.",
+      "gradients": "Subtle gradients are allowed in artwork, artifacts, decks, pitches and page heroes or bands: palette stops only (one hue family, or a hue with a neighbouring surface), two or three stops, contrast measured at the worst stop under text. Never on the selo, inside the signature constructions or generated shapes, or in UI component CSS.",
       "resampleFromArtwork": false
     },
     "typography": {
@@ -1809,7 +1809,7 @@
         "twin"
       ],
       "loader": "MotifLoader: primary loading feedback with inline and section modes; Spinner is a compatibility wrapper for inline mode. Generated, transient, exempt from the one-focal rule.",
-      "pattern": "MotifPattern and assets/patterns/generated/: a flat colour field, not a construction. No gradients, glows or noise. A multi-hue pattern is allowed only as the artwork itself (hero field or standalone spectrum piece); page text and bands stay in one hue. Text never sits directly on pattern cells; use a solid panel.",
+      "pattern": "MotifPattern and assets/patterns/generated/: a flat colour field, not a construction. A pattern itself has no gradients, glows or noise (it may sit on a gradient). A multi-hue pattern is allowed only as the artwork itself (hero field or standalone spectrum piece); page text and bands stay in one hue. Text never sits directly on pattern cells; use a solid panel.",
       "recolour": "palette-families-only",
       "recolourNote": "Any of the six palette families may be used; ramps come from the palette only, never sampled from artwork, and the remap keeps each shade's luminance rank so the shape reads as a solid. Never edit the SVG fills. Purple, orange and yellow signature artwork and all generated shapes are derived, not supplied by Sesc.",
       "generatedBy": "Generated shapes and motion come only from the motif engine (MotifEngine, through MotifLoader and MotifPattern).",
@@ -1846,7 +1846,29 @@
         "150ms",
         "220ms",
         "360ms"
-      ]
+      ],
+      "motionDurationsScope": "UI state changes in components. Artwork and artifacts may use longer, choreographed motion if the reduced form and a complete final frame exist."
+    },
+    "creativeLatitude": {
+      "principle": "The rules in this object are invariants. Everything else is craft: concept, layout, structure, diagrams, illustration, depth, subtle palette gradients, motion, interaction and 3D (for example Three.js) are open to the agent.",
+      "invariants": [
+        "selo",
+        "palette",
+        "Montserrat",
+        "pt-BR copy",
+        "no invented facts or imagery",
+        "accessibility",
+        "signature construction geometry"
+      ],
+      "expected": [
+        "a distinct idea per piece",
+        "one awe moment",
+        "clear hierarchy and structure",
+        "every interactive state and a keyboard path",
+        "reduced-motion form and a complete final frame"
+      ],
+      "guide": "docs/composition/creative-latitude.md",
+      "howTo": "docs/composition/artifact-craft.md"
     }
   },
   "composition": {

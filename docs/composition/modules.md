@@ -6,6 +6,11 @@ Twelve reusable parts. An [archetype](archetypes.md) is a composition of modules
 or a card. Colours are token names from [brand.json](../../brand.json). Each module lists 2–3
 variants and the condition under which it fails.
 
+Modules and their "fails when" lines describe the editorial profile. A showpiece, explainer or
+interactive piece may invent new modules (a tree, a journey, a flip card, a 3D stage) under
+[creative-latitude](creative-latitude.md). Chart honesty rules (zero baselines, direct labels,
+no chart-junk effects on the marks themselves) hold in every profile.
+
 ## M-headline
 The eyebrow (Bold, uppercase, `eyebrow` size, `--rse-color-text-muted`) above an Extrabold headline
 (`h1`, or `display` on a cover) in `--rse-color-text-heading`, with tight tracking and at most one

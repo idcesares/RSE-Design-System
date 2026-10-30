@@ -7,6 +7,10 @@ fractions of the canvas width × height, inside the format's `margin` (written *
 purple / indigo with white text. Nothing here is tied to a stack: translate the regions into
 whatever your tool uses.
 
+Archetypes are a vocabulary for calm editorial canvases, not a closed list. Invent a new layout
+when the idea calls for one ([creative-latitude](creative-latitude.md)); the job-in-the-story
+thinking below still helps.
+
 A set is built by choosing the job each canvas does, then the archetype that does it. A deck
 usually needs one **Open**, two or three **Argue**, one or two **Prove**, and a **Close**.
 

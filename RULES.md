@@ -28,11 +28,13 @@ reasoning and the brand manual extract live in the design system repository (`AG
 3. **Colour bands carry the right ink.** Page is cream, content on white cards. A feature or CTA
    band is brand purple or indigo with white text, or a light or mid accent with ink text
    (`--rse-brand-ink`). Never white text on an accent; never a `-dark` accent or mid purple as a
-   band; no gradients.
+   band. Subtle palette gradients are fine on heroes, bands and artwork (palette stops only,
+   contrast measured at the worst stop); never off-palette, never on the selo.
 4. **Montserrat only**, 400–900. Headings 800, tight tracking. Eyebrows 700 uppercase — the only
    uppercase. Sentence case everywhere else.
 5. **pt-BR** for everything a person reads; English for identifiers. `<html lang="pt-BR">`.
-6. **No emoji, no hand-drawn icons.** Icons come from the `Icon` component (Lucide).
+6. **No emoji, no hand-drawn icons.** Icons come from the `Icon` component (Lucide). Diagrams and
+   illustrations drawn from palette geometry are fine.
 7. **Never invent Sesc facts or imagery.** Figures, addresses, fees, dates and testimonials must be
    verified; images are `<image-slot>` placeholders with a shot brief until licensed photography
    exists. Never generate synthetic photos of students.
@@ -46,7 +48,11 @@ reasoning and the brand manual extract live in the design system repository (`AG
    colour fields only; purple, orange, yellow and all generated shapes are derived, not supplied.
 10. **Sab.IA is the platform, the Rede is the network.** Platform chrome is blue with ink text.
     Enrollment lives in the TOTVS portal, not in the platform.
-11. **Accessibility is part of done.** Contrast ≥ 4.5:1 text, ≥ 3:1 large text and control borders;
+11. **Creative latitude.** The rules above are the invariants; everything else is craft. Artifacts,
+    decks and showpiece pages may be ambitious: custom layouts, diagrams, subtle gradients and
+    depth, choreographed motion, interaction, Three.js or other WebGL. Keep reduced motion, a complete
+    final frame, keyboard paths and text alternatives. See `docs/composition/creative-latitude.md`.
+12. **Accessibility is part of done.** Contrast ≥ 4.5:1 text, ≥ 3:1 large text and control borders;
     focus always visible; keyboard path complete; hit targets ≥ 44 px; works at 360 px wide.
 
 
