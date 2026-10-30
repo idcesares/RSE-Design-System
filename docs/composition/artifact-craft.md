@@ -12,11 +12,24 @@ Contents: [colour](#colour-in-a-standalone-artifact) · [motion setting](#readin
 ## Colour in a standalone artifact
 
 On a page that links `styles.css`, colour is `var(--rse-…)` and the page themes for free. A
-standalone artifact (one HTML file, a canvas, a WebGL scene) often cannot link the system. Then:
+standalone artifact (one HTML file, a canvas, a WebGL scene) often leaves the repo. Do **not** retype
+palette or theme values, and never invent any: dark-theme role values in particular are easy to get
+wrong, and `tokens/tokens.css` is the only correct source. Copy these beside the file, keeping their
+relative layout, and link one line:
 
-- Declare the palette **once**, at the top of the file, as `--rse-*` custom properties copied from
-  [brand.json](../../brand.json) (`palette`) and the roles you use. Everything else, CSS, SVG and
-  JavaScript, reads those variables. No other hex appears in the file.
+```
+my-artifact/
+  index.html                       <link rel="stylesheet" href="tokens/tokens-only.css">
+  tokens/tokens-only.css  tokens/tokens.css  tokens/fonts.css
+  assets/fonts/Montserrat-Variable.woff2  (and the italic file, if you use italics)
+  assets/logos/wordmark-*.svg  assets/motifs/<construction>.svg   (only what you use)
+```
+
+That gives every `--rse-*` token, all three themes (`data-rse-theme`) and Montserrat, with no
+element selectors to fight your own layout. Add `tokens/base-runtime.css` for the focus ring and the
+reduced-motion safety net. Then:
+
+- Everything else, CSS, SVG and JavaScript, reads the variables. **No hex appears in your file.**
 - JavaScript and WebGL read the variables at run time, so a theme or palette change flows through:
 
 ```js
@@ -27,7 +40,10 @@ const token = (name) => root.getPropertyValue(name).trim();
 ```
 
 - Gradients are palette stops: `linear-gradient(160deg, var(--rse-brand-purple-dark), var(--rse-brand-indigo))`.
-  Check text contrast at the worst stop ([gradient rules](creative-latitude.md#gradients)).
+  Check text contrast at the worst stop ([gradient rules](creative-latitude.md#gradients)). Brand
+  values never change per theme, only role tokens do, so a gradient built from `--rse-brand-*` stays
+  valid in dark and contrast; on a fixed-colour surface set the text to `--rse-brand-ink` or
+  `--rse-brand-white` explicitly rather than a role token that flips.
 - Where several hues encode categories (a chart, a legend, a journey), use the palette hues and
   also encode with a label, shape or position. Colour alone never carries meaning.
 

@@ -159,7 +159,11 @@ These are the invariants a creative piece must still pass:
 - Signature cube constructions untouched; one focal construction if you use one.
 - No emoji; icons from `Icon` (Lucide). No photos, real or generated, of people; `<image-slot>`
   placeholders instead.
-- No invented Sesc facts. Placeholder figures look like placeholders and are listed to the user.
+- No invented Sesc facts. Placeholder figures look like placeholders and are listed to the user. A
+  dashboard or data story needs real shapes, so **example data is allowed** if it is plausible, kept
+  in one clearly named data object, labelled "Dados de exemplo" on every canvas that shows it,
+  never presented as a Sesc result, and listed to the user as needing replacement. Use `000` where
+  no chart or comparison depends on the number.
 - Accessible: keyboard, focus, text alternatives, reduced motion, 360 px.
 
 ## Creative review

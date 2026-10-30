@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Primeiro ano do programa de bolsas — exemplo de apresentação</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="../../../styles.css">
+<script src="../../../motion.js"></script>
+<script>RSE.motion.init();</script>
+<style>
+  /* Exemplar: a results pitch built as a dashboard that moves. Idea: the year as a journey that
+     widens, told in six canvases with a shared rhythm. Artifact-tier motion; reduced form is complete. */
+  html,body{height:100%;margin:0;overflow:hidden}
+  body{background:var(--rse-brand-ink);color:var(--rse-brand-ink)}
+  .deck{position:relative;height:100%}
+  .slide{position:absolute;inset:0;display:grid;align-content:center;padding:clamp(1.25rem,4vw,5rem) clamp(1.25rem,6vw,7rem) clamp(3.5rem,6vw,5rem);box-sizing:border-box;visibility:hidden;opacity:0;transform:translateX(3rem);overflow:hidden;
+    transition:opacity 560ms var(--rse-ease-settle),transform 700ms var(--rse-ease-settle),visibility 0s linear 700ms}
+  .slide.is-before{transform:translateX(-3rem)}
+  .slide.is-current{visibility:visible;opacity:1;transform:none;transition-delay:0s}
+  .on-glow{color:var(--rse-brand-white);background:linear-gradient(150deg,var(--rse-brand-purple-dark),var(--rse-brand-indigo))}
+  .on-cream{background:linear-gradient(170deg,var(--rse-brand-cream),var(--rse-brand-blue-light))}
+  .on-green{background:linear-gradient(170deg,var(--rse-brand-cream),var(--rse-brand-green-light))}
+  .on-ink{color:var(--rse-brand-white);background:linear-gradient(160deg,var(--rse-brand-ink),var(--rse-brand-indigo))}
+
+  .eyebrow{margin:0 0 var(--rse-space-3);font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase}
+  h1,h2{margin:0;color:inherit;letter-spacing:var(--rse-letter-spacing-tight);line-height:var(--rse-line-height-tight);font-weight:var(--rse-font-weight-black)}
+  h1{font-size:clamp(2.5rem,1rem + 6vw,6.5rem);max-width:13ch}
+  h2{font-size:clamp(1.75rem,1rem + 2.6vw,3.5rem);max-width:20ch}
+  .sub{margin:var(--rse-space-5) 0 0;max-width:38ch;font-size:var(--rse-font-size-body-lg);line-height:var(--rse-line-height-body)}
+  .logo{position:absolute;left:clamp(1.25rem,6vw,7rem);top:clamp(1rem,3vw,2.5rem);height:2.25rem;width:auto}
+  .cube{position:absolute;right:-6vw;bottom:-16vh;height:82vh;pointer-events:none}
+  .foot{position:absolute;left:clamp(1.25rem,6vw,7rem);right:clamp(1.25rem,6vw,7rem);bottom:var(--rse-space-4);display:flex;justify-content:space-between;font-size:var(--rse-font-size-caption)}
+
+  /* Beat 1: the number that carries the argument */
+  .hero-num{font-size:clamp(5rem,2rem + 18vw,15rem);line-height:.82;font-weight:var(--rse-font-weight-black);letter-spacing:-0.06em;font-variant-numeric:tabular-nums}
+  .hero-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--rse-space-6)}
+
+  /* Beat 2: dashboard */
+  .dash{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--rse-space-4);margin-top:var(--rse-space-6)}
+  .tile{background:var(--rse-brand-white);border-radius:var(--rse-radius-lg);padding:var(--rse-space-5);box-shadow:var(--rse-shadow-md);display:grid;gap:var(--rse-space-2);min-width:0}
+  .tile b{font-size:clamp(1.75rem,1rem + 2.4vw,3rem);font-weight:var(--rse-font-weight-black);letter-spacing:-0.04em;font-variant-numeric:tabular-nums;line-height:1}
+  .tile span{font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)}
+  .tile.wide{grid-column:span 2}
+  .chart{width:100%;height:auto;display:block}
+  .axis{stroke:var(--rse-color-border-strong);stroke-width:1}
+  .line{fill:none;stroke:var(--rse-brand-indigo);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+  .dot{fill:var(--rse-brand-indigo)}
+  .area{fill:var(--rse-brand-blue-light);opacity:.55}
+  .txt{font:700 12px Montserrat,sans-serif;fill:var(--rse-brand-ink)}
+
+  /* Beat 3: the journey widens */
+  .funnel{display:grid;gap:var(--rse-space-3);margin-top:var(--rse-space-6)}
+  .step{display:grid;grid-template-columns:9rem minmax(0,1fr) 5rem;gap:var(--rse-space-4);align-items:center;font-weight:var(--rse-font-weight-semibold)}
+  .step i{display:block;height:2.75rem;border-radius:var(--rse-radius-md);background:var(--rse-brand-ink);width:0;transition:width 1100ms var(--rse-ease-settle)}
+  .step:nth-child(1) i{background:var(--rse-brand-indigo)}
+  .step output{text-align:right;font-variant-numeric:tabular-nums;font-weight:var(--rse-font-weight-black);font-size:var(--rse-font-size-h4)}
+
+  /* Beat 4: units, ranked */
+  .rank{display:grid;gap:var(--rse-space-3);margin-top:var(--rse-space-6);max-width:46rem}
+  .rank div{display:grid;grid-template-columns:6.5rem minmax(0,1fr) 3.5rem;gap:var(--rse-space-4);align-items:center;font-weight:var(--rse-font-weight-semibold)}
+  .rank i{display:block;height:1.1rem;border-radius:var(--rse-radius-pill);background:var(--rse-brand-indigo);width:0;transition:width 1000ms var(--rse-ease-settle)}
+  .rank output{text-align:right;font-variant-numeric:tabular-nums}
+
+  /* Beat 5: the ask */
+  .ask{display:inline-flex;justify-self:start;margin-top:var(--rse-space-6);padding:var(--rse-space-4) var(--rse-space-6);border-radius:var(--rse-radius-pill);background:var(--rse-brand-white);color:var(--rse-brand-ink);font-weight:var(--rse-font-weight-black);font-size:var(--rse-font-size-body-lg);text-decoration:none;min-height:var(--rse-hit-target-min);align-items:center}
+
+  /* Navigation */
+  .nav{position:fixed;z-index:var(--rse-z-sticky);left:50%;bottom:var(--rse-space-4);transform:translateX(-50%);display:flex;gap:var(--rse-space-2);align-items:center;background:var(--rse-brand-ink);color:var(--rse-brand-white);border-radius:var(--rse-radius-pill);padding:var(--rse-space-1) var(--rse-space-2);box-shadow:var(--rse-shadow-lg)}
+  .nav button{appearance:none;border:0;background:transparent;color:inherit;font:inherit;font-weight:var(--rse-font-weight-bold);min-width:var(--rse-hit-target-min);min-height:var(--rse-hit-target-min);border-radius:var(--rse-radius-pill);cursor:pointer}
+  .nav button:hover{background:var(--rse-brand-indigo)}
+  .nav button:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-brand-white);outline-offset:-3px}
+  .nav output{font-variant-numeric:tabular-nums;font-size:var(--rse-font-size-body-sm);min-width:4rem;text-align:center}
+  .progress{position:fixed;z-index:var(--rse-z-sticky);left:0;top:0;height:4px;width:0;background:var(--rse-brand-yellow);transition:width 600ms var(--rse-ease-settle)}
+
+  .slide .reveal{opacity:0;transform:translateY(1.25rem);transition:opacity 700ms var(--rse-ease-settle),transform 700ms var(--rse-ease-settle)}
+  .slide.is-current .reveal{opacity:1;transform:none;transition-delay:calc(180ms + var(--n,0) * 110ms)}
+  [data-rse-motion="reduced"] .slide,[data-rse-motion="reduced"] .slide .reveal,[data-rse-motion="reduced"] .step i,[data-rse-motion="reduced"] .rank i,[data-rse-motion="reduced"] .progress{transition:none}
+  @media (prefers-reduced-motion:reduce){:root:not([data-rse-motion="full"]) .slide,:root:not([data-rse-motion="full"]) .slide .reveal,:root:not([data-rse-motion="full"]) .step i,:root:not([data-rse-motion="full"]) .rank i,:root:not([data-rse-motion="full"]) .progress{transition:none}}
+  @media (max-width:833px){.dash{grid-template-columns:1fr 1fr}.tile.wide{grid-column:span 2}.step{grid-template-columns:6rem minmax(0,1fr) 3.5rem}.slide{align-content:start;padding-top:5rem;overflow-y:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<main class="deck" id="deck" aria-label="Apresentação: primeiro ano do programa de bolsas">
+
+  <!-- 1. Cover -->
+  <section class="slide on-glow" aria-roledescription="slide" aria-label="Capa">
+    <img class="logo" src="../../../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação">
+    <img class="cube" src="../../../assets/motifs/cube-cube.svg" alt="" aria-hidden="true">
+    <p class="eyebrow reveal" style="--n:0">Resultados do primeiro ano</p>
+    <h1 class="reveal" style="--n:1">Bolsas que viram trajetória</h1>
+    <p class="sub reveal" style="--n:2">Um retrato do primeiro ciclo do programa de bolsas, para quem o torna possível.</p>
+    <p class="foot"><span>Exemplo de apresentação</span><span>Dados de demonstração</span></p>
+  </section>
+
+  <!-- 2. One number -->
+  <section class="slide on-cream" aria-roledescription="slide" aria-label="O número central">
+    <p class="eyebrow reveal" style="--n:0">Permanência</p>
+    <div class="hero-row">
+      <div class="hero-num reveal" style="--n:1"><span data-count="87">87</span>%</div>
+      <h2 class="reveal" style="--n:2">dos bolsistas seguem estudando ao fim do ano</h2>
+    </div>
+    <p class="sub reveal" style="--n:3">Mais do que entrar: ficar e avançar. Um número de exemplo, para ser verificado antes de qualquer uso público.</p>
+    <p class="foot"><span>Exemplo de apresentação</span><span>Dados de demonstração</span></p>
+  </section>
+
+  <!-- 3. Dashboard -->
+  <section class="slide on-green" aria-roledescription="slide" aria-label="Painel de resultados">
+    <p class="eyebrow reveal" style="--n:0">Painel</p>
+    <h2 class="reveal" style="--n:1">O ano em quatro leituras</h2>
+    <div class="dash">
+      <div class="tile reveal" style="--n:2"><b data-count="000">000</b><span>bolsistas atendidos</span></div>
+      <div class="tile reveal" style="--n:3"><b data-count="92" data-suffix="%">92%</b><span>frequência média</span></div>
+      <div class="tile wide reveal" style="--n:4">
+        <span>Evolução da frequência por trimestre</span>
+        <svg class="chart" viewBox="0 0 400 130" role="img" aria-label="Linha de frequência crescendo ao longo de quatro trimestres: 84, 88, 90 e 92 por cento (exemplo)">
+          <line class="axis" x1="10" y1="108" x2="390" y2="108"></line>
+          <path class="area" d="M30 66 L150 48 L270 40 L370 30 L370 108 L30 108 Z"></path>
+          <path class="line" id="trend" pathLength="1" d="M30 66 L150 48 L270 40 L370 30"></path>
+          <g class="dot"><circle cx="30" cy="66" r="5"></circle><circle cx="150" cy="48" r="5"></circle><circle cx="270" cy="40" r="5"></circle><circle cx="370" cy="30" r="5"></circle></g>
+          <text class="txt" x="30" y="125" text-anchor="middle">T1</text><text class="txt" x="150" y="125" text-anchor="middle">T2</text><text class="txt" x="270" y="125" text-anchor="middle">T3</text><text class="txt" x="370" y="125" text-anchor="middle">T4</text>
+          <text class="txt" x="30" y="56" text-anchor="middle">84%</text><text class="txt" x="370" y="20" text-anchor="middle">92%</text>
+        </svg>
+      </div>
+    </div>
+    <p class="foot"><span>Exemplo de apresentação</span><span>Dados de demonstração</span></p>
+  </section>
+
+  <!-- 4. The journey widens -->
+  <section class="slide on-cream" aria-roledescription="slide" aria-label="A jornada">
+    <p class="eyebrow reveal" style="--n:0">Jornada</p>
+    <h2 class="reveal" style="--n:1">Do interesse à conclusão do ciclo</h2>
+    <div class="funnel reveal" style="--n:2" role="list" aria-label="Etapas da jornada, em número de pessoas (exemplo)">
+      <div class="step" role="listitem"><span>Interessados</span><i data-w="100"></i><output>000</output></div>
+      <div class="step" role="listitem"><span>Inscritos</span><i data-w="72"></i><output>000</output></div>
+      <div class="step" role="listitem"><span>Selecionados</span><i data-w="46"></i><output>000</output></div>
+      <div class="step" role="listitem"><span>Concluintes</span><i data-w="40"></i><output>000</output></div>
+    </div>
+    <p class="foot"><span>Exemplo de apresentação</span><span>Dados de demonstração</span></p>
+  </section>
+
+  <!-- 5. Units ranked -->
+  <section class="slide on-cream" aria-roledescription="slide" aria-label="Por unidade">
+    <p class="eyebrow reveal" style="--n:0">Por unidade</p>
+    <h2 class="reveal" style="--n:1">Onde o resultado aparece com mais força</h2>
+    <div class="rank reveal" style="--n:2" role="list" aria-label="Permanência por unidade, em porcentagem (exemplo)">
+      <div role="listitem"><span>Unidade A</span><i data-w="91"></i><output>91%</output></div>
+      <div role="listitem"><span>Unidade B</span><i data-w="87"></i><output>87%</output></div>
+      <div role="listitem"><span>Unidade C</span><i data-w="82"></i><output>82%</output></div>
+      <div role="listitem"><span>Unidade D</span><i data-w="76"></i><output>76%</output></div>
+    </div>
+    <p class="foot"><span>Exemplo de apresentação</span><span>Dados de demonstração</span></p>
+  </section>
+
+  <!-- 6. The ask -->
+  <section class="slide on-ink" aria-roledescription="slide" aria-label="O convite">
+    <img class="logo" src="../../../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação">
+    <p class="eyebrow reveal" style="--n:0">Próximo passo</p>
+    <h1 class="reveal" style="--n:1">Aprender para a vida acontecer</h1>
+    <p class="sub reveal" style="--n:2">Apoie a próxima turma e acompanhe cada resultado de perto.</p>
+    <a class="ask reveal" style="--n:3" href="#">Quero apoiar</a>
+    <p class="foot"><span>Exemplo de apresentação</span><span>Dados de demonstração</span></p>
+  </section>
+
+</main>
+
+<nav class="nav" aria-label="Navegação da apresentação">
+  <button type="button" id="prev" aria-label="Slide anterior">&larr;</button>
+  <output id="pos" aria-live="polite"></output>
+  <button type="button" id="next" aria-label="Próximo slide">&rarr;</button>
+</nav>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const pos = document.getElementById('pos'); const bar = document.getElementById('progress');
+  const motionReduced = () => {
+    const set = document.documentElement.getAttribute('data-rse-motion');
+    return set ? set === 'reduced' : matchMedia('(prefers-reduced-motion: reduce)').matches;
+  };
+  let index = 0;
+
+  function countUp(node) {
+    const target = Number(node.dataset.count); const suffix = node.dataset.suffix || '';
+    if (!target || motionReduced()) { node.textContent = String(node.dataset.count).padStart(node.dataset.count.length, '0') + suffix; return; }
+    const t0 = performance.now();
+    const tick = (t) => { const p = Math.min(1, (t - t0) / 1300); node.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix; if (p < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }
+  function enter(slide) {
+    slide.querySelectorAll('[data-count]').forEach(countUp);
+    const fills = slide.querySelectorAll('[data-w]');
+    fills.forEach((f) => { f.style.width = motionReduced() ? f.dataset.w + '%' : '0'; });
+    if (!motionReduced()) requestAnimationFrame(() => requestAnimationFrame(() => fills.forEach((f) => { f.style.width = f.dataset.w + '%'; })));
+    const trend = slide.querySelector('#trend');
+    if (trend) {
+      trend.style.strokeDasharray = '1'; trend.style.transition = 'none'; trend.style.strokeDashoffset = motionReduced() ? '0' : '1';
+      if (!motionReduced()) requestAnimationFrame(() => requestAnimationFrame(() => { trend.style.transition = 'stroke-dashoffset 1400ms var(--rse-ease-settle)'; trend.style.strokeDashoffset = '0'; }));
+    }
+  }
+  function go(n) {
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, i) => {
+      s.classList.toggle('is-current', i === index); s.classList.toggle('is-before', i < index);
+      s.setAttribute('aria-hidden', String(i !== index)); s.inert = i !== index;
+    });
+    pos.textContent = `${index + 1} / ${slides.length}`;
+    bar.style.width = `${((index + 1) / slides.length) * 100}%`;
+    enter(slides[index]);
+    history.replaceState(null, '', `#${index + 1}`);
+  }
+  document.getElementById('prev').addEventListener('click', () => go(index - 1));
+  document.getElementById('next').addEventListener('click', () => go(index + 1));
+  addEventListener('keydown', (e) => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(index + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(index - 1); }
+    if (e.key === 'Home') go(0); if (e.key === 'End') go(slides.length - 1);
+  });
+  go((parseInt(location.hash.slice(1), 10) || 1) - 1);
+</script>
+</body>
+</html>

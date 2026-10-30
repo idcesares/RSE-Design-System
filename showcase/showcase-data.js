@@ -3123,7 +3123,7 @@ window.SHOWCASE_DATA = {
       "set": "Lucide",
       "license": "ISC",
       "dir": "assets/icons/lucide",
-      "count": 97,
+      "count": 102,
       "spec": "24×24 grid, 2px stroke, currentColor",
       "names": [
         "accessibility",
@@ -3173,6 +3173,7 @@ window.SHOWCASE_DATA = {
         "image",
         "info",
         "languages",
+        "layers",
         "layout-dashboard",
         "lightbulb",
         "link",
@@ -3189,6 +3190,7 @@ window.SHOWCASE_DATA = {
         "mic",
         "moon",
         "navigation",
+        "network",
         "pause",
         "pencil",
         "phone-call",
@@ -3199,12 +3201,14 @@ window.SHOWCASE_DATA = {
         "printer",
         "quote",
         "refresh-cw",
+        "route",
         "school",
         "search",
         "send",
         "settings",
         "share-2",
         "shield-check",
+        "shuffle",
         "sliders-horizontal",
         "sparkles",
         "star",
@@ -3222,6 +3226,7 @@ window.SHOWCASE_DATA = {
         "video",
         "volume-2",
         "wifi-off",
+        "workflow",
         "x"
       ]
     },
@@ -5654,6 +5659,6 @@ window.SHOWCASE_DATA = {
     "themes": 3,
     "templates": 4,
     "contrastPairs": 56,
-    "icons": 97
+    "icons": 102
   }
 };

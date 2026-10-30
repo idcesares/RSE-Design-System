@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Título da peça — Rede Sesc de Educação</title>
+<link rel="icon" href="../assets/favicon.png">
+<link rel="stylesheet" href="../styles.css">
+<!--
+  starters/artifact.html — plumbing for an ambitious, animated or interactive piece.
+
+  KEEP THE PLUMBING, NOT THE LAYOUT. Everything marked REPLACE below is scaffolding that shows one
+  way to wire a gradient surface, a staggered reveal, an accessible flip and the motion setting.
+  Do not ship this layout. Decide the idea first (docs/composition/creative-latitude.md), then build
+  it with any library or technique that serves it: CSS, SVG, canvas, Three.js, D3, GSAP.
+
+  What stays whatever you build: Montserrat, palette colours only, pt-BR, no emoji, no invented facts
+  or imagery, contrast at the worst point of any gradient, keyboard and focus, a reduced-motion form
+  with a complete final frame. Numbers written 000 are meant to look unreal until verified.
+-->
+<script src="../motion.js"></script>
+<script>RSE.motion.init();</script>
+<style>
+  /* Colour, type, radius, shadow come from tokens. Durations below are the artifact tier:
+     choreography may be longer than a UI state change (docs/guidelines.md#motion). */
+  body{margin:0}
+  .stage{max-width:var(--rse-container-xl);margin:0 auto;padding:var(--rse-section-y-sm) var(--rse-container-padding);box-sizing:border-box;display:grid;gap:var(--rse-space-7)}
+
+  /* REPLACE — a gradient surface: palette stops, white text only where every stop clears 4.5:1. */
+  .glow{border-radius:var(--rse-radius-xl);padding:var(--rse-space-8) var(--rse-space-7);color:var(--rse-brand-white);
+    background:radial-gradient(120% 140% at 100% 0%,var(--rse-brand-indigo),transparent 60%),
+               linear-gradient(155deg,var(--rse-brand-purple-dark),var(--rse-brand-indigo))}
+  .glow h1{margin:0;color:inherit;font-size:var(--rse-font-size-display-2);line-height:var(--rse-line-height-tight);letter-spacing:var(--rse-letter-spacing-tight);font-weight:var(--rse-font-weight-black);max-width:16ch}
+  .glow p{margin:var(--rse-space-4) 0 0;max-width:40ch;font-size:var(--rse-font-size-body-lg);line-height:var(--rse-line-height-body)}
+  .eyebrow{margin:0 0 var(--rse-space-3);font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase}
+
+  /* REPLACE — a staggered reveal. The reduced form is the default; motion is opt-in. */
+  .reveal{opacity:1}
+  @media (prefers-reduced-motion:no-preference){
+    :root:not([data-rse-motion="reduced"]) .reveal{animation:rise 900ms var(--rse-ease-settle) both;animation-delay:calc(var(--n,0) * 120ms)}
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(1.25rem)}to{opacity:1;transform:none}}
+
+  /* REPLACE — a flip that is a button: perspective, two faces, aria-pressed, a visible focus ring. */
+  .flip{perspective:1200px;border:0;background:none;padding:0;cursor:pointer;width:min(100%,24rem);font:inherit;border-radius:var(--rse-radius-xl)}
+  .flip__inner{display:grid;transform-style:preserve-3d;transition:transform 640ms var(--rse-ease-settle)}
+  .flip[aria-pressed="true"] .flip__inner{transform:rotateY(180deg)}
+  .flip__face{grid-area:1/1;backface-visibility:hidden;min-height:11rem;padding:var(--rse-space-6);border-radius:var(--rse-radius-xl);box-shadow:var(--rse-shadow-md);display:grid;align-content:space-between;text-align:left;font-weight:var(--rse-font-weight-extrabold);font-size:var(--rse-font-size-h4)}
+  .flip__front{background:var(--rse-color-primary);color:var(--rse-color-text-on-primary)}
+  .flip__back{transform:rotateY(180deg);background:linear-gradient(155deg,var(--rse-brand-green-light),var(--rse-brand-blue-light));color:var(--rse-brand-ink)}
+  .flip__face small{font-size:var(--rse-font-size-caption);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase}
+  .flip:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:4px}
+  [data-rse-motion="reduced"] .flip__inner{transition:none}
+  @media (prefers-reduced-motion:reduce){.flip__inner{transition:none}}
+</style>
+</head>
+<body>
+<main class="stage">
+
+  <section class="glow">
+    <p class="eyebrow reveal" style="--n:0">Eyebrow da peça</p>
+    <h1 class="reveal" style="--n:1">Uma ideia, dita com clareza</h1>
+    <p class="reveal" style="--n:2">Texto de apoio de exemplo. Substitua tudo isto pela sua ideia; não mantenha este layout.</p>
+  </section>
+
+  <section>
+    <button class="flip" type="button" aria-pressed="false" aria-label="Virar o cartão">
+      <span class="flip__inner">
+        <span class="flip__face flip__front"><small>Pergunta</small>Pergunta de exemplo?</span>
+        <span class="flip__face flip__back" aria-hidden="true"><small>Resposta</small>Resposta de exemplo</span>
+      </span>
+    </button>
+  </section>
+
+</main>
+
+<script>
+  /* The motion setting, as documented in docs/composition/artifact-craft.md#reading-the-motion-setting.
+     Use it for anything JavaScript moves: canvas, WebGL, count-ups, camera drift. */
+  const motionReduced = (el = document.documentElement) => {
+    const set = el.closest('[data-rse-motion]')?.getAttribute('data-rse-motion');
+    return set ? set === 'reduced' : matchMedia('(prefers-reduced-motion: reduce)').matches;
+  };
+  /* Palette colours for canvas or WebGL, read from the tokens at run time (never hard-code hex). */
+  const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+  document.querySelectorAll('.flip').forEach((b) => b.addEventListener('click', () => {
+    const on = b.getAttribute('aria-pressed') !== 'true';
+    b.setAttribute('aria-pressed', on);
+    b.querySelector('.flip__front').setAttribute('aria-hidden', on);
+    b.querySelector('.flip__back').setAttribute('aria-hidden', !on);
+  }));
+</script>
+</body>
+</html>

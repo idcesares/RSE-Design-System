@@ -15,7 +15,7 @@ change to how `Button`/`IconButton` consume icons.
 | --- | --- |
 | Licence | **ISC** — commercial use allowed, keep the notice. `lucide/LICENSE` ships here. |
 | Grid | 24×24, 2px stroke, round caps and joins |
-| Size | 1,500+ glyphs upstream; 97 vendored here |
+| Size | 1,500+ glyphs upstream; 102 vendored here |
 | Origin | community fork of Feather Icons, actively maintained |
 
 Alternatives considered: Phosphor and Tabler (both MIT, both fine, but Phosphor's six weights and

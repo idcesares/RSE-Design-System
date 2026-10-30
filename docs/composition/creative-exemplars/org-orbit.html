@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Como a Rede se organiza — exemplo de mapa em órbita</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="../../../styles.css">
+<script src="../../../motion.js"></script>
+<script>RSE.motion.init();</script>
+<style>
+  /* Exemplar: an organisation as an orbit. Idea: the Rede at the centre, areas around it, teams around
+     each area; choosing anything lights its path home. Every node is a real button (roving focus). */
+  html,body{margin:0}
+  body{min-height:100vh;background:radial-gradient(80% 60% at 85% 10%,var(--rse-brand-blue-light),transparent 70%),var(--rse-brand-cream);color:var(--rse-brand-ink)}
+  .wrap{max-width:var(--rse-container-xl);margin:0 auto;padding:var(--rse-space-6) var(--rse-container-padding);display:grid;grid-template-columns:minmax(0,22rem) minmax(0,1fr);gap:var(--rse-space-7);align-items:center;min-height:100vh;box-sizing:border-box}
+  .side{display:grid;gap:var(--rse-space-5);align-content:center}
+  .side img{height:2rem;width:auto;justify-self:start}
+  .eyebrow{margin:0;font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-text-on-primary-tint)}
+  h1{margin:0;font-size:clamp(2rem,1.2rem + 2.6vw,3.5rem);line-height:var(--rse-line-height-tight);letter-spacing:var(--rse-letter-spacing-tight);font-weight:var(--rse-font-weight-black)}
+  .lead{margin:0;line-height:var(--rse-line-height-body)}
+  .detail{background:var(--rse-brand-white);border-radius:var(--rse-radius-xl);padding:var(--rse-space-5);box-shadow:var(--rse-shadow-md);display:grid;gap:var(--rse-space-2);min-height:9rem;align-content:start;border-left:.5rem solid var(--rse-brand-indigo)}
+  .detail b{font-size:var(--rse-font-size-h4)}
+  .detail p{margin:0;line-height:var(--rse-line-height-body)}
+  .detail small{font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;font-size:var(--rse-font-size-caption)}
+  .reset{appearance:none;font:inherit;font-weight:var(--rse-font-weight-semibold);border:1.5px solid var(--rse-color-border-strong);background:transparent;color:inherit;border-radius:var(--rse-radius-pill);min-height:var(--rse-hit-target-min);padding:0 var(--rse-space-5);cursor:pointer;justify-self:start}
+  .reset:hover{background:var(--rse-color-surface-sunken)}
+  .reset:focus-visible,.node:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:3px}
+  .note{margin:0;font-size:var(--rse-font-size-caption)}
+
+  .map{width:100%;height:auto;display:block;max-height:92vh}
+  .link{fill:none;stroke:var(--rse-color-border-strong);stroke-width:2;transition:stroke 300ms var(--rse-ease-standard),stroke-width 300ms var(--rse-ease-standard),opacity 300ms var(--rse-ease-standard)}
+  .link.on{stroke:var(--rse-brand-indigo);stroke-width:5}
+  .orbit{fill:none;stroke:var(--rse-color-border-subtle);stroke-width:1.5;stroke-dasharray:4 10}
+  .node{cursor:pointer;transition:opacity 300ms var(--rse-ease-standard);outline:none}
+  .node .shape{transition:transform 300ms var(--rse-ease-out);transform-box:fill-box;transform-origin:center}
+  .node:hover .shape,.node.sel .shape{transform:scale(1.07)}
+  .node.dim,.link.dim{opacity:.28}
+  .node .label{font:700 15px Montserrat,sans-serif;fill:var(--rse-brand-ink);pointer-events:none}
+  .node.leaf .label{font-size:13px;font-weight:600}
+  .core .label{fill:var(--rse-brand-white);font-size:20px;font-weight:900}
+  .halo{fill:none;stroke:var(--rse-brand-purple-dark);stroke-width:2;opacity:.4;transform-box:fill-box;transform-origin:center;animation:pulse 4.2s var(--rse-ease-settle) infinite}
+  @keyframes pulse{from{transform:scale(1);opacity:.45}to{transform:scale(1.35);opacity:0}}
+  .enter{animation:pop 700ms var(--rse-ease-settle) backwards;animation-delay:calc(var(--d,0) * 70ms)}
+  @keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+  [data-rse-motion="reduced"] .halo,[data-rse-motion="reduced"] .enter{animation:none}
+  [data-rse-motion="reduced"] .link,[data-rse-motion="reduced"] .node,[data-rse-motion="reduced"] .node .shape{transition:none}
+  @media (prefers-reduced-motion:reduce){:root:not([data-rse-motion="full"]) .halo,:root:not([data-rse-motion="full"]) .enter{animation:none}:root:not([data-rse-motion="full"]) .link,:root:not([data-rse-motion="full"]) .node,:root:not([data-rse-motion="full"]) .node .shape{transition:none}}
+  @media (max-width:833px){.wrap{grid-template-columns:1fr;min-height:0}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="side" aria-label="Sobre o mapa">
+    <img src="../../../assets/logos/wordmark-purple.svg" alt="Rede Sesc de Educação">
+    <p class="eyebrow">Mapa em órbita · exemplo</p>
+    <h1>Como a Rede se organiza</h1>
+    <p class="lead">No centro, a Rede. Em volta, as áreas e as equipes de cada uma. Escolha qualquer ponto e veja o caminho até o centro.</p>
+    <div class="detail" id="detail" aria-live="polite"><small>Nenhum ponto escolhido</small><b>Comece por uma área</b><p>Use Tab e as setas, ou toque em um ponto do mapa.</p></div>
+    <button class="reset" type="button" id="reset" hidden>Voltar à visão geral</button>
+    <p class="note">Áreas, equipes e descrições são exemplos, não a estrutura oficial do Sesc.</p>
+  </section>
+  <svg class="map" id="map" viewBox="0 0 760 760" role="group" aria-label="Mapa em órbita da organização: a Rede no centro, cinco áreas e suas equipes"></svg>
+</main>
+
+<script>
+  const AREAS = [
+    ['Pedagógico', 'green', 'Cuida do currículo, da formação de professores e da avaliação.', ['Currículo', 'Formação', 'Avaliação']],
+    ['Unidades', 'blue', 'Reúne as escolas e os programas que atendem os estudantes.', ['Escolas', 'Programas']],
+    ['Tecnologia', 'purple', 'Mantém a plataforma de aprendizagem e os dados que a sustentam.', ['Plataforma', 'Dados']],
+    ['Relacionamento', 'pink', 'Cuida do contato com famílias, comunidade e parceiros.', ['Famílias', 'Comunidade', 'Parceiros']],
+    ['Gestão', 'yellow', 'Organiza finanças, pessoas e processos da Rede.', ['Finanças', 'Pessoas']],
+  ];
+  const LIGHT = { green: 'var(--rse-brand-green-light)', blue: 'var(--rse-brand-blue-light)', purple: 'var(--rse-brand-purple-light)', pink: 'var(--rse-brand-pink-light)', yellow: 'var(--rse-brand-yellow-light)' };
+  const DARK = { green: 'var(--rse-brand-green-dark)', blue: 'var(--rse-brand-blue-dark)', purple: 'var(--rse-brand-purple-dark)', pink: 'var(--rse-brand-pink-dark)', yellow: 'var(--rse-brand-yellow-ink)' };
+  const NS = 'http://www.w3.org/2000/svg'; const svg = document.getElementById('map');
+  const C = 380; const R1 = 175; const R2 = 315;
+  const mk = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); Object.entries(attrs || {}).forEach(([k, v]) => n.setAttribute(k, v)); (parent || svg).append(n); return n; };
+  const nodes = []; const links = []; let order = 0;
+
+  [R1, R2].forEach((r) => mk('circle', { class: 'orbit', cx: C, cy: C, r }));
+  const pt = (a, r) => [C + Math.cos(a) * r, C + Math.sin(a) * r];
+
+  const linkLayer = mk('g'); const nodeLayer = mk('g');
+  AREAS.forEach(([name, hue, text, kids], ai) => {
+    const a = (ai / AREAS.length) * Math.PI * 2 - Math.PI / 2; const [ax, ay] = pt(a, R1);
+    const l = mk('path', { class: 'link', d: `M${C} ${C} L${ax} ${ay}` }, linkLayer);
+    const area = { type: 'area', name, text, hue, el: null, links: [l], children: [], parent: null };
+    area.el = node(ax, ay, name, hue, 'area', area);
+    const spread = 0.34; const span = (kids.length - 1) * spread;
+    kids.forEach((k, ki) => {
+      const ka = a - span / 2 + ki * spread; const [kx, ky] = pt(ka, R2);
+      const kl = mk('path', { class: 'link', d: `M${ax} ${ay} L${kx} ${ky}` }, linkLayer);
+      const leaf = { type: 'leaf', name: k, text: `Equipe de ${name.toLowerCase()}. Exemplo de descrição.`, hue, parent: area, links: [kl, l] };
+      leaf.el = node(kx, ky, k, hue, 'leaf', leaf); area.children.push(leaf);
+    });
+  });
+
+  function node(x, y, label, hue, kind, data) {
+    const g = mk('g', { class: `node ${kind} enter`, tabindex: '0', role: 'button', 'aria-pressed': 'false', 'aria-label': `${kind === 'area' ? 'Área' : 'Equipe'}: ${label}`, style: `--d:${order++}` }, nodeLayer);
+    const w = kind === 'area' ? 156 : 108; const h = kind === 'area' ? 54 : 40;
+    mk('rect', { class: 'shape', x: x - w / 2, y: y - h / 2, width: w, height: h, rx: h / 2, fill: LIGHT[hue], stroke: 'var(--rse-brand-ink)', 'stroke-width': kind === 'area' ? 0 : 0 }, g);
+    const t = mk('text', { class: 'label', x, y: y + 5, 'text-anchor': 'middle' }, g); t.textContent = label;
+    g.addEventListener('click', () => select(data)); g.addEventListener('keydown', (e) => keys(e, data));
+    nodes.push(data); return g;
+  }
+  const core = mk('g', { class: 'node core enter', tabindex: '0', role: 'button', 'aria-pressed': 'false', 'aria-label': 'Rede, no centro. Voltar à visão geral.', style: '--d:0' }, nodeLayer);
+  mk('circle', { class: 'halo', cx: C, cy: C, r: 62 }, core);
+  mk('circle', { class: 'shape', cx: C, cy: C, r: 62, fill: 'var(--rse-brand-purple-dark)' }, core);
+  const ct = mk('text', { class: 'label', x: C, y: C + 7, 'text-anchor': 'middle' }, core); ct.textContent = 'Rede';
+  core.addEventListener('click', () => select(null)); core.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(null); } });
+
+  const detail = document.getElementById('detail'); const reset = document.getElementById('reset');
+  function select(d) {
+    nodes.forEach((n) => { n.el.classList.remove('sel', 'dim'); n.el.setAttribute('aria-pressed', 'false'); n.links.forEach((l) => l.classList.remove('on', 'dim')); });
+    if (!d) {
+      detail.innerHTML = '<small>Nenhum ponto escolhido</small><b>Comece por uma área</b><p>Use Tab e as setas, ou toque em um ponto do mapa.</p>';
+      detail.style.borderLeftColor = ''; reset.hidden = true; return;
+    }
+    const path = new Set([d, d.parent].filter(Boolean)); if (d.type === 'area') d.children.forEach((c) => path.add(c));
+    const lit = new Set(d.links); if (d.type === 'area') d.children.forEach((c) => lit.add(c.links[0]));
+    nodes.forEach((n) => { if (!path.has(n)) n.el.classList.add('dim'); });
+    document.querySelectorAll('.link').forEach((l) => { if (lit.has(l)) l.classList.add('on'); else l.classList.add('dim'); });
+    d.el.classList.add('sel'); d.el.setAttribute('aria-pressed', 'true');
+    detail.style.borderLeftColor = DARK[d.hue];
+    detail.innerHTML = `<small>${d.type === 'area' ? 'Área' : `Equipe · ${d.parent.name}`}</small><b></b><p></p>`; detail.querySelector('b').textContent = d.name; detail.querySelector('p').textContent = d.text;
+    reset.hidden = false;
+  }
+  reset.addEventListener('click', () => { select(null); core.focus(); });
+  function keys(e, d) {
+    const list = [...document.querySelectorAll('.node')]; const i = list.indexOf(d.el);
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(d); }
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); list[(i + 1) % list.length].focus(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); list[(i - 1 + list.length) % list.length].focus(); }
+    else if (e.key === 'Escape') { select(null); }
+  }
+</script>
+</body>
+</html>

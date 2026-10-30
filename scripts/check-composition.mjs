@@ -126,6 +126,21 @@ if (!exists('DESIGN.md')) {
 for (const f of ['DESIGN.md', ...COMPOSITION_DOCS]) checkLinks(f);
 for (const f of COMPOSITION_DOCS) if (!exists(f)) err(`${f} missing`);
 
+// Creative exemplars: each has a page, a PNG reference, an entry in the README, a reduced-motion guard and no raw hex.
+const CEX = 'docs/composition/creative-exemplars';
+if (!exists(`${CEX}/README.md`)) err(`${CEX}/README.md missing`);
+else {
+  checkLinks(`${CEX}/README.md`);
+  for (const n of ['results-pitch', 'flashcards', 'org-orbit']) {
+    if (!exists(`${CEX}/${n}.html`)) { err(`${CEX}/${n}.html missing`); continue; }
+    if (!exists(`${CEX}/${n}.png`)) err(`${CEX}/${n}.png missing (render a reference for agents that cannot run the page)`);
+    const html = read(`${CEX}/${n}.html`);
+    if (!/data-rse-motion="reduced"|prefers-reduced-motion/.test(html)) err(`${CEX}/${n}.html: no reduced-motion form`);
+    if (/[:"'(,\s]#[0-9a-fA-F]{6}\b/.test(html)) err(`${CEX}/${n}.html: raw hex colour — use --rse-* tokens`);
+    if (!/lang="pt-BR"/.test(html)) err(`${CEX}/${n}.html: missing lang="pt-BR"`);
+  }
+}
+
 if (exists('docs/composition/principles.md') && !/--rse-color-primary/.test(read('docs/composition/principles.md'))) err('principles.md: must name --rse-color-primary as the brand purple band');
 if (exists('docs/composition/rubric.md')) {
   const rubric = read('docs/composition/rubric.md');

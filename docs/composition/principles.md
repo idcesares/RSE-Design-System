@@ -9,8 +9,9 @@ stack or format. Numbers live in [formats.json](formats.json); the brand's non-n
 explainer, interactive or immersive piece is built under
 [creative-latitude](creative-latitude.md): the invariants stay, and the craft is yours. Where a
 rule below says "one hue", "a third empty" or "flat", read it as the right starting point for a
-calm canvas, and depart on purpose when the idea needs it. Rules 1, 2, 5, 10 and 13 (one idea,
-hierarchy, honest placeholders, readable type) still hold in every profile.
+calm canvas, and depart on purpose when the idea needs it. Rules 1, 10 and 13 (one idea, honest
+placeholders, readable type) still hold in every profile, and a clear hierarchy always does; a dense
+data canvas may use a smaller headline-to-body ratio than rule 2 if the first read is still obvious.
 
 1. **One idea per canvas.** A slide, poster or card says one thing, and everything on it serves that
    thing. *Generic:* a title, three bullets and a logo, each competing.
@@ -27,7 +28,9 @@ hierarchy, honest placeholders, readable type) still hold in every profile.
    headline, and one block of supporting text, figure or image. A fourth tier is a second slide.
    *Generic:* subtitle, tagline, caption and footer at four similar sizes.
 6. **The focal cube motif appears once, large, and cropped.** It bleeds off an edge at a scale that makes it
-   architecture, not ornament, and it never sits behind text that must be read. The supplied cubes
+   architecture, not ornament, and it never sits behind text that must be read. At full strength it is the picture; the roughly 0.3
+   opacity is only for a construction that does sit under content, because at 0.3 over purple or
+   indigo the supplied green or pink turns to a muddy grey. The supplied cubes
    come in green, blue and pink: put a cube of one family on a field of another (green on purple or
    cream, pink on blue, green or indigo, blue on orange), never on its own hue. The `BrandMotif`
    component can derive purple, orange and yellow; say so when you use them. A composition is one

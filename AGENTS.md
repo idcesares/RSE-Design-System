@@ -80,7 +80,7 @@ and craft is yours ([Creative latitude](#creative-latitude)).
    gap 9); the remap keeps each shade's luminance rank, and reordering those stops the impossible
    cube reading as a solid. Purple, orange and yellow signature artwork and ALL generated shapes
    are derived, not supplied by Sesc — say so when it matters. One FOCAL construction per
-   composition, at most 25% of it, about 0.3 opacity behind content, no text on faces or cells. A
+   composition, at most 25% of it, about 0.3 opacity when it sits behind content (clear of any text it is the picture and may run at full strength: at 0.3 over purple the supplied green reads as grey), no text on faces or cells. A
    pattern is a FIELD, not a construction, and the loader is exempt (transient). Patterns are flat
    colour fields (the pattern itself has no gradients, glows or noise; it may sit on a gradient). A multi-hue pattern is allowed only as the artwork
    itself (a hero field or a standalone spectrum piece); page text and bands stay in one hue. Text
