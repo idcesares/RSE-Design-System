@@ -75,7 +75,7 @@ if (formats.length) {
 // ─── prose: entry point, links, rubric ─────────────────────────────────────
 const INTENTS = ['deck', 'pitch', 'report', 'poster', 'social', 'one-pager', 'web page'];
 const DESIGN_HEADINGS = ['Brief', 'Hard rules', 'Route by intent', 'Fonts and fallbacks', 'When asked for something the brand forbids'];
-const COMPOSITION_DOCS = ['principles', 'modules', 'archetypes', 'rubric'].map((n) => `docs/composition/${n}.md`);
+const COMPOSITION_DOCS = ['principles', 'modules', 'archetypes', 'rubric', 'creative-latitude', 'artifact-craft'].map((n) => `docs/composition/${n}.md`);
 
 // Every relative markdown link in a doc must resolve (anchors and URLs are skipped).
 function checkLinks(file) {
@@ -114,6 +114,7 @@ if (!exists('DESIGN.md')) {
   const section = (h) => design.match(new RegExp(`^## ${h}\\s*$([\\s\\S]*?)(?=^## |(?![\\s\\S]))`, 'm'))?.[1] ?? '';
   if (!/assets\/fonts\//.test(section('Fonts and fallbacks'))) err('DESIGN.md: "Fonts and fallbacks" must say where Montserrat lives (assets/fonts/)');
   if (!/instantiateVariableFont/.test(section('Fonts and fallbacks')) || !/Thin/.test(section('Fonts and fallbacks'))) err('DESIGN.md: "Fonts and fallbacks" must show how to make static weights (instantiateVariableFont) and warn that the variable file defaults to Thin');
+  if (!/creative-latitude\.md/.test(design)) err('DESIGN.md: must route to docs/composition/creative-latitude.md');
   if (/draw (them|it) yourself/i.test(design)) err('DESIGN.md: invites you to redraw official artwork; say to rasterise the path data unchanged');
   if (!/No report exemplar/.test(design)) err('DESIGN.md: must say plainly that no report exemplar exists yet');
   if (!/geometric sans/i.test(section('Fonts and fallbacks'))) err('DESIGN.md: "Fonts and fallbacks" must name the allowed fallback (a geometric sans)');
@@ -124,6 +125,21 @@ if (!exists('DESIGN.md')) {
 }
 for (const f of ['DESIGN.md', ...COMPOSITION_DOCS]) checkLinks(f);
 for (const f of COMPOSITION_DOCS) if (!exists(f)) err(`${f} missing`);
+
+// Creative exemplars: each has a page, a PNG reference, an entry in the README, a reduced-motion guard and no raw hex.
+const CEX = 'docs/composition/creative-exemplars';
+if (!exists(`${CEX}/README.md`)) err(`${CEX}/README.md missing`);
+else {
+  checkLinks(`${CEX}/README.md`);
+  for (const n of ['results-pitch', 'flashcards', 'org-orbit']) {
+    if (!exists(`${CEX}/${n}.html`)) { err(`${CEX}/${n}.html missing`); continue; }
+    if (!exists(`${CEX}/${n}.png`)) err(`${CEX}/${n}.png missing (render a reference for agents that cannot run the page)`);
+    const html = read(`${CEX}/${n}.html`);
+    if (!/data-rse-motion="reduced"|prefers-reduced-motion/.test(html)) err(`${CEX}/${n}.html: no reduced-motion form`);
+    if (/[:"'(,\s]#[0-9a-fA-F]{6}\b/.test(html)) err(`${CEX}/${n}.html: raw hex colour — use --rse-* tokens`);
+    if (!/lang="pt-BR"/.test(html)) err(`${CEX}/${n}.html: missing lang="pt-BR"`);
+  }
+}
 
 if (exists('docs/composition/principles.md') && !/--rse-color-primary/.test(read('docs/composition/principles.md'))) err('principles.md: must name --rse-color-primary as the brand purple band');
 if (exists('docs/composition/rubric.md')) {
@@ -216,7 +232,7 @@ for (const name of exemplarNames) {
   }
   const html = read(src);
   if (RAW_HEX.test(html)) err(`${src}: raw hex colour — use --rse-* tokens`);
-  if (/gradient\(/i.test(html)) err(`${src}: gradient — the brand is flat colour`);
+  if (/gradient\(/i.test(html)) err(`${src}: gradient — exemplars stay flat; gradients belong in creative pieces, not the editorial references`);
   if (/\b(?:rgba?|hsla?)\(/i.test(html)) err(`${src}: rgb()/hsl() colour — use --rse-* tokens`);
   if (EMOJI.test(html)) err(`${src}: emoji`);
   if (!/<meta\s+name="canvas"\s+content="\d+x\d+"/.test(html)) err(`${src}: missing <meta name="canvas" content="WxH">`);
@@ -284,7 +300,7 @@ for (const name of exemplarNames) {
 for (const f of exists(`${EX}/src`) ? readdirSync(join(ROOT, EX, 'src')).filter((n) => n.endsWith('.css')) : []) {
   const css = read(`${EX}/src/${f}`);
   if (RAW_HEX.test(css)) err(`${EX}/src/${f}: raw hex colour — use --rse-* tokens`);
-  if (/gradient\(/i.test(css)) err(`${EX}/src/${f}: gradient — the brand is flat colour`);
+  if (/gradient\(/i.test(css)) err(`${EX}/src/${f}: gradient — exemplars stay flat; gradients belong in creative pieces, not the editorial references`);
 }
 
 if (exists(`${EX}/src/exemplar.css`) && formats.length) {

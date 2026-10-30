@@ -1,5 +1,9 @@
 # Rubric — check your own render
 
+This rubric is calibrated for **static editorial pieces**. For a showpiece, explainer, interactive or
+immersive piece, apply R1, R2, R5, R9–R12 as written, treat R3, R4, R6, R7 and R8 as defaults you may
+depart from on purpose, and add the [creative review](creative-latitude.md#creative-review).
+
 Run this on the finished piece, looking at the actual render (or the slide in your tool), not at
 your source. Answer each question yes or no. Any "no" is fixed before you hand the piece over;
 do not explain it away. When you hand it over, list the placeholders from R10.
@@ -34,7 +38,7 @@ Is the density within the format's limit: words per canvas at or below `maxWords
 below `maxHeadlineChars`, no text below `minText`?
 
 ## R9
-Is it all flat: no gradients, textures, glows, noise or shadows beyond the system's? A pattern is a flat colour field, and text never sits directly on its cells.
+Is every edge and surface honest: palette colours only; any gradient subtle, built from palette stops and measured for contrast at its worst point; no texture, noise or glow that lowers contrast; shadows within the system's? A pattern and the signature constructions stay flat, and text never sits directly on pattern cells.
 
 ## R10
 Is every figure the user's own or a visible placeholder, every image a labelled placeholder naming

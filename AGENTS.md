@@ -11,6 +11,7 @@ You are almost always doing one of four things. Jump straight to the one you're 
 | --- | --- |
 | Build a page, site or prototype | [Building a page](#building-a-page) |
 | Build a deck, pitch, poster, social card or other artwork, in any stack | [DESIGN.md](DESIGN.md), then [Building artwork](#building-artwork) |
+| Build something ambitious: an interactive, animated, data-rich or 3D artifact, a showpiece page, a diagram | [Creative latitude](#creative-latitude), then [docs/composition/creative-latitude.md](docs/composition/creative-latitude.md) |
 | Add or change a component | [Changing a component](#changing-a-component) |
 | Change tokens / brand foundations | [Changing tokens](#changing-tokens) |
 | Put this system into another project | [docs/integration.md](docs/integration.md) |
@@ -27,7 +28,8 @@ npm run check
 ## Non-negotiables
 
 These hold for every output, in every mode. They are what makes generated work look like the Rede
-and not like a generic template.
+and not like a generic template. They are the **invariants**: everything *not* listed here is craft,
+and craft is yours ([Creative latitude](#creative-latitude)).
 
 1. **Tokens only.** Never write a raw hex colour, font stack, radius, shadow or duration into a
    component or page. Use `var(--rse-…)`: `--rse-color-*` for colour roles and the scales
@@ -50,7 +52,8 @@ and not like a generic template.
 5. **No emoji, no hand-drawn icons.** This is an institutional, credibility-driven brand. Every
    glyph comes from `components/core/Icon.jsx` (Lucide, ISC, vendored in `assets/icons/lucide/`).
    Missing an icon? Vendor it and run `npm run icons` — never paste a one-off SVG into a page,
-   never a unicode glyph standing in for an icon.
+   never a unicode glyph standing in for an icon. This is about *icons*: diagrams, org charts,
+   charts, maps and illustrations drawn from palette geometry are craft and are encouraged.
 6. **Never invent Sesc facts.** Student counts, unit addresses, fees, dates, testimonials and
    enrollment windows in this repo are *examples*. Keep them visibly placeholder-ish, and tell the
    user which numbers need verification before anything goes public.
@@ -77,9 +80,9 @@ and not like a generic template.
    gap 9); the remap keeps each shade's luminance rank, and reordering those stops the impossible
    cube reading as a solid. Purple, orange and yellow signature artwork and ALL generated shapes
    are derived, not supplied by Sesc — say so when it matters. One FOCAL construction per
-   composition, at most 25% of it, about 0.3 opacity behind content, no text on faces or cells. A
+   composition, at most 25% of it, about 0.3 opacity when it sits behind content (clear of any text it is the picture and may run at full strength: at 0.3 over purple the supplied green reads as grey), no text on faces or cells. A
    pattern is a FIELD, not a construction, and the loader is exempt (transient). Patterns are flat
-   colour fields (no gradients, glows or noise). A multi-hue pattern is allowed only as the artwork
+   colour fields (the pattern itself has no gradients, glows or noise; it may sit on a gradient). A multi-hue pattern is allowed only as the artwork
    itself (a hero field or a standalone spectrum piece); page text and bands stay in one hue. Text
    never sits directly on pattern cells — use a solid panel. Full-bleed cube fields come from
    `assets/patterns/` or `MotifPattern`. Sanctioned treatments, per the manual: small, blown up, in
@@ -90,13 +93,38 @@ and not like a generic template.
 
 ---
 
+## Creative latitude
+
+The non-negotiables are deliberately few. Inside them you are expected to **design**, not to
+fill in a template: choose the concept, the structure, the visual vocabulary, the motion and the
+interaction that make *this* piece excellent. Aim for the awe of the whole, and for something well
+organised, with clear hierarchy and great UX.
+
+- **Be inventive.** Org structures, journeys, networks, flashcards, dashboards, animated explainers,
+  immersive 3D scenes with Three.js, scroll stories, bento layouts, tactile micro-interactions:
+  all welcome. Do not reuse the same layout or the exemplars' structure every time; the exemplars
+  show the finish, not the form.
+- **Subtle gradients, depth and light are allowed** in artwork, artifacts, decks, pitches and page
+  heroes or bands: palette stops only, contrast measured at the worst stop, never on the selo or
+  inside the signature constructions or generated shapes. UI component CSS stays flat.
+- **Dense is fine when the job is dense.** A dashboard-style pitch can be rich with data; keep the
+  hierarchy. The editorial limits (a third empty, `maxWords`, one hue) are defaults for calm
+  canvases only.
+- **Pick the profile** (editorial, showpiece, explainer, interactive, immersive) and the matching
+  tools in [docs/composition/creative-latitude.md](docs/composition/creative-latitude.md); the
+  how-to (tokens in a standalone file, motion setting, flip cards, diagrams, Three.js skeleton,
+  performance, verification) is in [docs/composition/artifact-craft.md](docs/composition/artifact-craft.md).
+- **Look at it running** before you hand it over, then say what is placeholder, derived or new.
+
+---
+
 ## Repo map
 
 ```
 AGENTS.md                 You are here: rules, routing, recipes, definition of done.
 DESIGN.md                 Entry for decks, pitches, posters, social cards and other non-web artwork, in any
-                          stack. Routes by intent to docs/composition/ (principles, modules, archetypes,
-                          formats.json, rubric, exemplars).
+                          stack. Routes by intent to docs/composition/ (creative-latitude, artifact-craft,
+                          principles, modules, archetypes, formats.json, rubric, exemplars).
 RULES.md                  The short rules that ship inside the package, for consuming projects.
 readme.md                 Brand brief, voice, visual foundations. Read it once.
 SKILL.md                  Claude Skill entry point (this system as a portable skill).
@@ -144,7 +172,9 @@ uploads/                  Original source material (selo PDFs, reference screens
 
 **Static HTML (decks, mocks, artwork, anything you hand the user as a file).** Link `styles.css`,
 load React 18 UMD from `assets/vendor/` and then `dist/rse.js`, and read components off
-`window.RSE`. No build step. This is the default for artifacts. Start from [starters/](starters/).
+`window.RSE`. No build step. This is the default for artifacts. Start from [starters/](starters/). An
+artifact that needs a library (Three.js, D3, GSAP) loads it from a pinned CDN version or vendors it;
+see [artifact craft](docs/composition/artifact-craft.md).
 
 **React project (production code).** Install `@idcesares/rse-design-system` and import from the
 package root:
@@ -189,8 +219,9 @@ Putting the system into another project — npm, the static kit for CMSs, Python
    (`--rse-color-surface-card`). A feature or CTA **band** may be brand purple or indigo with white text, or
    any light or mid accent with **ink** text (`--rse-brand-ink`, 4.8–10:1) — that is how the rede's six
    hues reach a page (decision D3). Never white text on an accent (2.3–3.3:1), never a `-dark`
-   accent or mid `--rse-brand-purple` as a band (they fail with both white and ink), no gradients, one
-   band colour per section.
+   accent or mid `--rse-brand-purple` as a band (they fail with both white and ink), no off-palette or contrast-breaking
+   gradients (a subtle palette gradient is fine on a hero or band, see [Creative latitude](#creative-latitude)),
+   one band colour per section.
 5. Rhythm: `--rse-section-y-md` (96px) between major blocks, `--rse-container-xl` (1200px) for page width,
    `--rse-container-prose` (66ch) for anything text-heavy.
 6. Copy: short declarative sentences, second person ("você"), verbs of transformation (acolhe,
@@ -211,9 +242,9 @@ this repo: static pages, no React needed unless you want the components.
 - Poster / print piece: `starters/poster.html` (A3 at 300dpi-equivalent scale, print CSS included).
 - Any static page: `starters/page.html`.
 
-Artwork rules on top of the non-negotiables: flat colour fields only — no gradients, no textures,
-no drop shadows beyond `--rse-shadow-sm/md/lg`, no photographic full-bleeds until real photography
-exists. `BrandMotif` renders the official *cubo impossível* constructions (rule 10): one
+Artwork rules on top of the non-negotiables: palette colour only; subtle palette gradients and
+depth are welcome ([the gradient rules](docs/composition/creative-latitude.md#gradients)); no
+stock or generated photography and no photographic full-bleeds until real photography exists. `BrandMotif` renders the official *cubo impossível* constructions (rule 10): one
 focal construction per composition. Generated shapes and motion exist too (`MotifEngine` through
 `MotifPattern` and `MotifLoader`; a pattern is a field, not a construction). If you use the purple,
 orange or yellow `hue`, or any generated shape, tell the user those are derived, not supplied.
@@ -305,11 +336,16 @@ students, families and Sesc staff across the whole country.
   with arrow keys, menus and dialogs close with Escape, dialogs trap focus and return it to the
   trigger.
 - **Hit targets** ≥ `--rse-hit-target-min` (44px) on touch surfaces.
-- **Motion**: state changes stay inside `--rse-duration-fast/base/slow` (360 ms cap) with standard
-  easing; brand motion uses `--rse-duration-reveal/loop` with assemble/settle easing. The
+- **Motion**: UI state changes (components) stay inside `--rse-duration-fast/base/slow` (360 ms cap)
+  with standard easing; brand motion uses `--rse-duration-reveal/loop` with assemble/settle easing.
+  **Artwork and artifacts have their own, freer tier**: choreographed sequences, longer durations,
+  tasteful springs, scroll-linked and 3D motion, as long as the reduced form, a complete final
+  frame, a pause control for long autoplay and no flashing are in place
+  ([Creative latitude](#creative-latitude)). The
   `data-rse-motion` setting (stored choice, else OS, else `full`) decides full or reduced; managed
   components (`.rse-motion-managed`) implement both forms, and the safety net flattens the rest —
-  don't add unmanaged animation.
+  don't add unmanaged animation *inside UI components*. An artifact's own motion reads the setting
+  itself ([how](docs/composition/artifact-craft.md#reading-the-motion-setting)).
 - **Images** carry real `alt` text in pt-BR, or `alt=""` when decorative. `<image-slot>` placeholders
   describe the shot needed.
 - Full rules: [docs/guidelines.md](docs/guidelines.md#accessibility).

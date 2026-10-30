@@ -1,6 +1,6 @@
 import React from 'react';
 
-// GENERATED list — see scripts/build-icons.mjs. 97 glyphs from Lucide v1.27.0 (ISC).
+// GENERATED list — see scripts/build-icons.mjs. 102 glyphs from Lucide v1.27.0 (ISC).
 export type IconName =
   | 'accessibility'
   | 'activity'
@@ -49,6 +49,7 @@ export type IconName =
   | 'image'
   | 'info'
   | 'languages'
+  | 'layers'
   | 'layout-dashboard'
   | 'lightbulb'
   | 'link'
@@ -65,6 +66,7 @@ export type IconName =
   | 'mic'
   | 'moon'
   | 'navigation'
+  | 'network'
   | 'pause'
   | 'pencil'
   | 'phone-call'
@@ -75,12 +77,14 @@ export type IconName =
   | 'printer'
   | 'quote'
   | 'refresh-cw'
+  | 'route'
   | 'school'
   | 'search'
   | 'send'
   | 'settings'
   | 'share-2'
   | 'shield-check'
+  | 'shuffle'
   | 'sliders-horizontal'
   | 'sparkles'
   | 'star'
@@ -98,6 +102,7 @@ export type IconName =
   | 'video'
   | 'volume-2'
   | 'wifi-off'
+  | 'workflow'
   | 'x';
 
 export interface IconProps {

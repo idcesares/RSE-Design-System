@@ -48,7 +48,8 @@ stock or generated imagery; an honest placeholder is a brief for the photographe
 
 ## Motion
 
-UI state changes stay capped at 360 ms. Brand motion has its own tier.
+UI state changes stay capped at 360 ms. Brand motion has its own tier, and artwork and artifacts have a
+freer one (see the end of this section).
 
 | Token | Duration | For |
 | --- | --- | --- |
@@ -69,7 +70,7 @@ UI state changes stay capped at 360 ms. Brand motion has its own tier.
   `--rse-ease-settle` for brand motion. No spring, bounce or overshoot: the brand reads
   institutional, not playful.
 - Scroll-triggered reveals are allowed: opacity plus a small travel, played once. Autoplaying
-  ambient loops are allowed but need a pause control (WCAG 2.2.2). **Parallax stays banned.**
+  ambient loops are allowed but need a pause control (WCAG 2.2.2). **In UI components parallax stays banned** (artifacts may use it, below).
 - Hover moves to a darker shade of the same hue, never to another colour. Press scales to 0.97.
   Cards lift; they never change background.
 - Animate `transform`, `opacity`, `background-color` and `box-shadow` only — never layout. `fill`
@@ -82,6 +83,15 @@ UI state changes stay capped at 360 ms. Brand motion has its own tier.
 - Components that implement both forms carry `.rse-motion-managed`. Everything else is flattened
   in the reduced state by the safety net in `tokens/base-runtime.css`; never add unmanaged motion
   inline in a way that escapes it.
+
+**Artwork and artifact motion**
+
+Decks, pitches, showpiece pages, explainers, interactive and 3D artifacts are not UI state. They may
+choreograph: staggered entrances, flips, scroll-linked and pinned scenes, parallax, canvas and WebGL,
+longer durations, custom easing and tasteful springs. Fixed in every case: the reduced form (finished
+state, no travel, loop or drift), a complete final frame, a visible pause for autoplay beyond five
+seconds, nothing flashing more than three times a second, nothing essential only in motion. The craft
+and the code are in [composition/artifact-craft.md](composition/artifact-craft.md).
 
 ## Theming
 

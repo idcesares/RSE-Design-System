@@ -10,6 +10,7 @@
 <!-- The system itself: fonts, tokens, base and every component's CSS contract. -->
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="showcase.css">
+<link rel="stylesheet" href="creative.css">
 
 <!-- React runs the real components. Vendored, so the page opens offline. -->
 <script src="../assets/vendor/react.production.min.js"></script>
@@ -40,6 +41,7 @@
         <li><a href="#componentes" data-spy="componentes"><span>03</span> Componentes</a></li>
         <li><a href="#aplicacoes" data-spy="aplicacoes"><span>04</span> Aplicações</a></li>
         <li><a href="#uso" data-spy="uso"><span>05</span> Uso</a></li>
+        <li><a href="#criatividade" data-spy="criatividade"><span>06</span> Criatividade</a></li>
       </ol>
     </nav>
     <div class="sc-themes" role="group" aria-label="Tema da página">
@@ -439,6 +441,147 @@
   </div>
 </section>
 
+<section class="sc-chapter sc-chapter--purple" id="criatividade" aria-labelledby="cri-title">
+  <div class="sc-chapter-art" data-motif="cube" data-hue="purple" aria-hidden="true"></div>
+  <div class="sc-wrap sc-chapter-inner">
+    <p class="sc-chapter-num">06</p>
+    <div>
+      <h2 class="sc-chapter-title" id="cri-title">Criatividade</h2>
+      <p class="sc-chapter-lede">A marca fixa poucas coisas e deixa o resto para o ofício. Aqui estão estruturas, cartões, histórias com dados, profundidade e degradês: tudo feito dentro das regras, nada com a mesma cara de sempre.</p>
+      <ul class="sc-chapter-toc">
+        <li><a href="#fixo-livre">Fixo e livre</a></li><li><a href="#alcance">Alcance</a></li><li><a href="#degrades">Degradês</a></li><li><a href="#pecas">Peças inteiras</a></li><li><a href="#rolagem">Rolagem</a></li><li><a href="#rede-viva">Rede viva</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sc-section" id="fixo-livre" aria-labelledby="fixo-title">
+  <div class="sc-wrap">
+    <header class="sc-head">
+      <p class="sc-eyebrow">Dois níveis</p>
+      <h2 id="fixo-title">O que é fixo e o que é de quem cria</h2>
+      <p class="sc-lede">O selo, a paleta, a Montserrat, o pt-BR, a verdade dos fatos e a acessibilidade não se negociam. Conceito, layout, diagramas, profundidade, movimento, interação e 3D são de quem cria, pessoa ou agente, com a ambição de fazer algo memorável e bem organizado.</p>
+    </header>
+    <div class="cr-split">
+      <div class="sc-panel">
+        <h3 class="sc-h3">Fixo: as invariantes</h3>
+        <ul class="cr-list">
+          <li>Selo íntegro, com área de respiro e sem recolorir fora das combinações do manual</li>
+          <li>Só cores da paleta; contraste medido, branco nunca sobre acento</li>
+          <li>Montserrat, textos em pt-BR, sem emoji</li>
+          <li>Nenhum fato ou imagem inventados; o que é exemplo parece exemplo</li>
+          <li>Acessibilidade: teclado, foco visível, alternativa em texto, movimento reduzido</li>
+          <li>A geometria das seis construções do cubo impossível</li>
+        </ul>
+      </div>
+      <div class="sc-panel">
+        <h3 class="sc-h3">Livre: o ofício</h3>
+        <ul class="cr-list cr-list--free">
+          <li>Uma ideia por peça e um momento de impacto, sem repetir o layout anterior</li>
+          <li>Estruturas, jornadas, redes, cartões, painéis de dados, cenas em 3D</li>
+          <li>Degradês sutis, camadas, luz e profundidade, com paleta e contraste medido</li>
+          <li>Movimento coreografado e interação, com uma forma reduzida completa</li>
+          <li>Qualquer biblioteca ou técnica que sirva à ideia: Three.js, canvas, D3, GSAP ou HTML e CSS puros</li>
+          <li>Densidade quando o assunto é denso, com hierarquia clara</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sc-panel sc-panel--code sc-gap-top">
+      <p class="sc-code-label">brand.json → rules.creativeLatitude, lido agora</p>
+      <pre class="sc-code" id="cr-rules" tabindex="0" aria-label="Regras de criatividade em formato de dados"></pre>
+    </div>
+    <div class="cr-links">
+      <a class="cr-button" href="../docs/composition/creative-latitude.md">Guia: latitude criativa</a>
+      <a class="cr-button" href="../docs/composition/artifact-craft.md">Guia: como construir</a>
+    </div>
+  </div>
+</section>
+
+<section class="sc-section sc-section--tint" id="alcance" aria-labelledby="alcance-title">
+  <div class="sc-wrap">
+    <header class="sc-head">
+      <p class="sc-eyebrow">Alcance</p>
+      <h2 id="alcance-title">Mesma marca, cinco formas de contar</h2>
+      <p class="sc-lede">Cada peça abaixo funciona no teclado, respeita o tema da página e tem forma reduzida. Todas foram feitas sem biblioteca; um agente é livre para escolher a que servir melhor à ideia.</p>
+    </header>
+    <div id="cr-stage">
+      <div class="cr-toolbar">
+        <b id="cr-motion-label">Movimento das peças</b>
+        <div class="cr-seg" role="group" aria-labelledby="cr-motion-label">
+          <button type="button" data-cr-motion="full" aria-pressed="true">Completo</button>
+          <button type="button" data-cr-motion="reduced" aria-pressed="false">Reduzido</button>
+        </div>
+      </div>
+      <div class="cr-grid">
+        <div class="sc-panel cr-card">
+          <h3>Estrutura que se abre</h3>
+          <div class="cr-org" id="cr-org"></div>
+          <p class="cr-tech">HTML e CSS, com um botão por área. Nomes e cargos são exemplos.</p>
+        </div>
+        <div class="sc-panel cr-card">
+          <h3>Cartões de estudo</h3>
+          <div class="cr-deck" id="cr-deck"></div>
+          <p class="cr-tech">O cartão é um botão: vira com transição 3D, tem progresso, ação em cada resposta e fim de baralho.</p>
+        </div>
+        <div class="sc-panel cr-card">
+          <h3>Uma história com dados</h3>
+          <div id="cr-story"></div>
+          <p class="cr-tech">O número sobe até o valor verdadeiro; no movimento reduzido, aparece já completo.</p>
+        </div>
+        <div class="sc-panel cr-card">
+          <h3>Profundidade sem biblioteca</h3>
+          <div id="cr-scene"></div>
+          <p class="cr-tech">Camadas em CSS 3D que respondem ao ponteiro e às setas. Para algo mais ambicioso, um agente pode usar Three.js ou outra tecnologia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sc-section" id="degrades" aria-labelledby="degrades-title">
+  <div class="sc-wrap">
+    <header class="sc-head">
+      <p class="sc-eyebrow">Degradês</p>
+      <h2 id="degrades-title">Sutis, da paleta, medidos no pior ponto</h2>
+      <p class="sc-lede">Um degradê vale quando sugere luz ou profundidade. Escolha duas cores da paleta: o texto precisa passar de 4,5:1 em todo o trajeto, não só na média. Se não passa, a composição é recusada, como na faixa de cor.</p>
+    </header>
+    <div id="cr-lab"></div>
+  </div>
+</section>
+
+<section class="sc-section sc-section--tint" id="pecas" aria-labelledby="pecas-title">
+  <div class="sc-wrap">
+    <header class="sc-head">
+      <p class="sc-eyebrow">Peças inteiras</p>
+      <h2 id="pecas-title">Uma apresentação que se move, um baralho, um mapa</h2>
+      <p class="sc-lede">Três exemplares do repositório, rodando de verdade e com ideias diferentes. Use as setas na apresentação, arraste o cartão, escolha um ponto no mapa. Cada um tem forma reduzida completa e está descrito em <a href="../docs/composition/creative-exemplars/README.md">creative-exemplars</a>.</p>
+    </header>
+    <div id="cr-pieces"></div>
+  </div>
+</section>
+
+<section class="sc-section" id="rolagem" aria-labelledby="rolagem-title">
+  <div class="sc-wrap">
+    <header class="sc-head">
+      <p class="sc-eyebrow">Rolagem que conta</p>
+      <h2 id="rolagem-title">Uma história que muda enquanto você lê</h2>
+      <p class="sc-lede">A imagem fica fixa e o texto passa. Role a caixa abaixo, ou foque nela e use as setas: a cena cresce a cada passo. É a mesma ideia de uma página de reportagem, em miniatura.</p>
+    </header>
+    <div id="cr-scroll"></div>
+  </div>
+</section>
+
+<section class="sc-section sc-section--tint" id="rede-viva" aria-labelledby="rv-title">
+  <div class="sc-wrap">
+    <header class="sc-head">
+      <p class="sc-eyebrow">Rede viva</p>
+      <h2 id="rv-title">Uma cena em canvas que reage ao ponteiro</h2>
+      <p class="sc-lede">Pontos da paleta que se aproximam e se ligam. As cores são lidas dos tokens em tempo de execução, o movimento pausa fora da tela e, no movimento reduzido, vira uma imagem parada completa.</p>
+    </header>
+    <div id="cr-canvas"></div>
+  </div>
+</section>
+
 </main>
 
 <footer class="sc-footer">
@@ -460,5 +603,6 @@
 
 <script src="demos.js"></script>
 <script src="showcase.js"></script>
+<script src="creative.js"></script>
 </body>
 </html>

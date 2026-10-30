@@ -29,7 +29,8 @@ npm run test:contracts
 - [ ] Logo unmodified, correct lockup for the background, clearspace respected.
 - [ ] Motion is one of four categories (state, reveal, loading, ambient). State changes stay within
       360 ms; reveals are opacity plus small travel, played once; ambient loops have a pause control.
-      No parallax, no bounce.
+      No parallax, no bounce in UI components; artifacts and artwork may use a freer tier
+      ([guidelines](guidelines.md#motion)) provided the reduced form and a complete final frame exist.
 
 ## Content
 

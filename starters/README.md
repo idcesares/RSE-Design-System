@@ -13,6 +13,7 @@ Moving one into another project? Use the copy of `starters/` inside the static k
 | `page.html` | Static page, tokens only, **no JavaScript at all** | Mocks, artifacts, anything you hand over as a single file. Opens offline. |
 | `page-react.html` | Same page built from real components (React UMD + `dist/rse.js`) | Prototypes that need real component behaviour — tabs, accordions, dialogs. |
 | `poster.html` | A3 print piece with `@page` rules | Posters, flyers, printed notices. |
+| `artifact.html` | Plumbing for an ambitious piece: gradient surface, staggered reveal, accessible flip, motion-setting helper, token reader for canvas/WebGL | Interactive, animated, data-rich or 3D artifacts. Keep the plumbing, replace the layout ([creative latitude](../docs/composition/creative-latitude.md)). |
 
 For a full page with sections already composed, start from `templates/` instead — see
 [../docs/recipes.md](../docs/recipes.md).

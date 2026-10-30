@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estudo de vocabulário — exemplo de cartões</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="../../../styles.css">
+<script src="../../../motion.js"></script>
+<script>RSE.motion.init();</script>
+<style>
+  /* Exemplar: a study session. Idea: a deck you can feel, with weight (a stack), a turn (a flip) and a
+     decision (drag or press). The flip is a button; the whole thing works without a pointer. */
+  :root{--y:0px;--s:1;--o:1;--dx:0px;--dy:0px;--rot:0deg}
+  html,body{margin:0}
+  body{min-height:100vh}
+  [hidden]{display:none!important}
+  body{display:grid;place-items:center;padding:var(--rse-space-5);box-sizing:border-box;color:var(--rse-brand-white);
+    background:radial-gradient(90% 70% at 15% 0%,var(--rse-brand-indigo),transparent 70%),linear-gradient(170deg,var(--rse-brand-ink),var(--rse-brand-indigo))}
+  .app{width:min(100%,30rem);display:grid;gap:var(--rse-space-5);justify-items:center}
+  header{width:100%;display:flex;align-items:center;justify-content:space-between;gap:var(--rse-space-4)}
+  header img{height:1.9rem;width:auto}
+  .eyebrow{margin:0;font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase}
+  .meter{width:100%;display:grid;gap:var(--rse-space-2);font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold)}
+  .meter div{display:flex;justify-content:space-between}
+  .rail{height:.5rem;border-radius:var(--rse-radius-pill);background:var(--rse-brand-white);opacity:.9;overflow:hidden}
+  .rail i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rse-brand-indigo),var(--rse-brand-purple-dark));transition:width 600ms var(--rse-ease-settle)}
+
+  .stack{position:relative;width:100%;height:21rem;perspective:1400px}
+  .stack .ghost{position:absolute;inset:0;border-radius:var(--rse-radius-xl);background:var(--rse-brand-purple-light);transform:translateY(var(--y)) scale(var(--s));opacity:var(--o);box-shadow:var(--rse-shadow-md)}
+  .card{position:absolute;inset:0;border:0;padding:0;background:none;font:inherit;color:inherit;cursor:grab;touch-action:pan-y;border-radius:var(--rse-radius-xl);
+    transform:translate(var(--dx,0),0) rotate(var(--rot,0deg));transition:transform 420ms var(--rse-ease-out),opacity 420ms var(--rse-ease-out)}
+  .card.dragging{transition:none;cursor:grabbing}
+  .card:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-brand-white);outline-offset:6px}
+  .turn{position:absolute;inset:0;transform-style:preserve-3d;transition:transform 720ms var(--rse-ease-settle)}
+  .card[aria-pressed="true"] .turn{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--rse-radius-xl);padding:var(--rse-space-7) var(--rse-space-6);display:grid;align-content:space-between;text-align:left;box-shadow:var(--rse-shadow-lg)}
+  .front{background:linear-gradient(155deg,var(--rse-brand-purple-dark),var(--rse-brand-indigo));color:var(--rse-brand-white)}
+  .back{transform:rotateY(180deg);background:linear-gradient(155deg,var(--rse-brand-green-light),var(--rse-brand-blue-light));color:var(--rse-brand-ink)}
+  .face small{font-size:var(--rse-font-size-caption);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase}
+  .word{font-size:clamp(2.25rem,1.2rem + 4vw,3.5rem);font-weight:var(--rse-font-weight-black);letter-spacing:var(--rse-letter-spacing-tight);line-height:1.02}
+  .def{font-size:var(--rse-font-size-h4);font-weight:var(--rse-font-weight-semibold);line-height:1.3}
+  .ex{margin:0;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body)}
+  .hint{margin:0;font-size:var(--rse-font-size-caption)}
+  .stamp{position:absolute;top:var(--rse-space-5);right:var(--rse-space-5);z-index:2;padding:var(--rse-space-1) var(--rse-space-3);border-radius:var(--rse-radius-pill);font-weight:var(--rse-font-weight-black);font-size:var(--rse-font-size-body-sm);opacity:0;background:var(--rse-brand-white);color:var(--rse-brand-ink)}
+
+  .actions{display:flex;gap:var(--rse-space-3);flex-wrap:wrap;justify-content:center}
+  .btn{appearance:none;font:inherit;font-weight:var(--rse-font-weight-bold);min-height:var(--rse-hit-target-min);padding:0 var(--rse-space-6);border-radius:var(--rse-radius-pill);cursor:pointer;border:1.5px solid var(--rse-brand-white);background:transparent;color:var(--rse-brand-white);transition:background var(--rse-duration-base) var(--rse-ease-standard),color var(--rse-duration-base) var(--rse-ease-standard)}
+  .btn:hover{background:var(--rse-brand-indigo)}
+  .btn--solid{background:var(--rse-brand-white);color:var(--rse-brand-ink)}
+  .btn--solid:hover{background:var(--rse-brand-green-light);color:var(--rse-brand-ink)}
+  .btn:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-brand-white);outline-offset:3px}
+  .keys{margin:0;font-size:var(--rse-font-size-caption);text-align:center}
+  .kbd{display:inline-block;min-width:1.4rem;padding:0 .35rem;border:1px solid var(--rse-brand-white);border-radius:var(--rse-radius-sm);font-weight:var(--rse-font-weight-bold)}
+
+  .done{display:grid;gap:var(--rse-space-4);justify-items:center;text-align:center;padding:var(--rse-space-6)}
+  .ring{width:11rem;height:11rem;transform:rotate(-90deg)}
+  .ring circle{fill:none;stroke-width:12;stroke-linecap:round}
+  .ring .track{stroke:var(--rse-brand-white);opacity:.25}
+  .ring .val{stroke:var(--rse-brand-green-light);stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1200ms var(--rse-ease-settle)}
+  .done h2{margin:0;color:inherit;font-size:var(--rse-font-size-h2);font-weight:var(--rse-font-weight-black);letter-spacing:var(--rse-letter-spacing-tight)}
+  .done p{margin:0;max-width:26ch;line-height:var(--rse-line-height-body)}
+  .burst{position:fixed;left:50%;top:40%;pointer-events:none}
+  .burst i{position:absolute;width:.65rem;height:.65rem;border-radius:var(--rse-radius-pill);animation:fly 900ms var(--rse-ease-out) forwards}
+  @keyframes fly{from{transform:translate(-50%,-50%) scale(1);opacity:1}to{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.2);opacity:0}}
+  [data-rse-motion="reduced"] .burst{display:none}
+  [data-rse-motion="reduced"] .turn,[data-rse-motion="reduced"] .card,[data-rse-motion="reduced"] .rail i,[data-rse-motion="reduced"] .ring .val{transition:none}
+  @media (prefers-reduced-motion:reduce){:root:not([data-rse-motion="full"]) .turn,:root:not([data-rse-motion="full"]) .card,:root:not([data-rse-motion="full"]) .rail i,:root:not([data-rse-motion="full"]) .ring .val{transition:none}:root:not([data-rse-motion="full"]) .burst{display:none}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header>
+    <img src="../../../assets/logos/wordmark-white.svg" alt="Rede Sesc de Educação">
+    <p class="eyebrow">Vocabulário · exemplo</p>
+  </header>
+
+  <div class="meter"><div><span id="count" aria-live="polite"></span><span id="score"></span></div><div class="rail" aria-hidden="true"><i id="bar"></i></div></div>
+
+  <div class="stack" id="stack"></div>
+
+  <div class="actions" id="actions">
+    <button class="btn" type="button" id="again">Revisar depois</button>
+    <button class="btn btn--solid" type="button" id="knew">Eu sabia</button>
+  </div>
+  <p class="keys" id="keys">Enter ou espaço vira <span class="kbd">⏎</span> · <span class="kbd">1</span> revisar · <span class="kbd">2</span> eu sabia · ou arraste o cartão</p>
+</main>
+
+<script>
+  const WORDS = [
+    ['Efêmero', 'Que dura pouco; passageiro.', 'A fama dele foi efêmera.'],
+    ['Ubíquo', 'Que está em toda parte ao mesmo tempo.', 'A tecnologia é ubíqua na vida urbana.'],
+    ['Perspicaz', 'Que percebe com rapidez e agudeza.', 'Uma leitora perspicaz notou o detalhe.'],
+    ['Altruísmo', 'Preocupação desinteressada com o bem dos outros.', 'O altruísmo move o trabalho voluntário.'],
+    ['Resiliência', 'Capacidade de se recuperar de dificuldades.', 'A turma mostrou resiliência no ano difícil.'],
+    ['Sensato', 'Que age com bom senso e equilíbrio.', 'Foi sensato pedir mais tempo.'],
+  ];
+  const $ = (id) => document.getElementById(id);
+  const stack = $('stack'); const motionReduced = () => {
+    const set = document.documentElement.getAttribute('data-rse-motion');
+    return set ? set === 'reduced' : matchMedia('(prefers-reduced-motion: reduce)').matches;
+  };
+  let i = 0; let known = 0; let busy = false;
+
+  function ghosts() {
+    stack.querySelectorAll('.ghost').forEach((g) => g.remove());
+    const left = Math.min(2, WORDS.length - i - 1);
+    for (let k = left; k >= 1; k--) {
+      const g = document.createElement('div'); g.className = 'ghost'; g.setAttribute('aria-hidden', 'true');
+      g.style.setProperty('--y', `${k * 14}px`); g.style.setProperty('--s', 1 - k * 0.05); g.style.setProperty('--o', 1 - k * 0.3);
+      stack.prepend(g);
+    }
+  }
+  function render() {
+    stack.querySelectorAll('.card, .done').forEach((n) => n.remove());
+    $('count').textContent = i < WORDS.length ? `Palavra ${i + 1} de ${WORDS.length}` : `${WORDS.length} de ${WORDS.length}`;
+    $('score').textContent = `${known} sabidas`;
+    $('bar').style.width = `${(i / WORDS.length) * 100}%`;
+    if (i >= WORDS.length) return finish();
+    ghosts();
+    const [w, d, e] = WORDS[i];
+    const card = document.createElement('button');
+    card.type = 'button'; card.className = 'card'; card.setAttribute('aria-pressed', 'false');
+    card.innerHTML = `<span class="stamp" id="stamp"></span><span class="turn">
+      <span class="face front"><small>Palavra</small><span class="word">${w}</span><span class="hint">Toque para ver o significado</span></span>
+      <span class="face back" aria-hidden="true"><small>Significado</small><span class="def">${d}</span><span class="ex">“${e}”</span></span></span>`;
+    card.addEventListener('click', () => { if (!card.dataset.moved) flip(card); card.dataset.moved = ''; });
+    drag(card); stack.append(card); card.focus({ preventScroll: true });
+  }
+  function flip(card) {
+    const on = card.getAttribute('aria-pressed') !== 'true';
+    card.setAttribute('aria-pressed', on);
+    card.querySelector('.front').setAttribute('aria-hidden', on); card.querySelector('.back').setAttribute('aria-hidden', !on);
+  }
+  function answer(wasKnown) {
+    const card = stack.querySelector('.card'); if (!card || busy) return;
+    busy = true; if (wasKnown) { known += 1; confetti(); }
+    const fly = () => { i += 1; busy = false; render(); };
+    if (motionReduced()) return fly();
+    card.style.setProperty('--dx', wasKnown ? '120%' : '-120%'); card.style.setProperty('--rot', wasKnown ? '14deg' : '-14deg'); card.style.opacity = '0';
+    setTimeout(fly, 380);
+  }
+  function drag(card) {
+    let x0 = null; let dx = 0;
+    card.addEventListener('pointerdown', (e) => { x0 = e.clientX; dx = 0; card.setPointerCapture(e.pointerId); });
+    card.addEventListener('pointermove', (e) => {
+      if (x0 === null || motionReduced()) return; dx = e.clientX - x0; if (Math.abs(dx) > 6) { card.classList.add('dragging'); card.dataset.moved = '1'; }
+      card.style.setProperty('--dx', `${dx}px`); card.style.setProperty('--rot', `${dx / 18}deg`);
+      const s = $('stamp'); s.textContent = dx > 0 ? 'Eu sabia' : 'Revisar'; s.style.opacity = Math.min(1, Math.abs(dx) / 90);
+    });
+    const end = () => {
+      if (x0 === null) return; card.classList.remove('dragging'); const moved = dx; x0 = null;
+      if (Math.abs(moved) > 110) answer(moved > 0);
+      else { card.style.setProperty('--dx', '0px'); card.style.setProperty('--rot', '0deg'); const s = $('stamp'); if (s) s.style.opacity = 0; }
+    };
+    card.addEventListener('pointerup', end); card.addEventListener('pointercancel', end);
+  }
+  function confetti() {
+    if (motionReduced()) return;
+    const FILL = { green: 'var(--rse-brand-green-light)', blue: 'var(--rse-brand-blue-light)', pink: 'var(--rse-brand-pink-light)', orange: 'var(--rse-brand-orange-light)', yellow: 'var(--rse-brand-yellow-light)', purple: 'var(--rse-brand-purple-light)' };
+    const hues = Object.keys(FILL); const host = document.createElement('div'); host.className = 'burst';
+    hues.forEach((h, n) => [0, 1].forEach((k) => { const a = ((n * 2 + k) / 12) * Math.PI * 2; const r = 90 + k * 40; const d = document.createElement('i');
+      d.style.background = FILL[h]; d.style.setProperty('--dx', `${Math.cos(a) * r}px`); d.style.setProperty('--dy', `${Math.sin(a) * r}px`); host.append(d); }));
+    document.body.append(host); setTimeout(() => host.remove(), 1000);
+  }
+  function finish() {
+    $('actions').hidden = true; $('keys').hidden = true;
+    const pct = known / WORDS.length; const done = document.createElement('div'); done.className = 'done';
+    done.innerHTML = `<svg class="ring" viewBox="0 0 120 120" role="img" aria-label="${known} de ${WORDS.length} palavras sabidas"><circle class="track" cx="60" cy="60" r="50"></circle><circle class="val" cx="60" cy="60" r="50" pathLength="1"></circle></svg>
+      <h2>${known} de ${WORDS.length} palavras sabidas</h2><p>${known === WORDS.length ? 'Baralho completo. Que sequência!' : 'Volte às que ficaram para revisar quando quiser.'}</p>
+      <button class="btn btn--solid" type="button" id="restart">Estudar de novo</button>`;
+    stack.style.height = 'auto'; stack.append(done);
+    const val = done.querySelector('.val'); requestAnimationFrame(() => requestAnimationFrame(() => { val.style.strokeDashoffset = String(1 - pct); }));
+    $('restart').addEventListener('click', () => { i = 0; known = 0; $('actions').hidden = false; $('keys').hidden = false; stack.style.height = ''; render(); });
+    $('restart').focus();
+  }
+  $('knew').addEventListener('click', () => answer(true)); $('again').addEventListener('click', () => answer(false));
+  addEventListener('keydown', (e) => {
+    if (e.key === '1') answer(false); if (e.key === '2') answer(true);
+  });
+  render();
+</script>
+</body>
+</html>

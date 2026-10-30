@@ -67,3 +67,32 @@ headline wraps differently from the exemplar.
 - The fixes in the table above were applied after the runs and not re-run with a fresh agent; only
   the font recipe was checked by hand (it renders real Montserrat in Pillow).
 - Two runs are a small sample. The next real use of the layer is the better test.
+
+## Runs 3–5 — creative latitude (2026-10-30)
+
+After adding [creative latitude](creative-latitude.md), three fresh agents each got a clean snapshot of
+the repo and one neutral sentence (no mention of creativity): a flashcard study artifact, an
+explorable organisation structure, and a six-slide dashboard-style results pitch. I rendered each
+output and read what the agents said was unclear.
+
+| Run | Idea the agent chose | Verdict |
+| --- | --- | --- |
+| Flashcards | A notebook-page card on an indigo-to-ink desk; the word turns to its meaning; misses go to the back of the pile; a ring summarises the round | Distinct, tactile, accessible. Not parametric. |
+| Org structure | Four linked columns (leadership, areas, units, programmes); choosing any node lights its connections | Distinct and usable; the detail panel covers the chart on load. |
+| Results pitch | A funder asks five questions and each slide answers one; dense, organised, with example data labelled on every slide | The strongest of the three; used the official cube at full strength. |
+
+All three stated an idea, chose different layouts, used palette gradients with a reduced-motion
+guard, and none repeated an exemplar's structure. Their reports show what was still unclear, and
+what changed:
+
+| Finding | Fix |
+| --- | --- |
+| A standalone artifact had no stated way to get the tokens. One agent invented dark-theme values and wrote 51 hex colours; two copied token files by hand | [artifact-craft](artifact-craft.md#colour-in-a-standalone-artifact) now lists the exact files to copy and says never to retype or invent values; `starters/artifact.html` shows the wiring |
+| Two agents put the supplied cube at 0.3 opacity on a purple field, where the green turns to a muddy grey | Principle 6, `AGENTS.md` and `DESIGN.md` say 0.3 is only for a construction sitting under content; clear of text it runs at full strength |
+| The `000` placeholder rule does not give a dashboard any shapes (pitch run) | `creative-latitude.md` and `DESIGN.md` allow plausible example data in one named object, labelled on every canvas and listed to the user |
+| The 3:1 headline ratio and 40-word cap cannot hold on a dense data slide (pitch run) | Principles say a clear hierarchy always holds, a dense canvas may use a smaller ratio |
+| No shuffle or network icon in the vendored set (two runs worked around it) | Vendored `shuffle`, `network`, `layers`, `workflow` and `route` from Lucide |
+| Dark and contrast themes and 360 px were not tested by any agent | The creative review and `artifact-craft` already ask for it; an artifact checker would make it automatic (not built yet) |
+
+Three runs are a small sample, and each agent read the new guides because the neutral prompt still
+pointed it at `AGENTS.md` and `DESIGN.md`. The next real use is the better test.
