@@ -102,7 +102,7 @@
   };
   themeButtons.forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.themeSet)));
 
-  const chapterIds = ['marca', 'fundamentos', 'componentes', 'aplicacoes', 'uso'];
+  const chapterIds = ['marca', 'fundamentos', 'componentes', 'aplicacoes', 'uso', 'criatividade'];
   const chapterEls = chapterIds.map((id) => document.getElementById(id));
   const spyLinks = Array.from(document.querySelectorAll('[data-spy]'));
   let spyQueued = false;

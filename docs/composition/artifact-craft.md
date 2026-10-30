@@ -6,7 +6,7 @@ snippets are starting points, tested in a browser; adapt them, do not paste them
 
 Contents: [colour](#colour-in-a-standalone-artifact) · [motion setting](#reading-the-motion-setting)
 · [flip cards and flashcards](#flip-cards-and-flashcards) · [diagrams and structures](#diagrams-and-organisational-structures)
-· [dashboards and data](#dashboards-and-data-stories) · [3D with Three.js](#3d-with-threejs) ·
+· [dashboards and data](#dashboards-and-data-stories) · [3D and immersive scenes](#3d-and-immersive-scenes) ·
 [performance](#performance) · [verify](#verify-before-you-hand-over)
 
 ## Colour in a standalone artifact
@@ -128,8 +128,11 @@ of tiles.
 - For the chart specifics (colour formula, marks, axes, tooltips) load the `dataviz` skill if your
   harness has it.
 
-## 3D with Three.js
+## 3D and immersive scenes
 
+The choice of tool is yours: CSS 3D (the showcase's depth piece uses it, with no library), canvas 2D,
+SVG, Three.js, a shader, or anything else that serves the idea. Three.js is the worked example below
+because it is the common case; nothing in the brand requires it, and nothing forbids another route.
 Immersive pieces are welcome where they carry the idea: an explorable structure, a data landscape,
 a rotating object, a hero scene, an animated explainer. Keep to one controlled, beautiful moment
 rather than a tech demo.

@@ -11,6 +11,10 @@
   component CSS stays flat. Give artwork and artifacts a freer motion tier that still honours
   `data-rse-motion`. Editorial principles, rubric, modules and archetypes are now defaults for the
   editorial profile. `brand.json` rules gain `creativeLatitude` and a scoped `gradients` rule.
+- Add showcase chapter 06 *Criatividade*: fixed vs free (read from `brand.json`), five live pieces
+  (opening org structure, flip-card study deck, data story, CSS 3D depth) with a motion switch and
+  reduced form, and a gradient lab that measures contrast at the worst stop. Plain DOM and CSS, no
+  new dependency; tool choice stays with the maker.
 
 - Upgrade campaign/program pages, the ten-slide institutional deck and the two-page A4 form into
   implementation references, with authored token-based composition styles, current components,
