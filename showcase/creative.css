@@ -152,3 +152,46 @@
   .cr-branches { grid-template-columns: 1fr; }
   .cr-bar { grid-template-columns: 5.5rem minmax(0, 1fr) 2.75rem; }
 }
+
+/* ── Whole pieces: one iframe, three exemplars ───────────────────────────── */
+.cr-tabs { display: flex; flex-wrap: wrap; gap: var(--rse-space-3); align-items: center; margin-bottom: var(--rse-space-4); }
+.cr-frame { border-radius: var(--rse-radius-xl); overflow: hidden; border: 1px solid var(--rse-color-border-subtle); box-shadow: var(--rse-shadow-lg); background: var(--rse-brand-ink); aspect-ratio: 16 / 10; }
+.cr-frame--tall { aspect-ratio: 9 / 14; max-width: 26rem; margin-inline: auto; }
+.cr-frame iframe { width: 100%; height: 100%; border: 0; display: block; background: var(--rse-brand-white); }
+.cr-open { font-size: var(--rse-font-size-body-sm); font-weight: var(--rse-font-weight-semibold); }
+
+/* ── Scroll story: a sticky picture and passing text, in a box ───────────── */
+.cr-scroll { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); height: 30rem; overflow-y: auto; border-radius: var(--rse-radius-xl); background: var(--rse-color-surface-card); border: 1px solid var(--rse-color-border-subtle); scroll-behavior: smooth; }
+.cr-scroll:focus-visible { outline: 3px solid var(--rse-color-focus-ring); outline-offset: 3px; }
+.cr-scroll__pin { position: sticky; top: 0; height: 30rem; display: grid; place-items: center; background: linear-gradient(160deg, var(--rse-brand-ink), var(--rse-brand-indigo)); }
+.cr-scroll__pin svg { width: min(86%, 22rem); height: auto; overflow: visible; }
+.cr-scroll__steps { display: grid; }
+.cr-scroll__step { min-height: 24rem; padding: var(--rse-space-7) var(--rse-space-6); display: grid; align-content: center; gap: var(--rse-space-3); border-left: .4rem solid transparent; transition: border-color var(--rse-duration-reveal) var(--rse-ease-settle), background var(--rse-duration-reveal) var(--rse-ease-settle); }
+/* Never dim text to mark the current step: that would fall below the contrast floor. A bar and a tint do it. */
+.cr-scroll__step.is-on { border-left-color: var(--rse-brand-indigo); background: var(--rse-color-surface-sunken); }
+.cr-scroll__step b { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem); line-height: var(--rse-line-height-tight); font-weight: var(--rse-font-weight-black); letter-spacing: var(--rse-letter-spacing-tight); }
+.cr-scroll__step p { margin: 0; line-height: var(--rse-line-height-body); }
+.cr-scroll__step small { font-weight: var(--rse-font-weight-bold); letter-spacing: var(--rse-letter-spacing-eyebrow); text-transform: uppercase; font-size: var(--rse-font-size-caption); color: var(--rse-color-text-on-primary-tint); }
+.cr-seed { fill: var(--rse-brand-green-light); transition: r 900ms var(--rse-ease-settle); }
+.cr-sat { --k: 0; fill: var(--rse-brand-blue-light); transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform 700ms var(--rse-ease-settle); transition-delay: calc(var(--k) * 70ms); }
+.cr-wire { stroke: var(--rse-brand-white); stroke-width: 1.5; opacity: 0; transition: opacity 800ms var(--rse-ease-settle); }
+.cr-halo { fill: var(--rse-brand-purple-light); opacity: 0; transition: opacity 1000ms var(--rse-ease-settle); }
+.cr-scroll[data-step="2"] .cr-sat, .cr-scroll[data-step="3"] .cr-sat, .cr-scroll[data-step="4"] .cr-sat { transform: scale(1); }
+.cr-scroll[data-step="3"] .cr-wire, .cr-scroll[data-step="4"] .cr-wire { opacity: .8; }
+.cr-scroll[data-step="4"] .cr-halo { opacity: .35; }
+[data-rse-motion="reduced"] .cr-seed, [data-rse-motion="reduced"] .cr-sat, [data-rse-motion="reduced"] .cr-wire, [data-rse-motion="reduced"] .cr-halo, [data-rse-motion="reduced"] .cr-scroll__step { transition: none; }
+[data-rse-motion="reduced"] .cr-scroll { scroll-behavior: auto; }
+
+/* ── Live network in a canvas ────────────────────────────────────────────── */
+.cr-live { position: relative; border-radius: var(--rse-radius-xl); overflow: hidden; background: linear-gradient(160deg, var(--rse-brand-ink), var(--rse-brand-indigo)); min-height: 22rem; }
+.cr-live canvas { display: block; width: 100%; height: 22rem; touch-action: pan-y; }
+.cr-live__bar { position: absolute; left: var(--rse-space-4); bottom: var(--rse-space-3); display: flex; gap: var(--rse-space-3); align-items: center; color: var(--rse-brand-white); font-size: var(--rse-font-size-caption); }
+.cr-live .cr-button { color: var(--rse-brand-white); border-color: var(--rse-brand-white); min-height: var(--rse-hit-target-min); }
+.cr-live .cr-button:hover { background: var(--rse-brand-white); color: var(--rse-brand-ink); }
+
+@media (max-width: 833px) {
+  .cr-scroll { grid-template-columns: 1fr; height: 34rem; }
+  .cr-scroll__pin { height: 14rem; z-index: 1; }
+  .cr-scroll__pin svg { width: 10rem; }
+  .cr-scroll__step { min-height: 18rem; }
+}

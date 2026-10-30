@@ -294,4 +294,106 @@
       result));
     update();
   }
+
+  /* ── F. Whole pieces: the three creative exemplars, running ──────────────── */
+  const piecesMount = $('#cr-pieces');
+  if (piecesMount) {
+    const PIECES = [
+      ['Apresentação de resultados', '../docs/composition/creative-exemplars/results-pitch.html', 'Apresentação de exemplo com painel, gráfico que se desenha e transições entre slides. Setas navegam.', false],
+      ['Cartões de estudo', '../docs/composition/creative-exemplars/flashcards.html', 'Baralho de vocabulário: vire, arraste ou use as teclas 1 e 2.', true],
+      ['Mapa em órbita', '../docs/composition/creative-exemplars/org-orbit.html', 'A organização como órbita: escolha um ponto e veja o caminho até o centro.', false],
+    ];
+    const iframe = el('iframe', { title: PIECES[0][0], loading: 'lazy' });
+    const frame = el('div', { class: 'cr-frame' }, iframe);
+    const open = el('a', { class: 'cr-open', target: '_blank', rel: 'noopener', text: 'Abrir em tela cheia' });
+    const caption = el('p', { class: 'cr-tech' });
+    const tabs = PIECES.map(([label, src, text, tall], i) => {
+      const b = el('button', { type: 'button', class: 'cr-button', 'aria-pressed': 'false', text: label });
+      b.addEventListener('click', () => {
+        tabs.forEach((t) => t.setAttribute('aria-pressed', String(t === b)));
+        iframe.title = label; iframe.src = src; open.href = src; caption.textContent = text;
+        frame.classList.toggle('cr-frame--tall', tall);
+      });
+      return b;
+    });
+    piecesMount.append(el('div', { class: 'cr-tabs', role: 'group', 'aria-label': 'Peça' }, tabs, open), frame, caption);
+    tabs[0].click();
+  }
+
+  /* ── G. Scroll story: sticky picture, passing text (plain scroll + observer) ─ */
+  const scrollMount = $('#cr-scroll');
+  if (scrollMount) {
+    const STEPS = [
+      ['Passo 1', 'Começa em uma turma', 'Um ponto. Uma sala, uma professora, um estudante que chega.'],
+      ['Passo 2', 'Cresce em unidades', 'Cada unidade abre novas turmas, e a Rede passa a ter mais de um endereço.'],
+      ['Passo 3', 'Liga o que antes estava solto', 'Escolas, programas e plataforma passam a conversar entre si.'],
+      ['Passo 4', 'Vira uma rede', 'Aprender para a vida acontecer, em todo o país. Texto de demonstração.'],
+    ];
+    const NSV = 'http://www.w3.org/2000/svg';
+    const sv = (tag, attrs) => { const n = document.createElementNS(NSV, tag); Object.entries(attrs || {}).forEach(([k, v]) => n.setAttribute(k, v)); return n; };
+    const svg = sv('svg', { viewBox: '0 0 200 200', role: 'img', 'aria-label': 'Cena que cresce a cada passo: um ponto, depois pontos em volta, depois ligações, depois um halo' });
+    svg.append(sv('circle', { class: 'cr-halo', cx: 100, cy: 100, r: 96 }));
+    const sats = Array.from({ length: 6 }, (_, k) => { const a = (k / 6) * Math.PI * 2 - Math.PI / 2; return [100 + Math.cos(a) * 66, 100 + Math.sin(a) * 66, k]; });
+    sats.forEach(([x, y]) => svg.append(sv('line', { class: 'cr-wire', x1: 100, y1: 100, x2: x, y2: y })));
+    sats.forEach(([x, y], i) => { const n = sats[(i + 1) % 6]; svg.append(sv('line', { class: 'cr-wire', x1: x, y1: y, x2: n[0], y2: n[1] })); });
+    sats.forEach(([x, y, k]) => { const c = sv('circle', { class: 'cr-sat', cx: x, cy: y, r: 11 }); c.style.setProperty('--k', k); svg.append(c); });
+    svg.append(sv('circle', { class: 'cr-seed', cx: 100, cy: 100, r: 18 }));
+    const steps = STEPS.map(([k, t, p], i) => el('div', { class: `cr-scroll__step${i === 0 ? ' is-on' : ''}`, 'data-i': i + 1 }, el('small', { text: k }), el('b', { text: t }), el('p', { text: p })));
+    const scroller = el('div', { class: 'cr-scroll', 'data-step': '1', tabindex: '0', role: 'region', 'aria-label': 'História em quatro passos. Role ou use as setas.' },
+      el('div', { class: 'cr-scroll__pin' }, svg), el('div', { class: 'cr-scroll__steps' }, steps));
+    scrollMount.append(scroller);
+    const setStep = (n) => { scroller.dataset.step = String(n); steps.forEach((s, i) => s.classList.toggle('is-on', i + 1 === n)); };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) setStep(Number(e.target.dataset.i)); }), { root: scroller, threshold: 0.6 });
+      steps.forEach((s) => io.observe(s));
+    }
+    scroller.addEventListener('keydown', (e) => {
+      const cur = Number(scroller.dataset.step);
+      const go = e.key === 'ArrowDown' || e.key === 'PageDown' ? cur + 1 : e.key === 'ArrowUp' || e.key === 'PageUp' ? cur - 1 : null;
+      if (go == null || go < 1 || go > STEPS.length) return;
+      e.preventDefault(); steps[go - 1].scrollIntoView({ block: 'center', behavior: motionReduced() ? 'auto' : 'smooth' });
+    });
+  }
+
+  /* ── H. A live network in a canvas, colours read from the tokens ─────────── */
+  const liveMount = $('#cr-canvas');
+  if (liveMount) {
+    const canvas = el('canvas', { role: 'img', 'aria-label': 'Rede de pontos coloridos que se aproximam e se ligam; o ponteiro atrai os pontos' });
+    const pauseBtn = el('button', { type: 'button', class: 'cr-button', 'aria-pressed': 'false', text: 'Pausar' });
+    const wrap = el('div', { class: 'cr-live' }, canvas, el('div', { class: 'cr-live__bar' }, pauseBtn, el('span', { text: 'Mova o ponteiro sobre a cena' })));
+    liveMount.append(wrap, el('p', { class: 'cr-tech', text: 'Canvas 2D, sem biblioteca. Para cenas mais densas, um agente pode escolher WebGL ou Three.js.' }));
+    const ctx = canvas.getContext('2d');
+    const css = getComputedStyle(document.documentElement); const tok = (n) => css.getPropertyValue(n).trim();
+    const COLORS = ['green', 'blue', 'pink', 'orange', 'yellow', 'purple'].map((h) => tok(`--rse-brand-${h}-light`));
+    const LINE = tok('--rse-brand-white');
+    let w = 0; let h = 0; let dpr = 1; let pts = []; let pointer = null; let running = true; let visible = true; let raf = 0;
+    const seed = () => {
+      const n = Math.max(24, Math.min(60, Math.round((w * h) / 9000)));
+      pts = Array.from({ length: n }, (_, i) => ({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - .5) * .5, vy: (Math.random() - .5) * .5, c: COLORS[i % COLORS.length], r: 3 + Math.random() * 4 }));
+    };
+    const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); w = canvas.clientWidth; h = canvas.clientHeight; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); seed(); draw(); };
+    const step = () => pts.forEach((p) => {
+      if (pointer) { const dx = pointer[0] - p.x; const dy = pointer[1] - p.y; const d = Math.hypot(dx, dy); if (d < 160 && d > 1) { p.vx += (dx / d) * 0.012; p.vy += (dy / d) * 0.012; } }
+      p.vx *= 0.995; p.vy *= 0.995; p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1; if (p.y < 0 || p.y > h) p.vy *= -1;
+    });
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = LINE; ctx.lineWidth = 1;
+      for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+        const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+        if (d < 110) { ctx.globalAlpha = (1 - d / 110) * 0.6; ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke(); }
+      }
+      ctx.globalAlpha = 1;
+      pts.forEach((p) => { ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill(); });
+    };
+    const loop = () => { cancelAnimationFrame(raf); if (!running || !visible || motionReduced() || document.hidden) return; step(); draw(); raf = requestAnimationFrame(loop); };
+    canvas.addEventListener('pointermove', (e) => { const r = canvas.getBoundingClientRect(); pointer = [e.clientX - r.left, e.clientY - r.top]; });
+    canvas.addEventListener('pointerleave', () => { pointer = null; });
+    pauseBtn.addEventListener('click', () => { running = !running; pauseBtn.setAttribute('aria-pressed', String(!running)); pauseBtn.textContent = running ? 'Pausar' : 'Retomar'; loop(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; loop(); }).observe(wrap);
+    new ResizeObserver(size).observe(canvas);
+    onMotion((reduced) => { if (reduced) draw(); loop(); });
+    size(); loop();
+  }
 })();

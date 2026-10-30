@@ -142,6 +142,9 @@ Beautiful and organised, always. Creative layouts are still read in order.
   44 px on touch.
 - **Keyboard and screen reader paths** work end to end. A flashcard is a button, a tab list is a
   tab list, a 3D viewer has keyboard controls and a text equivalent.
+- **Never mark a state by dimming text.** Fading inactive steps, slides or cards to 30–40% opacity
+  puts their text under the contrast floor (a scroll story in the showcase failed axe this way). Mark
+  the current one with a bar, a tint, size or position, and keep every text at full contrast.
 - **Feedback** within 100 ms of any action. Anything slower shows progress.
 - **Responsive on purpose.** Check 360 px wide and a large screen. Rearrange rather than shrink.
 - **Content first.** Real structure comes from the content: a tree for hierarchy, a path for

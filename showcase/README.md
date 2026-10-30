@@ -19,7 +19,7 @@ page with and without the system), then six chapters:
 | 03 Componentes | every component running, filterable; contract components show the exact HTML they produce |
 | 04 Aplicações | the colour-band lab (refuses pairings below 4.5:1), the templates in device frames, the Sab.IA platform |
 | 05 Uso | install routes, adoption levels, files written for agents, quality metrics |
-| 06 Criatividade | what is fixed and what is free (read from `brand.json` → `rules.creativeLatitude`), five live pieces (an org structure that opens, flip-card study deck, a data story, CSS 3D depth, all with a motion switch and a reduced form) and a gradient lab that measures contrast at the worst stop |
+| 06 Criatividade | what is fixed and what is free (read from `brand.json` → `rules.creativeLatitude`), five live pieces (an org structure that opens, flip-card study deck, a data story, CSS 3D depth, all with a motion switch and a reduced form) a gradient lab that measures contrast at the worst stop, the three creative exemplars running in a frame, a scroll story (sticky picture, passing text) and a canvas network that reads its colours from the tokens |
 
 The theme switch in the top bar re-themes the whole page; the contrast table and the quality
 figures re-measure themselves when it changes.

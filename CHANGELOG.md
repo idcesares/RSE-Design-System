@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Acceptance-test the creative guidance with three fresh agents (flashcards, org structure, results
+  pitch; runs 3–5 in `docs/composition/acceptance.md`) and fix what they found: a standalone-token
+  recipe, cube opacity only behind content, example data allowed for dashboards, a softer type ratio
+  for dense data, and never marking state by dimming text. Vendor five more Lucide icons (`shuffle`,
+  `network`, `layers`, `workflow`, `route`).
+- Add `starters/artifact.html` (plumbing for ambitious pieces) and three creative exemplars with PNG
+  references: a dashboard-style results pitch with slide transitions, a flashcard study session, and a
+  radial org map. `check-composition` now verifies them.
+- Showcase chapter 06 gains the three exemplars running in a frame, a scroll story and a canvas
+  network, all dependency-free and axe-clean in three themes at 1280 and 360 px.
+
 - Add creative latitude for agents. New `docs/composition/creative-latitude.md` separates the brand
   invariants from craft (concept, layout, diagrams, depth, motion, interaction, 3D) and adds a
   creative review; new `docs/composition/artifact-craft.md` gives tested how-to for standalone
