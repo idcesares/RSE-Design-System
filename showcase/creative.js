@@ -103,7 +103,7 @@
     let index = 0; let known = 0; let review = 0;
     const front = el('div', { class: 'cr-flip__face cr-flip__front' }, el('small', { text: 'Pergunta' }), el('b'));
     const back = el('div', { class: 'cr-flip__face cr-flip__back', 'aria-hidden': 'true' }, el('small', { text: 'Resposta' }), el('b'));
-    const flip = el('button', { type: 'button', class: 'cr-flip', 'aria-pressed': 'false', 'aria-label': 'Virar o cartão' }, el('span', { class: 'cr-flip__inner' }, front, back));
+    const flip = el('button', { type: 'button', class: 'cr-flip', 'aria-pressed': 'false'}, el('span', { class: 'cr-flip__inner' }, front, back));
     const burst = el('span', { class: 'cr-burst', 'aria-hidden': 'true' });
     const count = el('span', { 'aria-live': 'polite' });
     const bar = el('span', { class: 'cr-progress__bar' });

@@ -120,7 +120,7 @@
     ghosts();
     const [w, d, e] = WORDS[i];
     const card = document.createElement('button');
-    card.type = 'button'; card.className = 'card'; card.setAttribute('aria-pressed', 'false'); card.setAttribute('aria-label', `Cartão: ${w}. Ative para ver o significado.`);
+    card.type = 'button'; card.className = 'card'; card.setAttribute('aria-pressed', 'false');
     card.innerHTML = `<span class="stamp" id="stamp"></span><span class="turn">
       <span class="face front"><small>Palavra</small><span class="word">${w}</span><span class="hint">Toque para ver o significado</span></span>
       <span class="face back" aria-hidden="true"><small>Significado</small><span class="def">${d}</span><span class="ex">“${e}”</span></span></span>`;
@@ -131,7 +131,6 @@
     const on = card.getAttribute('aria-pressed') !== 'true';
     card.setAttribute('aria-pressed', on);
     card.querySelector('.front').setAttribute('aria-hidden', on); card.querySelector('.back').setAttribute('aria-hidden', !on);
-    card.setAttribute('aria-label', on ? `Significado de ${WORDS[i][0]}: ${WORDS[i][1]}` : `Cartão: ${WORDS[i][0]}. Ative para ver o significado.`);
   }
   function answer(wasKnown) {
     const card = stack.querySelector('.card'); if (!card || busy) return;

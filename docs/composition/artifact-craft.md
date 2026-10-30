@@ -79,7 +79,7 @@ front/back, a progress indicator, a way to mark known/unknown, a way to shuffle 
 the accessible core; the design on top of it is yours.
 
 ```html
-<button class="flip" type="button" aria-pressed="false" aria-label="Virar o cartão">
+<button class="flip" type="button" aria-pressed="false">
   <span class="flip__inner">
     <span class="flip__face flip__front">Pergunta aqui</span>
     <span class="flip__face flip__back" aria-hidden="true">Resposta aqui</span>
@@ -102,6 +102,9 @@ the accessible core; the design on top of it is yours.
   @media (prefers-reduced-motion: reduce) { .flip__inner { transition: none; } }
 </style>
 ```
+
+Do not add an `aria-label` to the flip button: the visible text names it, and a label that does not
+contain that text fails WCAG 2.5.3 (axe `label-content-name-mismatch`, which the repo's page test enforces).
 
 Design on top of this: gradient faces, a light sweep on hover, a stack of cards behind the front
 card, a swipe or arrow-key gesture to go next, a streak or progress ring, a gentle confetti-like
