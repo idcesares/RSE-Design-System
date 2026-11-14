@@ -96,6 +96,137 @@
         "$value": "{rse.shadow.md}",
         "$type": "shadow"
       }
+    },
+    "navbar": {
+      "bg": {
+        "$value": "{rse.color.surface-page-translucent}",
+        "$type": "color"
+      },
+      "border": {
+        "$value": "{rse.color.border-subtle}",
+        "$type": "color"
+      },
+      "link": {
+        "$value": "{rse.color.text-body}",
+        "$type": "color"
+      },
+      "link-active": {
+        "$value": "{rse.color.primary}",
+        "$type": "color",
+        "$description": "Hover and aria-current=\"page\"."
+      },
+      "cta-bg": {
+        "$value": "{rse.color.primary}",
+        "$type": "color"
+      },
+      "cta-fg": {
+        "$value": "{rse.color.text-on-primary}",
+        "$type": "color"
+      }
+    },
+    "footer": {
+      "bg": {
+        "$value": "{rse.brand.ink}",
+        "$type": "color",
+        "$description": "The footer sits on ink in every theme."
+      },
+      "fg": {
+        "$value": "{rse.color.text-on-ink-muted}",
+        "$type": "color"
+      },
+      "heading": {
+        "$value": "{rse.color.text-on-ink}",
+        "$type": "color",
+        "$description": "Column titles and link hover."
+      },
+      "border": {
+        "$value": "{rse.color.border-on-ink}",
+        "$type": "color"
+      }
+    },
+    "tabs": {
+      "radius": {
+        "$value": "{rse.radius.pill}",
+        "$type": "dimension"
+      },
+      "track-bg": {
+        "$value": "{rse.color.surface-sunken}",
+        "$type": "color"
+      },
+      "fg": {
+        "$value": "{rse.color.text-muted}",
+        "$type": "color"
+      },
+      "fg-hover": {
+        "$value": "{rse.color.text-heading}",
+        "$type": "color"
+      },
+      "active-bg": {
+        "$value": "{rse.color.surface-card}",
+        "$type": "color"
+      },
+      "active-fg": {
+        "$value": "{rse.color.primary}",
+        "$type": "color"
+      }
+    },
+    "choice": {
+      "label": {
+        "$value": "{rse.color.text-body}",
+        "$type": "color",
+        "$description": "Checkbox, Radio and Switch share the .rse-choice tokens."
+      },
+      "box-bg": {
+        "$value": "{rse.color.surface-card}",
+        "$type": "color"
+      },
+      "box-border": {
+        "$value": "{rse.color.border-strong}",
+        "$type": "color",
+        "$description": "The resting boundary of the control: 3:1 against the surface (WCAG 1.4.11)."
+      },
+      "checked": {
+        "$value": "{rse.color.primary}",
+        "$type": "color",
+        "$description": "Checked fill (checkbox, switch track), radio dot and checked border."
+      },
+      "mark": {
+        "$value": "{rse.color.text-on-primary}",
+        "$type": "color",
+        "$description": "The checkbox tick on the checked fill."
+      },
+      "track": {
+        "$value": "{rse.color.border-strong}",
+        "$type": "color",
+        "$description": "Switch track when off."
+      },
+      "thumb": {
+        "$value": "{rse.color.surface-card}",
+        "$type": "color",
+        "$description": "Switch thumb."
+      }
+    },
+    "modal": {
+      "radius": {
+        "$value": "{rse.radius.lg}",
+        "$type": "dimension"
+      },
+      "bg": {
+        "$value": "{rse.color.surface-card}",
+        "$type": "color"
+      },
+      "shadow": {
+        "$value": "{rse.shadow.lg}",
+        "$type": "shadow"
+      },
+      "scrim": {
+        "$value": "{rse.color.scrim}",
+        "$type": "color"
+      },
+      "divider": {
+        "$value": "{rse.color.border-subtle}",
+        "$type": "color"
+      }
     }
   }
 }

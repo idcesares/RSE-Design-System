@@ -112,6 +112,9 @@ for (const [name, list] of defs) {
 // ─── 6. Every var() used across the system resolves to a defined token ──────
 const consumers = allFiles.filter(
   (f) => (/\.(html|css)$/.test(f) || (f.startsWith('components/') && f.endsWith('.js'))) && !f.startsWith('tokens/') && f !== 'dist/rse.js' && !f.startsWith('scripts/')
+    // The reference site's pages render the .prompt.md prose, which mentions var(--rse-radius-*)
+    // patterns as text; its stylesheet (site/site.css) is still checked.
+    && !/^site\/.+\.html$/.test(f)
 );
 const missing = new Map();
 for (const f of consumers) {
@@ -241,6 +244,31 @@ for (const f of allFiles.filter((f) => /^templates\/[^/]+\/support\.js$/.test(f)
 }
 for (const f of allFiles.filter((f) => /^templates\/[^/]+\/ds-base\.js$/.test(f))) {
   if (!read(f).includes("'templates/runtime.js'")) err(`${f}: does not load templates/runtime.js`);
+}
+
+// ─── 8f. The adoption tracker is well-formed ────────────────────────────────
+// ecosystem.json (roadmap P4.3). Shape errors fail; a system more than one minor behind the
+// package for over 90 days is a warning — it is an adoption fact to act on, not a repo defect.
+if (existsSync(join(ROOT, 'ecosystem.json'))) {
+  const eco = JSON.parse(read('ecosystem.json'));
+  const LEVELS = Object.keys(eco.levels ?? {});
+  const ROUTES = ['npm', 'static-kit', 'wordpress-adapter', 'other'];
+  const pkgVersion = JSON.parse(read('package.json')).version.split('.').map(Number);
+  const seen = new Set();
+  for (const [i, sys] of (eco.systems ?? []).entries()) {
+    const at = `ecosystem.json: systems[${i}]${sys && sys.name ? ` (${sys.name})` : ''}`;
+    for (const k of ['name', 'owner']) if (typeof sys[k] !== 'string' || !sys[k].trim()) err(`${at}: "${k}" must be a non-empty string`);
+    if (seen.has(sys.name)) err(`${at}: duplicate name`);
+    seen.add(sys.name);
+    if (!LEVELS.includes(sys.level) && sys.level !== 'none') err(`${at}: "level" must be one of ${[...LEVELS, 'none'].join(', ')}`);
+    if (!ROUTES.includes(sys.route)) err(`${at}: "route" must be one of ${ROUTES.join(', ')}`);
+    if (!/^\d+\.\d+\.\d+$/.test(sys.version ?? '')) { err(`${at}: "version" must be the design-system version it runs (x.y.z)`); continue; }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(sys.updated ?? '')) { err(`${at}: "updated" must be the date it was last confirmed (YYYY-MM-DD)`); continue; }
+    const [maj, min] = sys.version.split('.').map(Number);
+    const behind = maj < pkgVersion[0] || (maj === pkgVersion[0] && pkgVersion[1] - min > 1);
+    const days = (Date.now() - Date.parse(sys.updated)) / 864e5;
+    if (behind && days > 90) warn(`${at}: runs ${sys.version}, more than one minor behind ${pkgVersion.join('.')}, confirmed ${Math.floor(days)} days ago`);
+  }
 }
 
 // ─── 9. Manifest paths and referenced assets exist ──────────────────────────

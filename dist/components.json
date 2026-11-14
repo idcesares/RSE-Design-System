@@ -69,7 +69,8 @@
         "elements": [],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "MotifEngine",
@@ -90,7 +91,8 @@
         "elements": [],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "MotifPattern",
@@ -144,7 +146,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "PlatformEntry",
@@ -234,7 +237,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Avatar",
@@ -309,7 +313,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Badge",
@@ -372,7 +377,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Button",
@@ -473,7 +479,109 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-button-ghost-bg-hover",
+          "ref": "{rse.color.surface-sunken}",
+          "values": {
+            "light": "#f2f1ec",
+            "dark": "#2e2d3b",
+            "contrast": "#f2f1ec"
+          }
+        },
+        {
+          "name": "--rse-button-ghost-border",
+          "ref": "{rse.color.border-strong}",
+          "values": {
+            "light": "#84806f",
+            "dark": "#7a7890",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-button-ghost-fg",
+          "ref": "{rse.color.text-on-primary-tint}",
+          "doc": "Ghost text uses the deeper purple: --rse-color-primary is only 4.44:1 on the hover surface.",
+          "values": {
+            "light": "#5e56ab",
+            "dark": "#ad98ea",
+            "contrast": "#3a3186"
+          }
+        },
+        {
+          "name": "--rse-button-primary-bg",
+          "ref": "{rse.color.primary}",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-button-primary-bg-active",
+          "ref": "{rse.color.primary-active}",
+          "values": {
+            "light": "#504a92",
+            "dark": "#ad98ea",
+            "contrast": "#2c2566"
+          }
+        },
+        {
+          "name": "--rse-button-primary-bg-hover",
+          "ref": "{rse.color.primary-hover}",
+          "values": {
+            "light": "#5e56ab",
+            "dark": "#ad98ea",
+            "contrast": "#3a3186"
+          }
+        },
+        {
+          "name": "--rse-button-primary-fg",
+          "ref": "{rse.color.text-on-primary}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#171622",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-button-radius",
+          "ref": "{rse.radius.pill}",
+          "values": {
+            "light": "999px",
+            "dark": "999px",
+            "contrast": "999px"
+          }
+        },
+        {
+          "name": "--rse-button-secondary-bg",
+          "ref": "{rse.color.surface-primary-tint}",
+          "values": {
+            "light": "#edecf8",
+            "dark": "#2f2b4d",
+            "contrast": "#e6e3fa"
+          }
+        },
+        {
+          "name": "--rse-button-secondary-bg-hover",
+          "ref": "{rse.color.surface-primary-tint-hover}",
+          "values": {
+            "light": "#e4e3f4",
+            "dark": "#3a3563",
+            "contrast": "#d7d2f5"
+          }
+        },
+        {
+          "name": "--rse-button-secondary-fg",
+          "ref": "{rse.color.text-on-primary-tint}",
+          "values": {
+            "light": "#5e56ab",
+            "dark": "#ad98ea",
+            "contrast": "#3a3186"
+          }
+        }
+      ]
     },
     {
       "name": "Card",
@@ -551,7 +659,54 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-card-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-card-border",
+          "ref": "{rse.color.border-subtle}",
+          "values": {
+            "light": "#e4e2d9",
+            "dark": "#34323f",
+            "contrast": "#5b5866"
+          }
+        },
+        {
+          "name": "--rse-card-radius",
+          "ref": "{rse.radius.lg}",
+          "values": {
+            "light": "24px",
+            "dark": "24px",
+            "contrast": "24px"
+          }
+        },
+        {
+          "name": "--rse-card-shadow",
+          "ref": "{rse.shadow.sm}",
+          "values": {
+            "light": "0 1px 2px rgba(43,42,61,0.08)",
+            "dark": "0 1px 2px rgba(0,0,0,0.45)",
+            "contrast": "none"
+          }
+        },
+        {
+          "name": "--rse-card-shadow-hover",
+          "ref": "{rse.shadow.md}",
+          "values": {
+            "light": "0 8px 24px rgba(43,42,61,0.10)",
+            "dark": "0 8px 24px rgba(0,0,0,0.5)",
+            "contrast": "none"
+          }
+        }
+      ]
     },
     {
       "name": "CtaBand",
@@ -704,7 +859,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Divider",
@@ -753,7 +909,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Hero",
@@ -932,7 +1089,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Icon",
@@ -1088,7 +1246,8 @@
         "elements": [],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "IconButton",
@@ -1172,7 +1331,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Tag",
@@ -1249,7 +1409,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Testimonial",
@@ -1321,7 +1482,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "DataTable",
@@ -1392,7 +1554,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Stat",
@@ -1513,7 +1676,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "StatBand",
@@ -1635,7 +1799,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Accordion",
@@ -1683,7 +1848,8 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Alert",
@@ -1765,7 +1931,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "MotifLoader",
@@ -1865,7 +2032,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "ProgressBar",
@@ -1930,7 +2098,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Skeleton",
@@ -2008,7 +2177,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Spinner",
@@ -2048,7 +2218,8 @@
         "elements": [],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Toast",
@@ -2116,7 +2287,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Tooltip",
@@ -2152,7 +2324,8 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Checkbox",
@@ -2188,7 +2361,58 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-choice-box-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-choice-box-border",
+          "ref": "{rse.color.border-strong}",
+          "doc": "The resting boundary of the control: 3:1 against the surface (WCAG 1.4.11).",
+          "values": {
+            "light": "#84806f",
+            "dark": "#7a7890",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-choice-checked",
+          "ref": "{rse.color.primary}",
+          "doc": "Checked fill (checkbox, switch track), radio dot and checked border.",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-choice-label",
+          "ref": "{rse.color.text-body}",
+          "doc": "Checkbox, Radio and Switch share the .rse-choice tokens.",
+          "values": {
+            "light": "#454235",
+            "dark": "#cfcdc6",
+            "contrast": "#1a1926"
+          }
+        },
+        {
+          "name": "--rse-choice-mark",
+          "ref": "{rse.color.text-on-primary}",
+          "doc": "The checkbox tick on the checked fill.",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#171622",
+            "contrast": "#ffffff"
+          }
+        }
+      ]
     },
     {
       "name": "DateField",
@@ -2289,7 +2513,64 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-input-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-input-border",
+          "ref": "{rse.color.border-strong}",
+          "doc": "The resting border is the only thing identifying the control: it must stay at 3:1 against the surface (WCAG 1.4.11).",
+          "values": {
+            "light": "#84806f",
+            "dark": "#7a7890",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-input-border-focus",
+          "ref": "{rse.color.primary}",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-input-border-invalid",
+          "ref": "{rse.color.danger}",
+          "values": {
+            "light": "#cc646a",
+            "dark": "#f78f94",
+            "contrast": "#a3232b"
+          }
+        },
+        {
+          "name": "--rse-input-fg",
+          "ref": "{rse.color.text-heading}",
+          "values": {
+            "light": "#2b2a3d",
+            "dark": "#f4f3ee",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-input-radius",
+          "ref": "{rse.radius.md}",
+          "values": {
+            "light": "14px",
+            "dark": "14px",
+            "contrast": "14px"
+          }
+        }
+      ]
     },
     {
       "name": "FileUpload",
@@ -2398,7 +2679,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "FilterChips",
@@ -2463,7 +2745,8 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Input",
@@ -2518,7 +2801,64 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-input-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-input-border",
+          "ref": "{rse.color.border-strong}",
+          "doc": "The resting border is the only thing identifying the control: it must stay at 3:1 against the surface (WCAG 1.4.11).",
+          "values": {
+            "light": "#84806f",
+            "dark": "#7a7890",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-input-border-focus",
+          "ref": "{rse.color.primary}",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-input-border-invalid",
+          "ref": "{rse.color.danger}",
+          "values": {
+            "light": "#cc646a",
+            "dark": "#f78f94",
+            "contrast": "#a3232b"
+          }
+        },
+        {
+          "name": "--rse-input-fg",
+          "ref": "{rse.color.text-heading}",
+          "values": {
+            "light": "#2b2a3d",
+            "dark": "#f4f3ee",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-input-radius",
+          "ref": "{rse.radius.md}",
+          "values": {
+            "light": "14px",
+            "dark": "14px",
+            "contrast": "14px"
+          }
+        }
+      ]
     },
     {
       "name": "Radio",
@@ -2553,7 +2893,48 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-choice-box-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-choice-box-border",
+          "ref": "{rse.color.border-strong}",
+          "doc": "The resting boundary of the control: 3:1 against the surface (WCAG 1.4.11).",
+          "values": {
+            "light": "#84806f",
+            "dark": "#7a7890",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-choice-checked",
+          "ref": "{rse.color.primary}",
+          "doc": "Checked fill (checkbox, switch track), radio dot and checked border.",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-choice-label",
+          "ref": "{rse.color.text-body}",
+          "doc": "Checkbox, Radio and Switch share the .rse-choice tokens.",
+          "values": {
+            "light": "#454235",
+            "dark": "#cfcdc6",
+            "contrast": "#1a1926"
+          }
+        }
+      ]
     },
     {
       "name": "Select",
@@ -2619,7 +3000,64 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-input-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-input-border",
+          "ref": "{rse.color.border-strong}",
+          "doc": "The resting border is the only thing identifying the control: it must stay at 3:1 against the surface (WCAG 1.4.11).",
+          "values": {
+            "light": "#84806f",
+            "dark": "#7a7890",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-input-border-focus",
+          "ref": "{rse.color.primary}",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-input-border-invalid",
+          "ref": "{rse.color.danger}",
+          "values": {
+            "light": "#cc646a",
+            "dark": "#f78f94",
+            "contrast": "#a3232b"
+          }
+        },
+        {
+          "name": "--rse-input-fg",
+          "ref": "{rse.color.text-heading}",
+          "values": {
+            "light": "#2b2a3d",
+            "dark": "#f4f3ee",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-input-radius",
+          "ref": "{rse.radius.md}",
+          "values": {
+            "light": "14px",
+            "dark": "14px",
+            "contrast": "14px"
+          }
+        }
+      ]
     },
     {
       "name": "Stepper",
@@ -2685,7 +3123,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Switch",
@@ -2720,7 +3159,68 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-choice-box-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-choice-box-border",
+          "ref": "{rse.color.border-strong}",
+          "doc": "The resting boundary of the control: 3:1 against the surface (WCAG 1.4.11).",
+          "values": {
+            "light": "#84806f",
+            "dark": "#7a7890",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-choice-checked",
+          "ref": "{rse.color.primary}",
+          "doc": "Checked fill (checkbox, switch track), radio dot and checked border.",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-choice-label",
+          "ref": "{rse.color.text-body}",
+          "doc": "Checkbox, Radio and Switch share the .rse-choice tokens.",
+          "values": {
+            "light": "#454235",
+            "dark": "#cfcdc6",
+            "contrast": "#1a1926"
+          }
+        },
+        {
+          "name": "--rse-choice-thumb",
+          "ref": "{rse.color.surface-card}",
+          "doc": "Switch thumb.",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-choice-track",
+          "ref": "{rse.color.border-strong}",
+          "doc": "Switch track when off.",
+          "values": {
+            "light": "#84806f",
+            "dark": "#7a7890",
+            "contrast": "#000000"
+          }
+        }
+      ]
     },
     {
       "name": "Textarea",
@@ -2788,7 +3288,64 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-input-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-input-border",
+          "ref": "{rse.color.border-strong}",
+          "doc": "The resting border is the only thing identifying the control: it must stay at 3:1 against the surface (WCAG 1.4.11).",
+          "values": {
+            "light": "#84806f",
+            "dark": "#7a7890",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-input-border-focus",
+          "ref": "{rse.color.primary}",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-input-border-invalid",
+          "ref": "{rse.color.danger}",
+          "values": {
+            "light": "#cc646a",
+            "dark": "#f78f94",
+            "contrast": "#a3232b"
+          }
+        },
+        {
+          "name": "--rse-input-fg",
+          "ref": "{rse.color.text-heading}",
+          "values": {
+            "light": "#2b2a3d",
+            "dark": "#f4f3ee",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-input-radius",
+          "ref": "{rse.radius.md}",
+          "values": {
+            "light": "14px",
+            "dark": "14px",
+            "contrast": "14px"
+          }
+        }
+      ]
     },
     {
       "name": "Breadcrumb",
@@ -2824,7 +3381,8 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Footer",
@@ -2887,7 +3445,47 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-footer-bg",
+          "ref": "{rse.brand.ink}",
+          "doc": "The footer sits on ink in every theme.",
+          "values": {
+            "light": "#2b2a3d",
+            "dark": "#2b2a3d",
+            "contrast": "#2b2a3d"
+          }
+        },
+        {
+          "name": "--rse-footer-border",
+          "ref": "{rse.color.border-on-ink}",
+          "values": {
+            "light": "#3a3830",
+            "dark": "#3a3830",
+            "contrast": "#3a3830"
+          }
+        },
+        {
+          "name": "--rse-footer-fg",
+          "ref": "{rse.color.text-on-ink-muted}",
+          "values": {
+            "light": "#a8a496",
+            "dark": "#a8a496",
+            "contrast": "#a8a496"
+          }
+        },
+        {
+          "name": "--rse-footer-heading",
+          "ref": "{rse.color.text-on-ink}",
+          "doc": "Column titles and link hover.",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#ffffff",
+            "contrast": "#ffffff"
+          }
+        }
+      ]
     },
     {
       "name": "Menu",
@@ -2975,7 +3573,8 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Navbar",
@@ -3058,7 +3657,64 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-navbar-bg",
+          "ref": "{rse.color.surface-page-translucent}",
+          "values": {
+            "light": "rgba(242,244,228,0.92)",
+            "dark": "rgba(27,26,38,0.92)",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-navbar-border",
+          "ref": "{rse.color.border-subtle}",
+          "values": {
+            "light": "#e4e2d9",
+            "dark": "#34323f",
+            "contrast": "#5b5866"
+          }
+        },
+        {
+          "name": "--rse-navbar-cta-bg",
+          "ref": "{rse.color.primary}",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-navbar-cta-fg",
+          "ref": "{rse.color.text-on-primary}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#171622",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-navbar-link",
+          "ref": "{rse.color.text-body}",
+          "values": {
+            "light": "#454235",
+            "dark": "#cfcdc6",
+            "contrast": "#1a1926"
+          }
+        },
+        {
+          "name": "--rse-navbar-link-active",
+          "ref": "{rse.color.primary}",
+          "doc": "Hover and aria-current=\"page\".",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        }
+      ]
     },
     {
       "name": "Pagination",
@@ -3100,7 +3756,8 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": []
     },
     {
       "name": "Tabs",
@@ -3148,7 +3805,63 @@
         ],
         "modifiers": [],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-tabs-active-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-tabs-active-fg",
+          "ref": "{rse.color.primary}",
+          "values": {
+            "light": "#6c62c4",
+            "dark": "#8e82d8",
+            "contrast": "#4a3fa8"
+          }
+        },
+        {
+          "name": "--rse-tabs-fg",
+          "ref": "{rse.color.text-muted}",
+          "values": {
+            "light": "#615d4f",
+            "dark": "#9b998f",
+            "contrast": "#3d3b4a"
+          }
+        },
+        {
+          "name": "--rse-tabs-fg-hover",
+          "ref": "{rse.color.text-heading}",
+          "values": {
+            "light": "#2b2a3d",
+            "dark": "#f4f3ee",
+            "contrast": "#000000"
+          }
+        },
+        {
+          "name": "--rse-tabs-radius",
+          "ref": "{rse.radius.pill}",
+          "values": {
+            "light": "999px",
+            "dark": "999px",
+            "contrast": "999px"
+          }
+        },
+        {
+          "name": "--rse-tabs-track-bg",
+          "ref": "{rse.color.surface-sunken}",
+          "values": {
+            "light": "#f2f1ec",
+            "dark": "#2e2d3b",
+            "contrast": "#f2f1ec"
+          }
+        }
+      ]
     },
     {
       "name": "Modal",
@@ -3223,7 +3936,54 @@
           }
         ],
         "hooks": []
-      }
+      },
+      "tokens": [
+        {
+          "name": "--rse-modal-bg",
+          "ref": "{rse.color.surface-card}",
+          "values": {
+            "light": "#ffffff",
+            "dark": "#24232f",
+            "contrast": "#ffffff"
+          }
+        },
+        {
+          "name": "--rse-modal-divider",
+          "ref": "{rse.color.border-subtle}",
+          "values": {
+            "light": "#e4e2d9",
+            "dark": "#34323f",
+            "contrast": "#5b5866"
+          }
+        },
+        {
+          "name": "--rse-modal-radius",
+          "ref": "{rse.radius.lg}",
+          "values": {
+            "light": "24px",
+            "dark": "24px",
+            "contrast": "24px"
+          }
+        },
+        {
+          "name": "--rse-modal-scrim",
+          "ref": "{rse.color.scrim}",
+          "values": {
+            "light": "rgba(43,42,61,0.55)",
+            "dark": "rgba(12,11,18,0.68)",
+            "contrast": "rgba(43,42,61,0.55)"
+          }
+        },
+        {
+          "name": "--rse-modal-shadow",
+          "ref": "{rse.shadow.lg}",
+          "values": {
+            "light": "0 20px 48px rgba(43,42,61,0.14)",
+            "dark": "0 20px 48px rgba(0,0,0,0.6)",
+            "contrast": "none"
+          }
+        }
+      ]
     }
   ],
   "layout": [

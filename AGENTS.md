@@ -14,7 +14,9 @@ This file is the rules and the routing. The detail lives in the doc each row poi
 | Build something ambitious: interactive, animated, data-rich or 3D, a showpiece, a diagram | [Creative latitude](#creative-latitude) |
 | Add or change a component | [Changing a component](#changing-a-component) |
 | Change tokens / brand foundations | [Changing tokens](#changing-tokens) |
-| Put this system into another project | [docs/integration.md](docs/integration.md) |
+| Put this system into another project | [docs/integration.md](docs/integration.md); a CMS theme or vendor product: [adapters/](adapters/README.md) |
+| Look up a component (props, values, classes, tokens) | [site/index.html](site/index.html), or `dist/components.json` |
+| Propose a component, or record a system's adoption | [docs/governance.md](docs/governance.md) |
 | Find a file, or pick static HTML vs React vs non-browser | [docs/repo-map.md](docs/repo-map.md) |
 | Improve the system itself (roadmap work) | [docs/roadmap/roadmap.md](docs/roadmap/roadmap.md) |
 
@@ -82,7 +84,9 @@ running before you hand it over, and say what is placeholder, derived or new.
 - **React**: `import { Button } from '@idcesares/rse-design-system'` and its `styles.css`. Never
   import a component file directly (`check-ds` forbids it).
 - **Not a browser**: `brand.json` (palette with CMYK, rules, assets) or `dist/tokens.json`.
-- **Tools and agents**: `dist/components.json` lists every component's props, values and classes.
+- **Tools and agents**: `dist/components.json` lists every component's props, values, classes and
+  tokens; [site/](site/index.html) renders it as a reference with live examples.
+- **WordPress**: `adapters/wordpress/theme.json` ([adapters](adapters/README.md)).
 
 `dist/rse.js` is a copy of the component sources: edit a component without `npm run sync` and every
 static page runs the old code (`npm run check` catches it). Map of every file: [docs/repo-map.md](docs/repo-map.md).
@@ -157,10 +161,12 @@ npm run test:applications # template filters, slides, print output
 npm run test:consumer     # npm pack → scratch project → import and server-render (needs react)
 npm run test:types        # public .d.ts under strict, with misuse that must fail (needs typescript)
 npm run icons | motifs | patterns | pack
+node scripts/render-brand-rasters.mjs   # re-render assets/og-image.png from the vector (Playwright)
 ```
 
 Generated, never edited by hand: `tokens/tokens.css`, `dist/*`, `brand.json`, `docs/components.md`,
-`docs/tokens.md`, `showcase/showcase-data.js`, `Icon.js`, `BrandMotif.js`. **Releasing**: bump
+`docs/tokens.md`, `showcase/showcase-data.js`, `Icon.js`, `BrandMotif.js`, `site/**/*.html`,
+`adapters/wordpress/*`. **Releasing**: bump
 `package.json`, add `## <version>` to `CHANGELOG.md`, push `v<version>` (or run the `release`
 workflow on main). Breaking a token or prop name is a major.
 

@@ -6,6 +6,8 @@
    the gallery falls back to a note when one is missing, and `npm run test:pages` opens
    every demo in a browser.
    ───────────────────────────────────────────────────────────────────────────── */
+// Asset URLs resolve from this file, so the demos work from the showcase and the reference site.
+const SC_DEMO_ASSETS = (document.currentScript && new URL('../assets/', document.currentScript.src).href) || '../assets/';
 window.SC_DEMOS = (DS) => {
   'use strict';
   const h = React.createElement;
@@ -220,7 +222,7 @@ window.SC_DEMOS = (DS) => {
     Footer: { block: true, render: () =>
       h('div', { style: { borderRadius: 'var(--rse-radius-md)', overflow: 'hidden' } },
         h(DS.Footer, {
-          logoSrc: '../assets/logos/wordmark-white.svg',
+          logoSrc: SC_DEMO_ASSETS + 'logos/wordmark-white.svg',
           logoAlt: 'Rede Sesc de Educação',
           tagline: 'Aprender para a vida acontecer.',
           columns: [
@@ -290,8 +292,8 @@ window.SC_DEMOS = (DS) => {
     Navbar: { block: true, render: () =>
       h('div', { style: { borderRadius: 'var(--rse-radius-md)', overflow: 'hidden', border: '1px solid var(--rse-color-border-subtle)' } },
         h(DS.Navbar, {
-          logoSrc: '../assets/logos/wordmark-purple.svg',
-          logoDarkSrc: '../assets/logos/wordmark-white.svg',
+          logoSrc: SC_DEMO_ASSETS + 'logos/wordmark-purple.svg',
+          logoDarkSrc: SC_DEMO_ASSETS + 'logos/wordmark-white.svg',
           logoAlt: 'Rede Sesc de Educação',
           links: [{ label: 'Programas', href: '#' }, { label: 'Unidades', href: '#' }, { label: 'Matrículas', href: '#' }],
           activeHref: '#',
@@ -311,7 +313,7 @@ window.SC_DEMOS = (DS) => {
     PlatformEntry: { block: true, render: () =>
       h(DS.PlatformEntry, {
         href: '#',
-        logoSrc: '../assets/logos/sabia-wordmark-cream.svg',
+        logoSrc: SC_DEMO_ASSETS + 'logos/sabia-wordmark-cream.svg',
         logoAlt: 'Plataforma Sesc Sab.IA',
         title: 'Aprendizagem que acompanha cada estudante',
         description: 'Avaliação diagnóstica, trilhas personalizadas e acompanhamento contínuo.',

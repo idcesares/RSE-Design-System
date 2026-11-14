@@ -3,7 +3,7 @@
    A size container: the brand column sits beside the links when the FOOTER is at least md wide,
    so a footer in a narrow region (a sidebar, a modal, a preview) stacks whatever the viewport. */
 .rse-footer{
-  container:rse-footer / inline-size;box-sizing:border-box;width:100%;background:var(--rse-brand-ink);color:var(--rse-color-text-on-ink-muted);
+  container:rse-footer / inline-size;box-sizing:border-box;width:100%;background:var(--rse-footer-bg);color:var(--rse-footer-fg);
   font-family:var(--rse-font-family);
 }
 .rse-footer__inner{
@@ -12,24 +12,24 @@
 }
 .rse-footer__brand{min-width:0}
 .rse-footer__logo{display:block;height:36px;max-width:100%;width:auto;margin-bottom:var(--rse-space-4)}
-.rse-footer__tagline{margin:0;max-width:260px;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-color-text-on-ink-muted)}
+.rse-footer__tagline{margin:0;max-width:260px;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-footer-fg)}
 .rse-footer__columns{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:var(--rse-space-6) var(--rse-space-5);min-width:0;
 }
 .rse-footer__column{min-width:0;display:flex;flex-direction:column;gap:var(--rse-space-1)}
 .rse-footer__title{
   margin:0 0 var(--rse-space-2);font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
-  color:var(--rse-color-text-on-ink);
+  color:var(--rse-footer-heading);
 }
 .rse-footer__link{
   display:inline-flex;align-items:center;min-height:var(--rse-hit-target-min);box-sizing:border-box;
-  font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-on-ink-muted);text-decoration:none;overflow-wrap:anywhere;
+  font-size:var(--rse-font-size-body-sm);color:var(--rse-footer-fg);text-decoration:none;overflow-wrap:anywhere;
 }
-.rse-footer__link:hover{color:var(--rse-color-text-on-ink);text-decoration:underline}
+.rse-footer__link:hover{color:var(--rse-footer-heading);text-decoration:underline}
 .rse-footer__link:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset)}
 .rse-footer__note{
   box-sizing:border-box;max-width:var(--rse-container-xl);margin:0 auto;padding:var(--rse-space-5) var(--rse-container-padding);
-  border-top:1px solid var(--rse-color-border-on-ink);font-size:var(--rse-font-size-caption);color:var(--rse-color-text-on-ink-muted);
+  border-top:1px solid var(--rse-footer-border);font-size:var(--rse-font-size-caption);color:var(--rse-footer-fg);
 }
 @container rse-footer (min-width:834px){
   .rse-footer__inner{grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:var(--rse-space-7)}

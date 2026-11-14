@@ -40,10 +40,16 @@ templates/                Four starting points (deck, program page, enrollment f
                           HTML starters; the quality reference for artwork is docs/composition/exemplars/.
 starters/                 Blank, dependency-free starting points: page, React page, A3 poster.
 showcase/index.html       The system as one page, for leadership and newcomers. Opens offline.
+site/                     GENERATED reference site: one page per component (live example, usage, props,
+                          classes, tokens) from dist/components.json. site.css and site.js are hand-written.
+adapters/                 GENERATED host adapters: wordpress/theme.json (+ dark and contrast variations).
+ecosystem.json            Adoption tracker: systems, owners, conformance level, version (docs/governance.md).
 docs/brand-manual.md      What the official manual specifies. Settle brand questions here.
 docs/guidelines.md        The system's own rules for imagery, motion, theming and accessibility.
 docs/integration.md       How a project that is not this repo uses the system.
 docs/known-gaps.md        Open caveats to say out loud.
+docs/governance.md        Conformance levels, the RFC process, the adoption tracker, releases.
+docs/non-negotiables.md   The non-negotiables in full; AGENTS.md has the short form and the checks.
 docs/roadmap/             The assessment and the plan; read before improving the system itself.
 docs/                     Generated component + token references, recipes, authoring, QA checklist.
 scripts/                  build-tokens, build-icons, build-motifs, build-bundle, build-brand, build-catalog, gen-docs,

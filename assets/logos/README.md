@@ -47,8 +47,10 @@ lettering contrast harms reading.
 | `sabia-wordmark-cream.svg` | Plataforma Sesc Sab.IA, cream | purple and ink surfaces |
 | `sabia-horizontal-colour.svg` | Sab.IA horizontal lockup with the Rede badge | co-branded headers, platform entry points |
 
-`assets/favicon.png` and `assets/og-image.png` are still composited from the older raster
-extractions — regenerate them from these vectors before any public launch.
+`assets/og-image.png` is rendered from `wordmark-white.svg` on `--rse-brand-purple-dark` by
+`node scripts/render-brand-rasters.mjs`. `assets/favicon.png` is still composited from an older
+raster extraction: which mark a favicon carries below the selo's minimum size is a brand decision
+(`docs/known-gaps.md`, gap 8).
 
 ## `source/`
 

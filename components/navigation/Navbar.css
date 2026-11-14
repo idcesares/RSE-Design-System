@@ -4,8 +4,8 @@
    A hamburger/drawer is out of scope (roadmap P3.2). Current page: aria-current="page" on __link. */
 .rse-navbar{
   container:rse-navbar / inline-size;position:sticky;top:0;z-index:var(--rse-z-sticky);box-sizing:border-box;width:100%;
-  background:var(--rse-color-surface-page-translucent);backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--rse-color-border-subtle);font-family:var(--rse-font-family);
+  background:var(--rse-navbar-bg);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rse-navbar-border);font-family:var(--rse-font-family);
 }
 .rse-navbar__inner{
   box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
@@ -20,17 +20,17 @@
 .rse-navbar__link{
   display:inline-flex;align-items:center;min-height:var(--rse-hit-target-min);box-sizing:border-box;
   font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
-  text-decoration:none;color:var(--rse-color-text-body);
+  text-decoration:none;color:var(--rse-navbar-link);
 }
-.rse-navbar__link:hover{color:var(--rse-color-primary);text-decoration:underline}
-.rse-navbar__link[aria-current="page"]{color:var(--rse-color-primary)}
+.rse-navbar__link:hover{color:var(--rse-navbar-link-active);text-decoration:underline}
+.rse-navbar__link[aria-current="page"]{color:var(--rse-navbar-link-active)}
 .rse-navbar__link:focus-visible,.rse-navbar__cta:focus-visible{
   outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset);
 }
 .rse-navbar__cta{
   display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;order:3;flex:0 0 auto;
   min-height:var(--rse-hit-target-min);padding:var(--rse-space-2) var(--rse-space-5);border-radius:var(--rse-radius-pill);
-  background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);
+  background:var(--rse-navbar-cta-bg);color:var(--rse-navbar-cta-fg);
   font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);text-decoration:none;white-space:nowrap;
 }
 .rse-navbar__cta:hover{text-decoration:underline}

@@ -5,7 +5,8 @@
 //
 //   name, group, kind, summary, files (source/types/usage/css), client (needs 'use client'),
 //   element props extend, props (type, required, doc, enumerated values), the CSS classes the
-//   component renders (literal and per-value modifiers), and the layout primitives.
+//   component renders (literal and per-value modifiers), the tier 3 tokens it reads (its re-skin
+//   points, with each theme's value), and the layout primitives.
 //
 //   node scripts/build-catalog.mjs          # write
 //   node scripts/build-catalog.mjs --check  # exit 1 if stale
@@ -39,6 +40,34 @@ const classesIn = (css) => new Set([...stripComments(css).matchAll(/\.(rse-[a-z0
 const defined = new Set([...files.filter((f) => f.endsWith('.css')), 'tokens/base-runtime.css'].flatMap((f) => [...classesIn(read(f))]));
 const allDts = files.filter((f) => f.endsWith('.d.ts')).map(read).join('\n');
 const LIBRARIES = new Set(['MotifEngine']);
+
+// Tier 3 component tokens (tokens/src/component.tokens.json), with their value in each theme.
+const tokensDist = JSON.parse(read('dist/tokens.json'));
+const flatten = (o, path = []) => Object.entries(o).flatMap(([k, v]) => k.startsWith('$') ? [] : v && typeof v === 'object' && '$value' in v ? [['--' + [...path, k].join('-'), v]] : flatten(v, [...path, k]));
+const tier3 = new Map(flatten(JSON.parse(read('tokens/src/component.tokens.json'))));
+// The tier 3 tokens a component reads: those in rules, in any component stylesheet, whose selector
+// names one of the classes it renders. Attributed rule by rule, so Button.css's button rules do not
+// land on IconButton, and the shared .rse-choice rules in Checkbox.css reach Radio and Switch.
+const allComponentCss = files.filter((f) => f.endsWith('.css')).map((f) => stripComments(read(f))).join('\n');
+const tokensRead = (classes) => {
+  const used = new Set();
+  for (const [, selector, body] of allComponentCss.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    // A selector applies when every rse-* class in it is one the component renders (so
+    // `.rse-switch .rse-choice__box` belongs to Switch, not to Checkbox, which also renders __box).
+    const applies = selector.split(',').some((part) => {
+      const named = [...part.matchAll(/\.(rse-[a-z0-9_-]+)/g)].map((m) => m[1]);
+      return named.length > 0 && named.every((c) => classes.includes(c));
+    });
+    if (!applies) continue;
+    for (const m of body.matchAll(/var\((--rse-[a-z0-9-]+)/g)) if (tier3.has(m[1])) used.add(m[1]);
+  }
+  return [...used].sort().map((name) => ({
+    name,
+    ref: tier3.get(name).$value,
+    ...(tier3.get(name).$description ? { doc: tier3.get(name).$description } : {}),
+    values: Object.fromEntries(Object.keys(tokensDist.modes).map((m) => [m, tokensDist.modes[m][name]])),
+  }));
+};
 
 const components = manifest.components.map(({ name, sourcePath }) => {
   const src = read(sourcePath);
@@ -78,6 +107,7 @@ const components = manifest.components.map(({ name, sourcePath }) => {
       modifiers: all.filter((c) => c.includes('--')).map((c) => modifiers.find((m) => m.class === c) ?? { class: c }),
       hooks: all.filter((c) => HOOK_CLASSES[c]),
     },
+    tokens: tokensRead(all),
   };
 });
 

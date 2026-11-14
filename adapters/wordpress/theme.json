@@ -1,0 +1,412 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "title": "Rede Sesc de Educação",
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+    "color": {
+      "palette": [
+        {
+          "slug": "cream",
+          "name": "Creme",
+          "color": "#f2f4e4"
+        },
+        {
+          "slug": "indigo",
+          "name": "Índigo",
+          "color": "#4c549e"
+        },
+        {
+          "slug": "green-light",
+          "name": "Verde claro",
+          "color": "#a3d864"
+        },
+        {
+          "slug": "green",
+          "name": "Verde",
+          "color": "#85b73d"
+        },
+        {
+          "slug": "green-dark",
+          "name": "Verde escuro",
+          "color": "#658e1e"
+        },
+        {
+          "slug": "yellow-light",
+          "name": "Amarelo claro",
+          "color": "#ffd67b"
+        },
+        {
+          "slug": "yellow",
+          "name": "Amarelo",
+          "color": "#f4bf2a"
+        },
+        {
+          "slug": "yellow-dark",
+          "name": "Amarelo escuro",
+          "color": "#d39f2b"
+        },
+        {
+          "slug": "orange-light",
+          "name": "Laranja claro",
+          "color": "#fc9b59"
+        },
+        {
+          "slug": "orange",
+          "name": "Laranja",
+          "color": "#e17f38"
+        },
+        {
+          "slug": "orange-dark",
+          "name": "Laranja escuro",
+          "color": "#c6621e"
+        },
+        {
+          "slug": "purple-light",
+          "name": "Roxo claro",
+          "color": "#ad98ea"
+        },
+        {
+          "slug": "purple",
+          "name": "Roxo",
+          "color": "#8e82d8"
+        },
+        {
+          "slug": "purple-dark",
+          "name": "Roxo escuro",
+          "color": "#6c62c4"
+        },
+        {
+          "slug": "pink-light",
+          "name": "Rosa claro",
+          "color": "#f78f94"
+        },
+        {
+          "slug": "pink",
+          "name": "Rosa",
+          "color": "#e27879"
+        },
+        {
+          "slug": "pink-dark",
+          "name": "Rosa escuro",
+          "color": "#cc646a"
+        },
+        {
+          "slug": "blue-light",
+          "name": "Azul claro",
+          "color": "#92c4e6"
+        },
+        {
+          "slug": "blue",
+          "name": "Azul",
+          "color": "#76b3dd"
+        },
+        {
+          "slug": "blue-dark",
+          "name": "Azul escuro",
+          "color": "#4f85b2"
+        },
+        {
+          "slug": "black",
+          "name": "Preto",
+          "color": "#1d1d1b"
+        },
+        {
+          "slug": "ink",
+          "name": "Ink (texto e rodapé)",
+          "color": "#2b2a3d"
+        },
+        {
+          "slug": "white",
+          "name": "Branco",
+          "color": "#ffffff"
+        }
+      ],
+      "custom": false,
+      "customGradient": false,
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "defaultDuotone": false,
+      "duotone": []
+    },
+    "typography": {
+      "customFontSize": false,
+      "defaultFontSizes": false,
+      "fluid": false,
+      "fontSizes": [
+        {
+          "slug": "display-1",
+          "name": "Destaque 1",
+          "size": "clamp(2.75rem, 1rem + 2.9vw, 5rem)",
+          "fluid": false
+        },
+        {
+          "slug": "display-2",
+          "name": "Destaque 2",
+          "size": "clamp(2.25rem, 1rem + 1.9vw, 3.75rem)",
+          "fluid": false
+        },
+        {
+          "slug": "h1",
+          "name": "Título 1",
+          "size": "clamp(2rem, 1rem + 1.4vw, 2.75rem)",
+          "fluid": false
+        },
+        {
+          "slug": "h2",
+          "name": "Título 2",
+          "size": "clamp(1.5rem, 1rem + 0.8vw, 1.75rem)",
+          "fluid": false
+        },
+        {
+          "slug": "h3",
+          "name": "Título 3",
+          "size": "clamp(1.25rem, 1rem + 0.4vw, 1.375rem)",
+          "fluid": false
+        },
+        {
+          "slug": "h4",
+          "name": "Título 4",
+          "size": "1.125rem",
+          "fluid": false
+        },
+        {
+          "slug": "body-lg",
+          "name": "Texto grande",
+          "size": "1.125rem",
+          "fluid": false
+        },
+        {
+          "slug": "body-md",
+          "name": "Texto",
+          "size": "1rem",
+          "fluid": false
+        },
+        {
+          "slug": "body-sm",
+          "name": "Texto pequeno",
+          "size": "0.875rem",
+          "fluid": false
+        },
+        {
+          "slug": "caption",
+          "name": "Legenda",
+          "size": "0.75rem",
+          "fluid": false
+        }
+      ],
+      "fontFamilies": [
+        {
+          "slug": "montserrat",
+          "name": "Montserrat",
+          "fontFamily": "'Montserrat',-apple-system,'Segoe UI',sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Montserrat",
+              "fontStyle": "normal",
+              "fontWeight": "400 900",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/Montserrat-Variable.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Montserrat",
+              "fontStyle": "italic",
+              "fontWeight": "400 900",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/Montserrat-Italic-Variable.woff2"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "spacing": {
+      "defaultSpacingSizes": false,
+      "spacingSizes": [
+        {
+          "slug": "10",
+          "name": "Espaço 1",
+          "size": "4px"
+        },
+        {
+          "slug": "20",
+          "name": "Espaço 2",
+          "size": "8px"
+        },
+        {
+          "slug": "30",
+          "name": "Espaço 3",
+          "size": "12px"
+        },
+        {
+          "slug": "40",
+          "name": "Espaço 4",
+          "size": "16px"
+        },
+        {
+          "slug": "50",
+          "name": "Espaço 5",
+          "size": "24px"
+        },
+        {
+          "slug": "60",
+          "name": "Espaço 6",
+          "size": "32px"
+        },
+        {
+          "slug": "70",
+          "name": "Espaço 7",
+          "size": "48px"
+        },
+        {
+          "slug": "80",
+          "name": "Espaço 8",
+          "size": "64px"
+        },
+        {
+          "slug": "90",
+          "name": "Espaço 9",
+          "size": "96px"
+        },
+        {
+          "slug": "100",
+          "name": "Espaço 10",
+          "size": "128px"
+        }
+      ],
+      "units": [
+        "px",
+        "rem",
+        "%",
+        "vw"
+      ],
+      "padding": true,
+      "margin": true,
+      "blockGap": true
+    },
+    "layout": {
+      "contentSize": "880px",
+      "wideSize": "1200px"
+    },
+    "shadow": {
+      "defaultPresets": false,
+      "presets": [
+        {
+          "slug": "sm",
+          "name": "Sombra leve",
+          "shadow": "0 1px 2px rgba(43,42,61,0.08)"
+        },
+        {
+          "slug": "md",
+          "name": "Sombra média",
+          "shadow": "0 8px 24px rgba(43,42,61,0.10)"
+        },
+        {
+          "slug": "lg",
+          "name": "Sombra forte",
+          "shadow": "0 20px 48px rgba(43,42,61,0.14)"
+        }
+      ]
+    },
+    "custom": {
+      "rse": {
+        "version": "2.4.0",
+        "radius": {
+          "sm": "8px",
+          "md": "14px",
+          "lg": "24px",
+          "xl": "32px",
+          "pill": "999px"
+        },
+        "hitTargetMin": "44px",
+        "sectionY": {
+          "sm": "48px",
+          "md": "96px",
+          "lg": "128px"
+        }
+      }
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#f2f4e4",
+      "text": "#454235"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--montserrat)",
+      "fontSize": "var(--wp--preset--font-size--body-md)",
+      "lineHeight": "1.6"
+    },
+    "spacing": {
+      "blockGap": "24px",
+      "padding": {
+        "left": "clamp(1rem, 4vw, 1.5rem)",
+        "right": "clamp(1rem, 4vw, 1.5rem)"
+      }
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "#5e56ab"
+        },
+        ":hover": {
+          "color": {
+            "text": "#4c549e"
+          }
+        }
+      },
+      "heading": {
+        "color": {
+          "text": "#2b2a3d"
+        },
+        "typography": {
+          "fontWeight": "800",
+          "letterSpacing": "-0.02em",
+          "lineHeight": "1.2"
+        }
+      },
+      "h1": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h1)"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h2)"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h3)"
+        }
+      },
+      "h4": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h4)"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "#6c62c4",
+          "text": "#ffffff"
+        },
+        "border": {
+          "radius": "999px"
+        },
+        "typography": {
+          "fontWeight": "600"
+        },
+        ":hover": {
+          "color": {
+            "background": "#5e56ab",
+            "text": "#ffffff"
+          }
+        }
+      }
+    }
+  }
+}

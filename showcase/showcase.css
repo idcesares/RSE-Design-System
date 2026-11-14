@@ -517,6 +517,9 @@ code { font-family: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', monospace; f
 @media (max-width: 1119px) { .sc-demos { grid-template-columns: 1fr; } }
 @media (max-width: 833px) { .sc-gallery-controls { position: static; } .sc-gallery-search { flex-basis: 100%; } }
 
+/* Link from each gallery card to its page in the reference site (site/). */
+.sc-demo-ref { display: inline-block; margin-top: var(--rse-space-2); font-size: var(--rse-font-size-body-sm); }
+
 /* ── Code ────────────────────────────────────────────────────────────────── */
 .sc-code {
   margin: 0; padding: var(--rse-space-4); border-radius: var(--rse-radius-md); background: var(--rse-brand-ink); color: var(--rse-color-text-on-ink);

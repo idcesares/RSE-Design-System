@@ -721,20 +721,20 @@
    so the control works even before React hydrates. */
 .rse-choice{
   position:relative;display:inline-flex;align-items:center;gap:0.625rem;
-  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);color:var(--rse-color-text-body);cursor:pointer;
+  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);color:var(--rse-choice-label);cursor:pointer;
 }
 .rse-choice:has(.rse-control-input:disabled){opacity:.5;cursor:not-allowed}
 .rse-choice__label{min-width:0}
 .rse-choice__box{
   display:inline-flex;flex:none;align-items:center;justify-content:center;width:1.25rem;height:1.25rem;
-  border:1.5px solid var(--rse-color-border-strong);background:var(--rse-color-surface-card);
+  border:1.5px solid var(--rse-choice-box-border);background:var(--rse-choice-box-bg);
   transition:background-color var(--rse-duration-fast) var(--rse-ease-standard),border-color var(--rse-duration-fast) var(--rse-ease-standard);
 }
 
 /* Checkbox */
-.rse-checkbox .rse-choice__box{border-radius:0.375rem;color:var(--rse-color-text-on-primary)}
+.rse-checkbox .rse-choice__box{border-radius:0.375rem;color:var(--rse-choice-mark)}
 .rse-checkbox .rse-choice__mark{display:inline-flex;opacity:0}
-.rse-checkbox .rse-control-input:checked + .rse-choice__box{background:var(--rse-color-primary);border-color:var(--rse-color-primary)}
+.rse-checkbox .rse-control-input:checked + .rse-choice__box{background:var(--rse-choice-checked);border-color:var(--rse-choice-checked)}
 .rse-checkbox .rse-control-input:checked + .rse-choice__box .rse-choice__mark{opacity:1}
 
 /* components/forms/Input.css */
@@ -815,8 +815,8 @@
 /* components/forms/Radio.css */
 /* Radio — .rse-choice.rse-radio (shared rules in Checkbox.css) */
 .rse-radio .rse-choice__box{border-radius:50%}
-.rse-radio .rse-choice__box::after{content:"";width:0.625rem;height:0.625rem;border-radius:50%;background:var(--rse-color-primary);transform:scale(0);transition:transform var(--rse-duration-fast) var(--rse-ease-out)}
-.rse-radio .rse-control-input:checked + .rse-choice__box{border-color:var(--rse-color-primary)}
+.rse-radio .rse-choice__box::after{content:"";width:0.625rem;height:0.625rem;border-radius:50%;background:var(--rse-choice-checked);transform:scale(0);transition:transform var(--rse-duration-fast) var(--rse-ease-out)}
+.rse-radio .rse-control-input:checked + .rse-choice__box{border-color:var(--rse-choice-checked)}
 .rse-radio .rse-control-input:checked + .rse-choice__box::after{transform:scale(1)}
 
 /* components/forms/Select.css */
@@ -859,13 +859,13 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
    control border role, so the switch itself clears 3:1 against the page (WCAG 1.4.11). */
 .rse-switch .rse-choice__box{
   justify-content:flex-start;width:2.5rem;height:1.5rem;padding:0.1875rem;border:none;
-  border-radius:var(--rse-radius-pill);background:var(--rse-color-border-strong);
+  border-radius:var(--rse-radius-pill);background:var(--rse-choice-track);
 }
 .rse-switch .rse-choice__box::after{
-  content:"";width:1.125rem;height:1.125rem;border-radius:50%;background:var(--rse-color-surface-card);box-shadow:var(--rse-shadow-sm);
+  content:"";width:1.125rem;height:1.125rem;border-radius:50%;background:var(--rse-choice-thumb);box-shadow:var(--rse-shadow-sm);
   transition:transform var(--rse-duration-base) var(--rse-ease-standard);
 }
-.rse-switch .rse-control-input:checked + .rse-choice__box{background:var(--rse-color-primary)}
+.rse-switch .rse-control-input:checked + .rse-choice__box{background:var(--rse-choice-checked)}
 .rse-switch .rse-control-input:checked + .rse-choice__box::after{transform:translateX(1rem)}
 
 /* components/forms/Textarea.css */
@@ -888,7 +888,7 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
    A size container: the brand column sits beside the links when the FOOTER is at least md wide,
    so a footer in a narrow region (a sidebar, a modal, a preview) stacks whatever the viewport. */
 .rse-footer{
-  container:rse-footer / inline-size;box-sizing:border-box;width:100%;background:var(--rse-brand-ink);color:var(--rse-color-text-on-ink-muted);
+  container:rse-footer / inline-size;box-sizing:border-box;width:100%;background:var(--rse-footer-bg);color:var(--rse-footer-fg);
   font-family:var(--rse-font-family);
 }
 .rse-footer__inner{
@@ -897,24 +897,24 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
 }
 .rse-footer__brand{min-width:0}
 .rse-footer__logo{display:block;height:36px;max-width:100%;width:auto;margin-bottom:var(--rse-space-4)}
-.rse-footer__tagline{margin:0;max-width:260px;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-color-text-on-ink-muted)}
+.rse-footer__tagline{margin:0;max-width:260px;font-size:var(--rse-font-size-body-sm);line-height:var(--rse-line-height-body);color:var(--rse-footer-fg)}
 .rse-footer__columns{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:var(--rse-space-6) var(--rse-space-5);min-width:0;
 }
 .rse-footer__column{min-width:0;display:flex;flex-direction:column;gap:var(--rse-space-1)}
 .rse-footer__title{
   margin:0 0 var(--rse-space-2);font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
-  color:var(--rse-color-text-on-ink);
+  color:var(--rse-footer-heading);
 }
 .rse-footer__link{
   display:inline-flex;align-items:center;min-height:var(--rse-hit-target-min);box-sizing:border-box;
-  font-size:var(--rse-font-size-body-sm);color:var(--rse-color-text-on-ink-muted);text-decoration:none;overflow-wrap:anywhere;
+  font-size:var(--rse-font-size-body-sm);color:var(--rse-footer-fg);text-decoration:none;overflow-wrap:anywhere;
 }
-.rse-footer__link:hover{color:var(--rse-color-text-on-ink);text-decoration:underline}
+.rse-footer__link:hover{color:var(--rse-footer-heading);text-decoration:underline}
 .rse-footer__link:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset)}
 .rse-footer__note{
   box-sizing:border-box;max-width:var(--rse-container-xl);margin:0 auto;padding:var(--rse-space-5) var(--rse-container-padding);
-  border-top:1px solid var(--rse-color-border-on-ink);font-size:var(--rse-font-size-caption);color:var(--rse-color-text-on-ink-muted);
+  border-top:1px solid var(--rse-footer-border);font-size:var(--rse-font-size-caption);color:var(--rse-footer-fg);
 }
 @container rse-footer (min-width:834px){
   .rse-footer__inner{grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:var(--rse-space-7)}
@@ -945,8 +945,8 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
    A hamburger/drawer is out of scope (roadmap P3.2). Current page: aria-current="page" on __link. */
 .rse-navbar{
   container:rse-navbar / inline-size;position:sticky;top:0;z-index:var(--rse-z-sticky);box-sizing:border-box;width:100%;
-  background:var(--rse-color-surface-page-translucent);backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--rse-color-border-subtle);font-family:var(--rse-font-family);
+  background:var(--rse-navbar-bg);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rse-navbar-border);font-family:var(--rse-font-family);
 }
 .rse-navbar__inner{
   box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
@@ -961,17 +961,17 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
 .rse-navbar__link{
   display:inline-flex;align-items:center;min-height:var(--rse-hit-target-min);box-sizing:border-box;
   font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
-  text-decoration:none;color:var(--rse-color-text-body);
+  text-decoration:none;color:var(--rse-navbar-link);
 }
-.rse-navbar__link:hover{color:var(--rse-color-primary);text-decoration:underline}
-.rse-navbar__link[aria-current="page"]{color:var(--rse-color-primary)}
+.rse-navbar__link:hover{color:var(--rse-navbar-link-active);text-decoration:underline}
+.rse-navbar__link[aria-current="page"]{color:var(--rse-navbar-link-active)}
 .rse-navbar__link:focus-visible,.rse-navbar__cta:focus-visible{
   outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset);
 }
 .rse-navbar__cta{
   display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;order:3;flex:0 0 auto;
   min-height:var(--rse-hit-target-min);padding:var(--rse-space-2) var(--rse-space-5);border-radius:var(--rse-radius-pill);
-  background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);
+  background:var(--rse-navbar-cta-bg);color:var(--rse-navbar-cta-fg);
   font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);text-decoration:none;white-space:nowrap;
 }
 .rse-navbar__cta:hover{text-decoration:underline}
@@ -1008,31 +1008,31 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
   padding:var(--rse-tabs-ring-room);scroll-padding-inline:var(--rse-tabs-ring-room);
   overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
   scrollbar-width:thin;-webkit-overflow-scrolling:touch;
-  background:var(--rse-color-surface-sunken);border-radius:var(--rse-radius-pill);
+  background:var(--rse-tabs-track-bg);border-radius:var(--rse-tabs-radius);
 }
 .rse-tabs__tab{
   flex:none;scroll-snap-align:start;white-space:nowrap;
   min-height:var(--rse-hit-target-min);padding:var(--rse-space-2) var(--rse-space-5);
   font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);
-  color:var(--rse-color-text-muted);background:transparent;border:none;border-radius:var(--rse-radius-pill);
+  color:var(--rse-tabs-fg);background:transparent;border:none;border-radius:var(--rse-tabs-radius);
   box-shadow:none;cursor:pointer;
   transition:background var(--rse-duration-base) var(--rse-ease-standard),color var(--rse-duration-base) var(--rse-ease-standard);
 }
-.rse-tabs__tab:hover{background:color-mix(in srgb,var(--rse-color-surface-card) 60%,transparent);color:var(--rse-color-text-heading)}
+.rse-tabs__tab:hover{background:color-mix(in srgb,var(--rse-tabs-active-bg) 60%,transparent);color:var(--rse-tabs-fg-hover)}
 .rse-tabs__tab:focus-visible{outline:var(--rse-focus-ring-width) solid var(--rse-color-focus-ring);outline-offset:var(--rse-focus-ring-offset)}
-.rse-tabs__tab[aria-selected="true"]{background:var(--rse-color-surface-card);color:var(--rse-color-primary);box-shadow:var(--rse-shadow-sm)}
+.rse-tabs__tab[aria-selected="true"]{background:var(--rse-tabs-active-bg);color:var(--rse-tabs-active-fg);box-shadow:var(--rse-shadow-sm)}
 .rse-tabs__panel{margin-top:var(--rse-space-4)}
 .rse-tabs__panel[hidden]{display:none}
 
 /* components/overlay/Modal.css */
-.rse-modal-backdrop{position:fixed;inset:0;background:var(--rse-color-scrim);display:flex;align-items:center;justify-content:center;padding:var(--rse-space-5);z-index:var(--rse-z-modal)}
-.rse-modal{width:100%;max-width:520px;max-height:85vh;overflow-y:auto;background:var(--rse-color-surface-card);border-radius:var(--rse-radius-lg);box-shadow:var(--rse-shadow-lg);font-family:var(--rse-font-family);color:var(--rse-color-text-body)}
+.rse-modal-backdrop{position:fixed;inset:0;background:var(--rse-modal-scrim);display:flex;align-items:center;justify-content:center;padding:var(--rse-space-5);z-index:var(--rse-z-modal)}
+.rse-modal{width:100%;max-width:520px;max-height:85vh;overflow-y:auto;background:var(--rse-modal-bg);border-radius:var(--rse-modal-radius);box-shadow:var(--rse-modal-shadow);font-family:var(--rse-font-family);color:var(--rse-color-text-body)}
 .rse-modal--sm{max-width:380px}
 .rse-modal--lg{max-width:720px}
-.rse-modal__header{display:flex;align-items:center;justify-content:space-between;gap:var(--rse-space-3);padding:var(--rse-space-4) var(--rse-space-5);border-bottom:1px solid var(--rse-color-border-subtle)}
+.rse-modal__header{display:flex;align-items:center;justify-content:space-between;gap:var(--rse-space-3);padding:var(--rse-space-4) var(--rse-space-5);border-bottom:1px solid var(--rse-modal-divider)}
 .rse-modal__title{font-size:var(--rse-font-size-h3);font-weight:var(--rse-font-weight-extrabold);letter-spacing:var(--rse-letter-spacing-tight);color:var(--rse-color-text-heading);margin:0;overflow-wrap:anywhere}
 .rse-modal__close{border:none;background:var(--rse-color-surface-sunken);border-radius:var(--rse-radius-pill);min-width:var(--rse-hit-target-min);min-height:var(--rse-hit-target-min);cursor:pointer;color:var(--rse-color-text-muted);display:inline-flex;align-items:center;justify-content:center;flex:none}
 .rse-modal__body{padding:var(--rse-space-5)}
-.rse-modal__footer{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--rse-space-3);padding:var(--rse-space-4) var(--rse-space-5);border-top:1px solid var(--rse-color-border-subtle)}
+.rse-modal__footer{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--rse-space-3);padding:var(--rse-space-4) var(--rse-space-5);border-top:1px solid var(--rse-modal-divider)}
 @media(max-width:480px){.rse-modal-backdrop{padding:var(--rse-space-3)}.rse-modal__header,.rse-modal__body,.rse-modal__footer{padding:var(--rse-space-4)}}
 }

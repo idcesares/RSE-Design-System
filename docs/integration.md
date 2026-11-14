@@ -11,6 +11,7 @@ a deck handed over as a file. The rules that travel with the system are in
 | --- | --- | --- |
 | Has `npm` (React, Next.js, Vite, any bundler) | the **package** | `import '@idcesares/rse-design-system/styles.css'` |
 | Cannot install (WordPress/Liferay theme, TOTVS portal, a static page you upload) | the **static kit** | `/rse/<version>/styles.css` on your server |
+| Is a WordPress block theme | the **WordPress adapter** (+ the static kit for `.rse-*` markup) | `adapters/wordpress/theme.json` — see [adapters](../adapters/README.md) |
 | Is not a browser (Python, print, a design tool) | either, then **JSON** | `brand.json`, `dist/tokens.json` |
 | Is a one-off file (deck, mock, artifact) | a **starter** or **template** from this repo | `styles.css` next to it |
 

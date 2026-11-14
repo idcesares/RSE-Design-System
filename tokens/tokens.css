@@ -33,6 +33,53 @@
 --rse-card-shadow:var(--rse-shadow-sm);
 --rse-card-shadow-hover:var(--rse-shadow-md);
 
+/* ── rse.navbar ── */
+--rse-navbar-bg:var(--rse-color-surface-page-translucent);
+--rse-navbar-border:var(--rse-color-border-subtle);
+--rse-navbar-link:var(--rse-color-text-body);
+/* Hover and aria-current="page". */
+--rse-navbar-link-active:var(--rse-color-primary);
+--rse-navbar-cta-bg:var(--rse-color-primary);
+--rse-navbar-cta-fg:var(--rse-color-text-on-primary);
+
+/* ── rse.footer ── */
+/* The footer sits on ink in every theme. */
+--rse-footer-bg:var(--rse-brand-ink);
+--rse-footer-fg:var(--rse-color-text-on-ink-muted);
+/* Column titles and link hover. */
+--rse-footer-heading:var(--rse-color-text-on-ink);
+--rse-footer-border:var(--rse-color-border-on-ink);
+
+/* ── rse.tabs ── */
+--rse-tabs-radius:var(--rse-radius-pill);
+--rse-tabs-track-bg:var(--rse-color-surface-sunken);
+--rse-tabs-fg:var(--rse-color-text-muted);
+--rse-tabs-fg-hover:var(--rse-color-text-heading);
+--rse-tabs-active-bg:var(--rse-color-surface-card);
+--rse-tabs-active-fg:var(--rse-color-primary);
+
+/* ── rse.choice ── */
+/* Checkbox, Radio and Switch share the .rse-choice tokens. */
+--rse-choice-label:var(--rse-color-text-body);
+--rse-choice-box-bg:var(--rse-color-surface-card);
+/* The resting boundary of the control: 3:1 against the surface (WCAG 1.4.11). */
+--rse-choice-box-border:var(--rse-color-border-strong);
+/* Checked fill (checkbox, switch track), radio dot and checked border. */
+--rse-choice-checked:var(--rse-color-primary);
+/* The checkbox tick on the checked fill. */
+--rse-choice-mark:var(--rse-color-text-on-primary);
+/* Switch track when off. */
+--rse-choice-track:var(--rse-color-border-strong);
+/* Switch thumb. */
+--rse-choice-thumb:var(--rse-color-surface-card);
+
+/* ── rse.modal ── */
+--rse-modal-radius:var(--rse-radius-lg);
+--rse-modal-bg:var(--rse-color-surface-card);
+--rse-modal-shadow:var(--rse-shadow-lg);
+--rse-modal-scrim:var(--rse-color-scrim);
+--rse-modal-divider:var(--rse-color-border-subtle);
+
 /* ── rse.brand ── */
 --rse-brand-cream:#f2f4e4;
 --rse-brand-indigo:#4c549e;
@@ -299,6 +346,28 @@ color-scheme:light;
 --rse-card-border:var(--rse-color-border-subtle);
 --rse-card-shadow:var(--rse-shadow-sm);
 --rse-card-shadow-hover:var(--rse-shadow-md);
+--rse-navbar-bg:var(--rse-color-surface-page-translucent);
+--rse-navbar-border:var(--rse-color-border-subtle);
+--rse-navbar-link:var(--rse-color-text-body);
+--rse-navbar-link-active:var(--rse-color-primary);
+--rse-navbar-cta-bg:var(--rse-color-primary);
+--rse-navbar-cta-fg:var(--rse-color-text-on-primary);
+--rse-tabs-track-bg:var(--rse-color-surface-sunken);
+--rse-tabs-fg:var(--rse-color-text-muted);
+--rse-tabs-fg-hover:var(--rse-color-text-heading);
+--rse-tabs-active-bg:var(--rse-color-surface-card);
+--rse-tabs-active-fg:var(--rse-color-primary);
+--rse-choice-label:var(--rse-color-text-body);
+--rse-choice-box-bg:var(--rse-color-surface-card);
+--rse-choice-box-border:var(--rse-color-border-strong);
+--rse-choice-checked:var(--rse-color-primary);
+--rse-choice-mark:var(--rse-color-text-on-primary);
+--rse-choice-track:var(--rse-color-border-strong);
+--rse-choice-thumb:var(--rse-color-surface-card);
+--rse-modal-bg:var(--rse-color-surface-card);
+--rse-modal-shadow:var(--rse-shadow-lg);
+--rse-modal-scrim:var(--rse-color-scrim);
+--rse-modal-divider:var(--rse-color-border-subtle);
 --rse-color-primary:var(--rse-brand-purple-dark);
 --rse-color-primary-hover:#5e56ab;
 --rse-color-primary-active:#504a92;
@@ -378,6 +447,28 @@ color-scheme:dark;
 --rse-card-border:var(--rse-color-border-subtle);
 --rse-card-shadow:var(--rse-shadow-sm);
 --rse-card-shadow-hover:var(--rse-shadow-md);
+--rse-navbar-bg:var(--rse-color-surface-page-translucent);
+--rse-navbar-border:var(--rse-color-border-subtle);
+--rse-navbar-link:var(--rse-color-text-body);
+--rse-navbar-link-active:var(--rse-color-primary);
+--rse-navbar-cta-bg:var(--rse-color-primary);
+--rse-navbar-cta-fg:var(--rse-color-text-on-primary);
+--rse-tabs-track-bg:var(--rse-color-surface-sunken);
+--rse-tabs-fg:var(--rse-color-text-muted);
+--rse-tabs-fg-hover:var(--rse-color-text-heading);
+--rse-tabs-active-bg:var(--rse-color-surface-card);
+--rse-tabs-active-fg:var(--rse-color-primary);
+--rse-choice-label:var(--rse-color-text-body);
+--rse-choice-box-bg:var(--rse-color-surface-card);
+--rse-choice-box-border:var(--rse-color-border-strong);
+--rse-choice-checked:var(--rse-color-primary);
+--rse-choice-mark:var(--rse-color-text-on-primary);
+--rse-choice-track:var(--rse-color-border-strong);
+--rse-choice-thumb:var(--rse-color-surface-card);
+--rse-modal-bg:var(--rse-color-surface-card);
+--rse-modal-shadow:var(--rse-shadow-lg);
+--rse-modal-scrim:var(--rse-color-scrim);
+--rse-modal-divider:var(--rse-color-border-subtle);
 --rse-color-primary:var(--rse-brand-purple);
 --rse-color-primary-hover:var(--rse-brand-purple-light);
 --rse-color-primary-active:var(--rse-brand-purple-light);
@@ -458,6 +549,28 @@ color-scheme:light;
 --rse-card-border:var(--rse-color-border-subtle);
 --rse-card-shadow:var(--rse-shadow-sm);
 --rse-card-shadow-hover:var(--rse-shadow-md);
+--rse-navbar-bg:var(--rse-color-surface-page-translucent);
+--rse-navbar-border:var(--rse-color-border-subtle);
+--rse-navbar-link:var(--rse-color-text-body);
+--rse-navbar-link-active:var(--rse-color-primary);
+--rse-navbar-cta-bg:var(--rse-color-primary);
+--rse-navbar-cta-fg:var(--rse-color-text-on-primary);
+--rse-tabs-track-bg:var(--rse-color-surface-sunken);
+--rse-tabs-fg:var(--rse-color-text-muted);
+--rse-tabs-fg-hover:var(--rse-color-text-heading);
+--rse-tabs-active-bg:var(--rse-color-surface-card);
+--rse-tabs-active-fg:var(--rse-color-primary);
+--rse-choice-label:var(--rse-color-text-body);
+--rse-choice-box-bg:var(--rse-color-surface-card);
+--rse-choice-box-border:var(--rse-color-border-strong);
+--rse-choice-checked:var(--rse-color-primary);
+--rse-choice-mark:var(--rse-color-text-on-primary);
+--rse-choice-track:var(--rse-color-border-strong);
+--rse-choice-thumb:var(--rse-color-surface-card);
+--rse-modal-bg:var(--rse-color-surface-card);
+--rse-modal-shadow:var(--rse-shadow-lg);
+--rse-modal-scrim:var(--rse-color-scrim);
+--rse-modal-divider:var(--rse-color-border-subtle);
 --rse-color-primary:#4a3fa8;
 --rse-color-primary-hover:#3a3186;
 --rse-color-primary-active:#2c2566;
@@ -540,6 +653,28 @@ color-scheme:light;
   --rse-card-border:var(--rse-color-border-subtle);
   --rse-card-shadow:var(--rse-shadow-sm);
   --rse-card-shadow-hover:var(--rse-shadow-md);
+  --rse-navbar-bg:var(--rse-color-surface-page-translucent);
+  --rse-navbar-border:var(--rse-color-border-subtle);
+  --rse-navbar-link:var(--rse-color-text-body);
+  --rse-navbar-link-active:var(--rse-color-primary);
+  --rse-navbar-cta-bg:var(--rse-color-primary);
+  --rse-navbar-cta-fg:var(--rse-color-text-on-primary);
+  --rse-tabs-track-bg:var(--rse-color-surface-sunken);
+  --rse-tabs-fg:var(--rse-color-text-muted);
+  --rse-tabs-fg-hover:var(--rse-color-text-heading);
+  --rse-tabs-active-bg:var(--rse-color-surface-card);
+  --rse-tabs-active-fg:var(--rse-color-primary);
+  --rse-choice-label:var(--rse-color-text-body);
+  --rse-choice-box-bg:var(--rse-color-surface-card);
+  --rse-choice-box-border:var(--rse-color-border-strong);
+  --rse-choice-checked:var(--rse-color-primary);
+  --rse-choice-mark:var(--rse-color-text-on-primary);
+  --rse-choice-track:var(--rse-color-border-strong);
+  --rse-choice-thumb:var(--rse-color-surface-card);
+  --rse-modal-bg:var(--rse-color-surface-card);
+  --rse-modal-shadow:var(--rse-shadow-lg);
+  --rse-modal-scrim:var(--rse-color-scrim);
+  --rse-modal-divider:var(--rse-color-border-subtle);
   --rse-color-primary:var(--rse-brand-purple);
   --rse-color-primary-hover:var(--rse-brand-purple-light);
   --rse-color-primary-active:var(--rse-brand-purple-light);

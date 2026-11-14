@@ -31,8 +31,11 @@ repeating any of these to a user.
 7. **The only real Sesc product surface available is Sab.IA** — its login, header and footer are
    published in the manual and documented in `docs/sabia-platform.md`. The rest of the components
    and the UI kit remain original standard patterns sized to the brand, not a recreation.
-8. **favicon.png / og-image.png are still composited from the old rasters** — regenerate them from
-   the vectors before launch.
+8. **favicon.png is still composited from an old raster.** `og-image.png` is now rendered from
+   `wordmark-white.svg` and the palette token (`node scripts/render-brand-rasters.mjs`). The favicon
+   is not, on purpose: at favicon sizes the selo is below its 150 px digital minimum, where the
+   manual calls for the simplified version, and a wordmark is illegible at 16–32 px. Which mark the
+   favicon carries is a decision for DN comunicação; once made, add it to that script.
 9. **Never re-sample colour from the artwork files.** The supplied vectors and
    `uploads/REDE_SESC_selo_COR.pdf` sit 1–3 points below the manual's published hex. The manual
    wins. This drift is what put the palette off-spec once already.
