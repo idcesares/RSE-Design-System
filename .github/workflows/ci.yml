@@ -32,7 +32,9 @@ jobs:
     # Every shipped page in Chromium: runtime errors fail; axe (WCAG 2.2 AA) and 360px overflow
     # are ratcheted against scripts/test-pages-baseline.json. Tools are installed for this job
     # only — the repo itself keeps zero dependencies.
-    runs-on: ubuntu-latest
+    # Pinned: the pinned Playwright installs Chromium only on OS versions it supports, and
+    # ubuntu-latest moved to 26.04, which Playwright 1.56.1 does not. Move both together.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -44,3 +46,20 @@ jobs:
       - run: npm run test:motion
       - run: npm run test:contracts
       - run: npm run test:applications
+
+  consumer:
+    # The package as a consumer gets it: `npm pack`, installed into a scratch project, imported
+    # and server-rendered in plain Node (what Next.js, Vite SSR and Jest do), every `exports`
+    # subpath resolved; then the public .d.ts compiled under `strict` with misuse that must fail.
+    # React and TypeScript are installed for this job only — the repo keeps zero dependencies.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm i --no-save --no-audit --no-fund react@18.3.1 react-dom@18.3.1 typescript@5.6.3 @types/react@18.3.12
+      - run: npm run test:consumer
+      - run: npm run test:types
+      # The generated WordPress adapter against the official theme.json schema.
+      - run: pipx run check-jsonschema==0.29.4 --schemafile https://raw.githubusercontent.com/WordPress/gutenberg/wp/6.6/schemas/json/theme.json adapters/wordpress/theme.json adapters/wordpress/styles/*.json

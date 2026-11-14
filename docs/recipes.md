@@ -57,7 +57,7 @@ import '@idcesares/rse-design-system/styles.css';
 ```
 
 Or, working inside this repo, `import { … } from './index.js'`. Never import
-`components/core/Button.jsx` directly.
+`components/core/Button.js` directly.
 
 ## A page from a template
 
@@ -238,6 +238,36 @@ To offer a toggle, flip the attribute and let CSS do the rest:
 document.documentElement.dataset.rseTheme = isDark ? 'dark' : '';
 ```
 
+## Layout primitives
+
+Page structure comes from six classes in `components/layout/layout.css` (shipped in `styles.css`
+and `dist/components.css`). Use them instead of declaring a container or a stack per page; a page
+stylesheet keeps only what is specific to that page.
+
+```html
+<section class="rse-section rse-container" id="programas">
+  <div class="rse-stack">
+    <p class="rse-eyebrow">Programas</p>
+    <h2>Escolha um caminho</h2>
+  </div>
+  <div class="rse-grid" style="--rse-grid-min: 16rem">…cards…</div>
+  <div class="rse-cluster">…buttons…</div>
+</section>
+```
+
+| Class | What it does | Tune with |
+| --- | --- | --- |
+| `.rse-container` | page width (`--rse-container-xl`) and fluid side padding | `--lg`, `--md`, `--prose` |
+| `.rse-section` | `--rse-section-y-md` above and below (`-sm` below the md breakpoint); consecutive sections share one gap | — |
+| `.rse-stack` | vertical flow, one gap (`--rse-space-5`) | `--sm`, `--lg`, `--rse-stack-gap` |
+| `.rse-cluster` | wrapping row, one gap | `--rse-cluster-gap` |
+| `.rse-grid` | auto-fit columns, never a fixed count | `--rse-grid-min` (17.5rem), `--rse-grid-gap` |
+| `.rse-eyebrow` | the eyebrow label (Bold, uppercase, primary) | — |
+
+A section with its own surface is a band (`CtaBand`, `StatBand`), not `.rse-section`. Media queries
+use the breakpoint scale (`xs 480 · sm 640 · md 834 · lg 1120 · xl 1440`, max-width as the value
+minus 1px); `npm run check` rejects anything else.
+
 ## Standard section patterns
 
 These compositions recur across the network's surfaces; reuse them rather than inventing new ones.
@@ -267,3 +297,50 @@ education site; use it instead of long unbroken copy.
 
 **Footer** — `Footer` component with 3–4 link columns on `--rse-brand-ink`. Always carries the
 institutional note line.
+
+## Building a page — the checklist
+
+1. Pick the closest starting point rather than assembling primitives:
+   - `templates/landing-page/` — marketing page (announcement bar, hero, stats, program cards, CTA, footer).
+   - `templates/program-page/` — program/unit detail (hero with enrollment window, turmas table, FAQ, stepper).
+   - `templates/enrollment-form/` — printable A4 matrícula form.
+   - `starters/page.html` — blank page with the system wired up, if nothing above fits.
+2. Copy the folder, then edit the one `base` line in its `ds-base.js` so the paths resolve from the
+   new location. That single line is the only wiring.
+3. Compose from existing components before writing new markup. Check
+   [components.md](components.md) first — the set is deliberately complete for this
+   use case (43 components), so a "missing" component is usually an existing one with a prop you
+   haven't read yet.
+4. Structure: page background is cream (`--rse-color-surface-page`), content sits on white cards
+   (`--rse-color-surface-card`). A feature or CTA **band** may be brand purple or indigo with white text, or
+   any light or mid accent with **ink** text (`--rse-brand-ink`, 4.8–10:1) — that is how the rede's six
+   hues reach a page (decision D3). Never white text on an accent (2.3–3.3:1), never a `-dark`
+   accent or mid `--rse-brand-purple` as a band (they fail with both white and ink), no off-palette or contrast-breaking
+   gradients (a subtle palette gradient is fine on a hero or band, see [creative latitude](composition/creative-latitude.md)),
+   one band colour per section.
+5. Rhythm: `--rse-section-y-md` (96px) between major blocks, `--rse-container-xl` (1200px) for page width,
+   `--rse-container-prose` (66ch) for anything text-heavy.
+6. Copy: short declarative sentences, second person ("você"), verbs of transformation (acolhe,
+   forma, transforma). The slogan is **"Aprender para a vida acontecer"**. Full voice guidance is
+   in [readme.md](../readme.md#content-fundamentals).
+
+Details and worked examples: the recipes in this file.
+
+## Building artwork in HTML
+
+Start at [DESIGN.md](../DESIGN.md). It is written for any stack (HTML, PPTX, SVG, a print pipeline) and
+routes to the composition rules, the formats and the exemplars. What follows is the HTML path in
+this repo: static pages, no React needed unless you want the components.
+
+- Deck: copy `templates/institutional-deck/` (1920×1080 slides, print/PPTX-ready via `deck-stage.js`). It is
+  a working implementation reference: see `docs/application-references.md` for its structure and
+  validation, and `docs/composition/exemplars/` for cross-stack editorial direction.
+- Poster / print piece: `starters/poster.html` (A3 at 300dpi-equivalent scale, print CSS included).
+- Any static page: `starters/page.html`.
+
+Artwork rules on top of the non-negotiables: palette colour only; subtle palette gradients and
+depth are welcome ([the gradient rules](composition/creative-latitude.md#gradients)); no
+stock or generated photography and no photographic full-bleeds until real photography exists. `BrandMotif` renders the official *cubo impossível* constructions (rule 10): one
+focal construction per composition. Generated shapes and motion exist too (`MotifEngine` through
+`MotifPattern` and `MotifLoader`; a pattern is a field, not a construction). If you use the purple,
+orange or yellow `hue`, or any generated shape, tell the user those are derived, not supplied.

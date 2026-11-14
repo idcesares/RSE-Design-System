@@ -19,6 +19,11 @@
     "overflow": false,
     "rules": {}
   },
+  "starters/artifact.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
   "starters/page-react.html": {
     "axe": 0,
     "overflow": false,
@@ -35,6 +40,226 @@
     "rules": {}
   },
   "showcase/index.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/accordion.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/alert.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/avatar.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/badge.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/brandmotif.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/breadcrumb.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/button.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/card.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/checkbox.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/ctaband.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/datatable.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/datefield.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/divider.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/fileupload.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/filterchips.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/footer.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/hero.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/icon.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/iconbutton.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/input.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/menu.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/modal.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/motifengine.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/motifloader.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/motifpattern.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/navbar.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/pagination.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/platformentry.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/progressbar.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/radio.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/select.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/skeleton.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/spinner.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/stat.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/statband.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/stepper.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/switch.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/tabs.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/tag.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/testimonial.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/textarea.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/toast.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/components/tooltip.html": {
+    "axe": 0,
+    "overflow": false,
+    "rules": {}
+  },
+  "site/index.html": {
     "axe": 0,
     "overflow": false,
     "rules": {}

@@ -16,7 +16,7 @@
 <a class="lp-skip" href="#conteudo">Pular para o conteúdo</a>
 <x-import component-from-global-scope="RSE.Navbar" logo-src="{{ logoPurple }}" logo-dark-src="{{ logoWhite }}" logo-alt="Rede Sesc de Educação" links="{{ navLinks }}" cta-label="Programas" cta-href="#programas" hint-size="100%,96px"></x-import>
 <main id="conteudo" tabindex="-1">
-<div class="lp-container lp-notice">
+<div class="rse-container lp-notice">
 <x-import component-from-global-scope="RSE.Alert" tone="info" title="Uma referência para construir sua campanha" message="Conteúdo demonstrativo. Programas, números e condições precisam de validação antes da publicação. Este modelo não recebe dados nem realiza matrículas." hint-size="100%,96px"></x-import>
 </div>
 <x-import component-from-global-scope="RSE.Hero" eyebrow="Rede Sesc de Educação" badge="{{ heroBadge }}" title="Aprender para a vida acontecer" lead="Descobrir o mundo. Construir relações. Encontrar novos caminhos. A educação acolhe suas perguntas e abre espaço para o que vem depois." media="{{ heroMedia }}" hint-size="100%,520px">
@@ -28,9 +28,9 @@
 <x-import component-from-global-scope="RSE.Stat" value="000" label="Estudantes · exemplo" align="center" hint-size="100%,100px"></x-import>
 <x-import component-from-global-scope="RSE.Stat" value="00" label="Programas · exemplo" align="center" hint-size="100%,100px"></x-import>
 </x-import>
-<section class="lp-section lp-container" id="programas" aria-labelledby="programas-titulo">
+<section class="rse-section rse-container" id="programas" aria-labelledby="programas-titulo">
 <div class="lp-heading">
-<p class="lp-eyebrow">Possibilidades de aprender</p>
+<p class="rse-eyebrow">Possibilidades de aprender</p>
 <h2 id="programas-titulo">Cada etapa abre um novo caminho</h2>
 <p class="lp-intro">Explore exemplos de apresentação dos programas. A oferta, o público e os diferenciais de cada unidade devem ser confirmados com a Rede.</p>
 </div>
@@ -38,7 +38,7 @@
 <x-import component-from-global-scope="RSE.Tabs" tabs="{{ programTabs }}" active-id="{{ activeProgramTab }}" on-change="{{ setProgramTab }}" aria-label="Filtrar programas de exemplo" hint-size="100%,48px"></x-import>
 </div>
 <p class="lp-count" role="status" aria-live="polite">{{ programResultLabel }}</p>
-<div class="lp-grid">
+<div class="rse-grid">
 <sc-if value="{{ showInfantil }}" hint-placeholder-val="{{ true }}">
 <x-import component-from-global-scope="RSE.Card" image="{{ infantilMedia }}" tag="{{ infantilTag }}" eyebrow="Programa ilustrativo" title="Aprender começa com a descoberta" description="Brincar, conviver e descobrir o mundo. Cada pergunta abre espaço para uma nova experiência." href="#proximos-passos" hint-size="100%,420px"></x-import>
 </sc-if>
@@ -50,14 +50,14 @@
 </sc-if>
 </div>
 </section>
-<section class="lp-section lp-container" id="experiencia" aria-labelledby="experiencia-titulo">
+<section class="rse-section rse-container" id="experiencia" aria-labelledby="experiencia-titulo">
 <div class="lp-editorial">
 <figure class="lp-figure">
 <image-slot class="lp-photo" id="campaign-experience" placeholder="estudantes investigando materiais em grupo, ambiente escolar real, luz natural, fotografia documental autorizada"></image-slot>
 <figcaption class="lp-photo-caption">Imagem pendente: inserir fotografia real, autorizada e acompanhada de crédito.</figcaption>
 </figure>
 <div class="lp-editorial-copy">
-<p class="lp-eyebrow">Uma vida de descobertas</p>
+<p class="rse-eyebrow">Uma vida de descobertas</p>
 <h2 id="experiencia-titulo">O aprendizado ganha sentido quando encontra a vida</h2>
 <p class="lp-intro">Use este espaço para contar uma experiência real da sua comunidade escolar. Uma pergunta que virou projeto. Um encontro que abriu perspectivas. Uma descoberta que continuou fora da sala.</p>
 <p>Na versão publicada, apresente o contexto, a participação dos estudantes e o que foi aprendido. Um relato documentado vale mais que uma promessa genérica.</p>
@@ -65,17 +65,17 @@
 </div>
 </div>
 </section>
-<section class="lp-section lp-container" id="proximos-passos" aria-labelledby="passos-titulo">
+<section class="rse-section rse-container" id="proximos-passos" aria-labelledby="passos-titulo">
 <div class="lp-next">
-<div class="lp-stack">
+<div class="rse-stack">
 <div class="lp-heading">
-<p class="lp-eyebrow">Da descoberta à escolha</p>
+<p class="rse-eyebrow">Da descoberta à escolha</p>
 <h2 id="passos-titulo">Informação para decidir com confiança</h2>
 <p class="lp-intro">Conheça o programa, confirme a oferta na unidade e consulte as orientações oficiais de matrícula.</p>
 </div>
 <x-import class="lp-stepper" component-from-global-scope="RSE.Stepper" steps="{{ nextSteps }}" current="0" orientation="vertical" aria-label="Próximos passos para conhecer a Rede" hint-size="100%,240px"></x-import>
 </div>
-<div class="lp-stack lp-portal-note">
+<div class="rse-stack lp-portal-note">
 <h3>Antes de começar</h3>
 <p>Confira com a unidade escolhida os programas disponíveis, os critérios de atendimento, os documentos, os valores e os prazos. Nenhuma dessas condições está definida neste modelo.</p>
 <x-import component-from-global-scope="RSE.Alert" tone="warning" title="Portal de matrícula ainda não configurado" message="Matrícula e registros acadêmicos pertencem ao portal TOTVS. A Rede precisa fornecer a URL oficial antes de habilitar o acesso." hint-size="100%,120px"></x-import>

@@ -29,7 +29,7 @@ Texts are props: `dropLabel` (default "Arraste os arquivos ou clique para escolh
     <li class="rse-dropzone-list__item">
       <span class="rse-dropzone-list__name">rg-frente.pdf</span>
       <span class="rse-dropzone-list__size">240 KB</span>
-      <button type="button" class="rse-dropzone-list__remove" aria-label="Remover rg-frente.pdf"><!-- ícone "x" do Icon.jsx (SVG Lucide) --></button>
+      <button type="button" class="rse-dropzone-list__remove" aria-label="Remover rg-frente.pdf"><!-- ícone "x" do Icon.js (SVG Lucide) --></button>
     </li>
   </ul>
   <p class="rse-field__message" id="up-note">Envie frente e verso do RG.</p>

@@ -1,0 +1,34 @@
+/* Layout primitives — the composition layer every page was re-declaring under its own prefix
+   (.lp-container, .pp-stack, …). No visual identity of their own: width, rhythm and flow only,
+   from the layout tokens. Plain classes, no React wrapper; in React pass them as className.
+
+   .rse-container   page width (--rse-container-xl) with the fluid side padding.
+                    --prose / --md / --lg narrow it to the matching --rse-container-* token.
+   .rse-section     vertical rhythm between major blocks (--rse-section-y-md; -sm below md).
+                    Consecutive sections share one gap. A section with its own surface is a
+                    band (CtaBand, StatBand), not .rse-section.
+   .rse-stack       vertical flow with one gap. --sm / --lg change the gap; or set --rse-stack-gap.
+   .rse-cluster     a wrapping row (buttons, tags, meta) with one gap; or set --rse-cluster-gap.
+   .rse-grid        auto-fit columns, no fixed column count: as many as fit at --rse-grid-min
+                    (default 17.5rem), one column on a phone. Set --rse-grid-min / --rse-grid-gap.
+   .rse-eyebrow     the eyebrow label: Bold, uppercase, eyebrow tracking, primary colour — the only
+                    uppercase in the system (AGENTS.md, rule 3). */
+
+.rse-container{width:100%;max-width:var(--rse-container-xl);margin-inline:auto;padding-inline:var(--rse-container-padding)}
+.rse-container--lg{max-width:var(--rse-container-lg)}
+.rse-container--md{max-width:var(--rse-container-md)}
+.rse-container--prose{max-width:calc(var(--rse-container-prose) + 2 * var(--rse-container-padding))}
+
+.rse-section{padding-block:var(--rse-section-y-md)}
+.rse-section + .rse-section{padding-top:0}
+@media (max-width:833px){.rse-section{padding-block:var(--rse-section-y-sm)}}
+
+.rse-stack{--rse-stack-gap:var(--rse-space-5);display:flex;flex-direction:column;gap:var(--rse-stack-gap);min-width:0}
+.rse-stack--sm{--rse-stack-gap:var(--rse-space-3)}
+.rse-stack--lg{--rse-stack-gap:var(--rse-space-7)}
+
+.rse-cluster{--rse-cluster-gap:var(--rse-space-3);display:flex;flex-wrap:wrap;align-items:center;gap:var(--rse-cluster-gap)}
+
+.rse-grid{--rse-grid-min:17.5rem;--rse-grid-gap:var(--rse-grid-gutter);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--rse-grid-min)),1fr));gap:var(--rse-grid-gap)}
+
+.rse-eyebrow{margin:0;font-size:var(--rse-font-size-eyebrow);font-weight:var(--rse-font-weight-bold);letter-spacing:var(--rse-letter-spacing-eyebrow);text-transform:uppercase;color:var(--rse-color-primary)}

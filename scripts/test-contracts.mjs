@@ -200,6 +200,31 @@ try {
   console.log('ok   bilingual search, group/reset/empty state and variable-height grid without overlaps or reordering');
   assert.deepEqual(errors, []);
   console.log('ok   shared contract coverage and gallery keyboard/panel associations');
+
+  // Layout-bearing components respond to their own width (container queries), not the viewport:
+  // on a wide screen, a Navbar and a Footer in a narrow region take their narrow layout, and the
+  // same components at full width take the wide one.
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(origin + '/contracts.html');
+  const widths = await page.evaluate(async () => {
+    const h = React.createElement;
+    const nav = { links: [{ label: 'Programas', href: '#a' }, { label: 'Unidades', href: '#b' }], ctaLabel: 'Matrícula', ctaHref: '#c', logoSrc: '/assets/logos/wordmark-purple.svg', logoAlt: 'Rede Sesc de Educação' };
+    const foot = { logoSrc: '/assets/logos/wordmark-white.svg', logoAlt: 'Rede Sesc de Educação', tagline: 'Aprender para a vida acontecer.', columns: [{ title: 'Rede', links: [{ label: 'Programas', href: '#a' }] }] };
+    const region = (id, width) => h('div', { id, style: { width } }, h(RSE.Navbar, nav), h(RSE.Footer, foot));
+    ReactDOM.createRoot(document.getElementById('app')).render(h('div', null, region('narrow', '420px'), region('wide', '100%')));
+    await new Promise(r => setTimeout(r, 200));
+    const measure = (id) => {
+      const root = document.getElementById(id);
+      const logo = root.querySelector('.rse-navbar__logo').getBoundingClientRect();
+      const links = root.querySelector('.rse-navbar__links').getBoundingClientRect();
+      const cols = getComputedStyle(root.querySelector('.rse-footer__inner')).gridTemplateColumns.split(' ').length;
+      return { linksBelowLogo: links.top >= logo.bottom, footerColumns: cols };
+    };
+    return { narrow: measure('narrow'), wide: measure('wide') };
+  });
+  assert.deepEqual(widths.narrow, { linksBelowLogo: true, footerColumns: 1 }, 'narrow region: navbar links wrap below the logo, footer stacks');
+  assert.deepEqual(widths.wide, { linksBelowLogo: false, footerColumns: 2 }, 'full width: navbar on one row, footer brand beside the links');
+  console.log('ok   Navbar and Footer follow their container width, not the viewport');
   console.log('test-contracts: ok');
 } finally {
   if (browser) await browser.close();

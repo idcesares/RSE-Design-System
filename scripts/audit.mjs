@@ -18,7 +18,7 @@ import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from '
 import { join, dirname, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CONTRAST_PAIRS } from './contrast-pairs.mjs';
-import { cssContractPath } from './lib/css-contract.mjs';
+import { cssContractPath, CONTRACT_ONLY } from './lib/css-contract.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const asJson = process.argv.includes('--json');
@@ -78,14 +78,16 @@ const GLYPH = /['"](?:×|▾|▸|›|‹|✓|→|←)['"]|\\u00d7|\\u203a|\\u203
 const RAW_COLOR = /#[0-9a-fA-F]{3,8}\b|['"](?:white|black)['"]|rgba?\(/g;
 const PX_LITERAL = /\b(?:padding|margin|gap|width|height|fontSize|borderRadius|top|left|right|bottom)\s*:\s*(?:\d+\b|'[^'v]*\d+px[^']*')/g;
 
-const generated = new Set(['components/core/Icon.jsx', 'components/brand/BrandMotif.jsx']);
+const generated = new Set(['components/core/Icon.js', 'components/brand/BrandMotif.js']);
 // Registered in the manifest so the bundle carries them, but function libraries, not rendered
 // components: they take no props and emit no markup of their own, so these checks do not apply.
-const libraries = new Set(['components/brand/MotifEngine.jsx']);
+const libraries = new Set(['components/brand/MotifEngine.js']);
 const components = walk('components')
-  .filter((f) => f.endsWith('.jsx') && !generated.has(f) && !libraries.has(f))
+  .filter((f) => f.endsWith('.js') && !generated.has(f) && !libraries.has(f))
   .map((f) => {
     const src = read(f);
+    const sheet = cssContractPath(ROOT, f);
+    const css = sheet ? read(sheet) : '';
     return {
       file: f,
       glyphIcons: (src.match(GLYPH) || []).length,
@@ -95,14 +97,25 @@ const components = walk('components')
       randomId: /Math\.random/.test(src),
       passesRest: /\.\.\.(?:rest|props|other)\b/.test(src),
       acceptsClassName: /\bclassName\b(?!:\s*'rse-control)/.test(src.replace(/className:\s*'rse-control-(?:input|box)'/g, '')),
-      responsive: /matchMedia|@media|container-type/.test(src),
-      cssContract: Boolean(cssContractPath(ROOT, f)),
+      // Since the CSS contract, responsive rules live in the stylesheet, not the wrapper.
+      responsive: /matchMedia|@media|container-type/.test(src) || /@media|@container|container-type/.test(css),
+      cssContract: Boolean(sheet),
     };
   });
 
+// Sizing literals in the component stylesheets. componentPxLiterals above only reads the React
+// wrappers; since the CSS contract, the sizes live here. Counted once per stylesheet (Button.css
+// is shared by IconButton). Not counted: hairlines and outlines (<= 2px), and media-query
+// conditions (CSS cannot read var() there; check-ds holds those to the breakpoint tokens).
+const CSS_PX = /(?<![\w.-])(\d+(?:\.\d+)?)px\b/g;
+const componentSheets = [...new Set([...CONTRACT_ONLY, ...components.map((c) => cssContractPath(ROOT, c.file)).filter(Boolean)])].map((f) => {
+  const css = read(f).replace(/\/\*[\s\S]*?\*\//g, '').replace(/@(?:media|container)[^{]*/g, '');
+  return { file: f, pxLiterals: [...css.matchAll(CSS_PX)].filter((m) => Number(m[1]) > 2).length };
+});
+
 // ─── 3. Templates and kits: do they hold the system's own rules? ────────────
 const pages = walk('templates')
-  .filter((f) => /\.(dc\.html|html|js)$/.test(f) && !/(support|ds-base|deck-stage|doc-page)\.js$/.test(f))
+  .filter((f) => /\.(dc\.html|html|js)$/.test(f) && !/(support|ds-base|deck-stage|doc-page|runtime)\.js$/.test(f))
   .map((f) => {
     const html = read(f);
     // Composition can live in an authored stylesheet instead of inline HTML.
@@ -114,7 +127,8 @@ const pages = walk('templates')
     return {
       file: f,
       rawColors: (src.match(/#[0-9a-fA-F]{3,6}\b|:\s*(?:white|black)\b|rgba?\(/g) || []).length,
-      hardWidths: (src.match(/max-width:\s*\d+px|maxWidth:\s*\d+/g) || []).length,
+      // A media-query condition is a breakpoint, not a fixed-width element (check-ds holds those to the scale).
+      hardWidths: (src.replace(/@(?:media|container)[^{]*/g, '').match(/max-width:\s*\d+px|maxWidth:\s*\d+/g) || []).length,
       mediaQueries: (src.match(/@media/g) || []).length,
       fixedGrids: (src.match(/grid-template-columns:\s*(?:repeat\(\d|1fr 1fr)/g) || []).length,
     };
@@ -140,6 +154,7 @@ const score = {
   componentGlyphIcons: sum(components, 'glyphIcons'),
   componentRawColors: sum(components, 'rawColors'),
   componentPxLiterals: sum(components, 'pxLiterals'),
+  componentCssPxLiterals: sum(componentSheets, 'pxLiterals'),
   componentsWithJsHover: sum(components, 'jsHover'),
   componentsWithRandomIds: sum(components, 'randomId'),
   componentsWithoutRestProps: components.length - sum(components, 'passesRest'),
@@ -155,7 +170,7 @@ const score = {
 
 // Counts that may only go down (or, for componentsResponsive, only up).
 const LOWER_IS_BETTER = [
-  'componentGlyphIcons', 'componentRawColors', 'componentPxLiterals', 'componentsWithJsHover',
+  'componentGlyphIcons', 'componentRawColors', 'componentPxLiterals', 'componentCssPxLiterals', 'componentsWithJsHover',
   'componentsWithRandomIds', 'componentsWithoutRestProps', 'pageRawColors', 'pageHardWidths',
   'pagesWithoutMediaQueries', 'docCountDrift',
 ];
@@ -200,6 +215,7 @@ if (updateBaseline) {
     ].filter(Boolean);
     if (d.length) console.log(`  ${pad(c.file, 44)}${d.join(', ')}`);
   }
+  for (const s of componentSheets) if (s.pxLiterals) console.log(`  ${pad(s.file, 44)}${s.pxLiterals} px sizing literal(s) in CSS`);
   console.log('\nPages and kits\n');
   for (const p of pages) {
     console.log(`  ${pad(p.file, 56)}raw colour ${pad(p.rawColors, 4)}fixed width ${pad(p.hardWidths, 4)}@media ${p.mediaQueries}`);

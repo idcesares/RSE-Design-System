@@ -5,9 +5,9 @@
 // `export default` and `export { … }` are not: the bundle would not put them on window.RSE, so a
 // component (and the motif engine) must not use them.
 
-// A component may import another (Modal uses Icon): `import { Icon } from '../core/Icon.jsx'`
+// A component may import another (Modal uses Icon): `import { Icon } from '../core/Icon.js'`
 // becomes a read from the shared scope, and blocks are ordered so dependencies come first.
-export const INTERNAL_IMPORT = /^import \{([^}]+)\} from '\.\.?\/(?:[a-z]+\/)?([A-Za-z]+)\.jsx';\r?\n/gm;
+export const INTERNAL_IMPORT = /^import \{([^}]+)\} from '\.\.?\/(?:[a-z]+\/)?([A-Za-z]+)\.js';\r?\n/gm;
 
 // The names a source exports, in source order.
 export const EXPORT_DECL = /^export (?:function|const) ([A-Za-z_$][\w$]*)/gm;

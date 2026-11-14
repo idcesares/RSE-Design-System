@@ -54,7 +54,7 @@ const walk = (dir, out = []) => {
   }
   return out;
 };
-const pages = [...walk('templates'), ...walk('starters'), 'showcase/index.html']
+const pages = [...walk('templates'), ...walk('starters'), 'showcase/index.html', ...walk('site')]
   .filter((f) => f.endsWith('.html') && (!only || f.includes(only)));
 
 // Print and slide artefacts are fixed-size canvases (A4, A3, 1920×1080), not responsive pages.

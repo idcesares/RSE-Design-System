@@ -65,7 +65,7 @@ test('signature defaults assign all six palette families without changing geomet
   }
 });
 
-// ─── Engine core (components/brand/MotifEngine.jsx) ─────────────────────────
+// ─── Engine core (components/brand/MotifEngine.js) ─────────────────────────
 const HUES6 = ['green', 'blue', 'pink', 'purple', 'orange', 'yellow'];
 const close = (a, b, eps = 0.011) => Math.abs(a - b) <= eps;
 // A small hand-built crossing: bar 1 (along y) rests across the top of bar 0 (along x), so plain
@@ -340,7 +340,7 @@ test('every library shape renders identically twice in every hue', () => {
   }
 });
 
-// ─── MotifLoader (components/feedback/MotifLoader.jsx) ──────────────────────
+// ─── MotifLoader (components/feedback/MotifLoader.js) ──────────────────────
 // The stub React returns { type, props, children } trees; these helpers read them.
 const flat = (children) => children.flat(Infinity).filter((c) => c && typeof c === 'object');
 const find = (node, pred, out = []) => {
@@ -452,7 +452,7 @@ test('server render without window does not throw', () => {
   }
 });
 
-// ─── renderMotifPattern (components/brand/MotifEngine.jsx) ──────────────────
+// ─── renderMotifPattern (components/brand/MotifEngine.js) ──────────────────
 // Cell markup: <g class="rse-motif-pattern__cell" style="--d:N"><use href="#rse-motif-pattern-<shape>-<hue>" xlink:href="#…"
 // transform="translate(x y) scale(s)"/></g>; geometry lives once per (shape, hue) in <defs>.
 const CELL_RE = /<g class="rse-motif-pattern__cell" style="--d:(\d+)"><use href="#rse-motif-pattern-([a-z]+)-([a-z]+)" xlink:href="#rse-motif-pattern-\2-\3" transform="translate\((-?[\d.]+) (-?[\d.]+)\) scale\(([\d.]+)\)"\/><\/g>/g;
@@ -701,7 +701,7 @@ test('1920x1080 at cell 96 renders quickly', () => {
   assert.ok(ms < 250, `${ms} ms`);
 });
 
-// ─── MotifPattern (components/brand/MotifPattern.jsx) ───────────────────────
+// ─── MotifPattern (components/brand/MotifPattern.js) ───────────────────────
 const patternRoot = (props = {}) => engine.MotifPattern({ shape: 'cube', ...props }, null);
 const patternButtons = (tree) => find(tree, (n) => n.type === 'button');
 
@@ -773,7 +773,7 @@ test('server render without window does not throw', () => {
 });
 
 test('the reveal effect calls RSE.motion.reveal with the root when it exists, and imports nothing from motion.js', () => {
-  const src = readFileSync(join(HERE, '..', 'components', 'brand', 'MotifPattern.jsx'), 'utf8');
+  const src = readFileSync(join(HERE, '..', 'components', 'brand', 'MotifPattern.js'), 'utf8');
   assert.match(src, /^'use client';/);
   assert.ok(!/from ['"][^'"]*motion/.test(src));
   assert.match(src, /rse-motion-managed/);

@@ -1,0 +1,9 @@
+{
+  "$comment": "Adoption tracker (roadmap P4.3): every system that consumes the design system, its owner, conformance level and the version it runs. Facts about Sesc systems: add an entry only with the owning team's confirmation, never from a guess. Validated by scripts/check-ds.mjs; levels are defined in docs/governance.md.",
+  "levels": {
+    "bronze": "Looks like the Rede: tokens (or an adapter), Montserrat, selo per the manual, palette only, pt-BR copy in the brand voice.",
+    "silver": "Works like the Rede: Bronze, plus the system's components for all chrome (header, footer, forms, feedback), WCAG 2.2 AA on audited pages, responsive from 360 px.",
+    "gold": "Is the Rede: Silver, plus every page section from patterns, light/dark/contrast themes, within one minor of the latest release, fixes contributed upstream."
+  },
+  "systems": []
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generates components/core/Icon.jsx and the IconName union in Icon.d.ts from the
+// Generates components/core/Icon.js and the IconName union in Icon.d.ts from the
 // vendored Lucide SVGs in assets/icons/lucide/.
 //
 //   node scripts/build-icons.mjs          # write
@@ -113,7 +113,7 @@ export function Icon(props: IconProps): JSX.Element | null;
 export const iconNames: IconName[];
 `;
 
-const targets = { 'components/core/Icon.jsx': jsx, 'components/core/Icon.d.ts': dts };
+const targets = { 'components/core/Icon.js': jsx, 'components/core/Icon.d.ts': dts };
 let stale = false;
 for (const [rel, content] of Object.entries(targets)) {
   const p = join(ROOT, rel);

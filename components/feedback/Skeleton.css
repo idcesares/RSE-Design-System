@@ -5,4 +5,5 @@
 .rse-skeleton__line{height:var(--rse-skeleton-height,12px);border-radius:var(--rse-radius-pill);width:100%}
 .rse-skeleton__line:last-child{width:60%}
 .rse-skeleton--circle{width:var(--rse-skeleton-width,48px);height:var(--rse-skeleton-height,var(--rse-skeleton-width,48px));border-radius:var(--rse-skeleton-radius,var(--rse-radius-pill))}
+.rse-skeleton--rect{border-radius:var(--rse-skeleton-radius,var(--rse-radius-sm))}
 .rse-skeleton--card{height:var(--rse-skeleton-height,180px);border-radius:var(--rse-skeleton-radius,var(--rse-radius-lg))}

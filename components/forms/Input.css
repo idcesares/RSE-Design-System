@@ -8,16 +8,16 @@
 .rse-field__count{flex:none;color:var(--rse-color-text-muted)}
 
 /* Input — .rse-input on <input>, <select> or <textarea>. The global focus ring stays: a pale
-   shadow alone is not a visible focus indicator. */
+   shadow alone is not a visible focus indicator. Re-skin with the --rse-input-* component tokens. */
 .rse-input{
   width:100%;min-height:var(--rse-hit-target-min);padding:var(--rse-space-3) var(--rse-space-4);
-  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);line-height:1.4;color:var(--rse-color-text-heading);
-  background:var(--rse-color-surface-card);border:1.5px solid var(--rse-color-border-strong);border-radius:var(--rse-radius-md);
+  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);line-height:1.4;color:var(--rse-input-fg);
+  background:var(--rse-input-bg);border:1.5px solid var(--rse-input-border);border-radius:var(--rse-input-radius);
   transition:border-color var(--rse-duration-fast) var(--rse-ease-standard);
 }
 .rse-input::placeholder{color:var(--rse-color-text-muted);opacity:1}
-.rse-input:focus{border-color:var(--rse-color-primary)}
-.rse-input[aria-invalid="true"]{border-color:var(--rse-color-danger)}
+.rse-input:focus{border-color:var(--rse-input-border-focus)}
+.rse-input[aria-invalid="true"]{border-color:var(--rse-input-border-invalid)}
 .rse-input:disabled{background:var(--rse-color-surface-sunken);color:var(--rse-color-text-muted);cursor:not-allowed}
 
 /* DateField — an <input type="date" class="rse-input"> inside .rse-field, plus an optional

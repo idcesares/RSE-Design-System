@@ -15,7 +15,7 @@ Start with `components/<group>/Name.css`: a root class `.rse-name`, BEM elements
 management or menu keyboard navigation still needs a host controller. `npm run sync` wraps the CSS in `@layer rse.components` in
 `dist/components.css`; a raw colour fails the build.
 
-Then `components/<group>/Name.jsx` renders that markup. Groups are `core`, `brand`, `forms`,
+Then `components/<group>/Name.js` renders that markup. Groups are `core`, `brand`, `forms`,
 `navigation`, `feedback`, `data`, `disclosure`, `overlay`.
 
 ```jsx
@@ -26,7 +26,7 @@ export const Name = React.forwardRef(function Name({ tone = 'primary', className
 });
 ```
 
-Another component is imported by relative path (`import { Icon } from '../core/Icon.jsx';`); the
+Another component is imported by relative path (`import { Icon } from '../core/Icon.js';`); the
 bundle builder resolves it and orders the blocks.
 
 Hard rules:
@@ -85,8 +85,8 @@ markup does not copy React event handlers.
 
 ## 5. Register it
 
-- `rse.manifest.json` → `components`: `{ "name": "Name", "sourcePath": "components/<group>/Name.jsx" }`
-- `index.js` → `export { Name } from './components/<group>/Name.jsx';`
+- `rse.manifest.json` → `components`: `{ "name": "Name", "sourcePath": "components/<group>/Name.js" }`
+- `index.js` → `export { Name } from './components/<group>/Name.js';`
 - `index.d.ts` → the matching type re-export.
 - If it renders text on a new surface, add the pair to `scripts/contrast-pairs.mjs` — the audit
   gate and the showcase both read it.
@@ -99,8 +99,15 @@ npm run check   # must pass
 ```
 
 `npm run check` will fail if: a `.d.ts` or `.prompt.md` is missing, the component isn't in the
-manifest or `index.js`, the bundle is stale, a token name collides, a `var()` points at an
-undefined token, or a native input is hidden with `display:none`.
+manifest or `index.js`, the bundle or `dist/components.json` is stale, a token name collides, a
+`var()` points at an undefined token, a native input is hidden with `display:none`, the component
+emits an `rse-*` class that no stylesheet defines (declare a deliberate hook in `HOOK_CLASSES`,
+`scripts/lib/css-contract.mjs`, with its reason), a prop value in the `.d.ts` union builds a
+modifier the CSS lacks, or a media query is off the breakpoint scale.
+
+Write the props interface one prop per line with a `/** doc */` above anything not obvious, and a
+`/** summary */` above the `export declare const`: `docs/components.md` and `dist/components.json`
+are generated from them, and an interface on a single line is not read.
 
 ## Reviewing a change to an existing component
 
@@ -111,3 +118,68 @@ undefined token, or a native input is hidden with `display:none`.
 - Did you check dark and contrast themes? Re-check any colour you touched.
 - Did you re-run `npm run sync`? An unsynced edit is a change that only exists in the source tree
   and nowhere on any actual page.
+
+## The component rules in full
+
+A component is these files. They move together:
+
+```
+components/<group>/Name.css        the CSS contract: .rse-name, BEM elements, --modifiers. Look and
+                                   state live here (:hover, :focus-visible, :checked, [aria-*]).
+components/<group>/Name.js        React wrapper that renders the contract (createElement form, no JSX)
+components/<group>/Name.d.ts       props + one-line doc comment
+components/<group>/Name.prompt.md  when to use it, a pt-BR example, and the plain-HTML markup
+showcase/demos.js                  a demo for the showcase gallery (step 4 of docs/authoring-components.md)
+```
+
+**The CSS contract is the component; React is a convenience.** A CMS, the enrollment portal or a
+static page uses the classes directly, so nothing visual may live only in JavaScript: no inline
+style objects, no hover held in state. Wrappers forward `ref`, pass every other prop to the main
+element (`...rest`), merge `className`, and build ids with `React.useId`. All 40 audited UI wrappers
+are on the contract (`npm run audit` → `componentsOnCssContract`). IconButton shares `Button.css`,
+and DateField shares `Input.css`; `scripts/lib/css-contract.mjs` records shared ownership. The 43
+manifest entries also include generated Icon and BrandMotif, plus the MotifEngine function library.
+CSS provides appearance and visual states; behavioral interactions still need a controller
+(the React wrapper or host JavaScript). Geometry props may set documented CSS custom properties;
+colours, typography, radii, shadows and motion stay in CSS and tokens.
+
+Then:
+
+```bash
+npm run sync     # rebuilds tokens, dist/rse.js, brand.json and the generated docs
+npm run check    # must pass
+```
+
+Rules:
+
+- **`React.createElement` form, not JSX.** The bundle is a copy, not a compile; `build-bundle`
+  rejects JSX. This is what lets static pages load components with no build step.
+- A **new** component must also be registered in `rse.manifest.json` under `components` (name +
+  sourcePath) and exported from `index.js`. `npm run check` fails until both are true.
+- **Calls a hook? Line 1 is `'use client';`**, above the React import. `index.js` is a flat barrel,
+  so a React Server Components host (Next.js App Router) pulls every component into the server
+  graph on any import from it, and a hook without the directive fails *their* build. `npm run check`
+  fails without it. The directive never reaches `dist/rse.js` — `build-bundle` strips it, so
+  static pages are unaffected.
+- Props are strings, arrays and plain objects wherever possible — templates mount components
+  through `<x-import>` with HTML attributes, so exotic prop shapes don't survive the trip.
+- **New components start on the contract** (a `.css` file first). The scope freeze of roadmap P0.3
+  ended with P2.1; still check for an existing component with a prop before adding one.
+- Don't add a component that duplicates an existing one with a prop. Check
+  [components.md](components.md) and the gallery in `showcase/index.html` first.
+
+Full checklist: this file.
+
+## Changing tokens
+
+1. Edit `tokens/src/*.tokens.json` — `brand` (tier 1, the palette), `color` (tier 2 roles),
+   `typography`, `layout`, `effects`. The CSS name is the path: `rse.color.text-body` →
+   `--rse-color-text-body`. An alias is `"{rse.brand.purple-dark}"`.
+2. A role that differs per theme carries `$extensions.rse.modes.dark` / `.contrast`. **Brand values
+   never change per theme** — only tier 2 re-maps. Aliases are followed for you: a token that points
+   at a themed token is re-declared in each theme block automatically.
+3. Text on a new surface? Add the pair to `scripts/contrast-pairs.mjs`.
+4. `npm run sync`, then `npm run check`.
+
+A component that reads a raw hex instead of a token is invisible to theming — that is exactly how
+this system's chips ended up light-on-light in dark mode before the tint tokens existed.

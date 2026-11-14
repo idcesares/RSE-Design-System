@@ -14,7 +14,10 @@ reasoning and the brand manual extract live in the design system repository (`AG
   `tokens/base-runtime.css` + `dist/components.css`.
 - Components exist twice with one look: React (`import { Button } from '@idcesares/rse-design-system'`)
   and plain HTML classes (`<button class="rse-button rse-button--secondary">`). Use the classes in
-  a CMS or portal; each component's `.prompt.md` shows the markup.
+  a CMS or portal; each component's `.prompt.md` shows the markup, and `dist/components.json`
+  lists every component's props, allowed values and classes.
+- Page structure uses the layout primitives (`.rse-container`, `.rse-section`, `.rse-stack`,
+  `.rse-cluster`, `.rse-grid`, `.rse-eyebrow`), not a per-page container or stack.
 - Themes: set `data-rse-theme="dark" | "contrast" | "auto"` on `<html>` or on any section; `"light"` brings the default back inside another theme.
 
 ## Non-negotiables

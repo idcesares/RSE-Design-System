@@ -5,396 +5,184 @@ network of schools and educational programmes in Brazil. It exists to be *consum
 designers use it to generate marketing sites, program pages, enrollment flows, decks and print
 artwork that all look like one institution.
 
-You are almost always doing one of four things. Jump straight to the one you're on:
+This file is the rules and the routing. The detail lives in the doc each row points to.
 
 | Task | Start at |
 | --- | --- |
 | Build a page, site or prototype | [Building a page](#building-a-page) |
 | Build a deck, pitch, poster, social card or other artwork, in any stack | [DESIGN.md](DESIGN.md), then [Building artwork](#building-artwork) |
-| Build something ambitious: an interactive, animated, data-rich or 3D artifact, a showpiece page, a diagram | [Creative latitude](#creative-latitude), then [docs/composition/creative-latitude.md](docs/composition/creative-latitude.md) |
+| Build something ambitious: interactive, animated, data-rich or 3D, a showpiece, a diagram | [Creative latitude](#creative-latitude) |
 | Add or change a component | [Changing a component](#changing-a-component) |
 | Change tokens / brand foundations | [Changing tokens](#changing-tokens) |
-| Put this system into another project | [docs/integration.md](docs/integration.md) |
+| Put this system into another project | [docs/integration.md](docs/integration.md); a CMS theme or vendor product: [adapters/](adapters/README.md) |
+| Look up a component (props, values, classes, tokens) | [site/index.html](site/index.html), or `dist/components.json` |
+| Propose a component, or record a system's adoption | [docs/governance.md](docs/governance.md) |
+| Find a file, or pick static HTML vs React vs non-browser | [docs/repo-map.md](docs/repo-map.md) |
 | Improve the system itself (roadmap work) | [docs/roadmap/roadmap.md](docs/roadmap/roadmap.md) |
 
-Before you ship anything, run:
-
-```bash
-npm run check
-```
+Before you ship anything, run `npm run check`.
 
 ---
 
 ## Non-negotiables
 
-These hold for every output, in every mode. They are what makes generated work look like the Rede
-and not like a generic template. They are the **invariants**: everything *not* listed here is craft,
-and craft is yours ([Creative latitude](#creative-latitude)).
+The invariants: everything not listed here is craft, and craft is yours. Each rule names what
+enforces it; "review" means no script can, so you are the check. Full wording and reasoning:
+[docs/non-negotiables.md](docs/non-negotiables.md).
 
-1. **Tokens only.** Never write a raw hex colour, font stack, radius, shadow or duration into a
-   component or page. Use `var(--rse-…)`: `--rse-color-*` for colour roles and the scales
-   (`--rse-space-*`, `--rse-font-size-*`, `--rse-radius-*`…). `--rse-brand-*` is the palette — for
-   brand artwork and the token source only. The full list is [docs/tokens.md](docs/tokens.md).
-   Spacing may use literal px only when it is layout geometry that has no token (e.g. a 16:10
-   media box); colour, type, radius, shadow and motion never may.
-2. **The name says the category.** `--rse-<category>-<role>`: `--rse-color-text-body` is a colour,
-   `--rse-font-size-body-md` a size. Everything is prefixed `--rse-` (and themes use
-   `data-rse-theme`) so the system never collides with a host site's CSS.
-3. **Montserrat only**, weights 400–900. Headings Extrabold (800) with `--rse-letter-spacing-tight`.
-   Eyebrows Bold (700), uppercase, `--rse-letter-spacing-eyebrow` — the *only* uppercase in the system.
-   The manual authorises all Montserrat weights including Thin/ExtraLight/Light; this system
-   deliberately stops at 400 because below it Montserrat misses the contrast floor at body sizes.
-4. **Two languages, one rule each.** Everything a person reads is **pt-BR**: page copy, labels,
-   `alt` text, error messages, `title`s, comments inside a template. Everything the *system* is
-   made of is **English**: file and folder names, token names, component and prop names, script
-   output, and this documentation — so the repo stays legible to any agent or developer regardless
-   of language. Set `<html lang="pt-BR">`. Sentence case for headings and body.
-5. **No emoji, no hand-drawn icons.** This is an institutional, credibility-driven brand. Every
-   glyph comes from `components/core/Icon.jsx` (Lucide, ISC, vendored in `assets/icons/lucide/`).
-   Missing an icon? Vendor it and run `npm run icons` — never paste a one-off SVG into a page,
-   never a unicode glyph standing in for an icon. This is about *icons*: diagrams, org charts,
-   charts, maps and illustrations drawn from palette geometry are craft and are encouraged.
-6. **Never invent Sesc facts.** Student counts, unit addresses, fees, dates, testimonials and
-   enrollment windows in this repo are *examples*. Keep them visibly placeholder-ish, and tell the
-   user which numbers need verification before anything goes public.
-7. **Never invent imagery.** No real photography exists yet. Use `<image-slot>` (see
-   [image-slot.js](image-slot.js)) with a `placeholder` describing the shot needed, e.g.
-   `placeholder="estudantes em sala, luz natural, estilo documental"`. Do not generate or
-   describe fake photos of real students.
-8. **Accessibility is part of "done"** — see [Accessibility floor](#accessibility-floor).
-9. **The selo has three versions and a fixed geometry.** Principal (`badge-solid.svg`), secundária
-   (`badge-outline.svg`), simplificada (`wordmark-*.svg`, below the minimum size). Never rotate,
-   stretch, distort, add effects to, or redraw it. It **may** carry any of the ~25 colour
-   combinations the manual sanctions — palette colours only, contrast good enough to read the
-   lettering, never a gradient, never outlined lettering. Clearspace is **X on all sides**, X being
-   the height of the stem of the E; minimum size 45 mm print / 150 px digital. Never lock it up with
-   the Sesc signature — they sit at a distance. Details:
-   `docs/brand-manual.md`, `assets/logos/README.md`.
-10. **The motif has two kinds of artwork: signature constructions and generated shapes.** The six
-   SIGNATURE constructions (`BrandMotif`, `assets/motifs/`, the four official `assets/patterns/`)
-   preserve the supplied geometry — never redraw, rotate, stretch or distort one, and they never re-map
-   per theme. GENERATED shapes and motion come only from the motif engine (`MotifEngine`, through
-   `MotifLoader` and `MotifPattern`, and the baked presets in `assets/patterns/generated/`); never
-   hand-draw one. Any of the six palette families may be used (`BrandMotif` takes a `hue`, the
-   engine takes a hue), with ramps from the palette only, never sampled from the artwork (see known
-   gap 9); the remap keeps each shade's luminance rank, and reordering those stops the impossible
-   cube reading as a solid. Purple, orange and yellow signature artwork and ALL generated shapes
-   are derived, not supplied by Sesc — say so when it matters. One FOCAL construction per
-   composition, at most 25% of it, about 0.3 opacity when it sits behind content (clear of any text it is the picture and may run at full strength: at 0.3 over purple the supplied green reads as grey), no text on faces or cells. A
-   pattern is a FIELD, not a construction, and the loader is exempt (transient). Patterns are flat
-   colour fields (the pattern itself has no gradients, glows or noise; it may sit on a gradient). A multi-hue pattern is allowed only as the artwork
-   itself (a hero field or a standalone spectrum piece); page text and bands stay in one hue. Text
-   never sits directly on pattern cells — use a solid panel. Full-bleed cube fields come from
-   `assets/patterns/` or `MotifPattern`. Sanctioned treatments, per the manual: small, blown up, in
-   outline, or tiled as a pattern.
-11. **Sab.IA is the platform, the Rede is the network.** Learning lives in Sab.IA; enrollment and
-   records live in the TOTVS portal. Never route an enrollment task to the platform. Link to it
-   with `PlatformEntry` — see [docs/sabia-platform.md](docs/sabia-platform.md).
+1. **Tokens only.** No raw hex, font stack, radius, shadow or duration in a component or page:
+   `var(--rse-…)`. `--rse-color-*` are roles; `--rse-brand-*` is the palette, for artwork and the
+   token source only. *Check:* `check-ds` (raw hex in components, every `var()` defined),
+   `build-css` (raw colour in component CSS), `audit` ratchet (component and page debt).
+2. **The name says the category**: `--rse-<category>-<role>`, everything prefixed `--rse-` /
+   `.rse-` / `data-rse-theme` so it never collides with a host. *Check:* `check-ds` (token scheme,
+   no pre-2.0 names, one name one meaning, class contract).
+3. **Montserrat only**, 400–900. Headings ExtraBold 800, tight tracking. Eyebrows Bold, uppercase
+   (`.rse-eyebrow`) — the only uppercase in the system. *Check:* `check-ds` (font stacks); review.
+4. **pt-BR for everything a person reads; English for everything the system is made of** (files,
+   tokens, props, script output, these docs). `<html lang="pt-BR">`, sentence case. *Check:* axe
+   (`lang`), `check-composition` (exemplars); copy is review.
+5. **No emoji, no hand-drawn icons.** Every glyph is `Icon` (vendored Lucide, `npm run icons`).
+   Diagrams and illustrations from palette geometry are craft. *Check:* `audit`
+   (`componentGlyphIcons`), `check-composition` (emoji), `build-icons --check`.
+6. **Never invent Sesc facts** — counts, addresses, fees, dates, testimonials are examples: keep
+   them visibly placeholder and tell the user what needs verification. *Check:* review.
+7. **Never invent imagery.** No real photography exists yet: `<image-slot>` with a `placeholder`
+   shot brief. *Check:* review.
+8. **Accessibility is part of done** — [the floor](#accessibility-floor). *Check:* contrast gate,
+   axe, keyboard tests.
+9. **The selo**: three versions, fixed geometry, palette colours only, clearspace X, minimum
+   150 px / 45 mm, never locked up with the Sesc signature. *Check:* review against
+   [docs/brand-manual.md](docs/brand-manual.md) and `assets/logos/README.md`.
+10. **The motif**: the six signature constructions keep their supplied geometry; generated shapes
+    come only from the motif engine. One focal construction per composition, at most 25 %, about
+    0.3 opacity behind content, never text on cells; patterns are flat fields. Purple, orange and
+    yellow signature artwork and every generated shape are derived — say so. *Check:*
+    `build-motifs`/`build-patterns --check`, `test-motif-engine`, `check-motif-contrast`.
+11. **Sab.IA is the platform, the Rede is the network.** Learning lives in Sab.IA; enrollment in the
+    TOTVS portal. Link with `PlatformEntry` ([docs/sabia-platform.md](docs/sabia-platform.md)).
+    *Check:* review.
 
 ---
 
 ## Creative latitude
 
-The non-negotiables are deliberately few. Inside them you are expected to **design**, not to
-fill in a template: choose the concept, the structure, the visual vocabulary, the motion and the
-interaction that make *this* piece excellent. Aim for the awe of the whole, and for something well
-organised, with clear hierarchy and great UX.
-
-- **Be inventive.** Org structures, journeys, networks, flashcards, dashboards, animated explainers,
-  immersive 3D scenes with Three.js, scroll stories, bento layouts, tactile micro-interactions:
-  all welcome. Do not reuse the same layout or the exemplars' structure every time; the exemplars
-  show the finish, not the form.
-- **Subtle gradients, depth and light are allowed** in artwork, artifacts, decks, pitches and page
-  heroes or bands: palette stops only, contrast measured at the worst stop, never on the selo or
-  inside the signature constructions or generated shapes. UI component CSS stays flat.
-- **Dense is fine when the job is dense.** A dashboard-style pitch can be rich with data; keep the
-  hierarchy. The editorial limits (a third empty, `maxWords`, one hue) are defaults for calm
-  canvases only.
-- **Pick the profile** (editorial, showpiece, explainer, interactive, immersive) and the matching
-  tools in [docs/composition/creative-latitude.md](docs/composition/creative-latitude.md); the
-  how-to (tokens in a standalone file, motion setting, flip cards, diagrams, Three.js skeleton,
-  performance, verification) is in [docs/composition/artifact-craft.md](docs/composition/artifact-craft.md).
-- **Look at it running** before you hand it over, then say what is placeholder, derived or new.
+Inside the invariants you are expected to **design**, not fill in a template: choose the concept,
+structure, motion and interaction that make *this* piece excellent. Subtle palette gradients and
+depth are welcome in artwork, artifacts and page heroes or bands (contrast at the worst stop; never
+on the selo or the constructions; UI component CSS stays flat). Dense is fine when the job is dense.
+Pick the profile and tools in [docs/composition/creative-latitude.md](docs/composition/creative-latitude.md);
+the how-to is [docs/composition/artifact-craft.md](docs/composition/artifact-craft.md). Look at it
+running before you hand it over, and say what is placeholder, derived or new.
 
 ---
 
-## Repo map
+## Consuming the system
 
-```
-AGENTS.md                 You are here: rules, routing, recipes, definition of done.
-DESIGN.md                 Entry for decks, pitches, posters, social cards and other non-web artwork, in any
-                          stack. Routes by intent to docs/composition/ (creative-latitude, artifact-craft,
-                          principles, modules, archetypes, formats.json, rubric, exemplars).
-RULES.md                  The short rules that ship inside the package, for consuming projects.
-readme.md                 Brand brief, voice, visual foundations. Read it once.
-SKILL.md                  Claude Skill entry point (this system as a portable skill).
-tokens/src/*.tokens.json  THE token source (W3C DTCG). Edit tokens here and nowhere else.
-tokens/tokens.css         GENERATED. Every custom property; light on :root, then the
-                          data-rse-theme dark / contrast / auto blocks.
-tokens/fonts.css          Montserrat @font-face.
-tokens/base-runtime.css   What components need (focus ring, control hiding, keyframes). Required.
-tokens/base-reset.css     Opinionated element styles (body, links, headings). Opt-in.
-tokens/tokens-only.css    fonts + tokens, nothing else: for a site with its own base styles.
-components/<group>/*.css  The component CSS contract (.rse-button, .rse-field…), next to each component.
-dist/components.css       GENERATED. All of them in @layer rse.components.
-styles.css                Everything above. The one stylesheet for a page that should look like the Rede.
-dist/                     GENERATED. rse.js (every component on window.RSE), tokens.json (resolved
-                          per theme), tokens.js + tokens.d.ts (typed module).
-brand.json                GENERATED. The brand contract for non-browser consumers: palette with
-                          CMYK, tokens per theme, scales, assets by role, machine-readable rules.
-index.js / index.d.ts     React entry. Import components from here, never from a component file.
-components/<group>/       43 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
-                          Icon.jsx and BrandMotif.jsx are GENERATED — edit their sources.
-                          MotifEngine.jsx is a function library (motif geometry to SVG), no markup.
-templates/                Four starting points (deck, program page, enrollment form, landing page). Working
-                          HTML starters; the quality reference for artwork is docs/composition/exemplars/.
-starters/                 Blank, dependency-free starting points: page, React page, A3 poster.
-showcase/index.html       The system as one page, for leadership and newcomers. Opens offline.
-docs/brand-manual.md      What the official manual specifies. Settle brand questions here.
-docs/guidelines.md        The system's own rules for imagery, motion, theming and accessibility.
-docs/integration.md       How a project that is not this repo uses the system.
-docs/known-gaps.md        Open caveats to say out loud.
-docs/roadmap/             The assessment and the plan; read before improving the system itself.
-docs/                     Generated component + token references, recipes, authoring, QA checklist.
-scripts/                  build-tokens, build-icons, build-motifs, build-bundle, build-brand, gen-docs,
-                          build-showcase, check-ds, check-composition (+ test-composition), render-exemplars (author tool),
-                          audit (+ contrast-pairs), pack-static.
-rse.manifest.json         Machine index: components, the showcase card, templates, tokens, themes, fonts.
-assets/logos/             Official vector lockups (Rede + Sab.IA); originals in source/. Read its README.
-assets/motifs/            Official cubo impossível artwork and its six constructions.
-assets/patterns/          Four full-bleed cube pattern backgrounds.
-assets/icons/lucide/      Vendored Lucide set (ISC) that Icon.jsx is generated from.
-assets/vendor/            React 18 UMD, so static pages run offline.
-uploads/                  Original source material (selo PDFs, reference screenshots). Read-only.
-```
+- **Static HTML** (decks, mocks, artifacts — the default): link `styles.css`, load React 18 UMD from
+  `assets/vendor/`, then `dist/rse.js`; components are on `window.RSE`. Start from `starters/`.
+- **React**: `import { Button } from '@idcesares/rse-design-system'` and its `styles.css`. Never
+  import a component file directly (`check-ds` forbids it).
+- **Not a browser**: `brand.json` (palette with CMYK, rules, assets) or `dist/tokens.json`.
+- **Tools and agents**: `dist/components.json` lists every component's props, values, classes and
+  tokens; [site/](site/index.html) renders it as a reference with live examples.
+- **WordPress**: `adapters/wordpress/theme.json` ([adapters](adapters/README.md)).
 
-## The three consumption modes
-
-**Static HTML (decks, mocks, artwork, anything you hand the user as a file).** Link `styles.css`,
-load React 18 UMD from `assets/vendor/` and then `dist/rse.js`, and read components off
-`window.RSE`. No build step. This is the default for artifacts. Start from [starters/](starters/). An
-artifact that needs a library (Three.js, D3, GSAP) loads it from a pinned CDN version or vendors it;
-see [artifact craft](docs/composition/artifact-craft.md).
-
-**React project (production code).** Install `@idcesares/rse-design-system` and import from the
-package root:
-
-```jsx
-import { Button, Card, Stat, Tabs } from '@idcesares/rse-design-system';
-import '@idcesares/rse-design-system/styles.css';
-```
-
-Never import a component file directly — `npm run check` forbids it inside this repo, so that a
-component can be re-implemented (roadmap P2) without breaking consumers.
-
-**Anything that is not a browser** (a Python generator, a print pipeline, a design tool). Read
-[`brand.json`](brand.json) for the brand (palette with CMYK, rules, assets by role) or
-`dist/tokens.json` for every token resolved per theme. Both are generated. Worked example:
-[docs/examples/social_post.py](docs/examples/social_post.py), a 1080×1080 social post rendered with
-the Python standard library and nothing else.
-
-Putting the system into another project — npm, the static kit for CMSs, Python: see
-[docs/integration.md](docs/integration.md).
-
-> `dist/rse.js` is a **copy of the component sources, not a second implementation**. Editing a
-> `.jsx` without running `npm run sync` means every static page keeps running the old code.
-> `npm run check` catches this.
+`dist/rse.js` is a copy of the component sources: edit a component without `npm run sync` and every
+static page runs the old code (`npm run check` catches it). Map of every file: [docs/repo-map.md](docs/repo-map.md).
 
 ---
 
 ## Building a page
 
-1. Pick the closest starting point rather than assembling primitives:
-   - `templates/landing-page/` — marketing page (announcement bar, hero, stats, program cards, CTA, footer).
-   - `templates/program-page/` — program/unit detail (hero with enrollment window, turmas table, FAQ, stepper).
-   - `templates/enrollment-form/` — printable A4 matrícula form.
-   - `starters/page.html` — blank page with the system wired up, if nothing above fits.
-2. Copy the folder, then edit the one `base` line in its `ds-base.js` so the paths resolve from the
-   new location. That single line is the only wiring.
-3. Compose from existing components before writing new markup. Check
-   [docs/components.md](docs/components.md) first — the set is deliberately complete for this
-   use case (43 components), so a "missing" component is usually an existing one with a prop you
-   haven't read yet.
-4. Structure: page background is cream (`--rse-color-surface-page`), content sits on white cards
-   (`--rse-color-surface-card`). A feature or CTA **band** may be brand purple or indigo with white text, or
-   any light or mid accent with **ink** text (`--rse-brand-ink`, 4.8–10:1) — that is how the rede's six
-   hues reach a page (decision D3). Never white text on an accent (2.3–3.3:1), never a `-dark`
-   accent or mid `--rse-brand-purple` as a band (they fail with both white and ink), no off-palette or contrast-breaking
-   gradients (a subtle palette gradient is fine on a hero or band, see [Creative latitude](#creative-latitude)),
-   one band colour per section.
-5. Rhythm: `--rse-section-y-md` (96px) between major blocks, `--rse-container-xl` (1200px) for page width,
-   `--rse-container-prose` (66ch) for anything text-heavy.
-6. Copy: short declarative sentences, second person ("você"), verbs of transformation (acolhe,
-   forma, transforma). The slogan is **"Aprender para a vida acontecer"**. Full voice guidance is
-   in [readme.md](readme.md#content-fundamentals).
+1. Start from the closest template — `templates/landing-page/`, `templates/program-page/`,
+   `templates/enrollment-form/` — or `starters/page.html`. Copy the folder and edit the one `base`
+   line in its `ds-base.js`; templates render with `templates/runtime.js`.
+2. Compose from the 43 components before writing markup ([docs/components.md](docs/components.md)),
+   and lay out with the primitives: `.rse-container`, `.rse-section`, `.rse-stack`, `.rse-cluster`,
+   `.rse-grid`, `.rse-eyebrow`.
+3. Cream page, white cards. A band is purple or indigo with white text, or a light/mid accent with
+   ink text — never white on an accent, never a `-dark` accent as a band; one band colour per section.
+4. Copy: short declarative sentences, "você", the slogan **"Aprender para a vida acontecer"**.
 
-Details and worked examples: [docs/recipes.md](docs/recipes.md).
+Full checklist: [docs/recipes.md](docs/recipes.md#building-a-page--the-checklist).
 
 ## Building artwork
 
-Start at [DESIGN.md](DESIGN.md). It is written for any stack (HTML, PPTX, SVG, a print pipeline) and
-routes to the composition rules, the formats and the exemplars. What follows is the HTML path in
-this repo: static pages, no React needed unless you want the components.
-
-- Deck: copy `templates/institutional-deck/` (1920×1080 slides, print/PPTX-ready via `deck-stage.js`). It is
-  a working implementation reference: see `docs/application-references.md` for its structure and
-  validation, and `docs/composition/exemplars/` for cross-stack editorial direction.
-- Poster / print piece: `starters/poster.html` (A3 at 300dpi-equivalent scale, print CSS included).
-- Any static page: `starters/page.html`.
-
-Artwork rules on top of the non-negotiables: palette colour only; subtle palette gradients and
-depth are welcome ([the gradient rules](docs/composition/creative-latitude.md#gradients)); no
-stock or generated photography and no photographic full-bleeds until real photography exists. `BrandMotif` renders the official *cubo impossível* constructions (rule 10): one
-focal construction per composition. Generated shapes and motion exist too (`MotifEngine` through
-`MotifPattern` and `MotifLoader`; a pattern is a field, not a construction). If you use the purple,
-orange or yellow `hue`, or any generated shape, tell the user those are derived, not supplied.
+Start at [DESIGN.md](DESIGN.md), written for any stack. In this repo: decks from
+`templates/institutional-deck/`, posters from `starters/poster.html`. Palette colour only, no stock
+or generated photography, one focal construction. Details: [docs/recipes.md](docs/recipes.md#building-artwork-in-html).
 
 ## Changing a component
 
-A component is these files. They move together:
-
-```
-components/<group>/Name.css        the CSS contract: .rse-name, BEM elements, --modifiers. Look and
-                                   state live here (:hover, :focus-visible, :checked, [aria-*]).
-components/<group>/Name.jsx        React wrapper that renders the contract (createElement form, no JSX)
-components/<group>/Name.d.ts       props + one-line doc comment
-components/<group>/Name.prompt.md  when to use it, a pt-BR example, and the plain-HTML markup
-showcase/demos.js                  a demo for the showcase gallery (step 4 of docs/authoring-components.md)
-```
-
-**The CSS contract is the component; React is a convenience.** A CMS, the enrollment portal or a
-static page uses the classes directly, so nothing visual may live only in JavaScript: no inline
-style objects, no hover held in state. Wrappers forward `ref`, pass every other prop to the main
-element (`...rest`), merge `className`, and build ids with `React.useId`. All 40 audited UI wrappers
-are on the contract (`npm run audit` → `componentsOnCssContract`). IconButton shares `Button.css`,
-and DateField shares `Input.css`; `scripts/lib/css-contract.mjs` records shared ownership. The 43
-manifest entries also include generated Icon and BrandMotif, plus the MotifEngine function library.
-CSS provides appearance and visual states; behavioral interactions still need a controller
-(the React wrapper or host JavaScript). Geometry props may set documented CSS custom properties;
-colours, typography, radii, shadows and motion stay in CSS and tokens.
-
-Then:
-
-```bash
-npm run sync     # rebuilds tokens, dist/rse.js, brand.json and the generated docs
-npm run check    # must pass
-```
-
-Rules:
-
-- **`React.createElement` form, not JSX.** The bundle is a copy, not a compile; `build-bundle`
-  rejects JSX. This is what lets static pages load components with no build step.
-- A **new** component must also be registered in `rse.manifest.json` under `components` (name +
-  sourcePath) and exported from `index.js`. `npm run check` fails until both are true.
-- **Calls a hook? Line 1 is `'use client';`**, above the React import. `index.js` is a flat barrel,
-  so a React Server Components host (Next.js App Router) pulls every component into the server
-  graph on any import from it, and a hook without the directive fails *their* build. `npm run check`
-  fails without it. The directive never reaches `dist/rse.js` — `build-bundle` strips it, so
-  static pages are unaffected.
-- Props are strings, arrays and plain objects wherever possible — templates mount components
-  through `<x-import>` with HTML attributes, so exotic prop shapes don't survive the trip.
-- **New components start on the contract** (a `.css` file first). The scope freeze of roadmap P0.3
-  ended with P2.1; still check for an existing component with a prop before adding one.
-- Don't add a component that duplicates an existing one with a prop. Check
-  [docs/components.md](docs/components.md) and the gallery in `showcase/index.html` first.
-
-Full checklist: [docs/authoring-components.md](docs/authoring-components.md).
+A component is `Name.css` (the contract: look and every state), `Name.js` (a React wrapper in
+`createElement` form, no JSX), `Name.d.ts` (one prop per line, a doc comment on each), `Name.prompt.md`
+(usage, pt-BR example, plain-HTML markup) and a demo in `showcase/demos.js`. Nothing visual lives
+only in JavaScript. A new one is registered in `rse.manifest.json` and `index.js`; a hook means
+`'use client'` on line 1. Re-skin points are component tokens (`--rse-button-*`, `--rse-input-*`,
+`--rse-card-*`). Then `npm run sync && npm run check`. Full rules:
+[docs/authoring-components.md](docs/authoring-components.md).
 
 ## Changing tokens
 
-1. Edit `tokens/src/*.tokens.json` — `brand` (tier 1, the palette), `color` (tier 2 roles),
-   `typography`, `layout`, `effects`. The CSS name is the path: `rse.color.text-body` →
-   `--rse-color-text-body`. An alias is `"{rse.brand.purple-dark}"`.
-2. A role that differs per theme carries `$extensions.rse.modes.dark` / `.contrast`. **Brand values
-   never change per theme** — only tier 2 re-maps. Aliases are followed for you: a token that points
-   at a themed token is re-declared in each theme block automatically.
-3. Text on a new surface? Add the pair to `scripts/contrast-pairs.mjs`.
-4. `npm run sync`, then `npm run check`.
-
-A component that reads a raw hex instead of a token is invisible to theming — that is exactly how
-this system's chips ended up light-on-light in dark mode before the tint tokens existed.
+Edit `tokens/src/*.tokens.json` (DTCG) and nothing else: `brand` (tier 1), `color`, `typography`,
+`layout`, `effects` (tier 2), `component` (tier 3, aliases of tier 2). Brand values never change per
+theme. Text on a new surface goes in `scripts/contrast-pairs.mjs`. Then `npm run sync && npm run check`.
+Details: [docs/authoring-components.md](docs/authoring-components.md#changing-tokens).
 
 ---
 
 ## Accessibility floor
 
-Every generated surface must clear this. It is not optional polish; the audience includes
-students, families and Sesc staff across the whole country.
+- **Contrast** ≥ 4.5:1 body text, ≥ 3:1 large text and control borders — gated in three themes.
+  Tints carry their `-ink` foreground; status colours have surface / text / indicator roles.
+- **Focus always visible**; never `outline: none` without an equal replacement.
+- **Native control, visually hidden** (`rse-control-input`) — never `display:none`.
+- **Keyboard**: Tab reaches everything, Enter/Space operates it, tabs use arrows, Escape closes
+  menus and dialogs, dialogs trap and return focus. **Hit targets** ≥ 44 px.
+- **Motion** honours `data-rse-motion`: UI within 360 ms; artwork has a freer tier with a reduced
+  form, a final frame, a pause control and no flashing.
+- **Images**: real pt-BR `alt`, or `alt=""` when decorative.
 
-- **Contrast** ≥ 4.5:1 for body text, ≥ 3:1 for large text and UI borders. `npm run check` measures
-  every pair listed in `scripts/contrast-pairs.mjs` in all three themes and fails below the floor.
-  Pale accent tints (`--rse-color-tint-*`) carry their paired `--rse-color-tint-*-ink` foreground. Status colours have
-  three roles: `--rse-color-danger-surface` (background), `--rse-color-danger-text` (words), `--rse-color-danger` (dots, borders,
-  icons only). Text on `--rse-color-surface-primary-tint` is `--rse-color-text-on-primary-tint`. The official `-dark`
-  tones never carry small text — they sit at 3.4–4.1:1 against white *and* ink.
-- **Focus is always visible.** The global `:focus-visible` ring is in `tokens/base-runtime.css`. Never set
-  `outline: none` without an equally visible replacement.
-- **Native control, hidden visually — never `display:none`.** A native input styled behind custom
-  chrome uses `className="rse-control-input"` (see `tokens/base-runtime.css`); `display:none` removes it
-  from the tab order and the accessibility tree. `npm run check` fails on this.
-- **Keyboard**: everything interactive reachable with Tab, operable with Enter/Space. Tabs move
-  with arrow keys, menus and dialogs close with Escape, dialogs trap focus and return it to the
-  trigger.
-- **Hit targets** ≥ `--rse-hit-target-min` (44px) on touch surfaces.
-- **Motion**: UI state changes (components) stay inside `--rse-duration-fast/base/slow` (360 ms cap)
-  with standard easing; brand motion uses `--rse-duration-reveal/loop` with assemble/settle easing.
-  **Artwork and artifacts have their own, freer tier**: choreographed sequences, longer durations,
-  tasteful springs, scroll-linked and 3D motion, as long as the reduced form, a complete final
-  frame, a pause control for long autoplay and no flashing are in place
-  ([Creative latitude](#creative-latitude)). The
-  `data-rse-motion` setting (stored choice, else OS, else `full`) decides full or reduced; managed
-  components (`.rse-motion-managed`) implement both forms, and the safety net flattens the rest —
-  don't add unmanaged animation *inside UI components*. An artifact's own motion reads the setting
-  itself ([how](docs/composition/artifact-craft.md#reading-the-motion-setting)).
-- **Images** carry real `alt` text in pt-BR, or `alt=""` when decorative. `<image-slot>` placeholders
-  describe the shot needed.
-- Full rules: [docs/guidelines.md](docs/guidelines.md#accessibility).
+Full checklist: [docs/guidelines.md](docs/guidelines.md#accessibility-floor).
+
+---
 
 ## Commands
 
 ```bash
-npm run check    # integrity, generated-file freshness, contrast gate, debt ratchet — must pass
-npm run sync     # after editing tokens, components, icons or motifs — regenerates everything
-npm run audit    # quality scorecard: contrast of rendered pairs, component/page debt, doc drift
-npm run audit -- --update-baseline   # after lowering a debt count, lock it in (same PR)
-npm run test:motion   # browser test of the motion contract (Playwright, not a dependency)
-npm run test:contracts # browser test of component forwarding and keyboard interactions
-npm run test:applications # application filters, local dependencies, slide bounds and print output
-npm run icons    # rebuild Icon.jsx after vendoring a new Lucide SVG
-npm run motifs   # rebuild BrandMotif.jsx from assets/motifs/cubes-official.svg
-npm run pack     # build the static kit dist/static/rse-<version>/ (CMS and offline use)
-node scripts/render-exemplars.mjs [name]   # re-render docs/composition/exemplars/*.png (author tool, Playwright)
+npm run check             # integrity, freshness, contrast gate, class contract, debt ratchet — must pass
+npm run sync              # after editing tokens, components, icons or motifs — regenerates everything
+npm run audit             # quality scorecard (-- --update-baseline after lowering a debt count)
+npm run test:pages        # every page in Chromium: errors, axe, 360 px overflow (needs playwright, axe-core)
+npm run test:motion       # the motion contract in a browser
+npm run test:contracts    # component forwarding, keyboard, container queries
+npm run test:applications # template filters, slides, print output
+npm run test:consumer     # npm pack → scratch project → import and server-render (needs react)
+npm run test:types        # public .d.ts under strict, with misuse that must fail (needs typescript)
+npm run icons | motifs | patterns | pack
+node scripts/render-brand-rasters.mjs   # re-render assets/og-image.png from the vector (Playwright)
 ```
 
 Generated, never edited by hand: `tokens/tokens.css`, `dist/*`, `brand.json`, `docs/components.md`,
-`docs/tokens.md`, `showcase/showcase-data.js`, `Icon.jsx`, `BrandMotif.jsx`. `build-brand.mjs`
-cross-checks the palette hex and CMYK in `tokens/src/brand.tokens.json` against the manual's
-published table and warns on any drift — the guard against re-sampling colour from artwork.
-
-**Releasing.** Bump `version` in `package.json`, add a `## <version>` section to `CHANGELOG.md`,
-then push a `v<version>` tag, or run the `release` workflow by hand on main (it creates the tag). `.github/workflows/release.yml` checks, publishes to GitHub
-Packages and attaches the static kit to a GitHub Release. Breaking a token or prop name is a major.
+`docs/tokens.md`, `showcase/showcase-data.js`, `Icon.js`, `BrandMotif.js`, `site/**/*.html`,
+`adapters/wordpress/*`. **Releasing**: bump
+`package.json`, add `## <version>` to `CHANGELOG.md`, push `v<version>` (or run the `release`
+workflow on main). Breaking a token or prop name is a major.
 
 ## Definition of done
 
-- [ ] `npm run check` passes — it includes the contrast gate and the debt ratchet (`npm run audit`).
-- [ ] Touched motion (`tokens/base-runtime.css`, a `.rse-motion-managed` component, `motion.js`)? `npm run test:motion` passes (CI runs it).
+- [ ] `npm run check` passes (contrast gate and debt ratchet included).
+- [ ] Touched motion? `npm run test:motion`. Touched a component? `npm run test:contracts`.
 - [ ] Lowered a debt count? `npm run audit -- --update-baseline` in the same change.
 - [ ] No raw hex, font stack, radius, shadow or duration outside `tokens/`.
 - [ ] Copy is pt-BR, sentence case, no emoji, no invented Sesc figures.
 - [ ] Keyboard path walked end to end; focus visible at every stop.
-- [ ] Looks right with `data-rse-theme="dark"` and `"contrast"`, not just light, and at 360 px wide.
-- [ ] Placeholder content (imagery, figures, addresses) is flagged to the user, not left to pass as real.
+- [ ] Right in `data-rse-theme="dark"` and `"contrast"`, and at 360 px wide.
+- [ ] Placeholder content (imagery, figures, addresses) is flagged to the user.
 
 ## Known gaps
 
-Open caveats in the source material — not bugs to fix silently, but things to say out loud when
-they matter (photography, Pantone, the Sab.IA URL, derived motif hues, layout being system work,
-icons, favicon rasters, never re-sampling colour). The list lives in one place:
+Open caveats to say out loud when they matter — photography, Pantone, the Sab.IA URL, derived motif
+hues, layout being system work, icons, favicon rasters, never re-sampling colour:
 [docs/known-gaps.md](docs/known-gaps.md).
-
-
-Signature colour defaults: BrandMotif assigns cube/purple, interlock/blue, bar/green, frame/pink,
-chain/orange and hollow/yellow. These are derived palette remaps; `hue="original"` preserves the
-supplied fills. Geometry never changes. MotifLoader is the primary loading component (inline and
-section modes); Spinner remains a compatibility adapter for inline mode.

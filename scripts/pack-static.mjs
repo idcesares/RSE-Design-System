@@ -19,7 +19,7 @@ const OUT = join(ROOT, 'dist', 'static', name);
 
 const INCLUDE = [
   'styles.css', 'tokens', 'dist/rse.js', 'dist/components.css', 'dist/tokens.json', 'dist/tokens.js', 'dist/tokens.d.ts',
-  'brand.json', 'image-slot.js', 'motion.js', 'assets', 'starters', 'RULES.md', 'LICENSE',
+  'brand.json', 'image-slot.js', 'motion.js', 'assets', 'starters', 'adapters', 'RULES.md', 'LICENSE',
 ];
 // Reference artboards are not assets to place in a layout (assets/logos/README.md).
 const EXCLUDE = [/^assets\/logos\/source\//];

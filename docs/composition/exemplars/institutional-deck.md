@@ -2,7 +2,8 @@
 
 ![Institutional deck, all ten slides](institutional-deck.png)
 
-Ten slides, one per canvas in [institutional-deck/](institutional-deck/) (`01.png` … `10.png`).
+Ten slides, one per canvas in [institutional-deck/](institutional-deck/) (`01.png` … `10.png`; in the
+repository only — the npm package ships the contact sheet above, not the per-slide renders).
 Source: [src/institutional-deck.html](src/institutional-deck.html). It uses one
 [archetype](../archetypes.md) from every group of the story: open, argue, prove, compare, show,
 close.

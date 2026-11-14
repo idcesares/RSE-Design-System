@@ -1,5 +1,5 @@
-// Node cannot import .jsx, so evaluate the motif sources the way build-bundle.mjs does: the same
-// transform (lib/bundle-form.mjs: strip the module syntax, turn `import { x } from './Name.jsx'`
+// Node could not import the old .jsx sources, so evaluate the motif sources the way build-bundle.mjs does: the same
+// transform (lib/bundle-form.mjs: strip the module syntax, turn `import { x } from './Name.js'`
 // into a read from the shared scope), each file in its own function scope, exports published on
 // one shared `scope` object. React is a stub whose createElement returns a plain, comparable tree.
 //
@@ -13,7 +13,7 @@ import { exportedNames, toBundleForm } from './bundle-form.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 // Evaluated in this order: a file may import what the files before it export.
-const SOURCES = ['components/brand/BrandMotif.jsx', 'components/brand/MotifEngine.jsx', 'components/feedback/MotifLoader.jsx', 'components/core/Icon.jsx', 'components/brand/MotifPattern.jsx'];
+const SOURCES = ['components/brand/BrandMotif.js', 'components/brand/MotifEngine.js', 'components/feedback/MotifLoader.js', 'components/core/Icon.js', 'components/brand/MotifPattern.js'];
 
 const React = {
   createElement: (type, props, ...children) => ({ type, props, children }),

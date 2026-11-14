@@ -16,7 +16,8 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    # Pinned with the ci pages job: Playwright 1.56.1 installs Chromium on 24.04, not on 26.04.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,6 +38,7 @@ jobs:
       - run: npm run check
       - run: npm i --no-save --no-audit --no-fund playwright@1.56.1 axe-core@4.14.0 && npx playwright install --with-deps chromium
       - run: npm run test:pages
+      - run: npm i --no-save --no-audit --no-fund react@18.3.1 react-dom@18.3.1 && npm run test:consumer
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

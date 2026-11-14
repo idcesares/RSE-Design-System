@@ -1,21 +1,22 @@
 /* Button — .rse-button [--primary | --secondary | --ghost] [--sm | --lg]
-   Works on <button> and on <a href>. States are CSS, so they exist before (or without) React. */
+   Works on <button> and on <a href>. States are CSS, so they exist before (or without) React.
+   Re-skin with the --rse-button-* component tokens (tokens/src/component.tokens.json). */
 .rse-button{
   display:inline-flex;align-items:center;justify-content:center;gap:var(--rse-space-2);
   min-height:var(--rse-hit-target-min);padding:var(--rse-space-3) var(--rse-space-5);
   font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);font-weight:var(--rse-font-weight-semibold);
   line-height:1.2;white-space:nowrap;text-decoration:none;cursor:pointer;
-  border:1.5px solid transparent;border-radius:var(--rse-radius-pill);
-  background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);
+  border:1.5px solid transparent;border-radius:var(--rse-button-radius);
+  background:var(--rse-button-primary-bg);color:var(--rse-button-primary-fg);
   transition:background-color var(--rse-duration-base) var(--rse-ease-standard),border-color var(--rse-duration-base) var(--rse-ease-standard),transform var(--rse-duration-fast) var(--rse-ease-out);
 }
-.rse-button:hover{background:var(--rse-color-primary-hover);color:var(--rse-color-text-on-primary)}
-.rse-button:active{background:var(--rse-color-primary-active);transform:scale(.97)}
-.rse-button--secondary{background:var(--rse-color-surface-primary-tint);color:var(--rse-color-text-on-primary-tint)}
-.rse-button--secondary:hover,.rse-button--secondary:active{background:var(--rse-color-surface-primary-tint-hover);color:var(--rse-color-text-on-primary-tint)}
+.rse-button:hover{background:var(--rse-button-primary-bg-hover);color:var(--rse-button-primary-fg)}
+.rse-button:active{background:var(--rse-button-primary-bg-active);transform:scale(.97)}
+.rse-button--secondary{background:var(--rse-button-secondary-bg);color:var(--rse-button-secondary-fg)}
+.rse-button--secondary:hover,.rse-button--secondary:active{background:var(--rse-button-secondary-bg-hover);color:var(--rse-button-secondary-fg)}
 /* Ghost text uses the deeper purple: --rse-color-primary is only 4.44:1 on the hover surface. */
-.rse-button--ghost{background:transparent;color:var(--rse-color-text-on-primary-tint);border-color:var(--rse-color-border-strong)}
-.rse-button--ghost:hover,.rse-button--ghost:active{background:var(--rse-color-surface-sunken);color:var(--rse-color-text-on-primary-tint)}
+.rse-button--ghost{background:transparent;color:var(--rse-button-ghost-fg);border-color:var(--rse-button-ghost-border)}
+.rse-button--ghost:hover,.rse-button--ghost:active{background:var(--rse-button-ghost-bg-hover);color:var(--rse-button-ghost-fg)}
 .rse-button--sm{min-height:2.25rem;padding:var(--rse-space-2) var(--rse-space-4);font-size:var(--rse-font-size-body-sm)}
 .rse-button--lg{padding:var(--rse-space-4) var(--rse-space-6);font-size:var(--rse-font-size-body-lg)}
 .rse-button--block{display:flex;width:100%}
