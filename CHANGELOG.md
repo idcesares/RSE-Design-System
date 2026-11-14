@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CI: the `pages` job and the release run on `ubuntu-24.04`. `ubuntu-latest` moved to 26.04, where the
+  pinned Playwright 1.56.1 cannot install Chromium; upgrade the two together.
 - **Reference site** `site/`: one page per component — live example (the showcase demo), usage,
   props with allowed values, CSS classes, component tokens with each theme's value, files —
   generated from `dist/components.json` and the prompts by `scripts/build-site.mjs`. Opens offline;

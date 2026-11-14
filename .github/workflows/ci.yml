@@ -32,7 +32,9 @@ jobs:
     # Every shipped page in Chromium: runtime errors fail; axe (WCAG 2.2 AA) and 360px overflow
     # are ratcheted against scripts/test-pages-baseline.json. Tools are installed for this job
     # only — the repo itself keeps zero dependencies.
-    runs-on: ubuntu-latest
+    # Pinned: the pinned Playwright installs Chromium only on OS versions it supports, and
+    # ubuntu-latest moved to 26.04, which Playwright 1.56.1 does not. Move both together.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
