@@ -1,8 +1,9 @@
 /* Navbar — .rse-navbar. Sticky translucent site header: logo, link list and one call to action.
-   Wraps instead of overflowing: below the md breakpoint (834px) the links drop to their own row under logo + CTA.
+   Wraps instead of overflowing: when the NAVBAR is narrower than md (834px, a container query, so it
+   also holds in a narrow region) the links drop to their own row under logo + CTA.
    A hamburger/drawer is out of scope (roadmap P3.2). Current page: aria-current="page" on __link. */
 .rse-navbar{
-  position:sticky;top:0;z-index:var(--rse-z-sticky);box-sizing:border-box;width:100%;
+  container:rse-navbar / inline-size;position:sticky;top:0;z-index:var(--rse-z-sticky);box-sizing:border-box;width:100%;
   background:var(--rse-color-surface-page-translucent);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--rse-color-border-subtle);font-family:var(--rse-font-family);
 }
@@ -33,7 +34,7 @@
   font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);text-decoration:none;white-space:nowrap;
 }
 .rse-navbar__cta:hover{text-decoration:underline}
-@media (max-width:833px){
+@container rse-navbar (max-width:833px){
   .rse-navbar__logo{order:1}
   .rse-navbar__cta{order:2}
   .rse-navbar__links{order:3;flex:1 1 100%;justify-content:flex-start;column-gap:var(--rse-space-4)}

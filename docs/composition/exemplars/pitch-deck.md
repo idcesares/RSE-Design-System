@@ -3,7 +3,7 @@
 ![Pitch deck, all ten slides](pitch-deck.png)
 
 A proposal for a new programme, told in ten slides: problem, why now, solution, how it works, in
-practice, proof, model, team and the ask. One slide per canvas in [pitch-deck/](pitch-deck/).
+practice, proof, model, team and the ask. One slide per canvas in [pitch-deck/](pitch-deck/) (repository only; the npm package ships the contact sheet above).
 Source: [src/pitch-deck.html](src/pitch-deck.html). It shows the range of the system next to the
 [institutional deck](institutional-deck.md): the band hue is blue instead of purple, and four
 archetypes are new (process, evidence, data-table, contact).

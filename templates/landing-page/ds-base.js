@@ -21,7 +21,7 @@
     if (!window.ReactDOM) await load(new URL('assets/vendor/react-dom.production.min.js', root).href);
     if (!window.RSE.Hero) await load(new URL('dist/rse.js', root).href);
     await load(new URL('image-slot.js', root).href);
-    await load(new URL('support.js', local).href);
+    await load(new URL('templates/runtime.js', root).href);
   })().catch((error) => {
     console.error(error);
     const report = () => {

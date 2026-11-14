@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+- **Templates render with `templates/runtime.js`**, about 180 readable lines in this repo, instead
+  of four copies of a generated 1,900-line `dc-runtime` build whose source was not here. Same
+  `.dc.html` format; all four templates are pixel-identical at 360 and 1280 px, and filters, tabs,
+  slides and print output pass `test:applications`. `check-ds` keeps vendored runtimes out. The
+  landing and program templates lose a `.lp-signature > *` / `.pp-signature > *` rule that the old
+  runtime's wrapper markup had always kept from applying (removing it keeps the reviewed look).
+- **Component tokens (tier 3)** in `tokens/src/component.tokens.json`: `--rse-button-*`,
+  `--rse-input-*`, `--rse-card-*` (colour, border, radius, shadow), aliases of tier 2 re-declared in
+  every theme, so a host re-skins a component by setting a token on any ancestor. Button, Input and
+  Card read them (pixel-identical in light, dark and contrast); the contrast gate measures them
+  (180 checks).
+- **Container queries.** Navbar and Footer respond to their own width, so in a narrow region (a
+  sidebar, a modal) they take their narrow layout on any screen; identical at full width.
+  `test:contracts` proves both. The breakpoint-scale check covers `@container`.
+- **Smaller package**: per-slide exemplar renders stay in the repository (the contact sheets still
+  ship), and the runtime copies are gone — 4.8 MB → 3.4 MB packed.
+- **`AGENTS.md` is 182 lines** (was 406): rules and routing, each rule naming the check that
+  enforces it. The long forms moved, unchanged, to `docs/non-negotiables.md`, `docs/repo-map.md`,
+  `docs/recipes.md`, `docs/authoring-components.md` and `docs/guidelines.md`.
+- The showcase uses `.rse-stack`; `test:pages` now baselines all nine pages it opens.
+
 - **Components are plain `.js` modules.** The sources were `.jsx` files that contained no JSX;
   Node cannot load that extension, so the package failed in plain-Node SSR, Vite SSR with
   externalised dependencies and test runners. Renamed to `.js`; nothing public changes (`exports`
@@ -25,7 +46,9 @@
 - **Fixes the checks found.** `.rse-skeleton--rect` and `.rse-choice__label` (long labels now wrap)
   had no rule. The landing page carried an older `support.js` build than the other templates.
   Navbar, Footer and the two page templates used a 768px (`48rem`) query off the scale; they now
-  use `md` (834px) — no visible change at 800 px. Breadcrumb's props, and the Toast, Tooltip and
+  use `md` (834px). Between 768 and 833 px the navbar links now drop to their own row and the
+  footer stacks, as they already did below 768 px. (An earlier version of this note said "no
+  visible change at 800 px"; that check ran against stale CSS.) Breadcrumb's props, and the Toast, Tooltip and
   Modal summaries, were missing from `docs/components.md`.
 - **Audit.** `componentsResponsive` reads the component CSS (0 → 6, the real count); new ratcheted
   `componentCssPxLiterals` (33) counts sizing literals in component CSS, which `componentPxLiterals`

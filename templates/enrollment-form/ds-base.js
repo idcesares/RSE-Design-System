@@ -23,7 +23,7 @@
     window.RSEReferenceLogo = ({ className, tone = 'purple' }) => window.React.createElement('img', { className, src: new URL('assets/logos/wordmark-' + tone + '.svg', root).href, alt: 'Rede Sesc de Educa\u00e7\u00e3o' });
     await load(new URL('image-slot.js', root).href);
     await load(new URL('doc-page.js', local).href);
-    await load(new URL('support.js', local).href);
+    await load(new URL('templates/runtime.js', root).href);
   })().catch((error) => {
     console.error(error);
     const report = () => {

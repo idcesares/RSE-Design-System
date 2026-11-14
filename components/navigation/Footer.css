@@ -1,7 +1,9 @@
 /* Footer — .rse-footer. Ink-surface site footer: brand block (logo + tagline), a responsive grid of
-   link columns and an optional legal note. Columns reflow from one up to as many as fit (160px min). */
+   link columns and an optional legal note. Columns reflow from one up to as many as fit (160px min).
+   A size container: the brand column sits beside the links when the FOOTER is at least md wide,
+   so a footer in a narrow region (a sidebar, a modal, a preview) stacks whatever the viewport. */
 .rse-footer{
-  box-sizing:border-box;width:100%;background:var(--rse-brand-ink);color:var(--rse-color-text-on-ink-muted);
+  container:rse-footer / inline-size;box-sizing:border-box;width:100%;background:var(--rse-brand-ink);color:var(--rse-color-text-on-ink-muted);
   font-family:var(--rse-font-family);
 }
 .rse-footer__inner{
@@ -29,6 +31,6 @@
   box-sizing:border-box;max-width:var(--rse-container-xl);margin:0 auto;padding:var(--rse-space-5) var(--rse-container-padding);
   border-top:1px solid var(--rse-color-border-on-ink);font-size:var(--rse-font-size-caption);color:var(--rse-color-text-on-ink-muted);
 }
-@media (min-width:834px){
+@container rse-footer (min-width:834px){
   .rse-footer__inner{grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:var(--rse-space-7)}
 }

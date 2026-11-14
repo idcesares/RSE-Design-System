@@ -15,7 +15,6 @@
 .lp-figure { margin: 0; min-width: 0; }
 .lp-editorial-copy { display: flex; flex-direction: column; gap: var(--rse-space-5); }
 .lp-signature { display: flex; justify-content: flex-end; margin-top: var(--rse-space-4); }
-.lp-signature > * { width: 25%; max-width: 160px; height: auto; }
 .lp-next { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--rse-space-7); align-items: start; }
 .lp-stepper { margin-block: var(--rse-space-3); }
 .lp-portal-note { border-left: var(--rse-space-1) solid var(--rse-color-border-strong); padding-left: var(--rse-space-5); }

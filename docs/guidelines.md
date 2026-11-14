@@ -122,3 +122,39 @@ The floor is WCAG 2.2 AA, measured: `scripts/contrast-pairs.mjs` in three themes
 - A region that scrolls sideways is focusable (`tabindex="0"` plus a label), so a keyboard user can
   scroll it.
 - Primary actions are at least 44 px tall (`--rse-hit-target-min`).
+
+## Accessibility floor
+
+The checklist every generated surface must clear, in full. `AGENTS.md` keeps the short form.
+
+Every generated surface must clear this. It is not optional polish; the audience includes
+students, families and Sesc staff across the whole country.
+
+- **Contrast** ≥ 4.5:1 for body text, ≥ 3:1 for large text and UI borders. `npm run check` measures
+  every pair listed in `scripts/contrast-pairs.mjs` in all three themes and fails below the floor.
+  Pale accent tints (`--rse-color-tint-*`) carry their paired `--rse-color-tint-*-ink` foreground. Status colours have
+  three roles: `--rse-color-danger-surface` (background), `--rse-color-danger-text` (words), `--rse-color-danger` (dots, borders,
+  icons only). Text on `--rse-color-surface-primary-tint` is `--rse-color-text-on-primary-tint`. The official `-dark`
+  tones never carry small text — they sit at 3.4–4.1:1 against white *and* ink.
+- **Focus is always visible.** The global `:focus-visible` ring is in `tokens/base-runtime.css`. Never set
+  `outline: none` without an equally visible replacement.
+- **Native control, hidden visually — never `display:none`.** A native input styled behind custom
+  chrome uses `className="rse-control-input"` (see `tokens/base-runtime.css`); `display:none` removes it
+  from the tab order and the accessibility tree. `npm run check` fails on this.
+- **Keyboard**: everything interactive reachable with Tab, operable with Enter/Space. Tabs move
+  with arrow keys, menus and dialogs close with Escape, dialogs trap focus and return it to the
+  trigger.
+- **Hit targets** ≥ `--rse-hit-target-min` (44px) on touch surfaces.
+- **Motion**: UI state changes (components) stay inside `--rse-duration-fast/base/slow` (360 ms cap)
+  with standard easing; brand motion uses `--rse-duration-reveal/loop` with assemble/settle easing.
+  **Artwork and artifacts have their own, freer tier**: choreographed sequences, longer durations,
+  tasteful springs, scroll-linked and 3D motion, as long as the reduced form, a complete final
+  frame, a pause control for long autoplay and no flashing are in place
+  ([creative latitude](composition/creative-latitude.md)). The
+  `data-rse-motion` setting (stored choice, else OS, else `full`) decides full or reduced; managed
+  components (`.rse-motion-managed`) implement both forms, and the safety net flattens the rest —
+  don't add unmanaged animation *inside UI components*. An artifact's own motion reads the setting
+  itself ([how](composition/artifact-craft.md#reading-the-motion-setting)).
+- **Images** carry real `alt` text in pt-BR, or `alt=""` when decorative. `<image-slot>` placeholders
+  describe the shot needed.
+- The design rules behind it: [Accessibility](#accessibility), above.

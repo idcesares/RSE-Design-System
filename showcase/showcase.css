@@ -150,7 +150,6 @@ code { font-family: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', monospace; f
   border-radius: var(--rse-radius-lg); padding: var(--rse-space-6); box-shadow: var(--rse-shadow-sm); min-width: 0;
 }
 .sc-panel--flush { padding: 0; overflow-x: auto; }
-.sc-stack { display: flex; flex-direction: column; gap: var(--rse-space-5); min-width: 0; }
 .sc-grid { display: grid; gap: var(--rse-space-5); }
 .sc-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .sc-grid--a11y { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }

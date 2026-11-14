@@ -207,23 +207,24 @@
 
 /* components/core/Button.css */
 /* Button — .rse-button [--primary | --secondary | --ghost] [--sm | --lg]
-   Works on <button> and on <a href>. States are CSS, so they exist before (or without) React. */
+   Works on <button> and on <a href>. States are CSS, so they exist before (or without) React.
+   Re-skin with the --rse-button-* component tokens (tokens/src/component.tokens.json). */
 .rse-button{
   display:inline-flex;align-items:center;justify-content:center;gap:var(--rse-space-2);
   min-height:var(--rse-hit-target-min);padding:var(--rse-space-3) var(--rse-space-5);
   font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);font-weight:var(--rse-font-weight-semibold);
   line-height:1.2;white-space:nowrap;text-decoration:none;cursor:pointer;
-  border:1.5px solid transparent;border-radius:var(--rse-radius-pill);
-  background:var(--rse-color-primary);color:var(--rse-color-text-on-primary);
+  border:1.5px solid transparent;border-radius:var(--rse-button-radius);
+  background:var(--rse-button-primary-bg);color:var(--rse-button-primary-fg);
   transition:background-color var(--rse-duration-base) var(--rse-ease-standard),border-color var(--rse-duration-base) var(--rse-ease-standard),transform var(--rse-duration-fast) var(--rse-ease-out);
 }
-.rse-button:hover{background:var(--rse-color-primary-hover);color:var(--rse-color-text-on-primary)}
-.rse-button:active{background:var(--rse-color-primary-active);transform:scale(.97)}
-.rse-button--secondary{background:var(--rse-color-surface-primary-tint);color:var(--rse-color-text-on-primary-tint)}
-.rse-button--secondary:hover,.rse-button--secondary:active{background:var(--rse-color-surface-primary-tint-hover);color:var(--rse-color-text-on-primary-tint)}
+.rse-button:hover{background:var(--rse-button-primary-bg-hover);color:var(--rse-button-primary-fg)}
+.rse-button:active{background:var(--rse-button-primary-bg-active);transform:scale(.97)}
+.rse-button--secondary{background:var(--rse-button-secondary-bg);color:var(--rse-button-secondary-fg)}
+.rse-button--secondary:hover,.rse-button--secondary:active{background:var(--rse-button-secondary-bg-hover);color:var(--rse-button-secondary-fg)}
 /* Ghost text uses the deeper purple: --rse-color-primary is only 4.44:1 on the hover surface. */
-.rse-button--ghost{background:transparent;color:var(--rse-color-text-on-primary-tint);border-color:var(--rse-color-border-strong)}
-.rse-button--ghost:hover,.rse-button--ghost:active{background:var(--rse-color-surface-sunken);color:var(--rse-color-text-on-primary-tint)}
+.rse-button--ghost{background:transparent;color:var(--rse-button-ghost-fg);border-color:var(--rse-button-ghost-border)}
+.rse-button--ghost:hover,.rse-button--ghost:active{background:var(--rse-button-ghost-bg-hover);color:var(--rse-button-ghost-fg)}
 .rse-button--sm{min-height:2.25rem;padding:var(--rse-space-2) var(--rse-space-4);font-size:var(--rse-font-size-body-sm)}
 .rse-button--lg{padding:var(--rse-space-4) var(--rse-space-6);font-size:var(--rse-font-size-body-lg)}
 .rse-button--block{display:flex;width:100%}
@@ -249,14 +250,15 @@
 
 /* components/core/Card.css */
 /* Card — .rse-card. With href, the title is the link and its ::after covers the card, so the
-   whole card is clickable while buttons in the footer stay separate, focusable controls. */
+   whole card is clickable while buttons in the footer stay separate, focusable controls.
+   Re-skin with the --rse-card-* component tokens. */
 .rse-card{
   position:relative;display:flex;flex-direction:column;width:100%;overflow:hidden;
-  background:var(--rse-color-surface-card);border:1px solid var(--rse-color-border-subtle);
-  border-radius:var(--rse-radius-lg);box-shadow:var(--rse-shadow-sm);font-family:var(--rse-font-family);
+  background:var(--rse-card-bg);border:1px solid var(--rse-card-border);
+  border-radius:var(--rse-card-radius);box-shadow:var(--rse-card-shadow);font-family:var(--rse-font-family);
   transition:transform var(--rse-duration-base) var(--rse-ease-out),box-shadow var(--rse-duration-base) var(--rse-ease-standard);
 }
-.rse-card:has(.rse-card__link):hover{transform:translateY(calc(-1 * var(--rse-space-1)));box-shadow:var(--rse-shadow-md)}
+.rse-card:has(.rse-card__link):hover{transform:translateY(calc(-1 * var(--rse-space-1)));box-shadow:var(--rse-card-shadow-hover)}
 .rse-card__media{width:100%;aspect-ratio:16/10;overflow:hidden}
 .rse-card__media > *{display:block;width:100%;height:100%;object-fit:cover}
 .rse-card__body{display:flex;flex:1;flex-direction:column;gap:var(--rse-space-2);padding:var(--rse-space-5)}
@@ -746,16 +748,16 @@
 .rse-field__count{flex:none;color:var(--rse-color-text-muted)}
 
 /* Input — .rse-input on <input>, <select> or <textarea>. The global focus ring stays: a pale
-   shadow alone is not a visible focus indicator. */
+   shadow alone is not a visible focus indicator. Re-skin with the --rse-input-* component tokens. */
 .rse-input{
   width:100%;min-height:var(--rse-hit-target-min);padding:var(--rse-space-3) var(--rse-space-4);
-  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);line-height:1.4;color:var(--rse-color-text-heading);
-  background:var(--rse-color-surface-card);border:1.5px solid var(--rse-color-border-strong);border-radius:var(--rse-radius-md);
+  font-family:var(--rse-font-family);font-size:var(--rse-font-size-body-md);line-height:1.4;color:var(--rse-input-fg);
+  background:var(--rse-input-bg);border:1.5px solid var(--rse-input-border);border-radius:var(--rse-input-radius);
   transition:border-color var(--rse-duration-fast) var(--rse-ease-standard);
 }
 .rse-input::placeholder{color:var(--rse-color-text-muted);opacity:1}
-.rse-input:focus{border-color:var(--rse-color-primary)}
-.rse-input[aria-invalid="true"]{border-color:var(--rse-color-danger)}
+.rse-input:focus{border-color:var(--rse-input-border-focus)}
+.rse-input[aria-invalid="true"]{border-color:var(--rse-input-border-invalid)}
 .rse-input:disabled{background:var(--rse-color-surface-sunken);color:var(--rse-color-text-muted);cursor:not-allowed}
 
 /* DateField — an <input type="date" class="rse-input"> inside .rse-field, plus an optional
@@ -882,9 +884,11 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
 
 /* components/navigation/Footer.css */
 /* Footer — .rse-footer. Ink-surface site footer: brand block (logo + tagline), a responsive grid of
-   link columns and an optional legal note. Columns reflow from one up to as many as fit (160px min). */
+   link columns and an optional legal note. Columns reflow from one up to as many as fit (160px min).
+   A size container: the brand column sits beside the links when the FOOTER is at least md wide,
+   so a footer in a narrow region (a sidebar, a modal, a preview) stacks whatever the viewport. */
 .rse-footer{
-  box-sizing:border-box;width:100%;background:var(--rse-brand-ink);color:var(--rse-color-text-on-ink-muted);
+  container:rse-footer / inline-size;box-sizing:border-box;width:100%;background:var(--rse-brand-ink);color:var(--rse-color-text-on-ink-muted);
   font-family:var(--rse-font-family);
 }
 .rse-footer__inner{
@@ -912,7 +916,7 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
   box-sizing:border-box;max-width:var(--rse-container-xl);margin:0 auto;padding:var(--rse-space-5) var(--rse-container-padding);
   border-top:1px solid var(--rse-color-border-on-ink);font-size:var(--rse-font-size-caption);color:var(--rse-color-text-on-ink-muted);
 }
-@media (min-width:834px){
+@container rse-footer (min-width:834px){
   .rse-footer__inner{grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:var(--rse-space-7)}
 }
 
@@ -936,10 +940,11 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
 
 /* components/navigation/Navbar.css */
 /* Navbar — .rse-navbar. Sticky translucent site header: logo, link list and one call to action.
-   Wraps instead of overflowing: below the md breakpoint (834px) the links drop to their own row under logo + CTA.
+   Wraps instead of overflowing: when the NAVBAR is narrower than md (834px, a container query, so it
+   also holds in a narrow region) the links drop to their own row under logo + CTA.
    A hamburger/drawer is out of scope (roadmap P3.2). Current page: aria-current="page" on __link. */
 .rse-navbar{
-  position:sticky;top:0;z-index:var(--rse-z-sticky);box-sizing:border-box;width:100%;
+  container:rse-navbar / inline-size;position:sticky;top:0;z-index:var(--rse-z-sticky);box-sizing:border-box;width:100%;
   background:var(--rse-color-surface-page-translucent);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--rse-color-border-subtle);font-family:var(--rse-font-family);
 }
@@ -970,7 +975,7 @@ button.rse-stepper__marker { min-width: var(--rse-hit-target-min); min-height: v
   font-size:var(--rse-font-size-body-sm);font-weight:var(--rse-font-weight-semibold);text-decoration:none;white-space:nowrap;
 }
 .rse-navbar__cta:hover{text-decoration:underline}
-@media (max-width:833px){
+@container rse-navbar (max-width:833px){
   .rse-navbar__logo{order:1}
   .rse-navbar__cta{order:2}
   .rse-navbar__links{order:3;flex:1 1 100%;justify-content:flex-start;column-gap:var(--rse-space-4)}

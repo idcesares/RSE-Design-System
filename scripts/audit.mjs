@@ -109,13 +109,13 @@ const components = walk('components')
 // conditions (CSS cannot read var() there; check-ds holds those to the breakpoint tokens).
 const CSS_PX = /(?<![\w.-])(\d+(?:\.\d+)?)px\b/g;
 const componentSheets = [...new Set([...CONTRACT_ONLY, ...components.map((c) => cssContractPath(ROOT, c.file)).filter(Boolean)])].map((f) => {
-  const css = read(f).replace(/\/\*[\s\S]*?\*\//g, '').replace(/@media[^{]*/g, '');
+  const css = read(f).replace(/\/\*[\s\S]*?\*\//g, '').replace(/@(?:media|container)[^{]*/g, '');
   return { file: f, pxLiterals: [...css.matchAll(CSS_PX)].filter((m) => Number(m[1]) > 2).length };
 });
 
 // ─── 3. Templates and kits: do they hold the system's own rules? ────────────
 const pages = walk('templates')
-  .filter((f) => /\.(dc\.html|html|js)$/.test(f) && !/(support|ds-base|deck-stage|doc-page)\.js$/.test(f))
+  .filter((f) => /\.(dc\.html|html|js)$/.test(f) && !/(support|ds-base|deck-stage|doc-page|runtime)\.js$/.test(f))
   .map((f) => {
     const html = read(f);
     // Composition can live in an authored stylesheet instead of inline HTML.
@@ -128,7 +128,7 @@ const pages = walk('templates')
       file: f,
       rawColors: (src.match(/#[0-9a-fA-F]{3,6}\b|:\s*(?:white|black)\b|rgba?\(/g) || []).length,
       // A media-query condition is a breakpoint, not a fixed-width element (check-ds holds those to the scale).
-      hardWidths: (src.replace(/@media[^{]*/g, '').match(/max-width:\s*\d+px|maxWidth:\s*\d+/g) || []).length,
+      hardWidths: (src.replace(/@(?:media|container)[^{]*/g, '').match(/max-width:\s*\d+px|maxWidth:\s*\d+/g) || []).length,
       mediaQueries: (src.match(/@media/g) || []).length,
       fixedGrids: (src.match(/grid-template-columns:\s*(?:repeat\(\d|1fr 1fr)/g) || []).length,
     };

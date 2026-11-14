@@ -28,6 +28,7 @@
     "DESIGN.md",
     "docs/composition",
     "!docs/composition/exemplars/src",
+    "!docs/composition/exemplars/*/*.png",
     "rse.manifest.json",
     "templates",
     "starters",

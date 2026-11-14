@@ -213,7 +213,7 @@ for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith
   }
 }
 
-// ─── 8d. Media queries sit on the breakpoint scale ───────────────────────────
+// ─── 8d. Media and container queries sit on the breakpoint scale ─────────────
 // CSS cannot read var() inside @media, so breakpoints are literals — which is how a 768px query
 // crept in next to an 834px md token. A width must be a breakpoint token (layout.tokens.json) or
 // that value minus 1px for max-width (in px, or the same in rem/em at 16px).
@@ -224,24 +224,23 @@ for (const f of allFiles.filter((f) => f.startsWith('components/') && f.endsWith
   const names = Object.entries(bp).filter(([k]) => !k.startsWith('$')).map(([k, v]) => `${k} ${v.$value}`).join(', ');
   const scanned = allFiles.filter((f) => /^(components|templates|starters|showcase|tokens)\//.test(f) && /\.(css|html)$/.test(f) && f !== 'dist/components.css');
   for (const f of scanned) {
-    for (const q of read(f).matchAll(/@media[^{]*/g)) {
+    for (const q of read(f).matchAll(/@(?:media|container)[^{]*/g)) {
       for (const m of q[0].matchAll(/\((?:min|max)-width\s*:\s*([\d.]+)(px|rem|em)\s*\)/g)) {
         const value = m[2] === 'px' ? Number(m[1]) : Number(m[1]) * 16;
-        if (!ok.has(value.toFixed(2))) err(`${f}: @media width ${m[1]}${m[2]} is not on the breakpoint scale (${names}; max-width may use the value minus 1px)`);
+        if (!ok.has(value.toFixed(2))) err(`${f}: query width ${m[1]}${m[2]} is not on the breakpoint scale (${names}; max-width may use the value minus 1px)`);
       }
     }
   }
 }
 
-// ─── 8e. Template runtime copies are one build ──────────────────────────────
-// Each template folder carries support.js so it can be copied on its own. Its source (dc-runtime)
-// lives outside this repo, so the copies must stay byte-identical: update all of them at once.
-{
-  const copies = allFiles.filter((f) => /^templates\/[^/]+\/support\.js$/.test(f));
-  const first = copies.length && read(copies[0]);
-  for (const f of copies.slice(1)) {
-    if (read(f) !== first) err(`${f} differs from ${copies[0]} — every template carries the same dc-runtime build; copy one over the others`);
-  }
+// ─── 8e. Templates render with the in-repo runtime ──────────────────────────
+// templates/runtime.js renders every .dc.html template. It replaced a generated dc-runtime build
+// copied into each folder whose source was not in this repo; keep it from coming back.
+for (const f of allFiles.filter((f) => /^templates\/[^/]+\/support\.js$/.test(f))) {
+  err(`${f}: templates render with templates/runtime.js — remove the vendored runtime`);
+}
+for (const f of allFiles.filter((f) => /^templates\/[^/]+\/ds-base\.js$/.test(f))) {
+  if (!read(f).includes("'templates/runtime.js'")) err(`${f}: does not load templates/runtime.js`);
 }
 
 // ─── 9. Manifest paths and referenced assets exist ──────────────────────────
