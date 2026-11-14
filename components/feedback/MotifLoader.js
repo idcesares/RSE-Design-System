@@ -1,5 +1,5 @@
 import React from 'react';
-import { motifShapes, motifPieces } from '../brand/MotifEngine.jsx';
+import { motifShapes, motifPieces } from '../brand/MotifEngine.js';
 // Markup only: MotifLoader.css animates it (assemble, hold, release; hue steps). No hooks, no
 // window or document access, so it renders on the server. Fills are the engine's ramp colours
 // (data, set per face); everything about how it looks and moves lives in the CSS contract.

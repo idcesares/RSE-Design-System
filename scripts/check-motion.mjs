@@ -4,7 +4,7 @@
 //       written as the `animation` shorthand or as longhands (animation-duration +
 //       animation-iteration-count: infinite) in one rule block;
 //   (b) every translate in an rse-motif* @keyframes goes through var(--rse-motion-travel;
-//   (c) a component CSS file that declares rse-motif animations has .rse-motion-managed in its .jsx.
+//   (c) a component CSS file that declares rse-motif animations has .rse-motion-managed in its .js.
 // `--selftest` runs the three rules against inline fixtures and exits 1 unless each one fires.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, sep } from 'node:path';
@@ -132,11 +132,11 @@ export function ruleTravel(css, label = '') {
   return errors;
 }
 
-// (c) motif animations require .rse-motion-managed in the matching .jsx.
+// (c) motif animations require .rse-motion-managed in the matching .js.
 export function ruleManaged(css, jsx, label = '') {
   const declares = keyframes(stripComments(css)).some((k) => k.name.startsWith('rse-motif'))
     || /animation(?:-name)?\s*:[^;}]*\brse-motif/.test(stripComments(css));
-  if (declares && !(jsx ?? '').includes('rse-motion-managed')) return [`${label}: declares rse-motif animations but its .jsx never uses .rse-motion-managed`];
+  if (declares && !(jsx ?? '').includes('rse-motion-managed')) return [`${label}: declares rse-motif animations but its .js never uses .rse-motion-managed`];
   return [];
 }
 
@@ -189,7 +189,7 @@ for (const f of cssFiles) {
   errors.push(...ruleCycle(css, durations, f));
   if (f.startsWith('components/')) {
     errors.push(...ruleTravel(css, f));
-    const jsxPath = join(ROOT, f.replace(/\.css$/, '.jsx'));
+    const jsxPath = join(ROOT, f.replace(/\.css$/, '.js'));
     errors.push(...ruleManaged(css, existsSync(jsxPath) ? readFileSync(jsxPath, 'utf8') : '', f));
   }
 }

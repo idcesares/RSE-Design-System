@@ -186,17 +186,17 @@ const logos = readdirSync(join(ROOT, 'assets/logos'))
   });
 
 const motifHues = new Map(
-  [...read('components/brand/BrandMotif.jsx').matchAll(/'([a-z]+)':\s*\{[^}]*?hue:\s*'([a-z]+)'/g)].map((m) => [m[1], m[2]])
+  [...read('components/brand/BrandMotif.js').matchAll(/'([a-z]+)':\s*\{[^}]*?hue:\s*'([a-z]+)'/g)].map((m) => [m[1], m[2]])
 );
 const motifDefaults = new Map(
-  [...read('components/brand/BrandMotif.jsx').matchAll(/'([a-z]+)':\s*\{[^}]*?defaultHue:\s*'([a-z]+)'/g)].map(m => [m[1], m[2]])
+  [...read('components/brand/BrandMotif.js').matchAll(/'([a-z]+)':\s*\{[^}]*?defaultHue:\s*'([a-z]+)'/g)].map(m => [m[1], m[2]])
 );
 if (motifDefaults.size !== 6) throw new Error('build-brand: expected six signature default hue assignments');
 
-const motifShapeMatch = readFileSync(join(ROOT, 'components/brand/MotifEngine.jsx'), 'utf8').match(/motifShapeNames = Object\.freeze\(\[([^\]]+)\]/);
+const motifShapeMatch = readFileSync(join(ROOT, 'components/brand/MotifEngine.js'), 'utf8').match(/motifShapeNames = Object\.freeze\(\[([^\]]+)\]/);
 const motifShapeNames = motifShapeMatch ? [...motifShapeMatch[1].matchAll(/'([a-z]+)'/g)].map((x) => x[1]) : [];
 if (!motifShapeNames.length) {
-  console.error('build-brand: could not read motifShapeNames from components/brand/MotifEngine.jsx');
+  console.error('build-brand: could not read motifShapeNames from components/brand/MotifEngine.js');
   process.exit(1);
 }
 const motifs = readdirSync(join(ROOT, 'assets/motifs'))

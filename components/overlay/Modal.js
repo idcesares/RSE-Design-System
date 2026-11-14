@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 const cx = (...c) => c.filter(Boolean).join(' ');
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 export const Modal = React.forwardRef(function Modal({ open, onClose, title, children, footer, size = 'md', className, onClick, ...rest }, forwardedRef) {

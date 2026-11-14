@@ -29,6 +29,6 @@
   box-sizing:border-box;max-width:var(--rse-container-xl);margin:0 auto;padding:var(--rse-space-5) var(--rse-container-padding);
   border-top:1px solid var(--rse-color-border-on-ink);font-size:var(--rse-font-size-caption);color:var(--rse-color-text-on-ink-muted);
 }
-@media (min-width:48rem){
+@media (min-width:834px){
   .rse-footer__inner{grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:var(--rse-space-7)}
 }

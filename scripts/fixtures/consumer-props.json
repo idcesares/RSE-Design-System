@@ -1,0 +1,9 @@
+{
+  "$comment": "Props for scripts/test-consumer.mjs. A component not listed renders with no props. skip: exports that are function libraries, not components.",
+  "skip": ["MotifEngine"],
+  "props": {
+    "Icon": { "name": "check" },
+    "Modal": { "open": true, "title": "Confirmar inscrição", "children": "Revise os dados antes de enviar." },
+    "MotifPattern": { "shape": "cube", "width": 400, "height": 300 }
+  }
+}

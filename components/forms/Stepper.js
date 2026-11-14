@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 export const Stepper = React.forwardRef(function Stepper({ steps = [], current = 0, orientation = 'horizontal', onStepClick, className, ...rest }, ref) {
   return React.createElement('ol', { ...rest, ref, className: ['rse-stepper', orientation === 'vertical' && 'rse-stepper--vertical', className].filter(Boolean).join(' ') }, steps.map((step, i) => {
     const done = i < current, active = i === current;

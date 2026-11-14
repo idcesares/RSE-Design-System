@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 const cx = (...c) => c.filter(Boolean).join(' ');
 export const Accordion = React.forwardRef(function Accordion({ items = [], allowMultiple = false, defaultOpen = [], className, ...rest }, ref) {
   const [open, setOpen] = React.useState(() => new Set(defaultOpen));

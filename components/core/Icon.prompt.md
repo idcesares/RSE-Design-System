@@ -23,6 +23,6 @@ label. Pass `title` (in pt-BR) only when the icon carries meaning on its own; if
 `IconButton`, label the button instead. An unknown name renders nothing, so a typo shows up as a
 missing icon in review rather than a broken glyph.
 
-**Never hand-draw an icon or paste a one-off SVG into a page.** `Icon.jsx` is generated from the
+**Never hand-draw an icon or paste a one-off SVG into a page.** `Icon.js` is generated from the
 vendored SVGs — vendor the glyph you need and re-run the generator (`assets/icons/README.md`).
-Edits made directly to `Icon.jsx` are overwritten.
+Edits made directly to `Icon.js` are overwritten.

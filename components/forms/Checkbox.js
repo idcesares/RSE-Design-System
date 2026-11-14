@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 const cx = (...c) => c.filter(Boolean).join(' ');
 // Renders the CSS contract in Checkbox.css : a real <input> visually hidden behind the
 // drawn box. Its :checked state drives the look, so it works controlled, uncontrolled, or before

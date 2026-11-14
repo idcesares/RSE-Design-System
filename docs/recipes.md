@@ -57,7 +57,7 @@ import '@idcesares/rse-design-system/styles.css';
 ```
 
 Or, working inside this repo, `import { … } from './index.js'`. Never import
-`components/core/Button.jsx` directly.
+`components/core/Button.js` directly.
 
 ## A page from a template
 
@@ -237,6 +237,36 @@ To offer a toggle, flip the attribute and let CSS do the rest:
 ```js
 document.documentElement.dataset.rseTheme = isDark ? 'dark' : '';
 ```
+
+## Layout primitives
+
+Page structure comes from six classes in `components/layout/layout.css` (shipped in `styles.css`
+and `dist/components.css`). Use them instead of declaring a container or a stack per page; a page
+stylesheet keeps only what is specific to that page.
+
+```html
+<section class="rse-section rse-container" id="programas">
+  <div class="rse-stack">
+    <p class="rse-eyebrow">Programas</p>
+    <h2>Escolha um caminho</h2>
+  </div>
+  <div class="rse-grid" style="--rse-grid-min: 16rem">…cards…</div>
+  <div class="rse-cluster">…buttons…</div>
+</section>
+```
+
+| Class | What it does | Tune with |
+| --- | --- | --- |
+| `.rse-container` | page width (`--rse-container-xl`) and fluid side padding | `--lg`, `--md`, `--prose` |
+| `.rse-section` | `--rse-section-y-md` above and below (`-sm` below the md breakpoint); consecutive sections share one gap | — |
+| `.rse-stack` | vertical flow, one gap (`--rse-space-5`) | `--sm`, `--lg`, `--rse-stack-gap` |
+| `.rse-cluster` | wrapping row, one gap | `--rse-cluster-gap` |
+| `.rse-grid` | auto-fit columns, never a fixed count | `--rse-grid-min` (17.5rem), `--rse-grid-gap` |
+| `.rse-eyebrow` | the eyebrow label (Bold, uppercase, primary) | — |
+
+A section with its own surface is a band (`CtaBand`, `StatBand`), not `.rse-section`. Media queries
+use the breakpoint scale (`xs 480 · sm 640 · md 834 · lg 1120 · xl 1440`, max-width as the value
+minus 1px); `npm run check` rejects anything else.
 
 ## Standard section patterns
 

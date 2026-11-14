@@ -2,6 +2,35 @@
 
 ## Unreleased
 
+- **Components are plain `.js` modules.** The sources were `.jsx` files that contained no JSX;
+  Node cannot load that extension, so the package failed in plain-Node SSR, Vite SSR with
+  externalised dependencies and test runners. Renamed to `.js`; nothing public changes (`exports`
+  never exposed component files). New `npm run test:consumer` packs the tarball, installs it into
+  a scratch project, imports `.`, `/tokens` and `/motion`, server-renders all 42 components and
+  resolves every `exports` subpath and CSS `url()`/`@import`. New `npm run test:types` compiles the
+  public `.d.ts` under `strict` with `@ts-expect-error` cases that fail if a prop union widens.
+  Both run in a new `consumer` CI job; the release runs `test:consumer`.
+- **`dist/components.json`**, exported as `./components.json`: the generated component catalog
+  (summary, files, `'use client'`, props with types, docs and allowed values, the classes each
+  component renders with the prop behind each modifier, and the layout primitives). The `.d.ts`
+  readers moved to `scripts/lib/dts.mjs`, shared with `gen-docs`.
+- **Layout primitives**: `.rse-container` (`--lg`/`--md`/`--prose`), `.rse-section`,
+  `.rse-stack` (`--sm`/`--lg`), `.rse-cluster`, `.rse-grid` (`--rse-grid-min`), `.rse-eyebrow`, in
+  `components/layout/layout.css`. The landing and program templates use them instead of their own
+  `.lp-*`/`.pp-*` copies (pixel-identical at 360 and 1280 px); the unused `.pp-grid` is gone.
+- **New checks.** Class contract: every `rse-*` class a component emits is defined in CSS (or a
+  declared hook), and every value of a prop that builds a modifier has that modifier. Breakpoint
+  scale: media-query widths must be breakpoint tokens. Template `support.js` copies must be
+  identical. Raw hex in a component source is now an error, not a warning.
+- **Fixes the checks found.** `.rse-skeleton--rect` and `.rse-choice__label` (long labels now wrap)
+  had no rule. The landing page carried an older `support.js` build than the other templates.
+  Navbar, Footer and the two page templates used a 768px (`48rem`) query off the scale; they now
+  use `md` (834px) — no visible change at 800 px. Breadcrumb's props, and the Toast, Tooltip and
+  Modal summaries, were missing from `docs/components.md`.
+- **Audit.** `componentsResponsive` reads the component CSS (0 → 6, the real count); new ratcheted
+  `componentCssPxLiterals` (33) counts sizing literals in component CSS, which `componentPxLiterals`
+  (JSX only) never saw; `pageHardWidths` no longer counts media-query conditions.
+
 - Acceptance-test the creative guidance with three fresh agents (flashcards, org structure, results
   pitch; runs 3–5 in `docs/composition/acceptance.md`) and fix what they found: a standalone-token
   recipe, cube opacity only behind content, example data allowed for dashboards, a softer type ratio

@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 const cx = (...c) => c.filter(Boolean).join(' ');
 // Renders the CSS contract in FileUpload.css (.rse-dropzone) with the shared .rse-field label and
 // message. The dropzone is a <label> around the native file input, which stays focusable and

@@ -9,7 +9,7 @@ window.SHOWCASE_DATA = {
       "name": "Accordion",
       "group": "disclosure",
       "groupLabel": "Divulgação progressiva",
-      "sourcePath": "components/disclosure/Accordion.jsx",
+      "sourcePath": "components/disclosure/Accordion.js",
       "summary": "Expand/collapse list for FAQs and long-form program details. Animated with grid-template-rows so panel height is automatic.",
       "props": [
         {
@@ -36,7 +36,7 @@ window.SHOWCASE_DATA = {
       "name": "Alert",
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
-      "sourcePath": "components/feedback/Alert.jsx",
+      "sourcePath": "components/feedback/Alert.js",
       "summary": "Persistent inline banner with a tone icon. Class contract: .rse-alert--<tone>.",
       "props": [
         {
@@ -81,7 +81,7 @@ window.SHOWCASE_DATA = {
       "name": "Avatar",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/Avatar.jsx",
+      "sourcePath": "components/core/Avatar.js",
       "summary": "Circular image or initials with optional decorative presence dot. Class contract: .rse-avatar.",
       "props": [
         {
@@ -120,7 +120,7 @@ window.SHOWCASE_DATA = {
       "name": "Badge",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/Badge.jsx",
+      "sourcePath": "components/core/Badge.js",
       "summary": "Small status pill with a dot. Class contract: .rse-badge--<tone>.",
       "props": [
         {
@@ -141,7 +141,7 @@ window.SHOWCASE_DATA = {
       "name": "BrandMotif",
       "group": "brand",
       "groupLabel": "Marca",
-      "sourcePath": "components/brand/BrandMotif.jsx",
+      "sourcePath": "components/brand/BrandMotif.js",
       "summary": "The official \"cubo impossível\" motif — the brand's central visual idea, supplied by Sesc as vector artwork and split into six constructions. Defaults to one brand family per shape; hue=\"original\" retains supplied colours. Never re-maps per theme. Invalid variants/hues return null.",
       "props": [
         {
@@ -180,15 +180,22 @@ window.SHOWCASE_DATA = {
       "name": "Breadcrumb",
       "group": "navigation",
       "groupLabel": "Navegação",
-      "sourcePath": "components/navigation/Breadcrumb.jsx",
+      "sourcePath": "components/navigation/Breadcrumb.js",
       "summary": "Navigation trail with a non-link current page. Class contract: .rse-breadcrumb.",
-      "props": []
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItem[]",
+          "required": false,
+          "notes": "Trail from the home page to the current page; the last item renders as the current page, not a link"
+        }
+      ]
     },
     {
       "name": "Button",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/Button.jsx",
+      "sourcePath": "components/core/Button.js",
       "summary": "Action button (or link styled as one) with 3 variants and 3 sizes. Class contract: .rse-button. Accepts every native attribute and a ref.",
       "props": [
         {
@@ -239,7 +246,7 @@ window.SHOWCASE_DATA = {
       "name": "Card",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/Card.jsx",
+      "sourcePath": "components/core/Card.js",
       "summary": "Program/school card: media, eyebrow, title, description, footer. Class contract: .rse-card.",
       "props": [
         {
@@ -296,7 +303,7 @@ window.SHOWCASE_DATA = {
       "name": "Checkbox",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/Checkbox.jsx",
+      "sourcePath": "components/forms/Checkbox.js",
       "summary": "Checkbox. A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-checkbox.",
       "props": [
         {
@@ -311,7 +318,7 @@ window.SHOWCASE_DATA = {
       "name": "CtaBand",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/CtaBand.jsx",
+      "sourcePath": "components/core/CtaBand.js",
       "summary": "A full-bleed call-to-action band: headline, one line of support and the caller's buttons.",
       "props": [
         {
@@ -362,7 +369,7 @@ window.SHOWCASE_DATA = {
       "name": "DataTable",
       "group": "data",
       "groupLabel": "Dados",
-      "sourcePath": "components/data/DataTable.jsx",
+      "sourcePath": "components/data/DataTable.js",
       "summary": "Rounded, card-surface table for schedules, unit lists, fees and program comparisons. Horizontally scrollable on narrow screens.",
       "props": [
         {
@@ -407,7 +414,7 @@ window.SHOWCASE_DATA = {
       "name": "DateField",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/DateField.jsx",
+      "sourcePath": "components/forms/DateField.js",
       "summary": "Native date input styled to match Input, with an optional deadline pill for enrollment windows.",
       "props": [
         {
@@ -488,7 +495,7 @@ window.SHOWCASE_DATA = {
       "name": "Divider",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/Divider.jsx",
+      "sourcePath": "components/core/Divider.js",
       "summary": "Horizontal or vertical separator, optionally with a centred label. Class contract: .rse-divider.",
       "props": [
         {
@@ -509,7 +516,7 @@ window.SHOWCASE_DATA = {
       "name": "FileUpload",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/FileUpload.jsx",
+      "sourcePath": "components/forms/FileUpload.js",
       "summary": "Drag-and-drop document upload for enrollment paperwork, with an attached-file list and per-file removal.",
       "props": [
         {
@@ -584,7 +591,7 @@ window.SHOWCASE_DATA = {
       "name": "FilterChips",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/FilterChips.jsx",
+      "sourcePath": "components/forms/FilterChips.js",
       "summary": "Pill toggle group for filtering program, level and unit listings. Use above a results grid, never as a form field.",
       "props": [
         {
@@ -629,7 +636,7 @@ window.SHOWCASE_DATA = {
       "name": "Footer",
       "group": "navigation",
       "groupLabel": "Navegação",
-      "sourcePath": "components/navigation/Footer.jsx",
+      "sourcePath": "components/navigation/Footer.js",
       "summary": "Ink-surface site footer: brand block, responsive link columns and a legal note.",
       "props": [
         {
@@ -668,7 +675,7 @@ window.SHOWCASE_DATA = {
       "name": "Hero",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/Hero.jsx",
+      "sourcePath": "components/core/Hero.js",
       "summary": "The opening block of a page: eyebrow, the one h1, a lead, buttons and optional media in two columns that collapse to one.",
       "props": [
         {
@@ -731,7 +738,7 @@ window.SHOWCASE_DATA = {
       "name": "Icon",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/Icon.jsx",
+      "sourcePath": "components/core/Icon.js",
       "summary": "Line-icon primitive — the single source of truth for iconography. 24×24 grid, 2px stroke, inherits `currentColor`. Pass to Button/IconButton via `icon`. Returns null for an unknown name, so a typo fails visibly in review rather than rendering a broken glyph.",
       "props": [
         {
@@ -770,7 +777,7 @@ window.SHOWCASE_DATA = {
       "name": "IconButton",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/IconButton.jsx",
+      "sourcePath": "components/core/IconButton.js",
       "summary": "Icon-only round button. Class contract: .rse-icon-button. Accepts every native attribute and a ref.",
       "props": [
         {
@@ -815,7 +822,7 @@ window.SHOWCASE_DATA = {
       "name": "Input",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/Input.jsx",
+      "sourcePath": "components/forms/Input.js",
       "summary": "Text field with label, helper text and error, wired for screen readers. Class contract: .rse-field + .rse-input. Every other prop goes to the <input>; className goes to the field wrapper.",
       "props": [
         {
@@ -848,7 +855,7 @@ window.SHOWCASE_DATA = {
       "name": "Menu",
       "group": "navigation",
       "groupLabel": "Navegação",
-      "sourcePath": "components/navigation/Menu.jsx",
+      "sourcePath": "components/navigation/Menu.js",
       "summary": "Dropdown menu for navigation and actions: regional unit pickers, Programas nav sections, row actions. Closes on outside click and Escape.",
       "props": [
         {
@@ -899,8 +906,8 @@ window.SHOWCASE_DATA = {
       "name": "Modal",
       "group": "overlay",
       "groupLabel": "Sobreposição",
-      "sourcePath": "components/overlay/Modal.jsx",
-      "summary": "Centered dialog on a dimmed backdrop — confirmations, enrollment step forms, unit detail popups (the pattern behind the ui kit's `EnrollDialog`).",
+      "sourcePath": "components/overlay/Modal.js",
+      "summary": "Centred dialog on a dimmed backdrop: traps focus, closes on Escape and returns focus to the trigger. Class contract: .rse-modal--<size>.",
       "props": [
         {
           "name": "open",
@@ -944,7 +951,7 @@ window.SHOWCASE_DATA = {
       "name": "MotifEngine",
       "group": "brand",
       "groupLabel": "Marca",
-      "sourcePath": "components/brand/MotifEngine.jsx",
+      "sourcePath": "components/brand/MotifEngine.js",
       "summary": "The motif engine: builds impossible isometric shapes from lattice bars and cubes with declared crossings, and renders them as flat-filled SVG in any of the six palette families. A function library with no visual output of its own; MotifLoader and MotifPattern build on it. Also exported one function at a time.",
       "props": []
     },
@@ -952,7 +959,7 @@ window.SHOWCASE_DATA = {
       "name": "MotifLoader",
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
-      "sourcePath": "components/feedback/MotifLoader.jsx",
+      "sourcePath": "components/feedback/MotifLoader.js",
       "summary": "Primary branded loading feedback for buttons, inline waits and whole sections. Generated motif pieces assemble and release; reduced motion uses a slower opacity-only build.",
       "props": [
         {
@@ -1003,7 +1010,7 @@ window.SHOWCASE_DATA = {
       "name": "MotifPattern",
       "group": "brand",
       "groupLabel": "Marca",
-      "sourcePath": "components/brand/MotifPattern.jsx",
+      "sourcePath": "components/brand/MotifPattern.js",
       "summary": "A field of impossible shapes that fills its container (display:block, width and height 100%: the host sets the size). `animate` is 'none' (static, default), 'reveal' (cells fade in by --d stagger when the pattern scrolls into view; needs motion.js, never hidden without it) or 'ambient' (a slow breathing loop with a mandatory pause button). Text never sits on the cells: put it on a solid panel. An unknown shape or hue renders nothing. Follows the motion setting: reveal is opacity only and ambient is static when reduced.",
       "props": [
         {
@@ -1030,7 +1037,7 @@ window.SHOWCASE_DATA = {
       "name": "Navbar",
       "group": "navigation",
       "groupLabel": "Navegação",
-      "sourcePath": "components/navigation/Navbar.jsx",
+      "sourcePath": "components/navigation/Navbar.js",
       "summary": "Sticky site header: logo, text links and one call to action; wraps instead of overflowing (no drawer yet, roadmap P3.2).",
       "props": [
         {
@@ -1087,7 +1094,7 @@ window.SHOWCASE_DATA = {
       "name": "Pagination",
       "group": "navigation",
       "groupLabel": "Navegação",
-      "sourcePath": "components/navigation/Pagination.jsx",
+      "sourcePath": "components/navigation/Pagination.js",
       "summary": "Page navigation for long result lists. Class contract: .rse-pagination.",
       "props": [
         {
@@ -1114,7 +1121,7 @@ window.SHOWCASE_DATA = {
       "name": "PlatformEntry",
       "group": "brand",
       "groupLabel": "Marca",
-      "sourcePath": "components/brand/PlatformEntry.jsx",
+      "sourcePath": "components/brand/PlatformEntry.js",
       "summary": "Co-branded entry point from a Rede Sesc de Educação surface into the Plataforma Sesc Sab.IA. One click from a marketing page to the platform's home — see docs/sabia-platform.md.",
       "props": [
         {
@@ -1177,7 +1184,7 @@ window.SHOWCASE_DATA = {
       "name": "ProgressBar",
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
-      "sourcePath": "components/feedback/ProgressBar.jsx",
+      "sourcePath": "components/feedback/ProgressBar.js",
       "summary": "Determinate progress track exposed as `role=\"progressbar\"` with aria-valuenow/min/max.",
       "props": [
         {
@@ -1210,7 +1217,7 @@ window.SHOWCASE_DATA = {
       "name": "Radio",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/Radio.jsx",
+      "sourcePath": "components/forms/Radio.js",
       "summary": "Radio button — group several with the same name. A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-radio.",
       "props": [
         {
@@ -1225,7 +1232,7 @@ window.SHOWCASE_DATA = {
       "name": "Select",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/Select.jsx",
+      "sourcePath": "components/forms/Select.js",
       "summary": "Native select with the system's field chrome. Class contract: .rse-field + .rse-select.",
       "props": [
         {
@@ -1270,7 +1277,7 @@ window.SHOWCASE_DATA = {
       "name": "Skeleton",
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
-      "sourcePath": "components/feedback/Skeleton.jsx",
+      "sourcePath": "components/feedback/Skeleton.js",
       "summary": "Loading placeholder with a slow shimmer. Mirror the shape of the content that will replace it.",
       "props": [
         {
@@ -1309,7 +1316,7 @@ window.SHOWCASE_DATA = {
       "name": "Spinner",
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
-      "sourcePath": "components/feedback/Spinner.jsx",
+      "sourcePath": "components/feedback/Spinner.js",
       "summary": "Compatibility wrapper for MotifLoader inline mode. Prefer MotifLoader for new loading feedback. Uses managed reduced motion, not a separate rotating ring.",
       "props": [
         {
@@ -1330,7 +1337,7 @@ window.SHOWCASE_DATA = {
       "name": "Stat",
       "group": "data",
       "groupLabel": "Dados",
-      "sourcePath": "components/data/Stat.jsx",
+      "sourcePath": "components/data/Stat.js",
       "summary": "A single impact figure with uppercase label. Compose 3–4 in a flex/grid band to show the Rede reach.",
       "props": [
         {
@@ -1375,7 +1382,7 @@ window.SHOWCASE_DATA = {
       "name": "StatBand",
       "group": "data",
       "groupLabel": "Dados",
-      "sourcePath": "components/data/StatBand.jsx",
+      "sourcePath": "components/data/StatBand.js",
       "summary": "A full-bleed band of 3–4 Stat figures in a fluid grid, announced as a list.",
       "props": [
         {
@@ -1408,7 +1415,7 @@ window.SHOWCASE_DATA = {
       "name": "Stepper",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/Stepper.jsx",
+      "sourcePath": "components/forms/Stepper.js",
       "summary": "Progress indicator for multi-step flows: enrollment, document upload, application review.",
       "props": [
         {
@@ -1441,7 +1448,7 @@ window.SHOWCASE_DATA = {
       "name": "Switch",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/Switch.jsx",
+      "sourcePath": "components/forms/Switch.js",
       "summary": "On/off switch (role=switch). A real input drives the drawn box through :checked. Class contract: .rse-choice.rse-switch.",
       "props": [
         {
@@ -1456,7 +1463,7 @@ window.SHOWCASE_DATA = {
       "name": "Tabs",
       "group": "navigation",
       "groupLabel": "Navegação",
-      "sourcePath": "components/navigation/Tabs.jsx",
+      "sourcePath": "components/navigation/Tabs.js",
       "summary": "Pill tab bar for switching sections. Implements the ARIA tablist pattern: roving tabIndex, `aria-selected`, and Left/Right/Home/End keyboard navigation. The tab list scrolls sideways inside itself on narrow screens. Class contract: .rse-tabs, __list, __tab, __panel.",
       "props": [
         {
@@ -1489,7 +1496,7 @@ window.SHOWCASE_DATA = {
       "name": "Tag",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/Tag.jsx",
+      "sourcePath": "components/core/Tag.js",
       "summary": "Accent chip on a pale tint with its paired ink. Class contract: .rse-tag--<hue>.",
       "props": [
         {
@@ -1522,7 +1529,7 @@ window.SHOWCASE_DATA = {
       "name": "Testimonial",
       "group": "core",
       "groupLabel": "Essenciais",
-      "sourcePath": "components/core/Testimonial.jsx",
+      "sourcePath": "components/core/Testimonial.js",
       "summary": "A single static testimonial as figure, blockquote and figcaption. Never invent one: use example while the text is a placeholder.",
       "props": [
         {
@@ -1567,7 +1574,7 @@ window.SHOWCASE_DATA = {
       "name": "Textarea",
       "group": "forms",
       "groupLabel": "Formulários",
-      "sourcePath": "components/forms/Textarea.jsx",
+      "sourcePath": "components/forms/Textarea.js",
       "summary": "Multi-line text field matching Input, with optional hint, error and character counter. Class contract: .rse-field + .rse-textarea.",
       "props": [
         {
@@ -1612,8 +1619,8 @@ window.SHOWCASE_DATA = {
       "name": "Toast",
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
-      "sourcePath": "components/feedback/Toast.jsx",
-      "summary": "Transient notification card, left-accent colored by tone.",
+      "sourcePath": "components/feedback/Toast.js",
+      "summary": "Transient notification card with a tone accent; announced as role=\"status\", or role=\"alert\" for danger. Class contract: .rse-toast--<tone>.",
       "props": [
         {
           "name": "tone",
@@ -1645,8 +1652,8 @@ window.SHOWCASE_DATA = {
       "name": "Tooltip",
       "group": "feedback",
       "groupLabel": "Retorno ao usuário",
-      "sourcePath": "components/feedback/Tooltip.jsx",
-      "summary": "Hover label wrapping any trigger element (icon buttons, truncated text).",
+      "sourcePath": "components/feedback/Tooltip.js",
+      "summary": "Hover and focus label for a trigger (icon buttons, truncated text); dismissed with Escape. Class contract: .rse-tooltip.",
       "props": [
         {
           "name": "label",

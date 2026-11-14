@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 const cx = (...c) => c.filter(Boolean).join(' ');
 const ICONS = { info: 'info', success: 'circle-check', warning: 'triangle-alert', danger: 'circle-alert' };
 // Renders the CSS contract in Alert.css. A persistent banner is role="status" (announced

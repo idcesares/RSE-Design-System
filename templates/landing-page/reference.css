@@ -1,18 +1,12 @@
 /* Campaign composition. Component appearance stays in the system contracts. */
 .lp-page { min-height: 100vh; background: var(--rse-color-surface-page); color: var(--rse-color-text-body); }
-.lp-container { width: 100%; max-width: var(--rse-container-xl); margin-inline: auto; padding-inline: var(--rse-container-padding); }
-.lp-section { padding-block: var(--rse-section-y-md); }
-.lp-section + .lp-section { padding-top: 0; }
-.lp-section[id], .lp-page [id] { scroll-margin-top: calc(var(--rse-space-10) + var(--rse-space-7)); }
+.lp-page [id] { scroll-margin-top: calc(var(--rse-space-10) + var(--rse-space-7)); }
 .lp-skip { position: absolute; left: var(--rse-space-4); top: var(--rse-space-4); z-index: var(--rse-z-modal); padding: var(--rse-space-3) var(--rse-space-4); background: var(--rse-color-surface-card); border-radius: var(--rse-radius-md); transform: translateY(-200%); }
 .lp-skip:focus { transform: none; }
 .lp-notice { padding-top: var(--rse-space-5); }
-.lp-stack { display: flex; flex-direction: column; gap: var(--rse-space-5); min-width: 0; }
 .lp-heading { display: flex; flex-direction: column; gap: var(--rse-space-4); max-width: var(--rse-container-prose); margin-bottom: var(--rse-space-6); }
-.lp-eyebrow { margin: 0; font-size: var(--rse-font-size-eyebrow); font-weight: var(--rse-font-weight-bold); letter-spacing: var(--rse-letter-spacing-eyebrow); text-transform: uppercase; color: var(--rse-color-primary); }
 .lp-heading h2, .lp-editorial h2 { font-size: var(--rse-font-size-h1); }
 .lp-intro { font-size: var(--rse-font-size-body-lg); line-height: var(--rse-line-height-body); color: var(--rse-color-text-muted); }
-.lp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: var(--rse-space-5); }
 .lp-filters { margin-bottom: var(--rse-space-6); }
 .lp-count, .lp-caption { margin: 0; font-size: var(--rse-font-size-caption); line-height: var(--rse-line-height-body); color: var(--rse-color-text-muted); }
 .lp-editorial { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--rse-space-7); align-items: center; }
@@ -27,8 +21,7 @@
 .lp-portal-note { border-left: var(--rse-space-1) solid var(--rse-color-border-strong); padding-left: var(--rse-space-5); }
 .lp-portal-note h3 { font-size: var(--rse-font-size-h3); }
 .lp-platform { margin-top: var(--rse-space-7); }
-@media (max-width: 48rem) {
-  .lp-section { padding-block: var(--rse-section-y-sm); }
+@media (max-width: 833px) {
   .lp-editorial, .lp-next { gap: var(--rse-space-6); }
 }
 

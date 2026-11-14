@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from './Icon.jsx';
+import { Icon } from './Icon.js';
 const cx = (...c) => c.filter(Boolean).join(' ');
 // Renders the CSS contract in Tag.css.
 export const Tag = React.forwardRef(function Tag({ color = 'purple', children, onRemove, removeLabel = 'Remover', className, ...rest }, ref) {

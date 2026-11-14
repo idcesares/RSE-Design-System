@@ -16,7 +16,7 @@
 <a class="pp-skip" href="#conteudo">Pular para o conteúdo</a>
 <x-import component-from-global-scope="RSE.Navbar" logo-src="{{ logoPurple }}" logo-dark-src="{{ logoWhite }}" logo-alt="Rede Sesc de Educação" links="{{ navLinks }}" cta-label="Matrícula" cta-href="#inscricao" hint-size="100%,96px"></x-import>
 <main id="conteudo" tabindex="-1">
-<div class="pp-container pp-introduction pp-stack">
+<div class="rse-container pp-introduction rse-stack">
 <x-import component-from-global-scope="RSE.Breadcrumb" items="{{ breadcrumbs }}" hint-size="100%,32px"></x-import>
 <x-import component-from-global-scope="RSE.Alert" tone="info" title="Programa de exemplo" message="Proposta editorial, turmas, números e condições são demonstrativos. Confirme as informações com a unidade antes de publicar. Nenhuma matrícula é realizada nesta página." hint-size="100%,100px"></x-import>
 </div>
@@ -29,25 +29,25 @@
 <x-import component-from-global-scope="RSE.Stat" value="00" label="Estudantes por turma · exemplo" align="center" hint-size="100%,100px"></x-import>
 <x-import component-from-global-scope="RSE.Stat" value="0h" label="Carga diária · exemplo" align="center" hint-size="100%,100px"></x-import>
 </x-import>
-<section class="pp-section pp-container" id="proposta" aria-labelledby="proposta-titulo">
+<section class="rse-section rse-container" id="proposta" aria-labelledby="proposta-titulo">
 <div class="pp-editorial">
-<div class="pp-stack">
-<p class="pp-eyebrow">O que faz sentido para você</p>
+<div class="rse-stack">
+<p class="rse-eyebrow">O que faz sentido para você</p>
 <h2 id="proposta-titulo">Uma formação que conversa com a vida</h2>
 <p class="pp-intro">Apresente aqui a proposta pedagógica validada do programa. Relacione os conhecimentos às experiências concretas de quem estuda, sem prometer atividades que a unidade ainda não confirmou.</p>
 <p>Esta referência sugere três eixos de comunicação. Substitua os textos pelas práticas documentadas da escola e mostre como elas acontecem no cotidiano.</p>
 <div class="pp-signature" aria-hidden="true"><x-import component-from-global-scope="RSE.BrandMotif" variant="interlock" size="160" opacity="0.3" hint-size="160px,160px"></x-import></div>
 </div>
-<div class="pp-stack">
+<div class="rse-stack">
 <x-import component-from-global-scope="RSE.Card" eyebrow="Eixo ilustrativo" title="Investigar o mundo" description="Descreva uma experiência real de pesquisa, leitura ou resolução de problemas. Identifique o contexto e o aprendizado, com informações aprovadas pela escola." hint-size="100%,200px"></x-import>
 <x-import component-from-global-scope="RSE.Card" eyebrow="Eixo ilustrativo" title="Construir em conjunto" description="Mostre como a convivência pode aparecer nas práticas do programa. Inclua somente projetos e atividades efetivamente oferecidos." hint-size="100%,200px"></x-import>
 <x-import component-from-global-scope="RSE.Card" eyebrow="Eixo ilustrativo" title="Ampliar as escolhas" description="Apresente as orientações e os percursos disponíveis para estudantes. Confirme com a unidade antes de falar em tutoria, itinerários ou preparação específica." hint-size="100%,200px"></x-import>
 </div>
 </div>
 </section>
-<section class="pp-section pp-container" id="turmas" aria-labelledby="turmas-titulo">
+<section class="rse-section rse-container" id="turmas" aria-labelledby="turmas-titulo">
 <div class="pp-heading">
-<p class="pp-eyebrow">Organize suas possibilidades</p>
+<p class="rse-eyebrow">Organize suas possibilidades</p>
 <h2 id="turmas-titulo">Um turno que cabe na sua rotina</h2>
 <p class="pp-intro">O filtro abaixo funciona com dados ilustrativos. As unidades, os turnos, as datas e a disponibilidade precisam ser substituídos pela oferta oficial.</p>
 </div>
@@ -55,10 +55,10 @@
 <p class="pp-count" role="status" aria-live="polite" aria-atomic="true">{{ resultLabel }}</p>
 <div class="pp-table"><x-import component-from-global-scope="RSE.DataTable" columns="{{ columns }}" rows="{{ filteredRows }}" caption="Turmas ilustrativas · sem confirmação de vagas" empty-message="Nenhuma turma de exemplo neste filtro." hint-size="100%,360px"></x-import></div>
 </section>
-<section class="pp-section pp-container" id="duvidas" aria-labelledby="duvidas-titulo">
+<section class="rse-section rse-container" id="duvidas" aria-labelledby="duvidas-titulo">
 <div class="pp-faq">
 <div class="pp-heading">
-<p class="pp-eyebrow">Para decidir com tranquilidade</p>
+<p class="rse-eyebrow">Para decidir com tranquilidade</p>
 <h2 id="duvidas-titulo">O que confirmar antes da matrícula</h2>
 <p class="pp-intro">As respostas orientam a preparação da página. Regras de atendimento, benefícios e documentação dependem das informações oficiais da unidade.</p>
 </div>
@@ -68,17 +68,17 @@
 <x-import component-from-global-scope="RSE.CtaBand" tone="blue-light" eyebrow="Conheça a unidade" title="Uma conversa ajuda a enxergar os próximos passos" description="O endereço, os contatos e as condições de visita ainda precisam ser confirmados. Inclua os canais oficiais da unidade antes de publicar." hint-size="100%,340px">
 <x-import component-from-global-scope="RSE.Button" size="lg" href="#inscricao" hint-size="240px,56px">Confira as orientações</x-import>
 </x-import>
-<section class="pp-section pp-container" id="inscricao" aria-labelledby="inscricao-titulo">
+<section class="rse-section rse-container" id="inscricao" aria-labelledby="inscricao-titulo">
 <div class="pp-enrollment">
-<div class="pp-stack">
+<div class="rse-stack">
 <div class="pp-heading">
-<p class="pp-eyebrow">Antes de começar</p>
+<p class="rse-eyebrow">Antes de começar</p>
 <h2 id="inscricao-titulo">Seu caminho até a matrícula</h2>
 <p class="pp-intro">Você está na etapa de conhecer o programa. A solicitação de matrícula acontece no ambiente oficial indicado pela Rede.</p>
 </div>
 <x-import component-from-global-scope="RSE.Stepper" steps="{{ steps }}" current="0" orientation="vertical" aria-label="Etapas para iniciar a matrícula" hint-size="100%,260px"></x-import>
 </div>
-<div class="pp-stack pp-portal">
+<div class="rse-stack pp-portal">
 <h3>Portal TOTVS</h3>
 <p>Matrícula e registros acadêmicos pertencem ao portal TOTVS. Esta página de referência não coleta documentos, não confirma vagas e não conclui inscrições.</p>
 <x-import component-from-global-scope="RSE.Alert" tone="warning" title="URL oficial pendente" message="Solicite à Rede o endereço do portal e valide o destino antes de habilitar este botão." hint-size="100%,110px"></x-import>

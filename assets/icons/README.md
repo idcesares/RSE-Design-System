@@ -1,7 +1,7 @@
 # Icons
 
 The system uses **[Lucide](https://lucide.dev)** as its icon set. `assets/icons/lucide/` holds the
-vendored SVGs; `components/core/Icon.jsx` is **generated** from them by
+vendored SVGs; `components/core/Icon.js` is **generated** from them by
 `node scripts/build-icons.mjs`.
 
 ## Why Lucide

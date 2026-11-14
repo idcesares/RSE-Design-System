@@ -6,60 +6,60 @@
 // same components on window.RSE. See AGENTS.md.
 
 // Core
-export { Avatar } from './components/core/Avatar.jsx';
-export { Badge } from './components/core/Badge.jsx';
-export { Button } from './components/core/Button.jsx';
-export { Card } from './components/core/Card.jsx';
-export { CtaBand } from './components/core/CtaBand.jsx';
-export { Divider } from './components/core/Divider.jsx';
-export { Hero } from './components/core/Hero.jsx';
-export { Icon, iconNames } from './components/core/Icon.jsx';
-export { IconButton } from './components/core/IconButton.jsx';
-export { Tag } from './components/core/Tag.jsx';
-export { Testimonial } from './components/core/Testimonial.jsx';
+export { Avatar } from './components/core/Avatar.js';
+export { Badge } from './components/core/Badge.js';
+export { Button } from './components/core/Button.js';
+export { Card } from './components/core/Card.js';
+export { CtaBand } from './components/core/CtaBand.js';
+export { Divider } from './components/core/Divider.js';
+export { Hero } from './components/core/Hero.js';
+export { Icon, iconNames } from './components/core/Icon.js';
+export { IconButton } from './components/core/IconButton.js';
+export { Tag } from './components/core/Tag.js';
+export { Testimonial } from './components/core/Testimonial.js';
 
 // Brand
-export { BrandMotif, motifVariants, motifHues, motifDefaultHues } from './components/brand/BrandMotif.jsx';
-export { MotifEngine, isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, motifShapeNames, motifShapes, renderMotifPattern, MAX_PATTERN_CELLS } from './components/brand/MotifEngine.jsx';
-export { MotifPattern } from './components/brand/MotifPattern.jsx';
-export { PlatformEntry } from './components/brand/PlatformEntry.jsx';
+export { BrandMotif, motifVariants, motifHues, motifDefaultHues } from './components/brand/BrandMotif.js';
+export { MotifEngine, isoPoint, motifBar, motifCube, makeMotifShape, motifFaces, motifPieces, motifToSvg, motifShapeNames, motifShapes, renderMotifPattern, MAX_PATTERN_CELLS } from './components/brand/MotifEngine.js';
+export { MotifPattern } from './components/brand/MotifPattern.js';
+export { PlatformEntry } from './components/brand/PlatformEntry.js';
 
 // Forms
-export { Checkbox } from './components/forms/Checkbox.jsx';
-export { DateField } from './components/forms/DateField.jsx';
-export { FileUpload } from './components/forms/FileUpload.jsx';
-export { FilterChips } from './components/forms/FilterChips.jsx';
-export { Input } from './components/forms/Input.jsx';
-export { Radio } from './components/forms/Radio.jsx';
-export { Select } from './components/forms/Select.jsx';
-export { Stepper } from './components/forms/Stepper.jsx';
-export { Switch } from './components/forms/Switch.jsx';
-export { Textarea } from './components/forms/Textarea.jsx';
+export { Checkbox } from './components/forms/Checkbox.js';
+export { DateField } from './components/forms/DateField.js';
+export { FileUpload } from './components/forms/FileUpload.js';
+export { FilterChips } from './components/forms/FilterChips.js';
+export { Input } from './components/forms/Input.js';
+export { Radio } from './components/forms/Radio.js';
+export { Select } from './components/forms/Select.js';
+export { Stepper } from './components/forms/Stepper.js';
+export { Switch } from './components/forms/Switch.js';
+export { Textarea } from './components/forms/Textarea.js';
 
 // Navigation
-export { Breadcrumb } from './components/navigation/Breadcrumb.jsx';
-export { Footer } from './components/navigation/Footer.jsx';
-export { Menu } from './components/navigation/Menu.jsx';
-export { Navbar } from './components/navigation/Navbar.jsx';
-export { Pagination } from './components/navigation/Pagination.jsx';
-export { Tabs } from './components/navigation/Tabs.jsx';
+export { Breadcrumb } from './components/navigation/Breadcrumb.js';
+export { Footer } from './components/navigation/Footer.js';
+export { Menu } from './components/navigation/Menu.js';
+export { Navbar } from './components/navigation/Navbar.js';
+export { Pagination } from './components/navigation/Pagination.js';
+export { Tabs } from './components/navigation/Tabs.js';
 
 // Feedback
-export { Alert } from './components/feedback/Alert.jsx';
-export { MotifLoader } from './components/feedback/MotifLoader.jsx';
-export { ProgressBar } from './components/feedback/ProgressBar.jsx';
-export { Skeleton } from './components/feedback/Skeleton.jsx';
-export { Spinner } from './components/feedback/Spinner.jsx';
-export { Toast } from './components/feedback/Toast.jsx';
-export { Tooltip } from './components/feedback/Tooltip.jsx';
+export { Alert } from './components/feedback/Alert.js';
+export { MotifLoader } from './components/feedback/MotifLoader.js';
+export { ProgressBar } from './components/feedback/ProgressBar.js';
+export { Skeleton } from './components/feedback/Skeleton.js';
+export { Spinner } from './components/feedback/Spinner.js';
+export { Toast } from './components/feedback/Toast.js';
+export { Tooltip } from './components/feedback/Tooltip.js';
 
 // Data
-export { DataTable } from './components/data/DataTable.jsx';
-export { Stat } from './components/data/Stat.jsx';
-export { StatBand } from './components/data/StatBand.jsx';
+export { DataTable } from './components/data/DataTable.js';
+export { Stat } from './components/data/Stat.js';
+export { StatBand } from './components/data/StatBand.js';
 
 // Disclosure
-export { Accordion } from './components/disclosure/Accordion.jsx';
+export { Accordion } from './components/disclosure/Accordion.js';
 
 // Overlay
-export { Modal } from './components/overlay/Modal.jsx';
+export { Modal } from './components/overlay/Modal.js';

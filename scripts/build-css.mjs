@@ -11,7 +11,7 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { cssContractPath } from './lib/css-contract.mjs';
+import { cssContractPath, CONTRACT_ONLY } from './lib/css-contract.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const checkOnly = process.argv.includes('--check');
@@ -21,7 +21,7 @@ const manifest = JSON.parse(read('rse.manifest.json'));
 const pkg = JSON.parse(read('package.json'));
 
 const contracts = manifest.components.map((c) => cssContractPath(ROOT, c.sourcePath)).filter(Boolean);
-const sources = [...new Set(contracts)];
+const sources = [...new Set([...CONTRACT_ONLY, ...contracts])];
 const raw = /#[0-9a-f]{3,8}\b|rgba?\(/i;
 for (const p of sources) {
   const css = read(p).replace(/\/\*[\s\S]*?\*\//g, '');

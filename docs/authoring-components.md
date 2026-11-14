@@ -15,7 +15,7 @@ Start with `components/<group>/Name.css`: a root class `.rse-name`, BEM elements
 management or menu keyboard navigation still needs a host controller. `npm run sync` wraps the CSS in `@layer rse.components` in
 `dist/components.css`; a raw colour fails the build.
 
-Then `components/<group>/Name.jsx` renders that markup. Groups are `core`, `brand`, `forms`,
+Then `components/<group>/Name.js` renders that markup. Groups are `core`, `brand`, `forms`,
 `navigation`, `feedback`, `data`, `disclosure`, `overlay`.
 
 ```jsx
@@ -26,7 +26,7 @@ export const Name = React.forwardRef(function Name({ tone = 'primary', className
 });
 ```
 
-Another component is imported by relative path (`import { Icon } from '../core/Icon.jsx';`); the
+Another component is imported by relative path (`import { Icon } from '../core/Icon.js';`); the
 bundle builder resolves it and orders the blocks.
 
 Hard rules:
@@ -85,8 +85,8 @@ markup does not copy React event handlers.
 
 ## 5. Register it
 
-- `rse.manifest.json` → `components`: `{ "name": "Name", "sourcePath": "components/<group>/Name.jsx" }`
-- `index.js` → `export { Name } from './components/<group>/Name.jsx';`
+- `rse.manifest.json` → `components`: `{ "name": "Name", "sourcePath": "components/<group>/Name.js" }`
+- `index.js` → `export { Name } from './components/<group>/Name.js';`
 - `index.d.ts` → the matching type re-export.
 - If it renders text on a new surface, add the pair to `scripts/contrast-pairs.mjs` — the audit
   gate and the showcase both read it.
@@ -99,8 +99,15 @@ npm run check   # must pass
 ```
 
 `npm run check` will fail if: a `.d.ts` or `.prompt.md` is missing, the component isn't in the
-manifest or `index.js`, the bundle is stale, a token name collides, a `var()` points at an
-undefined token, or a native input is hidden with `display:none`.
+manifest or `index.js`, the bundle or `dist/components.json` is stale, a token name collides, a
+`var()` points at an undefined token, a native input is hidden with `display:none`, the component
+emits an `rse-*` class that no stylesheet defines (declare a deliberate hook in `HOOK_CLASSES`,
+`scripts/lib/css-contract.mjs`, with its reason), a prop value in the `.d.ts` union builds a
+modifier the CSS lacks, or a media query is off the breakpoint scale.
+
+Write the props interface one prop per line with a `/** doc */` above anything not obvious, and a
+`/** summary */` above the `export declare const`: `docs/components.md` and `dist/components.json`
+are generated from them, and an interface on a single line is not read.
 
 ## Reviewing a change to an existing component
 

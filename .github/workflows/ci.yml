@@ -44,3 +44,18 @@ jobs:
       - run: npm run test:motion
       - run: npm run test:contracts
       - run: npm run test:applications
+
+  consumer:
+    # The package as a consumer gets it: `npm pack`, installed into a scratch project, imported
+    # and server-rendered in plain Node (what Next.js, Vite SSR and Jest do), every `exports`
+    # subpath resolved; then the public .d.ts compiled under `strict` with misuse that must fail.
+    # React and TypeScript are installed for this job only — the repo keeps zero dependencies.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm i --no-save --no-audit --no-fund react@18.3.1 react-dom@18.3.1 typescript@5.6.3 @types/react@18.3.12
+      - run: npm run test:consumer
+      - run: npm run test:types

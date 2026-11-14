@@ -52,8 +52,9 @@ import { Button, Card, Stat, Tabs } from '@idcesares/rse-design-system';
 import '@idcesares/rse-design-system/styles.css';
 ```
 
-The `.jsx` files contain no JSX — they are `React.createElement` calls — so any bundler that
-resolves `.jsx` handles them with no transform. Import from the package root, never from a file
+The component sources are plain ES modules (`.js`, `React.createElement` calls, no JSX), so any
+bundler, Node itself (SSR, `renderToString`, test runners) and Jest/Vitest load them with no
+transform. `npm run test:consumer` proves it on the packed tarball. Import from the package root, never from a file
 under `components/`: the package root is the stable public API, independent of source layout.
 
 ## Recipe: Next.js (App Router)
@@ -110,7 +111,7 @@ a path relative to the CSS file inside the package, so the bundler resolves and 
 than using the vendored file, and the `@font-face` block in `fonts.css` already declares the
 variable weights this system needs.
 
-`.jsx` resolves out of the box; the sources contain no JSX, so no transform is involved.
+The sources are plain `.js` with no JSX, so no `transpilePackages` entry or transform is involved.
 
 ## The static kit (CMS, portals, uploads)
 
@@ -169,6 +170,16 @@ paint, with no flash) and calls `init()`:
 ```
 
 `motion.js` also carries the pattern's scroll reveal and its pause button.
+
+## Recipe: an agent, docs site or design-tool bridge
+
+`dist/components.json` (`@idcesares/rse-design-system/components.json`) is the component catalog,
+generated from the code on every `npm run sync`: for each component its group, summary, files,
+whether it needs `'use client'`, the element its props extend, every prop (type, required, doc and,
+for enumerations, the allowed `values`) and the CSS classes it renders (blocks, elements, and each
+modifier with the prop that produces it). `layout` lists the layout primitives. Build tooling —
+an MCP server, a docs site, Figma Code Connect, a CMS block palette — on this file rather than by
+parsing the `.d.ts` and `.prompt.md` files.
 
 ## Recipe: anything that is not a browser
 

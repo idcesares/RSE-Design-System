@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 export const Pagination = React.forwardRef(function Pagination({ page = 1, totalPages = 1, onChange, className, ...rest }, ref) {
   const go = p => { if (p >= 1 && p <= totalPages && p !== page && onChange) onChange(p); };
   const pages = [];

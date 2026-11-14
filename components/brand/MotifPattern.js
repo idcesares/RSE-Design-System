@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import { renderMotifPattern } from './MotifEngine.jsx';
-import { Icon } from '../core/Icon.jsx';
+import { renderMotifPattern } from './MotifEngine.js';
+import { Icon } from '../core/Icon.js';
 // A field of impossible shapes, as markup: the engine's SVG goes in the art div, and MotifPattern.css
 // does everything else (fill the host, reveal, ambient, pause). Hooks only for what plain HTML
 // also does: the pause toggle (the same attributes motion.js sets for static pages) and calling

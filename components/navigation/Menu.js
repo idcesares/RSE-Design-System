@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 const cx = (...c) => c.filter(Boolean).join(' ');
 export const Menu = React.forwardRef(function Menu({ label, items = [], align = 'left', width = 260, trigger = 'button', open: openProp, onOpenChange, className, style, onKeyDown, ...rest }, forwardedRef) {
   const [uncontrolled, setUncontrolled] = React.useState(false);

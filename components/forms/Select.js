@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 const cx = (...c) => c.filter(Boolean).join(' ');
 // Renders the CSS contract in Select.css: a native <select>, so the platform picker, keyboard
 // and screen readers all work, with the chevron drawn on top.

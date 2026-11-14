@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../core/Icon.jsx';
+import { Icon } from '../core/Icon.js';
 const cx = (...c) => c.filter(Boolean).join(' ');
 export const Toast = React.forwardRef(function Toast({ tone = 'info', title, message, onClose, className, ...rest }, ref) {
   return React.createElement('div', { ref, className: cx('rse-toast', 'rse-toast--' + tone, className), role: tone === 'danger' ? 'alert' : 'status', ...rest },

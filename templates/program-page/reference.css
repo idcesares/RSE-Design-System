@@ -1,19 +1,14 @@
-/* Program composition. Component appearance stays in the system contracts. */
+/* Program composition. Component appearance stays in the system contracts; container, section,
+   stack and eyebrow are the layout primitives (components/layout/layout.css). */
 .pp-page { min-height: 100vh; background: var(--rse-color-surface-page); color: var(--rse-color-text-body); }
-.pp-container { width: 100%; max-width: var(--rse-container-xl); margin-inline: auto; padding-inline: var(--rse-container-padding); }
-.pp-section { padding-block: var(--rse-section-y-md); }
-.pp-section + .pp-section { padding-top: 0; }
 .pp-page [id] { scroll-margin-top: calc(var(--rse-space-10) + var(--rse-space-7)); }
 .pp-skip { position: absolute; left: var(--rse-space-4); top: var(--rse-space-4); z-index: var(--rse-z-modal); padding: var(--rse-space-3) var(--rse-space-4); background: var(--rse-color-surface-card); border-radius: var(--rse-radius-md); transform: translateY(-200%); }
 .pp-skip:focus { transform: none; }
 .pp-introduction { padding-top: var(--rse-space-5); }
-.pp-stack { display: flex; flex-direction: column; gap: var(--rse-space-5); min-width: 0; }
 .pp-heading { display: flex; flex-direction: column; gap: var(--rse-space-4); max-width: var(--rse-container-prose); margin-bottom: var(--rse-space-6); }
-.pp-eyebrow { font-size: var(--rse-font-size-eyebrow); font-weight: var(--rse-font-weight-bold); letter-spacing: var(--rse-letter-spacing-eyebrow); text-transform: uppercase; color: var(--rse-color-primary); }
 .pp-heading h2, .pp-editorial h2 { font-size: var(--rse-font-size-h1); }
 .pp-intro { font-size: var(--rse-font-size-body-lg); line-height: var(--rse-line-height-body); color: var(--rse-color-text-muted); }
 .pp-editorial, .pp-faq, .pp-enrollment { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--rse-space-7); align-items: start; }
-.pp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: var(--rse-space-5); margin-top: var(--rse-space-6); }
 .pp-photo { display: block; width: 100%; aspect-ratio: 16/10; border-radius: var(--rse-radius-xl); overflow: hidden; }
 .pp-signature { display: flex; justify-content: flex-end; margin-top: var(--rse-space-5); }
 .pp-signature > * { width: 25%; max-width: 160px; height: auto; }
@@ -25,8 +20,7 @@
 .pp-portal h3 { font-size: var(--rse-font-size-h3); }
 .pp-faq .pp-heading { margin-bottom: 0; }
 .pp-platform { margin-top: var(--rse-space-7); }
-@media (max-width: 48rem) {
-  .pp-section { padding-block: var(--rse-section-y-sm); }
+@media (max-width: 833px) {
   .pp-editorial, .pp-enrollment, .pp-faq { gap: var(--rse-space-6); }
 }
 

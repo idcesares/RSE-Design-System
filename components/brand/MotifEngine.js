@@ -16,7 +16,7 @@
 // - Crossings. Declared data, never inferred: `over` passes in front of `under` at its `overAt`
 //   end and behind it at the other. That contradiction is what makes a shape impossible.
 // - Colour. Only motifRamp(hue, 3), the palette ramp BrandMotif uses. No hex lives here.
-import { motifRamp } from './BrandMotif.jsx';
+import { motifRamp } from './BrandMotif.js';
 
 const COS30 = Math.sqrt(3) / 2;
 const AXES = ['x', 'y', 'z'];

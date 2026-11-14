@@ -50,7 +50,7 @@ and craft is yours ([Creative latitude](#creative-latitude)).
    output, and this documentation — so the repo stays legible to any agent or developer regardless
    of language. Set `<html lang="pt-BR">`. Sentence case for headings and body.
 5. **No emoji, no hand-drawn icons.** This is an institutional, credibility-driven brand. Every
-   glyph comes from `components/core/Icon.jsx` (Lucide, ISC, vendored in `assets/icons/lucide/`).
+   glyph comes from `components/core/Icon.js` (Lucide, ISC, vendored in `assets/icons/lucide/`).
    Missing an icon? Vendor it and run `npm run icons` — never paste a one-off SVG into a page,
    never a unicode glyph standing in for an icon. This is about *icons*: diagrams, org charts,
    charts, maps and illustrations drawn from palette geometry are craft and are encouraged.
@@ -136,16 +136,20 @@ tokens/base-runtime.css   What components need (focus ring, control hiding, keyf
 tokens/base-reset.css     Opinionated element styles (body, links, headings). Opt-in.
 tokens/tokens-only.css    fonts + tokens, nothing else: for a site with its own base styles.
 components/<group>/*.css  The component CSS contract (.rse-button, .rse-field…), next to each component.
+components/layout/        Layout primitives, plain classes with no React wrapper: .rse-container,
+                          .rse-section, .rse-stack, .rse-cluster, .rse-grid, .rse-eyebrow.
 dist/components.css       GENERATED. All of them in @layer rse.components.
 styles.css                Everything above. The one stylesheet for a page that should look like the Rede.
 dist/                     GENERATED. rse.js (every component on window.RSE), tokens.json (resolved
-                          per theme), tokens.js + tokens.d.ts (typed module).
+                          per theme), tokens.js + tokens.d.ts (typed module), components.json (the
+                          component catalog: props with their values, classes, files — read this
+                          instead of four files per component).
 brand.json                GENERATED. The brand contract for non-browser consumers: palette with
                           CMYK, tokens per theme, scales, assets by role, machine-readable rules.
 index.js / index.d.ts     React entry. Import components from here, never from a component file.
-components/<group>/       43 components: Name.jsx + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
-                          Icon.jsx and BrandMotif.jsx are GENERATED — edit their sources.
-                          MotifEngine.jsx is a function library (motif geometry to SVG), no markup.
+components/<group>/       43 components: Name.js + Name.d.ts + Name.prompt.md (+ Name.css on the contract).
+                          Icon.js and BrandMotif.js are GENERATED — edit their sources.
+                          MotifEngine.js is a function library (motif geometry to SVG), no markup.
 templates/                Four starting points (deck, program page, enrollment form, landing page). Working
                           HTML starters; the quality reference for artwork is docs/composition/exemplars/.
 starters/                 Blank, dependency-free starting points: page, React page, A3 poster.
@@ -156,14 +160,14 @@ docs/integration.md       How a project that is not this repo uses the system.
 docs/known-gaps.md        Open caveats to say out loud.
 docs/roadmap/             The assessment and the plan; read before improving the system itself.
 docs/                     Generated component + token references, recipes, authoring, QA checklist.
-scripts/                  build-tokens, build-icons, build-motifs, build-bundle, build-brand, gen-docs,
+scripts/                  build-tokens, build-icons, build-motifs, build-bundle, build-brand, build-catalog, gen-docs,
                           build-showcase, check-ds, check-composition (+ test-composition), render-exemplars (author tool),
-                          audit (+ contrast-pairs), pack-static.
+                          audit (+ contrast-pairs), pack-static, test-* (browser, consumer, types).
 rse.manifest.json         Machine index: components, the showcase card, templates, tokens, themes, fonts.
 assets/logos/             Official vector lockups (Rede + Sab.IA); originals in source/. Read its README.
 assets/motifs/            Official cubo impossível artwork and its six constructions.
 assets/patterns/          Four full-bleed cube pattern backgrounds.
-assets/icons/lucide/      Vendored Lucide set (ISC) that Icon.jsx is generated from.
+assets/icons/lucide/      Vendored Lucide set (ISC) that Icon.js is generated from.
 assets/vendor/            React 18 UMD, so static pages run offline.
 uploads/                  Original source material (selo PDFs, reference screenshots). Read-only.
 ```
@@ -197,7 +201,7 @@ Putting the system into another project — npm, the static kit for CMSs, Python
 [docs/integration.md](docs/integration.md).
 
 > `dist/rse.js` is a **copy of the component sources, not a second implementation**. Editing a
-> `.jsx` without running `npm run sync` means every static page keeps running the old code.
+> component `.js` without running `npm run sync` means every static page keeps running the old code.
 > `npm run check` catches this.
 
 ---
@@ -256,7 +260,7 @@ A component is these files. They move together:
 ```
 components/<group>/Name.css        the CSS contract: .rse-name, BEM elements, --modifiers. Look and
                                    state live here (:hover, :focus-visible, :checked, [aria-*]).
-components/<group>/Name.jsx        React wrapper that renders the contract (createElement form, no JSX)
+components/<group>/Name.js        React wrapper that renders the contract (createElement form, no JSX)
 components/<group>/Name.d.ts       props + one-line doc comment
 components/<group>/Name.prompt.md  when to use it, a pt-BR example, and the plain-HTML markup
 showcase/demos.js                  a demo for the showcase gallery (step 4 of docs/authoring-components.md)
@@ -360,14 +364,16 @@ npm run audit -- --update-baseline   # after lowering a debt count, lock it in (
 npm run test:motion   # browser test of the motion contract (Playwright, not a dependency)
 npm run test:contracts # browser test of component forwarding and keyboard interactions
 npm run test:applications # application filters, local dependencies, slide bounds and print output
-npm run icons    # rebuild Icon.jsx after vendoring a new Lucide SVG
-npm run motifs   # rebuild BrandMotif.jsx from assets/motifs/cubes-official.svg
+npm run test:consumer # npm pack → scratch project → import + server-render in plain Node (needs react)
+npm run test:types    # compile the public .d.ts under strict, with misuse that must fail (needs typescript)
+npm run icons    # rebuild Icon.js after vendoring a new Lucide SVG
+npm run motifs   # rebuild BrandMotif.js from assets/motifs/cubes-official.svg
 npm run pack     # build the static kit dist/static/rse-<version>/ (CMS and offline use)
 node scripts/render-exemplars.mjs [name]   # re-render docs/composition/exemplars/*.png (author tool, Playwright)
 ```
 
-Generated, never edited by hand: `tokens/tokens.css`, `dist/*`, `brand.json`, `docs/components.md`,
-`docs/tokens.md`, `showcase/showcase-data.js`, `Icon.jsx`, `BrandMotif.jsx`. `build-brand.mjs`
+Generated, never edited by hand: `tokens/tokens.css`, `dist/*` (including `dist/components.json`), `brand.json`, `docs/components.md`,
+`docs/tokens.md`, `showcase/showcase-data.js`, `Icon.js`, `BrandMotif.js`. `build-brand.mjs`
 cross-checks the palette hex and CMYK in `tokens/src/brand.tokens.json` against the manual's
 published table and warns on any drift — the guard against re-sampling colour from artwork.
 
